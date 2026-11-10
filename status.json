@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T22:56:03.950Z",
+ "updated": "2026-11-10T23:07:00.267Z",
  "trade": {
   "answer": "No — don't trade real money yet",
   "tone": "bad",
@@ -7,130 +7,120 @@
   "next": "Let it keep collecting. The answer changes automatically when a strategy reaches SUCCESS on the live record."
  },
  "learning": [
-  "Live record: 781 of 902 predictions resolved so far (273 separate events).",
+  "Live record: 781 of 961 predictions resolved so far (273 separate events).",
   "longshot: failure retire — no measurable edge after 781 resolved — recommend retiring this hypothesis",
   "memory: off track — not beating the market so far (+0.0035) — wait for 0 more resolved before judging",
   "nn: on track — leaning better than the market (-0.0019) — wait for 0 more resolved",
-  "Neural network: tested on 1140 past markets it never saw → no measurable difference (Brier 0.182 vs market 0.1819).",
-  "Training history: 7 runs; data grew 736 → 1425 markets; gap vs market 0.0014 → 0 (below 0 = better than market).",
-  "Network learning check: not available yet.",
-  "Backtest: 1222 past markets scored."
+  "crypto_fair: insufficient — wait: 0/20 resolved before any trend is readable",
+  "Neural network: tested on 1368 past markets it never saw → no measurable difference (Brier 0.1741 vs market 0.1739).",
+  "Training history: 8 runs; data grew 736 → 1711 markets; gap vs market 0.0014 → 0.0002 (below 0 = better than market).",
+  "Network learning check: gap vs market by amount of training data 343→-0.0004, 686→-0.0003, 1029→+0.0002, 1372→+0.0012 (shrinking = learning; ~0 = copying the market).",
+  "Backtest: 1334 past markets scored."
  ],
  "watchlist": [
   {
-   "title": "HYPE price on Nov 10, 2026? — $73 or above",
+   "title": "Bitcoin price on Nov 10, 2026? — $73,600 or above",
    "cat": "Crypto",
-   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "resolvesAt": "2026-11-11T00:00:00.000Z",
    "predictor": "memory",
    "status": "OFF_TRACK",
    "side": "yes",
-   "price": 0.3,
-   "ev": 0.0295,
-   "url": "https://kalshi.com/markets/kxhyped"
-  },
-  {
-   "title": "Bitcoin price on Nov 10, 2026? — $74,000 or above",
-   "cat": "Crypto",
-   "resolvesAt": "2026-11-10T23:00:00.000Z",
-   "predictor": "memory",
-   "status": "OFF_TRACK",
-   "side": "yes",
-   "price": 0.15,
-   "ev": 0.047,
-   "url": "https://kalshi.com/markets/kxbtcd"
-  },
-  {
-   "title": "Bitcoin price on Nov 10, 2026? — $73,700 or above",
-   "cat": "Crypto",
-   "resolvesAt": "2026-11-10T23:00:00.000Z",
-   "predictor": "memory",
-   "status": "OFF_TRACK",
-   "side": "yes",
-   "price": 0.79,
+   "price": 0.38,
    "ev": 0.037,
    "url": "https://kalshi.com/markets/kxbtcd"
   },
   {
-   "title": "Will the temp in Chicago Metro Area be above 57.99° on Nov 10, 2026 at 6pm EST? — 58° or above",
-   "cat": "Climate and Weather",
-   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "title": "Bitcoin price on Nov 10, 2026? — $73,500 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-11T00:00:00.000Z",
    "predictor": "memory",
    "status": "OFF_TRACK",
    "side": "yes",
-   "price": 0.1,
-   "ev": 0.0512,
-   "url": "https://kalshi.com/markets/kxtempchihs"
+   "price": 0.57,
+   "ev": 0.037,
+   "url": "https://kalshi.com/markets/kxbtcd"
   },
   {
-   "title": "HYPE price on Nov 10, 2026? — $73.25 or above",
+   "title": "SOL price on Nov 10, 2026? — $82.5 or above",
    "cat": "Crypto",
-   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "resolvesAt": "2026-11-11T00:00:00.000Z",
+   "predictor": "crypto_fair",
+   "status": "INSUFFICIENT",
+   "side": "no",
+   "price": 0.27,
+   "ev": 0.0267,
+   "url": "https://kalshi.com/markets/kxsold"
+  },
+  {
+   "title": "Will the gold close price be above 4035.99 USD/ounce on November 10, 2026 at 7:00 PM ET? — Above $4035.99",
+   "cat": "Commodities",
+   "resolvesAt": "2026-11-11T00:00:00.000Z",
+   "predictor": "memory",
+   "status": "OFF_TRACK",
+   "side": "no",
+   "price": 0.6,
+   "ev": 0.0877,
+   "url": "https://kalshi.com/markets/kxgoldh"
+  },
+  {
+   "title": "Will the gold close price be above 4033.99 USD/ounce on November 10, 2026 at 7:00 PM ET? — Above $4033.99",
+   "cat": "Commodities",
+   "resolvesAt": "2026-11-11T00:00:00.000Z",
+   "predictor": "memory",
+   "status": "OFF_TRACK",
+   "side": "no",
+   "price": 0.42,
+   "ev": 0.0927,
+   "url": "https://kalshi.com/markets/kxgoldh"
+  },
+  {
+   "title": "HYPE price on Nov 10, 2026? — $72.75 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-11T00:00:00.000Z",
    "predictor": "memory",
    "status": "OFF_TRACK",
    "side": "yes",
-   "price": 0.18,
-   "ev": 0.0368,
+   "price": 0.13,
+   "ev": 0.0618,
    "url": "https://kalshi.com/markets/kxhyped"
   },
   {
    "title": "HYPE price on Nov 10, 2026? — $72.5 or above",
    "cat": "Crypto",
-   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "resolvesAt": "2026-11-11T00:00:00.000Z",
    "predictor": "memory",
    "status": "OFF_TRACK",
    "side": "yes",
-   "price": 0.82,
-   "ev": 0.0518,
+   "price": 0.26,
+   "ev": 0.0468,
    "url": "https://kalshi.com/markets/kxhyped"
-  },
-  {
-   "title": "Bitcoin price on Nov 10, 2026? — $73,600 or above",
-   "cat": "Crypto",
-   "resolvesAt": "2026-11-10T23:00:00.000Z",
-   "predictor": "memory",
-   "status": "OFF_TRACK",
-   "side": "yes",
-   "price": 0.78,
-   "ev": 0.037,
-   "url": "https://kalshi.com/markets/kxbtcd"
-  },
-  {
-   "title": "Will the temp in Chicago Metro Area be above 58.99° on Nov 10, 2026 at 6pm EST? — 59° or above",
-   "cat": "Climate and Weather",
-   "resolvesAt": "2026-11-10T23:00:00.000Z",
-   "predictor": "memory",
-   "status": "OFF_TRACK",
-   "side": "yes",
-   "price": 0.05,
-   "ev": 0.0612,
-   "url": "https://kalshi.com/markets/kxtempchihs"
   }
  ],
  "checks": [
   {
    "name": "Pipeline ran recently",
    "ok": true,
-   "detail": "last cloud run 1 min ago"
+   "detail": "last cloud run 2 min ago"
   },
   {
    "name": "Runs on schedule (every 10 min)",
    "ok": true,
-   "detail": "14 cloud runs in the last 3 h (expect ~18)"
+   "detail": "15 cloud runs in the last 3 h (expect ~18)"
   },
   {
    "name": "New predictions are being logged",
    "ok": true,
-   "detail": "49 logged in the last hour"
+   "detail": "97 logged in the last hour"
   },
   {
    "name": "Outcomes are being collected",
-   "ok": true,
-   "detail": "431/449 predictions due >2 h ago have an official result"
+   "ok": false,
+   "detail": "501/562 predictions due >2 h ago have an official result"
   },
   {
    "name": "Scorecard matches the logs",
    "ok": true,
-   "detail": "scorecard counts 902, log has 902"
+   "detail": "scorecard counts 961, log has 961"
   },
   {
    "name": "No prediction logged after its market resolved",
@@ -145,17 +135,17 @@
   {
    "name": "Backtest sample unbiased",
    "ok": true,
-   "detail": "YES 0.4656 vs price 0.4722"
+   "detail": "YES 0.461 vs price 0.4702"
   },
   {
    "name": "Network trained in the last 2 h",
    "ok": true,
-   "detail": "trained 49 min ago on 1425 markets"
+   "detail": "trained 0 min ago on 1711 markets"
   },
   {
    "name": "Bet-size safety held (≤5% per bet)",
    "ok": true,
-   "detail": "largest bet 2.9969%"
+   "detail": "largest bet 3.0052%"
   },
   {
    "name": "Paper money adds up",
@@ -165,16 +155,17 @@
   {
    "name": "Outside data: Coinbase crypto agent",
    "ok": true,
-   "detail": "0/0 markets got an outside estimate, 1 min ago"
+   "detail": "12/12 markets got an outside estimate, 2 min ago"
   },
   {
    "name": "Outside data: NWS weather agent",
    "ok": true,
-   "detail": "0/0 markets got an outside estimate, 1 min ago"
+   "detail": "0/0 markets got an outside estimate, 2 min ago"
   }
  ],
- "problems": 0,
+ "problems": 1,
  "needs": [
+  "Check: Outcomes are being collected (501/562 predictions due >2 h ago have an official result). Ask Claude to run kalshi-ops-status.",
   "Decision: longshot — no measurable edge after 781 resolved — recommend retiring this hypothesis"
  ]
 }

@@ -1,6 +1,232 @@
 {
- "updated": "2026-11-10T22:56:03.707Z",
+ "updated": "2026-11-10T23:06:59.950Z",
  "markets": [
+  {
+   "ticker": "KXBTCD-26NOV1019-T73599.99",
+   "title": "Bitcoin price on Nov 10, 2026? — $73,600 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-11T00:00:00.000Z",
+   "loggedPrice": 0.375,
+   "est": {
+    "market": 0.375,
+    "longshot": 0.3631,
+    "memory": 0.437,
+    "crypto_fair": 0.3745,
+    "nn": 0.375
+   },
+   "picks": {
+    "memory": {
+     "side": "yes",
+     "ev": 0.037,
+     "cost": 0.38
+    }
+   },
+   "price": 0.315,
+   "chg30m": null,
+   "chg3h": -0.08,
+   "series": [
+    [
+     1794351660000,
+     0.395,
+     4350.98
+    ],
+    [
+     1794351720000,
+     0.465,
+     13811.74
+    ],
+    [
+     1794351780000,
+     0.405,
+     6501.64
+    ],
+    [
+     1794351840000,
+     0.355,
+     1577.19
+    ],
+    [
+     1794351900000,
+     0.375,
+     1630.15
+    ],
+    [
+     1794351960000,
+     0.315,
+     1320.09
+    ]
+   ],
+   "url": "https://kalshi.com/markets/kxbtcd"
+  },
+  {
+   "ticker": "KXSOLD-26NOV1019-T82.4999",
+   "title": "SOL price on Nov 10, 2026? — $82.5 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-11T00:00:00.000Z",
+   "loggedPrice": 0.745,
+   "est": {
+    "market": 0.745,
+    "longshot": 0.7648,
+    "memory": 0.7669,
+    "crypto_fair": 0.6833,
+    "nn": 0.745
+   },
+   "picks": {
+    "crypto_fair": {
+     "side": "no",
+     "ev": 0.0267,
+     "cost": 0.27
+    }
+   },
+   "price": 0.645,
+   "chg30m": null,
+   "chg3h": -0.09,
+   "series": [
+    [
+     1794351660000,
+     0.735,
+     212.65
+    ],
+    [
+     1794351720000,
+     0.83,
+     0
+    ],
+    [
+     1794351780000,
+     0.77,
+     439.43
+    ],
+    [
+     1794351840000,
+     0.735,
+     44.94
+    ],
+    [
+     1794351900000,
+     0.755,
+     130.67
+    ],
+    [
+     1794351960000,
+     0.645,
+     1
+    ]
+   ],
+   "url": "https://kalshi.com/markets/kxsold"
+  },
+  {
+   "ticker": "KXGOLDH-26NOV1019-T4035.99",
+   "title": "Will the gold close price be above 4035.99 USD/ounce on November 10, 2026 at 7:00 PM ET? — Above $4035.99",
+   "cat": "Commodities",
+   "resolvesAt": "2026-11-11T00:00:00.000Z",
+   "loggedPrice": 0.43,
+   "est": {
+    "market": 0.43,
+    "longshot": 0.4231,
+    "memory": 0.2923,
+    "nn": 0.43
+   },
+   "picks": {
+    "memory": {
+     "side": "no",
+     "ev": 0.0877,
+     "cost": 0.6
+    }
+   },
+   "price": 0.39,
+   "chg30m": null,
+   "chg3h": -0.05,
+   "series": [
+    [
+     1794351660000,
+     0.44,
+     0
+    ],
+    [
+     1794351720000,
+     0.41,
+     0
+    ],
+    [
+     1794351780000,
+     0.48,
+     0
+    ],
+    [
+     1794351840000,
+     0.365,
+     200
+    ],
+    [
+     1794351900000,
+     0.435,
+     0
+    ],
+    [
+     1794351960000,
+     0.39,
+     21.81
+    ]
+   ],
+   "url": "https://kalshi.com/markets/kxgoldh"
+  },
+  {
+   "ticker": "KXHYPED-26NOV1019-T72.7499",
+   "title": "HYPE price on Nov 10, 2026? — $72.75 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-11T00:00:00.000Z",
+   "loggedPrice": 0.125,
+   "est": {
+    "market": 0.125,
+    "longshot": 0.1052,
+    "memory": 0.2018,
+    "nn": 0.125
+   },
+   "picks": {
+    "memory": {
+     "side": "yes",
+     "ev": 0.0618,
+     "cost": 0.13
+    }
+   },
+   "price": 0.12,
+   "chg30m": null,
+   "chg3h": 0.03,
+   "series": [
+    [
+     1794351660000,
+     0.09,
+     60
+    ],
+    [
+     1794351720000,
+     0.14,
+     0
+    ],
+    [
+     1794351780000,
+     0.135,
+     0
+    ],
+    [
+     1794351840000,
+     0.12,
+     0
+    ],
+    [
+     1794351900000,
+     0.12,
+     20
+    ],
+    [
+     1794351960000,
+     0.12,
+     0
+    ]
+   ],
+   "url": "https://kalshi.com/markets/kxhyped"
+  },
   {
    "ticker": "KXBIGGESTQUAKE-10NOV26-5.8",
    "title": "What will the biggest earthquake be on Nov 10, 2026? — Magnitude of at least 5.8",
@@ -15,29 +241,9 @@
    },
    "picks": {},
    "price": 0.12,
-   "chg30m": -0.06,
-   "chg3h": -0.05,
+   "chg30m": 0.02,
+   "chg3h": 0,
    "series": [
-    [
-     1794340920000,
-     0.17,
-     0
-    ],
-    [
-     1794340980000,
-     0.17,
-     0
-    ],
-    [
-     1794341040000,
-     0.17,
-     0
-    ],
-    [
-     1794341160000,
-     0.17,
-     0
-    ],
     [
      1794341220000,
      0.12,
@@ -452,9 +658,399 @@
      1794351360000,
      0.12,
      3.24
+    ],
+    [
+     1794351420000,
+     0.125,
+     0
+    ],
+    [
+     1794351480000,
+     0.11,
+     0
+    ],
+    [
+     1794351540000,
+     0.105,
+     0
+    ],
+    [
+     1794351720000,
+     0.29,
+     95.88
+    ],
+    [
+     1794351780000,
+     0.13,
+     4.01
+    ],
+    [
+     1794351840000,
+     0.12,
+     96
+    ],
+    [
+     1794351900000,
+     0.12,
+     0
     ]
    ],
    "url": "https://kalshi.com/markets/kxbiggestquake"
+  },
+  {
+   "ticker": "KXWTIH-26NOV1019-T85.89",
+   "title": "Will the WTI Oil close price be above 85.89 USD/barrel on November 10, 2026 at 7:00 PM ET? — Above $85.89",
+   "cat": "Commodities",
+   "resolvesAt": "2026-11-11T00:00:00.000Z",
+   "loggedPrice": 0.13,
+   "est": {
+    "market": 0.13,
+    "longshot": 0.11,
+    "memory": 0.1142,
+    "nn": 0.13
+   },
+   "picks": {},
+   "price": 0.13,
+   "chg30m": null,
+   "chg3h": -0.42,
+   "series": [
+    [
+     1794351600000,
+     0.55,
+     0
+    ],
+    [
+     1794351660000,
+     0.24,
+     34.2
+    ],
+    [
+     1794351720000,
+     0.215,
+     54.33
+    ],
+    [
+     1794351780000,
+     0.135,
+     60
+    ],
+    [
+     1794351840000,
+     0.155,
+     0
+    ],
+    [
+     1794351900000,
+     0.13,
+     0
+    ]
+   ],
+   "url": "https://kalshi.com/markets/kxwtih"
+  },
+  {
+   "ticker": "KXSILVERH-26NOV1019-T51.599",
+   "title": "Will the silver close price be above 51.599 USD/ounce on November 10, 2026 at 7:00 PM ET? — Above $51.599",
+   "cat": "Commodities",
+   "resolvesAt": "2026-11-11T00:00:00.000Z",
+   "loggedPrice": 0.2,
+   "est": {
+    "market": 0.2,
+    "longshot": 0.1787,
+    "memory": 0.1537,
+    "nn": 0.2
+   },
+   "picks": {},
+   "price": 0.17,
+   "chg30m": null,
+   "chg3h": -0.27,
+   "series": [
+    [
+     1794351660000,
+     0.44,
+     0
+    ],
+    [
+     1794351720000,
+     0.07,
+     110
+    ],
+    [
+     1794351780000,
+     0.105,
+     0
+    ],
+    [
+     1794351840000,
+     0.105,
+     50.33
+    ],
+    [
+     1794351900000,
+     0.135,
+     0
+    ],
+    [
+     1794351960000,
+     0.17,
+     48
+    ]
+   ],
+   "url": "https://kalshi.com/markets/kxsilverh"
+  },
+  {
+   "ticker": "KXSOLE-26NOV1019-B82.625",
+   "title": "SOL price on Nov 10, 2026? — $82.5 to 82.7499",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-11T00:00:00.000Z",
+   "loggedPrice": 0.27,
+   "est": {
+    "market": 0.27,
+    "longshot": 0.2508,
+    "memory": 0.2504,
+    "crypto_fair": 0.2566,
+    "nn": 0.27
+   },
+   "picks": {},
+   "price": 0.315,
+   "chg30m": null,
+   "chg3h": 0.03,
+   "series": [
+    [
+     1794351660000,
+     0.285,
+     172
+    ],
+    [
+     1794351720000,
+     0.21,
+     0
+    ],
+    [
+     1794351780000,
+     0.295,
+     0
+    ],
+    [
+     1794351840000,
+     0.315,
+     44
+    ],
+    [
+     1794351900000,
+     0.285,
+     0
+    ],
+    [
+     1794351960000,
+     0.315,
+     0
+    ]
+   ],
+   "url": "https://kalshi.com/markets/kxsole"
+  },
+  {
+   "ticker": "KXXRPD-26NOV1019-T1.0599",
+   "title": "Ripple price at Nov 10, 2026 at 7pm EST? — $1.05991 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-11T00:00:00.000Z",
+   "loggedPrice": 0.17,
+   "est": {
+    "market": 0.17,
+    "longshot": 0.1488,
+    "memory": 0.1721,
+    "crypto_fair": 0.218,
+    "nn": 0.17
+   },
+   "picks": {},
+   "price": 0.14,
+   "chg30m": null,
+   "chg3h": -0.015,
+   "series": [
+    [
+     1794351660000,
+     0.155,
+     150
+    ],
+    [
+     1794351720000,
+     0.2,
+     250.01
+    ],
+    [
+     1794351780000,
+     0.165,
+     2
+    ],
+    [
+     1794351840000,
+     0.14,
+     0
+    ],
+    [
+     1794351900000,
+     0.175,
+     9.02
+    ],
+    [
+     1794351960000,
+     0.14,
+     0
+    ]
+   ],
+   "url": "https://kalshi.com/markets/kxxrpd"
+  },
+  {
+   "ticker": "KXXRP-26NOV1019-B1.0499500",
+   "title": "Ripple price at Nov 10, 2026 at 7pm EST? — $1.04 to 1.0599",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-11T00:00:00.000Z",
+   "loggedPrice": 0.835,
+   "est": {
+    "market": 0.835,
+    "longshot": 0.8561,
+    "memory": 0.8531,
+    "crypto_fair": 0.7799,
+    "nn": 0.835
+   },
+   "picks": {},
+   "price": 0.85,
+   "chg30m": null,
+   "chg3h": -0.005,
+   "series": [
+    [
+     1794351660000,
+     0.855,
+     100
+    ],
+    [
+     1794351720000,
+     0.785,
+     0
+    ],
+    [
+     1794351780000,
+     0.79,
+     0
+    ],
+    [
+     1794351840000,
+     0.85,
+     0
+    ],
+    [
+     1794351900000,
+     0.82,
+     0
+    ],
+    [
+     1794351960000,
+     0.85,
+     0
+    ]
+   ],
+   "url": "https://kalshi.com/markets/kxxrp"
+  },
+  {
+   "ticker": "KXBTC-26NOV1019-B73550",
+   "title": "Bitcoin price range on Nov 10, 2026? — $73,500 to 73,599.99",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-11T00:00:00.000Z",
+   "loggedPrice": 0.195,
+   "est": {
+    "market": 0.195,
+    "longshot": 0.1737,
+    "memory": 0.2025,
+    "crypto_fair": 0.1862,
+    "nn": 0.195
+   },
+   "picks": {},
+   "price": 0.195,
+   "chg30m": null,
+   "chg3h": -0.005,
+   "series": [
+    [
+     1794351660000,
+     0.2,
+     42
+    ],
+    [
+     1794351720000,
+     0.19,
+     23.65
+    ],
+    [
+     1794351780000,
+     0.185,
+     85.46
+    ],
+    [
+     1794351840000,
+     0.185,
+     23.76
+    ],
+    [
+     1794351900000,
+     0.195,
+     4.98
+    ],
+    [
+     1794351960000,
+     0.195,
+     0
+    ]
+   ],
+   "url": "https://kalshi.com/markets/kxbtc"
+  },
+  {
+   "ticker": "KXETHD-26NOV1019-T2044.99",
+   "title": "Ethereum price at Nov 10, 2026 at 7pm EST? — $2,045 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-11T00:00:00.000Z",
+   "loggedPrice": 0.375,
+   "est": {
+    "market": 0.375,
+    "longshot": 0.3631,
+    "memory": 0.3635,
+    "crypto_fair": 0.3805,
+    "nn": 0.375
+   },
+   "picks": {},
+   "price": 0.335,
+   "chg30m": null,
+   "chg3h": -0.055,
+   "series": [
+    [
+     1794351660000,
+     0.39,
+     4
+    ],
+    [
+     1794351720000,
+     0.525,
+     0
+    ],
+    [
+     1794351780000,
+     0.43,
+     43
+    ],
+    [
+     1794351840000,
+     0.35,
+     32.36
+    ],
+    [
+     1794351900000,
+     0.37,
+     5
+    ],
+    [
+     1794351960000,
+     0.335,
+     10
+    ]
+   ],
+   "url": "https://kalshi.com/markets/kxethd"
   }
  ]
 }
