@@ -1,43 +1,21 @@
 {
- "updated": "2026-11-10T22:25:34.941Z",
+ "updated": "2026-11-10T22:35:02.154Z",
  "trade": {
   "answer": "No — don't trade real money yet",
   "tone": "bad",
-  "why": "Nothing has proven an edge after fees. Live: 705 markets resolved (263 events); a verdict needs 100+ and the 95% range must exclude zero. Network on unseen past markets: no measurable difference.",
+  "why": "Nothing has proven an edge after fees. Live: 769 markets resolved (267 events); a verdict needs 100+ and the 95% range must exclude zero. Network on unseen past markets: no measurable difference.",
   "next": "Let it keep collecting. The answer changes automatically when a strategy reaches SUCCESS on the live record."
  },
  "learning": [
-  "Live record: 705 of 892 predictions resolved so far (263 separate events).",
-  "longshot: failure retire — no measurable edge after 705 resolved — recommend retiring this hypothesis",
-  "memory: off track — not beating the market so far (+0.0045) — wait for 0 more resolved before judging",
+  "Live record: 769 of 902 predictions resolved so far (267 separate events).",
+  "longshot: failure retire — no measurable edge after 769 resolved — recommend retiring this hypothesis",
+  "memory: off track — not beating the market so far (+0.0043) — wait for 0 more resolved before judging",
   "nn: on track — leaning better than the market (-0.0019) — wait for 0 more resolved",
   "Neural network: tested on 1140 past markets it never saw → no measurable difference (Brier 0.182 vs market 0.1819).",
   "Training history: 7 runs; data grew 736 → 1425 markets; gap vs market 0.0014 → 0 (below 0 = better than market).",
   "Backtest: 1222 past markets scored."
  ],
  "watchlist": [
-  {
-   "title": "Guilherme Barbieri Renner wins",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T22:30:00.000Z",
-   "predictor": "memory",
-   "status": "OFF_TRACK",
-   "side": "yes",
-   "price": 0.79,
-   "ev": 0.0683,
-   "url": "https://kalshi.com/markets/kxitfmatch"
-  },
-  {
-   "title": "Mateus Alves wins",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T22:30:00.000Z",
-   "predictor": "memory",
-   "status": "OFF_TRACK",
-   "side": "yes",
-   "price": 0.86,
-   "ev": 0.0783,
-   "url": "https://kalshi.com/markets/kxitfmatch"
-  },
   {
    "title": "HYPE price on Nov 10, 2026? — $73 or above",
    "cat": "Crypto",
@@ -103,33 +81,55 @@
    "price": 0.82,
    "ev": 0.0518,
    "url": "https://kalshi.com/markets/kxhyped"
+  },
+  {
+   "title": "Bitcoin price on Nov 10, 2026? — $73,600 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "predictor": "memory",
+   "status": "OFF_TRACK",
+   "side": "yes",
+   "price": 0.78,
+   "ev": 0.037,
+   "url": "https://kalshi.com/markets/kxbtcd"
+  },
+  {
+   "title": "Will the temp in Chicago Metro Area be above 58.99° on Nov 10, 2026 at 6pm EST? — 59° or above",
+   "cat": "Climate and Weather",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "predictor": "memory",
+   "status": "OFF_TRACK",
+   "side": "yes",
+   "price": 0.05,
+   "ev": 0.0612,
+   "url": "https://kalshi.com/markets/kxtempchihs"
   }
  ],
  "checks": [
   {
    "name": "Pipeline ran recently",
    "ok": true,
-   "detail": "last cloud run 1 min ago"
+   "detail": "last cloud run 0 min ago"
   },
   {
    "name": "Runs on schedule (every 10 min)",
-   "ok": false,
-   "detail": "11 cloud runs in the last 3 h (expect ~18)"
+   "ok": true,
+   "detail": "12 cloud runs in the last 3 h (expect ~18)"
   },
   {
    "name": "New predictions are being logged",
    "ok": true,
-   "detail": "43 logged in the last hour"
+   "detail": "49 logged in the last hour"
   },
   {
    "name": "Outcomes are being collected",
    "ok": true,
-   "detail": "402/422 predictions due >2 h ago have an official result"
+   "detail": "423/443 predictions due >2 h ago have an official result"
   },
   {
    "name": "Scorecard matches the logs",
    "ok": true,
-   "detail": "scorecard counts 892, log has 892"
+   "detail": "scorecard counts 902, log has 902"
   },
   {
    "name": "No prediction logged after its market resolved",
@@ -149,7 +149,7 @@
   {
    "name": "Network trained in the last 2 h",
    "ok": true,
-   "detail": "trained 19 min ago on 1425 markets"
+   "detail": "trained 28 min ago on 1425 markets"
   },
   {
    "name": "Bet-size safety held (≤5% per bet)",
@@ -162,9 +162,8 @@
    "detail": "12 portfolios checked"
   }
  ],
- "problems": 1,
+ "problems": 0,
  "needs": [
-  "Scheduled runs aren't firing. In the repo: Actions → Kalshi feed → ⋯ → Disable workflow, then Enable workflow. Until then data only updates when a run is started by hand.",
-  "Decision: longshot — no measurable edge after 705 resolved — recommend retiring this hypothesis"
+  "Decision: longshot — no measurable edge after 769 resolved — recommend retiring this hypothesis"
  ]
 }

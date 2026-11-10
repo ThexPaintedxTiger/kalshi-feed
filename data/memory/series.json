@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-10T22:24:44.711Z",
- "samples": 1897,
+ "updated": "2026-11-10T22:34:44.190Z",
+ "samples": 1961,
  "note": "Derived summary (rebuilt each run). bias = average (outcome − market price); > 0 means YES was underpriced in this series.",
  "series": {
   "KXAAAGASD": {
@@ -610,13 +610,13 @@
   },
   "KXBRENTD": {
    "cat": "Commodities",
-   "n": 1,
-   "yesRate": 0,
-   "avgPrice": 0.73,
-   "bias": -0.73,
-   "brierMarket": 0.5329,
-   "last": "2026-11-09T23:00:37.058Z",
-   "live": 0,
+   "n": 13,
+   "yesRate": 0.5385,
+   "avgPrice": 0.4054,
+   "bias": 0.1331,
+   "brierMarket": 0.1746,
+   "last": "2026-11-10T22:00:00.000Z",
+   "live": 12,
    "backtest": 1
   },
   "KXBTC": {
@@ -665,13 +665,13 @@
   },
   "KXCOPPERD": {
    "cat": "Commodities",
-   "n": 1,
-   "yesRate": 1,
-   "avgPrice": 0.745,
-   "bias": 0.255,
-   "brierMarket": 0.065,
-   "last": "2026-11-09T23:00:37.061Z",
-   "live": 0,
+   "n": 12,
+   "yesRate": 0.5833,
+   "avgPrice": 0.5563,
+   "bias": 0.0271,
+   "brierMarket": 0.0331,
+   "last": "2026-11-10T22:00:00.000Z",
+   "live": 11,
    "backtest": 1
   },
   "KXCPI": {
@@ -1292,13 +1292,13 @@
   },
   "KXNATGASD": {
    "cat": "Commodities",
-   "n": 1,
-   "yesRate": 0,
-   "avgPrice": 0.58,
-   "bias": -0.58,
-   "brierMarket": 0.3364,
-   "last": "2026-11-09T23:20:47.063Z",
-   "live": 0,
+   "n": 33,
+   "yesRate": 0.697,
+   "avgPrice": 0.5208,
+   "bias": 0.1762,
+   "brierMarket": 0.2364,
+   "last": "2026-11-10T22:00:00.000Z",
+   "live": 32,
    "backtest": 1
   },
   "KXNCAAWBGAME": {
@@ -1457,13 +1457,13 @@
   },
   "KXSILVERD": {
    "cat": "Commodities",
-   "n": 1,
-   "yesRate": 0,
-   "avgPrice": 0.25,
-   "bias": -0.25,
-   "brierMarket": 0.0625,
-   "last": "2026-11-09T23:00:32.059Z",
-   "live": 0,
+   "n": 10,
+   "yesRate": 0.5,
+   "avgPrice": 0.497,
+   "bias": 0.003,
+   "brierMarket": 0.0523,
+   "last": "2026-11-10T22:00:00.000Z",
+   "live": 9,
    "backtest": 1
   },
   "KXSILVERH": {
