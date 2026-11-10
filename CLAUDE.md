@@ -26,7 +26,7 @@ and count something as an improvement only when the scorecard shows it.
 
 ## Skills (`.claude/skills/`, reviewed in `docs/skills.md`)
 `kalshi-run-cycle` (run now) · `kalshi-check-progress` (judge results) · `kalshi-add-predictor` (new hypothesis) ·
-`save-as-skill` (convention). When you write a script you'll reuse: test it, then save it with `save-as-skill`.
+`save-as-skill` (convention) · `kalshi-ops-status` (errors, deploy status, when to get a human). When you write a script you'll reuse: test it, then save it with `save-as-skill`.
 
 ## Storage
 - Predictions: `data/predictions/YYYY-MM.jsonl` (append-only, one row per market, logged before it resolves).
