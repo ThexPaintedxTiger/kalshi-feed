@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T23:30:33.664Z",
+ "updated": "2026-11-10T23:45:16.457Z",
  "start": 10,
  "goal": 1000,
  "safety": {
@@ -4531,7 +4531,7 @@
   ]
  },
  "forward": {
-  "rows": 307,
+  "rows": 327,
   "settled": 188,
   "portfolios": [
    {
@@ -4614,7 +4614,7 @@
     "avgBetPct": 1.9148,
     "maxBetPct": 1.9798,
     "worstLossPct": -1.9766,
-    "betsPerDay": 153.795,
+    "betsPerDay": 145.9971,
     "trustNow": null,
     "busted": null,
     "reachedGoal": null,
@@ -5378,7 +5378,7 @@
     "avgBetPct": 2.3631,
     "maxBetPct": 2.502,
     "worstLossPct": -2.502,
-    "betsPerDay": 42.2936,
+    "betsPerDay": 40.1492,
     "trustNow": {
      "trust": 0,
      "why": "learning: 11/30 settled bets"
@@ -5947,7 +5947,7 @@
     "avgBetPct": 1.9538,
     "maxBetPct": 1.9788,
     "worstLossPct": -1.9659,
-    "betsPerDay": 49.9834,
+    "betsPerDay": 47.4491,
     "trustNow": null,
     "busted": null,
     "reachedGoal": null,
@@ -6567,7 +6567,7 @@
     "avgBetPct": 2.5862,
     "maxBetPct": 2.9969,
     "worstLossPct": -2.9969,
-    "betsPerDay": 134.5706,
+    "betsPerDay": 127.7475,
     "trustNow": {
      "trust": 0,
      "why": "learning: 26/30 settled bets"
@@ -7333,22 +7333,22 @@
     "name": "Crypto fair value, learned bet size",
     "predictor": "crypto_fair",
     "sizing": "learn",
-    "equity": 9.96,
-    "cash": 9.5064,
-    "openPositions": 2,
-    "returnPct": -0.4,
-    "bets": 2,
+    "equity": 9.93,
+    "cash": 9.0147,
+    "openPositions": 4,
+    "returnPct": -0.7,
+    "bets": 4,
     "shadowBets": 0,
     "settled": 0,
     "wins": 0,
     "pnl": 0,
-    "fees": 0.04,
+    "fees": 0.07,
     "maxDrawdownPct": 0,
     "lowest": 10,
-    "avgBetPct": 2.4705,
-    "maxBetPct": 2.4729,
+    "avgBetPct": 2.47,
+    "maxBetPct": 2.4894,
     "worstLossPct": 0,
-    "betsPerDay": 7.6897,
+    "betsPerDay": 14.5997,
     "trustNow": {
      "trust": 0,
      "why": "learning: 0/30 settled bets"
@@ -7362,6 +7362,42 @@
      ]
     ],
     "recent": [
+     {
+      "ts": "2026-11-10T23:34:58.538Z",
+      "ticker": "KXSOLE-26NOV1019-B83.375",
+      "title": "SOL price on Nov 10, 2026? — $83.25 to 83.4999",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.09,
+      "p": 0.1585,
+      "mid": 0.07,
+      "contracts": 2.53,
+      "fee": 0.02,
+      "stake": 0.2477,
+      "bankroll": 9.95,
+      "betPct": 2.4894,
+      "evPerDollar": 0.65,
+      "pnl": null,
+      "won": null
+     },
+     {
+      "ts": "2026-11-10T23:34:58.538Z",
+      "ticker": "KXSOLE-26NOV1019-B83.125",
+      "title": "SOL price on Nov 10, 2026? — $83 to 83.2499",
+      "cat": "Crypto",
+      "side": "no",
+      "price": 0.6,
+      "p": 0.36,
+      "mid": 0.42,
+      "contracts": 0.39,
+      "fee": 0.01,
+      "stake": 0.244,
+      "bankroll": 9.96,
+      "betPct": 2.4498,
+      "evPerDollar": 0.0333,
+      "pnl": null,
+      "won": null
+     },
      {
       "ts": "2026-11-10T23:24:58.314Z",
       "ticker": "KXSOLD-26NOV1019-T83.2499",
@@ -7439,22 +7475,22 @@
     "name": "Weather forecast, learned bet size",
     "predictor": "weather_nws",
     "sizing": "learn",
-    "equity": 9.87,
-    "cash": 8.2689,
-    "openPositions": 7,
-    "returnPct": -1.3,
-    "bets": 7,
+    "equity": 9.86,
+    "cash": 8.0275,
+    "openPositions": 8,
+    "returnPct": -1.4,
+    "bets": 8,
     "shadowBets": 0,
     "settled": 0,
     "wins": 0,
     "pnl": 0,
-    "fees": 0.13,
+    "fees": 0.14,
     "maxDrawdownPct": 0,
     "lowest": 10,
-    "avgBetPct": 2.4869,
+    "avgBetPct": 2.4818,
     "maxBetPct": 2.5076,
     "worstLossPct": 0,
-    "betsPerDay": 26.9141,
+    "betsPerDay": 29.1994,
     "trustNow": {
      "trust": 0,
      "why": "learning: 0/30 settled bets"
@@ -7468,6 +7504,24 @@
      ]
     ],
     "recent": [
+     {
+      "ts": "2026-11-10T23:34:58.538Z",
+      "ticker": "KXTEMPCHIHS-26NOV1019-T51.99",
+      "title": "Will the temp in Chicago Metro Area be above 51.99° on Nov 10, 2026 at 7pm EST? — 52° or above",
+      "cat": "Climate and Weather",
+      "side": "yes",
+      "price": 0.89,
+      "p": 0.995,
+      "mid": 0.855,
+      "contracts": 0.26,
+      "fee": 0.01,
+      "stake": 0.2414,
+      "bankroll": 9.87,
+      "betPct": 2.4458,
+      "evPerDollar": 0.1067,
+      "pnl": null,
+      "won": null
+     },
      {
       "ts": "2026-11-10T23:24:58.314Z",
       "ticker": "KXTEMPCHIHS-26NOV1019-T55.99",
