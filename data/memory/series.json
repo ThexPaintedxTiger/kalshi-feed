@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-10T21:46:20.632Z",
- "samples": 1567,
+ "updated": "2026-11-10T21:54:44.514Z",
+ "samples": 1584,
  "note": "Derived summary (rebuilt each run). bias = average (outcome − market price); > 0 means YES was underpriced in this series.",
  "series": {
   "KXAAAGASD": {
@@ -1576,6 +1576,17 @@
    "live": 0,
    "backtest": 3
   },
+  "KXUCLWBTTS": {
+   "cat": "Sports",
+   "n": 2,
+   "yesRate": 0,
+   "avgPrice": 0.515,
+   "bias": -0.515,
+   "brierMarket": 0.2701,
+   "last": "2026-11-10T19:58:36.203Z",
+   "live": 2,
+   "backtest": 0
+  },
   "KXUCLWGAME": {
    "cat": "Sports",
    "n": 6,
@@ -1585,6 +1596,28 @@
    "brierMarket": 0.2738,
    "last": "2026-11-10T19:52:51.316Z",
    "live": 6,
+   "backtest": 0
+  },
+  "KXUCLWSPREAD": {
+   "cat": "Sports",
+   "n": 5,
+   "yesRate": 0.4,
+   "avgPrice": 0.361,
+   "bias": 0.039,
+   "brierMarket": 0.29,
+   "last": "2026-11-10T19:56:01.207Z",
+   "live": 5,
+   "backtest": 0
+  },
+  "KXUCLWTOTAL": {
+   "cat": "Sports",
+   "n": 10,
+   "yesRate": 0.2,
+   "avgPrice": 0.482,
+   "bias": -0.282,
+   "brierMarket": 0.1988,
+   "last": "2026-11-10T19:56:36.217Z",
+   "live": 10,
    "backtest": 0
   },
   "KXUE": {

@@ -1,30 +1,30 @@
 {
- "updated": "2026-11-10T21:46:37.428Z",
+ "updated": "2026-11-10T21:55:01.415Z",
  "note": "Simulation only. Brier/log loss: lower is better. brierVsMarket < 0 means better than the market price. Intervals are 95%, counted per event. No edge is claimed below 100 resolved predictions.",
  "predictions": 853,
- "resolved": 495,
+ "resolved": 512,
  "excludedLeakage": 0,
- "events": 187,
+ "events": 193,
  "predictors": {
   "market": {
-   "n": 495,
+   "n": 512,
    "brier": {
-    "mean": 0.1879,
-    "lo": 0.1625,
-    "hi": 0.2132,
-    "events": 187
+    "mean": 0.1899,
+    "lo": 0.1652,
+    "hi": 0.2146,
+    "events": 193
    },
    "logLoss": {
-    "mean": 0.5584,
-    "lo": 0.4918,
-    "hi": 0.625,
-    "events": 187
+    "mean": 0.5628,
+    "lo": 0.498,
+    "hi": 0.6276,
+    "events": 193
    },
    "brierVsMarket": {
     "mean": 0,
     "lo": 0,
     "hi": 0,
-    "events": 187
+    "events": 193
    },
    "verdict": "baseline",
    "picks": {
@@ -42,21 +42,21 @@
    "calibration": [
     {
      "bin": "0-10%",
-     "n": 52,
-     "avgP": 0.0627,
-     "hitRate": 0.0577
+     "n": 53,
+     "avgP": 0.0625,
+     "hitRate": 0.0566
     },
     {
      "bin": "10-20%",
-     "n": 54,
-     "avgP": 0.1406,
-     "hitRate": 0.2037
+     "n": 56,
+     "avgP": 0.1404,
+     "hitRate": 0.1964
     },
     {
      "bin": "20-30%",
-     "n": 41,
-     "avgP": 0.2463,
-     "hitRate": 0.2439
+     "n": 44,
+     "avgP": 0.2472,
+     "hitRate": 0.25
     },
     {
      "bin": "30-40%",
@@ -66,21 +66,21 @@
     },
     {
      "bin": "40-50%",
-     "n": 66,
-     "avgP": 0.4508,
-     "hitRate": 0.4545
+     "n": 71,
+     "avgP": 0.4502,
+     "hitRate": 0.4366
     },
     {
      "bin": "50-60%",
-     "n": 72,
-     "avgP": 0.5394,
-     "hitRate": 0.6944
+     "n": 73,
+     "avgP": 0.54,
+     "hitRate": 0.6849
     },
     {
      "bin": "60-70%",
-     "n": 53,
-     "avgP": 0.6398,
-     "hitRate": 0.7547
+     "n": 56,
+     "avgP": 0.6413,
+     "hitRate": 0.7321
     },
     {
      "bin": "70-80%",
@@ -90,9 +90,9 @@
     },
     {
      "bin": "80-90%",
-     "n": 31,
-     "avgP": 0.854,
-     "hitRate": 0.871
+     "n": 33,
+     "avgP": 0.8553,
+     "hitRate": 0.8485
     },
     {
      "bin": "90-100%",
@@ -103,24 +103,24 @@
    ]
   },
   "longshot": {
-   "n": 495,
+   "n": 512,
    "brier": {
-    "mean": 0.1883,
-    "lo": 0.1616,
-    "hi": 0.2151,
-    "events": 187
+    "mean": 0.1905,
+    "lo": 0.1644,
+    "hi": 0.2165,
+    "events": 193
    },
    "logLoss": {
-    "mean": 0.5619,
-    "lo": 0.4891,
-    "hi": 0.6348,
-    "events": 187
+    "mean": 0.5666,
+    "lo": 0.4957,
+    "hi": 0.6375,
+    "events": 193
    },
    "brierVsMarket": {
-    "mean": 0.0005,
-    "lo": -0.0011,
-    "hi": 0.002,
-    "events": 187
+    "mean": 0.0006,
+    "lo": -0.001,
+    "hi": 0.0021,
+    "events": 193
    },
    "verdict": "no measurable difference",
    "picks": {
@@ -138,63 +138,63 @@
    "calibration": [
     {
      "bin": "0-10%",
-     "n": 62,
-     "avgP": 0.0554,
-     "hitRate": 0.0645
+     "n": 63,
+     "avgP": 0.0552,
+     "hitRate": 0.0635
     },
     {
      "bin": "10-20%",
-     "n": 50,
-     "avgP": 0.1345,
-     "hitRate": 0.24
+     "n": 52,
+     "avgP": 0.1337,
+     "hitRate": 0.2308
     },
     {
      "bin": "20-30%",
-     "n": 46,
-     "avgP": 0.2471,
-     "hitRate": 0.2826
+     "n": 49,
+     "avgP": 0.2465,
+     "hitRate": 0.2857
     },
     {
      "bin": "30-40%",
-     "n": 43,
-     "avgP": 0.356,
-     "hitRate": 0.3256
+     "n": 44,
+     "avgP": 0.3569,
+     "hitRate": 0.3182
     },
     {
      "bin": "40-50%",
-     "n": 59,
-     "avgP": 0.4522,
-     "hitRate": 0.4237
+     "n": 63,
+     "avgP": 0.452,
+     "hitRate": 0.4127
     },
     {
      "bin": "50-60%",
-     "n": 68,
-     "avgP": 0.5397,
-     "hitRate": 0.6765
+     "n": 69,
+     "avgP": 0.5404,
+     "hitRate": 0.6667
     },
     {
      "bin": "60-70%",
-     "n": 48,
-     "avgP": 0.6388,
-     "hitRate": 0.7708
+     "n": 50,
+     "avgP": 0.6401,
+     "hitRate": 0.76
     },
     {
      "bin": "70-80%",
-     "n": 39,
-     "avgP": 0.7461,
-     "hitRate": 0.7436
+     "n": 40,
+     "avgP": 0.7453,
+     "hitRate": 0.725
     },
     {
      "bin": "80-90%",
-     "n": 32,
-     "avgP": 0.8536,
-     "hitRate": 0.7813
+     "n": 33,
+     "avgP": 0.8546,
+     "hitRate": 0.7879
     },
     {
      "bin": "90-100%",
-     "n": 48,
-     "avgP": 0.9457,
-     "hitRate": 0.9583
+     "n": 49,
+     "avgP": 0.9449,
+     "hitRate": 0.9388
     }
    ]
   },
@@ -393,8 +393,8 @@
  },
  "byCategory": {
   "Sports": {
-   "n": 272,
-   "brierMarket": 0.1864
+   "n": 289,
+   "brierMarket": 0.1892
   },
   "Politics": {
    "n": 3,

@@ -1,14 +1,14 @@
 {
- "updated": "2026-11-10T21:46:37.970Z",
+ "updated": "2026-11-10T21:55:38.374Z",
  "trade": {
   "answer": "No — don't trade real money yet",
   "tone": "bad",
-  "why": "Nothing has proven an edge after fees. Live: 495 markets resolved (187 events); a verdict needs 100+ and the 95% range must exclude zero. Network on unseen past markets: no measurable difference.",
+  "why": "Nothing has proven an edge after fees. Live: 512 markets resolved (193 events); a verdict needs 100+ and the 95% range must exclude zero. Network on unseen past markets: no measurable difference.",
   "next": "Let it keep collecting. The answer changes automatically when a strategy reaches SUCCESS on the live record."
  },
  "learning": [
-  "Live record: 495 of 853 predictions resolved so far (187 separate events).",
-  "longshot: failure retire — no measurable edge after 495 resolved — recommend retiring this hypothesis",
+  "Live record: 512 of 853 predictions resolved so far (193 separate events).",
+  "longshot: failure retire — no measurable edge after 512 resolved — recommend retiring this hypothesis",
   "memory: off track — not beating the market so far (+0.0033) — wait for 0 more resolved before judging",
   "nn: on track — leaning better than the market (-0.0053) — wait for 0 more resolved",
   "Neural network: tested on 1004 past markets it never saw → no measurable difference (Brier 0.1799 vs market 0.1797).",
@@ -109,17 +109,17 @@
   {
    "name": "Pipeline ran recently",
    "ok": true,
-   "detail": "last cloud run 0 min ago"
+   "detail": "last cloud run 1 min ago"
   },
   {
    "name": "Runs on schedule (every 10 min)",
    "ok": false,
-   "detail": "7 cloud runs in the last 3 h (expect ~18)"
+   "detail": "8 cloud runs in the last 3 h (expect ~18)"
   },
   {
    "name": "New predictions are being logged",
    "ok": true,
-   "detail": "27 logged in the last hour"
+   "detail": "23 logged in the last hour"
   },
   {
    "name": "Outcomes are being collected",
@@ -149,7 +149,7 @@
   {
    "name": "Network trained in the last 2 h",
    "ok": true,
-   "detail": "trained 50 min ago on 1255 markets"
+   "detail": "trained 59 min ago on 1255 markets"
   },
   {
    "name": "Bet-size safety held (≤5% per bet)",
@@ -165,6 +165,6 @@
  "problems": 1,
  "needs": [
   "Scheduled runs aren't firing. In the repo: Actions → Kalshi feed → ⋯ → Disable workflow, then Enable workflow. Until then data only updates when a run is started by hand.",
-  "Decision: longshot — no measurable edge after 495 resolved — recommend retiring this hypothesis"
+  "Decision: longshot — no measurable edge after 512 resolved — recommend retiring this hypothesis"
  ]
 }
