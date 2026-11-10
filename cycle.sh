@@ -7,6 +7,10 @@ step() { local name="$1"; shift; echo "::group::$name"; "$@"; local rc=$?; echo 
 need() { step "$@" || { echo "::error::$1 failed"; exit 1; }; }
 want() { step "$@" || echo "::warning::$1 failed (continuing)"; }
 
+# Step aside while the owner's 24/7 streamer (stream.mjs) is running: it does every step itself (heartbeat < 15 min old).
+if [ "${GITHUB_ACTIONS:-}" = "true" ] && [ "${FORCE:-0}" != "1" ] && node -e 'const s=require("./data/stream.json");process.exit(Date.now()-Date.parse(s.at)<15*60e3?0:1)' 2>/dev/null; then
+  echo "24/7 streamer is active on the owner's computer — skipping this cloud cycle"; exit 0
+fi
 need "Tests" node test.mjs
 need "Check outcomes" node resolve.mjs
 need "Memory" node memory.mjs

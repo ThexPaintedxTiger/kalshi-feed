@@ -62,6 +62,8 @@ writeJson("dashboard.json", {
   paper: readJson("data/paper/portfolios.json", null),
   status: readJson("status.json", null),
   external: readJson("data/external/last.json", null),
+  stream: readJson("data/stream.json", null),
+  live: (() => { const l = readJson("data/live.json", null); return l && { at: l.at, n: l.markets.length }; })(),
   briefings: readJsonl("data/briefing.jsonl").slice(-6).reverse(),
   focus: readJson("data/focus.json", null),
 });

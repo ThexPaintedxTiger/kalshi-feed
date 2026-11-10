@@ -83,6 +83,12 @@ Claude subagents are not used in the pipeline (cost and non-repeatable answers);
 - Predictors `crypto_fair`, `weather_nws` (scored only on their markets); rows keep the evidence in `ext`; network inputs
   "outside estimate − price" and "has outside data"; paper strategies with learned bet size; watchdog checks freshness.
 
+## 24/7 streamer (stream.mjs)
+Host-agnostic Node loop on the owner's computer. Minute path: tick (batch `/markets?tickers=` for unresolved logged predictions) →
+`resolve.mjs` → if new outcomes: `memory` → `nn` (FORCE) → `score` → `progress` → `paper` → `status` → `dashboard`. Ten-minute path: the
+full step list of `cycle.sh`, with the same forced retrain when outcomes are new. Retraining without new outcomes would reproduce the
+same model (deterministic seed), so "constant learning" = retrain on every new outcome, checked every minute.
+
 ## MCP server (read-only)
 `mcp/server.mjs` (official MCP SDK, stdio). Tools: `get_status`, `get_scorecard` (live|backtest), `search_predictions`, `recall_series`, `list_skills`.
 - Claude Code: `npm --prefix mcp install`, then it's picked up from `.mcp.json` (approve the project server once).
