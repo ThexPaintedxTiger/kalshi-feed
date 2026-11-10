@@ -1,15 +1,15 @@
 {
- "updated": "2026-11-10T21:05:19.027Z",
+ "updated": "2026-11-10T21:15:18.272Z",
  "trade": {
   "answer": "No — don't trade real money yet",
   "tone": "bad",
-  "why": "Nothing has proven an edge after fees. Live: 472 markets resolved (176 events); a verdict needs 100+ and the 95% range must exclude zero. Network on unseen past markets: no measurable difference.",
+  "why": "Nothing has proven an edge after fees. Live: 483 markets resolved (183 events); a verdict needs 100+ and the 95% range must exclude zero. Network on unseen past markets: no measurable difference.",
   "next": "Let it keep collecting. The answer changes automatically when a strategy reaches SUCCESS on the live record."
  },
  "learning": [
-  "Live record: 472 of 834 predictions resolved so far (176 separate events).",
-  "longshot: failure retire — no measurable edge after 472 resolved — recommend retiring this hypothesis",
-  "memory: off track — not beating the market so far (+0.0034) — wait for 0 more resolved before judging",
+  "Live record: 483 of 842 predictions resolved so far (183 separate events).",
+  "longshot: failure retire — no measurable edge after 483 resolved — recommend retiring this hypothesis",
+  "memory: off track — not beating the market so far (+0.0033) — wait for 0 more resolved before judging",
   "nn: on track — leaning better than the market (-0.0062) — wait for 0 more resolved",
   "Neural network: tested on 1004 past markets it never saw → no measurable difference (Brier 0.1799 vs market 0.1797).",
   "Training history: 6 runs; data grew 736 → 1255 markets; gap vs market 0.0014 → 0.0002 (below 0 = better than market).",
@@ -114,22 +114,22 @@
   {
    "name": "Runs on schedule (every 10 min)",
    "ok": false,
-   "detail": "2 cloud runs in the last 3 h (expect ~18)"
+   "detail": "3 cloud runs in the last 3 h (expect ~18)"
   },
   {
    "name": "New predictions are being logged",
    "ok": true,
-   "detail": "8 logged in the last hour"
+   "detail": "16 logged in the last hour"
   },
   {
    "name": "Outcomes are being collected",
    "ok": true,
-   "detail": "300/308 predictions due >2 h ago have an official result"
+   "detail": "317/325 predictions due >2 h ago have an official result"
   },
   {
    "name": "Scorecard matches the logs",
    "ok": true,
-   "detail": "scorecard counts 834, log has 834"
+   "detail": "scorecard counts 842, log has 842"
   },
   {
    "name": "No prediction logged after its market resolved",
@@ -149,7 +149,7 @@
   {
    "name": "Network trained in the last 2 h",
    "ok": true,
-   "detail": "trained 8 min ago on 1255 markets"
+   "detail": "trained 18 min ago on 1255 markets"
   },
   {
    "name": "Bet-size safety held (≤5% per bet)",
@@ -165,6 +165,6 @@
  "problems": 1,
  "needs": [
   "Scheduled runs aren't firing. In the repo: Actions → Kalshi feed → ⋯ → Disable workflow, then Enable workflow. Until then data only updates when a run is started by hand.",
-  "Decision: longshot — no measurable edge after 472 resolved — recommend retiring this hypothesis"
+  "Decision: longshot — no measurable edge after 483 resolved — recommend retiring this hypothesis"
  ]
 }

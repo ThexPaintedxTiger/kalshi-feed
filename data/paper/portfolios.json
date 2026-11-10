@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T21:05:18.651Z",
+ "updated": "2026-11-10T21:15:17.935Z",
  "start": 10,
  "goal": 1000,
  "safety": {
@@ -2827,7 +2827,7 @@
   ]
  },
  "forward": {
-  "rows": 131,
+  "rows": 139,
   "settled": 100,
   "portfolios": [
    {
@@ -2909,7 +2909,7 @@
     "avgBetPct": 1.9176,
     "maxBetPct": 1.9798,
     "worstLossPct": -1.9708,
-    "betsPerDay": 141.1884,
+    "betsPerDay": 135.4185,
     "trustNow": null,
     "busted": null,
     "reachedGoal": null,
@@ -3451,7 +3451,7 @@
     "avgBetPct": 2.3631,
     "maxBetPct": 2.502,
     "worstLossPct": -2.502,
-    "betsPerDay": 67.5249,
+    "betsPerDay": 64.7654,
     "trustNow": {
      "trust": 0,
      "why": "learning: 11/30 settled bets"
@@ -3971,7 +3971,7 @@
     "avgBetPct": 1.9538,
     "maxBetPct": 1.9788,
     "worstLossPct": -1.9659,
-    "betsPerDay": 79.8021,
+    "betsPerDay": 76.5409,
     "trustNow": null,
     "busted": null,
     "reachedGoal": null,
@@ -4585,22 +4585,22 @@
     "name": "Series memory, learned bet size",
     "predictor": "memory",
     "sizing": "learn",
-    "equity": 7.9333,
-    "cash": 7.7058,
-    "openPositions": 1,
-    "returnPct": -20.667,
-    "bets": 14,
+    "equity": 7.9133,
+    "cash": 7.4593,
+    "openPositions": 3,
+    "returnPct": -20.867,
+    "bets": 16,
     "shadowBets": 0,
     "settled": 13,
     "wins": 3,
     "pnl": -2.0467,
-    "fees": 0.18,
+    "fees": 0.2,
     "maxDrawdownPct": 20.787,
     "lowest": 7.9213,
-    "avgBetPct": 2.4425,
+    "avgBetPct": 2.3315,
     "maxBetPct": 2.7431,
     "worstLossPct": -2.7431,
-    "betsPerDay": 85.9408,
+    "betsPerDay": 94.2041,
     "trustNow": {
      "trust": 0,
      "why": "learning: 13/30 settled bets"
@@ -4666,6 +4666,38 @@
      ]
     ],
     "recent": [
+     {
+      "ts": "2026-11-10T21:15:01.352Z",
+      "ticker": "KXTEMPCHIHS-26NOV1017-T61.99",
+      "title": "Will the temp in Chicago Metro Area be above 61.99° on Nov 10, 2026 at 5pm EST? — 62° or above",
+      "cat": "Climate and Weather",
+      "side": "yes",
+      "price": 0.81,
+      "contracts": 0.14,
+      "fee": 0.01,
+      "stake": 0.1234,
+      "bankroll": 7.9233,
+      "betPct": 1.5574,
+      "evPerDollar": 0.0664,
+      "pnl": null,
+      "won": null
+     },
+     {
+      "ts": "2026-11-10T21:15:01.352Z",
+      "ticker": "KXTEMPCHIHS-26NOV1017-T62.99",
+      "title": "Will the temp in Chicago Metro Area be above 62.99° on Nov 10, 2026 at 5pm EST? — 63° or above",
+      "cat": "Climate and Weather",
+      "side": "yes",
+      "price": 0.13,
+      "contracts": 0.87,
+      "fee": 0.01,
+      "stake": 0.1231,
+      "bankroll": 7.9333,
+      "betPct": 1.5517,
+      "evPerDollar": 0.4908,
+      "pnl": null,
+      "won": null
+     },
      {
       "ts": "2026-11-10T18:04:27.230Z",
       "ticker": "KXETHD-26NOV1014-T2029.99",
@@ -4885,23 +4917,6 @@
       "pnl": 0.338,
       "won": true,
       "settledAt": "2026-11-10T18:05:41.259Z"
-     },
-     {
-      "ts": "2026-11-10T17:10:26.839Z",
-      "ticker": "KXTEMPCHIHS-26NOV1013-T61.99",
-      "title": "Will the temp in Chicago Metro Area be above 61.99° on Nov 10, 2026 at 1pm EST? — 62° or above",
-      "cat": "Climate and Weather",
-      "side": "yes",
-      "price": 0.81,
-      "contracts": 0.29,
-      "fee": 0.01,
-      "stake": 0.2449,
-      "bankroll": 10,
-      "betPct": 2.449,
-      "evPerDollar": 0.0323,
-      "pnl": 0.0451,
-      "won": true,
-      "settledAt": "2026-11-10T19:11:16.210Z"
      }
     ],
     "stats": {

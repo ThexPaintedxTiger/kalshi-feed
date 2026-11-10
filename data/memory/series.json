@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-10T21:05:01.624Z",
- "samples": 1544,
+ "updated": "2026-11-10T21:15:01.326Z",
+ "samples": 1555,
  "note": "Derived summary (rebuilt each run). bias = average (outcome − market price); > 0 means YES was underpriced in this series.",
  "series": {
   "KXAAAGASD": {
@@ -507,6 +507,61 @@
    "brierMarket": 0.2646,
    "last": "2026-11-10T20:56:56.229Z",
    "live": 35,
+   "backtest": 0
+  },
+  "KXATPEXACTMATCH": {
+   "cat": "Sports",
+   "n": 2,
+   "yesRate": 0.5,
+   "avgPrice": 0.385,
+   "bias": 0.115,
+   "brierMarket": 0.1322,
+   "last": "2026-11-10T20:27:21.210Z",
+   "live": 2,
+   "backtest": 0
+  },
+  "KXATPGSPREAD": {
+   "cat": "Sports",
+   "n": 1,
+   "yesRate": 1,
+   "avgPrice": 0.58,
+   "bias": 0.42,
+   "brierMarket": 0.1764,
+   "last": "2026-11-10T20:27:21.207Z",
+   "live": 1,
+   "backtest": 0
+  },
+  "KXATPGTOTAL": {
+   "cat": "Sports",
+   "n": 2,
+   "yesRate": 0,
+   "avgPrice": 0.3675,
+   "bias": -0.3675,
+   "brierMarket": 0.139,
+   "last": "2026-11-10T20:27:21.206Z",
+   "live": 2,
+   "backtest": 0
+  },
+  "KXATPMATCH": {
+   "cat": "Sports",
+   "n": 2,
+   "yesRate": 0.5,
+   "avgPrice": 0.5,
+   "bias": 0,
+   "brierMarket": 0.0506,
+   "last": "2026-11-10T20:22:21.212Z",
+   "live": 2,
+   "backtest": 0
+  },
+  "KXATPSETWINNER": {
+   "cat": "Sports",
+   "n": 1,
+   "yesRate": 1,
+   "avgPrice": 0.685,
+   "bias": 0.315,
+   "brierMarket": 0.0992,
+   "last": "2026-11-10T19:46:21.203Z",
+   "live": 1,
    "backtest": 0
   },
   "KXBABELMANDEBWEEKLY": {
@@ -1322,6 +1377,17 @@
    "last": "2026-11-10T17:25:56.203Z",
    "live": 0,
    "backtest": 1
+  },
+  "KXSESBLGAME": {
+   "cat": "Sports",
+   "n": 3,
+   "yesRate": 0.3333,
+   "avgPrice": 0.3517,
+   "bias": -0.0183,
+   "brierMarket": 0.0496,
+   "last": "2026-11-10T20:13:36.205Z",
+   "live": 3,
+   "backtest": 0
   },
   "KXSILVERD": {
    "cat": "Commodities",

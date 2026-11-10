@@ -470,3 +470,14 @@
 {"ticker":"KXNASDAQ100U-26NOV10H1600-T27809.99","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-10T21:02:06.28213Z","closedAt":"2026-11-10T21:00:00Z","checkedAt":"2026-11-10T21:05:01.190Z"}
 {"ticker":"KXITFMATCH-26NOV10DELBAS-DEL","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-10T20:09:11.204616Z","closedAt":"2026-11-10T20:07:08Z","checkedAt":"2026-11-10T21:05:01.190Z"}
 {"ticker":"KXNASDAQ100U-26NOV10H1600-T27739.99","result":"yes","raw":"yes","status":"finalized","settledAt":"2026-11-10T21:02:06.28213Z","closedAt":"2026-11-10T21:00:00Z","checkedAt":"2026-11-10T21:05:01.190Z"}
+{"ticker":"KXATPMATCH-26NOV10MUSSAM-MUS","result":"yes","raw":"yes","status":"finalized","settledAt":"2026-11-10T20:22:21.212455Z","closedAt":"2026-11-10T20:20:18Z","checkedAt":"2026-11-10T21:15:00.863Z"}
+{"ticker":"KXATPEXACTMATCH-26NOV10MUSSAM-MUS20","result":"yes","raw":"yes","status":"finalized","settledAt":"2026-11-10T20:27:21.210414Z","closedAt":"2026-11-10T20:21:19Z","checkedAt":"2026-11-10T21:15:00.863Z"}
+{"ticker":"KXATPGTOTAL-26NOV10MUSSAM-23","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-10T20:27:21.205601Z","closedAt":"2026-11-10T20:21:21Z","checkedAt":"2026-11-10T21:15:00.863Z"}
+{"ticker":"KXATPGSPREAD-26NOV10MUSSAM-MUS4","result":"yes","raw":"yes","status":"finalized","settledAt":"2026-11-10T20:27:21.207385Z","closedAt":"2026-11-10T20:21:22Z","checkedAt":"2026-11-10T21:15:00.863Z"}
+{"ticker":"KXATPMATCH-26NOV10MUSSAM-SAM","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-10T20:22:21.212455Z","closedAt":"2026-11-10T20:20:18Z","checkedAt":"2026-11-10T21:15:00.863Z"}
+{"ticker":"KXATPSETWINNER-26NOV10MUSSAM-1-MUS","result":"yes","raw":"yes","status":"finalized","settledAt":"2026-11-10T19:46:21.203167Z","closedAt":"2026-11-10T19:40:19Z","checkedAt":"2026-11-10T21:15:00.863Z"}
+{"ticker":"KXSESBLGAME-26NOV101304UPPNOR-UPP","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-10T19:48:31.204183Z","closedAt":"2026-11-10T19:46:00Z","checkedAt":"2026-11-10T21:15:00.863Z"}
+{"ticker":"KXATPGTOTAL-26NOV10MUSSAM-28","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-10T20:27:21.206287Z","closedAt":"2026-11-10T20:21:21Z","checkedAt":"2026-11-10T21:15:00.863Z"}
+{"ticker":"KXSESBLGAME-26NOV101304JAMKOP-KOP","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-10T20:13:36.205719Z","closedAt":"2026-11-10T20:11:06Z","checkedAt":"2026-11-10T21:15:00.863Z"}
+{"ticker":"KXSESBLGAME-26NOV101304JAMKOP-JAM","result":"yes","raw":"yes","status":"finalized","settledAt":"2026-11-10T20:13:36.205719Z","closedAt":"2026-11-10T20:11:06Z","checkedAt":"2026-11-10T21:15:00.863Z"}
+{"ticker":"KXATPEXACTMATCH-26NOV10MUSSAM-MUS21","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-10T20:27:21.210414Z","closedAt":"2026-11-10T20:21:19Z","checkedAt":"2026-11-10T21:15:00.863Z"}
