@@ -1,10 +1,13 @@
 name: Kalshi feed
 on:
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "*/10 * * * *"
   workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  group: kalshi-feed
+  cancel-in-progress: false
 jobs:
   scan:
     runs-on: ubuntu-latest
@@ -14,7 +17,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: node scan.mjs
+      - run: node test.mjs
+      - name: Research — log predictions for markets resolving within hours
+        run: node predict.mjs
+      - name: Check outcomes of resolved markets
+        run: node resolve.mjs
+      - name: Update scorecard
+        run: node score.mjs
+      - name: Dashboard feed
+        run: node scan.mjs
+        continue-on-error: true
       - name: AI picks (free Gemini, hourly)
         run: node agents.mjs
         continue-on-error: true
@@ -22,10 +34,10 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           FORCE: ${{ github.event_name == 'workflow_dispatch' && '1' || '0' }}
-      - name: Save bets.json
+      - name: Save results
         run: |
           git config user.name "kalshi-feed-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add bets.json history.json
+          git add bets.json history.json data scorecard.json
           git commit -m "Update Kalshi feed" || exit 0
-          git push
+          for i in 1 2 3; do git pull --rebase -q && git push && exit 0; sleep 5; done; exit 1

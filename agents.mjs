@@ -11,9 +11,9 @@ if (process.env.FORCE !== "1" && feed.picksUpdated && Date.now() - Date.parse(fe
 const now = Date.now();
 const top = feed.markets.filter(m => (Date.parse(m.close) - now) / 864e5 <= 90 && m.vol >= 500 && m.spread <= 0.05).slice(0, 15)
   .map((m, i) => ({ id: i + 1, t: m.t, price: Math.round(m.price * 100), bid: Math.round(m.bid * 100), vol: m.vol, v24: m.v24,
-    chg1h: m.chg1h, chg24h: m.chg24h, closes: m.close.slice(0, 10), rules: m.rules, url: m.url }));
+    chg1h: m.chg1h, chg24h: m.chg24h, closes: m.close.slice(0, 10), rules: m.rules, url: m.url, ticker: m.ticker }));
 if (!top.length) { console.log("No liquid markets to analyze."); process.exit(0); }
-const data = top.map(({ url, ...m }) => m);
+const data = top.map(({ url, ticker, ...m }) => m);
 
 const SPECS = {
   momentum: "Judge from price moves (chg1h/chg24h in cents), 24h volume and spread: is money flowing in or out, and will the move continue or revert?",
@@ -82,7 +82,7 @@ for (const m of top) {
   const side = edgeYes >= edgeNo ? "YES" : "NO", edge = Math.round(Math.max(edgeYes, edgeNo) * 10) / 10, cost = side === "YES" ? m.price : 100 - m.bid;
   if (edge < 5) continue;                                    // risk filter: only clear edges
   const stakePct = Math.min(2, Math.max(0.25, Math.round(edge / 5) * 0.5)); // small, capped stakes
-  picks.push({ t: m.t, pc: ens, url: m.url, side, edge, cost, price: m.price / 100, bid: m.bid / 100, vol: m.vol, v24: m.v24, close: m.closes,
+  picks.push({ t: m.t, ticker: m.ticker, pc: ens, url: m.url, side, edge, cost, price: m.price / 100, bid: m.bid / 100, vol: m.vol, v24: m.v24, close: m.closes,
     agents: Object.keys(views).length, stakePct, why: why.join(" · ") });
 }
 picks.sort((a, b) => b.edge - a.edge);

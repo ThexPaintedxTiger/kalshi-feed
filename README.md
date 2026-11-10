@@ -2,6 +2,13 @@
 
 **Read-only. Never trades. No account, no keys.**
 
+## Research agent (v1: measurement loop)
+Every 10 minutes it logs predictions for Kalshi markets resolving within 6 hours (`predict.mjs`), checks official results
+(`resolve.mjs`) and scores each predictor against the market price (`score.mjs` → `scorecard.json`).
+Simulation only. Settings: `config.json`. How it works: `docs/architecture.md`. Findings: `docs/findings.md`.
+
+## Dashboard feed
+
 - `scan.mjs` — every 15 minutes a free GitHub Action reads Kalshi's public market data, keeps the most liquid markets
   (closing within 120 days) and possible profit sets, remembers 48h of prices (`history.json`) to add 1h/24h price moves
   and trading activity, and writes a small `bets.json`.

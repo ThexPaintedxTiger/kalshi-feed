@@ -1,0 +1,20 @@
+{
+ "version": 1,
+ "scan": {
+  "windowDays": 16,
+  "horizonHours": 6,
+  "minLeadMinutes": 20,
+  "minVolume": 50,
+  "maxSpread": 0.1,
+  "minMid": 0.03,
+  "maxMid": 0.97,
+  "perEvent": 2,
+  "maxNewPerRun": 80
+ },
+ "predictors": {
+  "market": { "on": true, "hypothesis": "The market mid price is the best available estimate (baseline to beat)." },
+  "longshot": { "on": true, "slope": 1.1, "hypothesis": "Favorite-longshot bias: cheap contracts are overpriced, so true probabilities are more extreme than prices." }
+ },
+ "picks": { "minEdge": 0.02 },
+ "score": { "minResolved": 100, "calibrationBins": 10 }
+}
