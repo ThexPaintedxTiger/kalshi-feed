@@ -7,7 +7,7 @@ import { makeRecall } from "./memory.mjs";
 import { PRED, estimate } from "./predictors.mjs";
 import { parseCsv, mapColumns, normalize } from "./import-trades.mjs";
 import { init, rng, backprop, predict, train, logLoss as nnLoss } from "./nnlib.mjs";
-import { orderFee, kellyFraction, simulate, monteCarlo } from "./paper.mjs";
+import { orderFee, kellyFraction, simulate, monteCarlo, tradeStats } from "./paper.mjs";
 
 // Fees: Kalshi taker fee rounds up to the cent.
 assert.equal(fee(0.5), 0.02);          // 0.07 × .5 × .5 = 1.75¢ → 2¢
@@ -131,5 +131,13 @@ assert.equal(r4(kellyFraction(0.6, 0.5)), 0.2); assert.equal(kellyFraction(0.4, 
   assert.equal(monteCarlo([0.1, -0.05]), null);                                            // too few bets to simulate
   const mc = monteCarlo(Array(50).fill(0).map((_, i) => (i % 2 ? 0.02 : -0.01)), { paths: 500, seed: 1, horizons: [250, 1000] }, 10);
   assert.ok(mc.growthPerBet > 0 && mc.betsFor100x > 0 && mc.daysFor100x === Math.ceil(mc.betsFor100x / 10));
+}
+// Trading stats: profit factor, streak, daily P&L, drawdown.
+{
+  const T = (d, h, pnl) => ({ ts: d + "T00:00:00Z", settledAt: `${d}T0${h}:00:00Z`, pnl, bankroll: 10 });
+  const st = tradeStats([T("2026-01-01", 1, 2), T("2026-01-01", 2, -1), T("2026-01-02", 1, 1), T("2026-01-03", 1, 0.5)], [[1, 10], [2, 12], [3, 11], [4, 13]]);
+  assert.equal(st.profitFactor, 3.5); assert.equal(st.net, 2.5); assert.equal(st.winRate, 0.75);
+  assert.deepEqual(st.streak, { kind: "win", n: 2 }); assert.equal(st.daily.length, 3); assert.equal(st.daily[0].pnl, 1);
+  assert.equal(st.drawdown[2][1], r4(-1 / 12 * 100)); assert.equal(st.worst, -1); assert.equal(st.best, 2);
 }
 console.log("all tests passed");

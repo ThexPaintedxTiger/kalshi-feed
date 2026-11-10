@@ -62,5 +62,6 @@ writeJson("dashboard.json", {
   paper: readJson("data/paper/portfolios.json", null),
   status: readJson("status.json", null),
   briefings: readJsonl("data/briefing.jsonl").slice(-6).reverse(),
+  focus: readJson("data/focus.json", null),
 });
 console.log(`dashboard.json: ${preds.length} predictions, ${trades.length} simulated trades, ${skills.length} skills`);

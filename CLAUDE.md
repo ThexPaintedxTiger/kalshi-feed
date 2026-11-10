@@ -65,6 +65,11 @@ Details in `docs/architecture.md`.
 - Market links: `https://kalshi.com/markets/<series_ticker lowercase>`.
 
 ## Agent dashboard
+Tabs: Agent (Today panel + flow) · **Live agents** (Market scout, Risk manager, Model trainer, Dev/ops in parallel, then Lead analyst;
+Claude via the page's `sample` capability on a click, runs saved in the board's `db` collection `agentRuns`; claude.ai copy only) · **Trading** (paper account KPIs, live focus-market price chart and ticker, profit curve, daily P&L,
+drawdown, win/loss, closed trades; "Ask the agent" box in the claude.ai copy uses Claude usage) · Neural net · Profit & loss · Trades · Data · Skills.
+`focus.mjs` (each cycle): 1-minute prices for up to 12 watched markets → `data/focus.json`. Live predictions and backtest rows record `chg30`
+(30-minute price move), a network input. Network gate: while its walk-forward verdict is "worse than market", the live `nn` predictor returns the market price.
 `dashboard.html` (views: Agent flow · Trades · Data · Skills) reads `dashboard.json`, which `dashboard.mjs` builds each run.
 Live page (GitHub Pages, auto-refresh 5 min, header shows freshness): https://thexpaintedxtiger.github.io/kalshi-feed/dashboard.html
 Data sources in order: raw GitHub (live, used on GitHub Pages or a local file), then a `dashboard.json` next to the page (the claude.ai copy,

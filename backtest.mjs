@@ -35,7 +35,9 @@ async function quotesAt(tickers, T) {
     const j = await kalshi(`/markets/candlesticks?market_tickers=${tickers.slice(i, i + 100).map(encodeURIComponent).join(",")}&start_ts=${T - 1800}&end_ts=${T}&period_interval=1`);
     for (const m of j.markets || []) {
       const c = (m.candlesticks || []).filter(x => x.end_period_ts <= T && x.yes_bid?.close_dollars != null && x.yes_ask?.close_dollars != null).pop();
-      if (c) q[m.market_ticker] = { bid: +c.yes_bid.close_dollars, ask: +c.yes_ask.close_dollars };
+      const first = (m.candlesticks || []).find(x => x.end_period_ts <= T - 1500 && x.yes_bid?.close_dollars != null && x.yes_ask?.close_dollars != null);
+      if (c) q[m.market_ticker] = { bid: +c.yes_bid.close_dollars, ask: +c.yes_ask.close_dollars,
+        mid0: first ? (+first.yes_bid.close_dollars + +first.yes_ask.close_dollars) / 2 : null };
     }
     await sleep(200);
   }
@@ -70,12 +72,13 @@ for (const [a, b, dir] of slices) {
     const cand = open.map(m => ({ m, ...q[m.ticker] })).filter(x => x.bid > 0 && x.ask < 1 && x.ask > x.bid && x.ask - x.bid <= S.maxSpread)
       .map(x => ({ ...x, mid: (x.ask + x.bid) / 2 })).filter(x => x.mid >= S.minMid && x.mid <= S.maxMid);
     if (!cand.length) { skip("no two-sided price at snapshot time"); continue; }
-    const { m, ask, bid, mid } = cand.sort((x, y) => Math.abs(x.mid - 0.5) - Math.abs(y.mid - 0.5))[0];
+    const { m, ask, bid, mid, mid0 } = cand.sort((x, y) => Math.abs(x.mid - 0.5) - Math.abs(y.mid - 0.5))[0];
+    const chg30 = mid0 == null ? null : r4(mid - mid0);
     const resAt = new Date(res).toISOString();
-    const { est, picks } = estimate({ mid, ask, bid, series: series(m), at: T * 1000, cat, resolvesAt: resAt }, { recall }, ["nn"]);
+    const { est, picks } = estimate({ mid, ask, bid, series: series(m), at: T * 1000, cat, resolvesAt: resAt, chg30 }, { recall }, ["nn"]);
     rows.push({ bt: 1, ts: new Date(T * 1000).toISOString(), cfg: config.version, ticker: m.ticker, event: m.event_ticker, series: series(m), cat,
       title: m.title + (m.yes_sub_title && !String(m.title).includes(m.yes_sub_title) ? " — " + m.yes_sub_title : ""),
-      resolvesAt: resAt, ask, bid, mid: r4(mid), spread: r4(ask - bid), est, picks, y: m.result === "yes" ? 1 : 0, settledAt: m.settlement_ts || m.close_time });
+      resolvesAt: resAt, ask, bid, mid: r4(mid), spread: r4(ask - bid), chg30, est, picks, y: m.result === "yes" ? 1 : 0, settledAt: m.settlement_ts || m.close_time });
     doneEvents.add(m.event_ticker);
   }
   if (complete) { if (dir === "fwd") state.newest = Math.max(state.newest, b); else state.oldest = Math.min(state.oldest, a); }

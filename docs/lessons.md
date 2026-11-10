@@ -2,6 +2,11 @@
 
 What we changed because the data (or a mistake) taught us something. Newest first.
 
+- 2026-11-10: Adding the 30-minute price move (2 more inputs) made the network worse than the market on unseen markets (Brier +0.010,
+  95% range +0.002…+0.018). A smaller, more cautious network (8→4 hidden, lr 0.003, L2 0.01), chosen once on principle, was still worse
+  (+0.004). We stopped tuning (trying settings until one passes would overfit the test) and added a gate: while the walk-forward verdict is
+  "worse than market", the live network predictor returns the market price. It retrains hourly and re-enables itself.
+
 - 2026-11-10: The coin-flip control's lucky run produced a "16.6% chance of $1,000" in the Monte Carlo. Bootstrapping a lucky sample extrapolates luck; the simulation now shifts past results down by one standard error of their mean.
 - 2026-11-10: The dashboard said "pipeline OK" while the schedule had never fired (local runs counted). The header now shows data age and turns stale after 30 minutes.
 

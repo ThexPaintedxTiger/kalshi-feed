@@ -51,7 +51,7 @@ export function simulate(pf, rows) {
     open.sort((a, b) => a.settle - b.settle);
     while (open.length && open[0].settle <= until) {
       const o = open.shift(), payout = o.win ? o.C : 0;
-      o.bet.pnl = r4(payout - o.C * o.c - o.fee); o.bet.won = o.win;
+      o.bet.pnl = r4(payout - o.C * o.c - o.fee); o.bet.won = o.win; o.bet.settledAt = new Date(o.settle).toISOString();
       if (o.shadow) continue;                                                    // shadow bets move no money
       cash += payout;
       const e = equity(); curve.push([o.settle, r4(e)]);
@@ -106,7 +106,27 @@ export function simulate(pf, rows) {
     avgBetPct: r4(mean(real.map(b => b.betPct))), maxBetPct: r4(Math.max(0, ...real.map(b => b.betPct))),
     worstLossPct: r4(Math.min(0, ...done.map(b => b.pnl / b.bankroll * 100))),
     betsPerDay: span > 0 ? r4(real.length / span) : null, trustNow: pf.sizing === "learn" ? trustFrom(bets.filter(b => b.pnl != null)) : null,
-    busted, reachedGoal: reachedAt, returns: done.map(b => b.pnl / b.bankroll), curve: thin(curve, 200), recent: bets.slice(-15).reverse() };
+    busted, reachedGoal: reachedAt, returns: done.map(b => b.pnl / b.bankroll), curve: thin(curve, 200), recent: bets.slice(-15).reverse(),
+    stats: tradeStats(done, curve), closed: done.slice().sort((a, b) => b.settledAt.localeCompare(a.settledAt)).slice(0, 10) };
+}
+// Trading statistics for the dashboard's Trading tab (settled paper bets only).
+export function tradeStats(done, curve = []) {
+  const p = done.map(b => b.pnl), wins = p.filter(x => x > 0), losses = p.filter(x => x < 0);
+  const gp = wins.reduce((s, x) => s + x, 0), gl = -losses.reduce((s, x) => s + x, 0), net = gp - gl;
+  const daily = {};
+  for (const b of done) { const d = (b.settledAt || b.ts).slice(0, 10); daily[d] = r4((daily[d] || 0) + b.pnl); }
+  const days = Object.entries(daily).sort((a, b) => a[0].localeCompare(b[0])).map(([date, pnl]) => ({ date, pnl }));
+  let peak = -Infinity, maxDDd = 0; const dd = [];
+  for (const [t, e] of curve) { peak = Math.max(peak, e); maxDDd = Math.max(maxDDd, peak - e); dd.push([t, r4(peak > 0 ? -(peak - e) / peak * 100 : 0)]); }
+  const r = done.map(b => b.pnl / b.bankroll), m = mean(r), sd = Math.sqrt(mean(r.map(x => (x - m) ** 2)));
+  let streak = 0, kind = null;
+  for (const b of done.slice().sort((a, b) => (b.settledAt || "").localeCompare(a.settledAt || ""))) { const k = b.pnl > 0 ? "win" : "loss"; if (kind && k !== kind) break; kind = k; streak++; }
+  return { trades: done.length, wins: wins.length, losses: losses.length, winRate: done.length ? r4(wins.length / done.length) : null,
+    grossProfit: r4(gp), grossLoss: r4(gl), net: r4(net), profitFactor: gl > 0 ? r4(gp / gl) : null,
+    best: p.length ? r4(Math.max(...p)) : null, worst: p.length ? r4(Math.min(...p)) : null, expectedPayoff: p.length ? r4(net / p.length) : null,
+    recoveryFactor: maxDDd > 0 ? r4(net / maxDDd) : null, perBetSharpe: sd > 0 ? r4(m / sd) : null,
+    avgDailyPnl: days.length ? r4(net / days.length) : null, lastDay: days.at(-1) || null, streak: kind ? { kind, n: streak } : null,
+    daily: days.slice(-30), drawdown: thin(dd, 200) };
 }
 const thin = (a, n) => a.length <= n ? a : a.filter((_, i) => i % Math.ceil(a.length / n) === 0 || i === a.length - 1);
 

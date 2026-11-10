@@ -1,5 +1,5 @@
 {
- "version": 4,
+ "version": 5,
  "scan": {
   "windowDays": 16,
   "horizonHours": 6,
@@ -74,11 +74,11 @@
   "everyMinutes": 60,
   "minSamples": 80,
   "hidden": [
-   16,
-   8
+   8,
+   4
   ],
-  "lr": 0.01,
-  "l2": 0.001,
+  "lr": 0.003,
+  "l2": 0.01,
   "batch": 32,
   "maxEpochs": 300,
   "patience": 25,

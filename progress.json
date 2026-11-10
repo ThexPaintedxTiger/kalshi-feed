@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T18:04:49.954Z",
+ "updated": "2026-11-10T18:08:59.740Z",
  "goal": "IN_PROGRESS",
  "resolved": 98,
  "health": {
@@ -7,12 +7,12 @@
   "warmingUp": true,
   "checks": {
    "runsLast24h": {
-    "value": 15,
+    "value": 16,
     "target": 8,
     "ok": true
    },
    "newPredictionsLast24h": {
-    "value": 824,
+    "value": 826,
     "target": 4,
     "ok": true
    },
@@ -44,7 +44,7 @@
     "width": 0.0045
    },
    "backtest": {
-    "n": 852,
+    "n": 959,
     "brierVsMarket": 0.0003,
     "verdict": "no measurable difference",
     "picks": 0,
@@ -64,11 +64,11 @@
     "width": 0
    },
    "backtest": {
-    "n": 852,
-    "brierVsMarket": -0.0001,
+    "n": 959,
+    "brierVsMarket": -0.0002,
     "verdict": "no measurable difference",
-    "picks": 3,
-    "pnlPerContract": 0.12
+    "picks": 4,
+    "pnlPerContract": 0.135
    }
   }
  },
