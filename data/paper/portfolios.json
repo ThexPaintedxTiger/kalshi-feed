@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T22:06:39.802Z",
+ "updated": "2026-11-10T22:15:01.580Z",
  "start": 10,
  "goal": 1000,
  "safety": {
@@ -3241,8 +3241,8 @@
   ]
  },
  "forward": {
-  "rows": 161,
-  "settled": 104,
+  "rows": 181,
+  "settled": 123,
   "portfolios": [
    {
     "id": "cash",
@@ -3308,22 +3308,22 @@
     "name": "Coin flip, 2% bets (fee-drag control)",
     "predictor": "coin",
     "sizing": "fixed",
-    "equity": 9.9366,
-    "cash": 7.4898,
+    "equity": 9.7456,
+    "cash": 7.3195,
     "openPositions": 14,
-    "returnPct": -0.634,
-    "bets": 23,
+    "returnPct": -2.544,
+    "bets": 25,
     "shadowBets": 0,
-    "settled": 9,
-    "wins": 5,
-    "pnl": 0.1066,
-    "fees": 0.28,
+    "settled": 11,
+    "wins": 6,
+    "pnl": -0.0844,
+    "fees": 0.3,
     "maxDrawdownPct": 5.1885,
     "lowest": 9.7599,
-    "avgBetPct": 1.9176,
+    "avgBetPct": 1.9118,
     "maxBetPct": 1.9798,
     "worstLossPct": -1.9708,
-    "betsPerDay": 112.5422,
+    "betsPerDay": 118.3078,
     "trustNow": null,
     "busted": null,
     "reachedGoal": null,
@@ -3367,9 +3367,49 @@
      [
       1794344526282,
       9.9866
+     ],
+     [
+      1794348000000,
+      9.948
+     ],
+     [
+      1794348161252,
+      9.7656
      ]
     ],
     "recent": [
+     {
+      "ts": "2026-11-10T22:04:44.210Z",
+      "ticker": "KXBTCD-26NOV1018-T73899.99",
+      "title": "Bitcoin price on Nov 10, 2026? — $73,900 or above",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.3,
+      "contracts": 0.53,
+      "fee": 0.01,
+      "stake": 0.169,
+      "bankroll": 9.7556,
+      "betPct": 1.7323,
+      "evPerDollar": -0.0833,
+      "pnl": null,
+      "won": null
+     },
+     {
+      "ts": "2026-11-10T22:04:44.210Z",
+      "ticker": "KXBTCD-26NOV1018-T73799.99",
+      "title": "Bitcoin price on Nov 10, 2026? — $73,800 or above",
+      "cat": "Crypto",
+      "side": "no",
+      "price": 0.49,
+      "contracts": 0.37,
+      "fee": 0.01,
+      "stake": 0.1913,
+      "bankroll": 9.7656,
+      "betPct": 1.9589,
+      "evPerDollar": -0.051,
+      "pnl": null,
+      "won": null
+     },
      {
       "ts": "2026-11-10T21:05:01.650Z",
       "ticker": "KXTEMPMIAH-26NOV1017-T80.99",
@@ -3383,8 +3423,9 @@
       "bankroll": 9.9466,
       "betPct": 1.8961,
       "evPerDollar": -0.0532,
-      "pnl": null,
-      "won": null
+      "pnl": 0.0014,
+      "won": true,
+      "settledAt": "2026-11-10T22:00:00.000Z"
      },
      {
       "ts": "2026-11-10T21:05:01.650Z",
@@ -3578,71 +3619,38 @@
       "bankroll": 9.89,
       "betPct": 1.9454,
       "evPerDollar": -0.0625,
-      "pnl": null,
-      "won": null
-     },
-     {
-      "ts": "2026-11-10T17:10:26.839Z",
-      "ticker": "KXWTIH-26NOV1013-T86.49",
-      "title": "Will the WTI Oil close price be above 86.49 USD/barrel on November 10, 2026 at 1:00 PM ET? — Above $86.49",
-      "cat": "Commodities",
-      "side": "no",
-      "price": 0.93,
-      "contracts": 0.2,
-      "fee": 0.01,
-      "stake": 0.196,
-      "bankroll": 9.9,
-      "betPct": 1.9798,
-      "evPerDollar": -0.0484,
-      "pnl": 0.004,
-      "won": true,
-      "settledAt": "2026-11-10T18:05:41.256Z"
-     },
-     {
-      "ts": "2026-11-10T17:10:26.839Z",
-      "ticker": "KXNASDAQ100U-26NOV10H1600-T27639.99",
-      "title": "Will the Nasdaq-100 be above 27639.99 at the end of Nov 10, 2026 at 4pm EST? — 27,640 or above",
-      "cat": "Financials",
-      "side": "yes",
-      "price": 0.39,
-      "contracts": 0.47,
-      "fee": 0.01,
-      "stake": 0.1933,
-      "bankroll": 9.91,
-      "betPct": 1.9506,
-      "evPerDollar": -0.1154,
-      "pnl": 0.2767,
-      "won": true,
-      "settledAt": "2026-11-10T21:02:06.282Z"
+      "pnl": -0.1924,
+      "won": false,
+      "settledAt": "2026-11-10T22:02:41.252Z"
      }
     ],
     "stats": {
-     "trades": 9,
-     "wins": 5,
-     "losses": 4,
-     "winRate": 0.5556,
-     "grossProfit": 0.8847,
-     "grossLoss": 0.7781,
-     "net": 0.1066,
-     "profitFactor": 1.137,
+     "trades": 11,
+     "wins": 6,
+     "losses": 5,
+     "winRate": 0.5455,
+     "grossProfit": 0.8861,
+     "grossLoss": 0.9705,
+     "net": -0.0844,
+     "profitFactor": 0.913,
      "best": 0.2938,
      "worst": -0.1957,
-     "expectedPayoff": 0.0118,
-     "recoveryFactor": 0.1996,
-     "perBetSharpe": 0.0593,
-     "avgDailyPnl": 0.1066,
+     "expectedPayoff": -0.0077,
+     "recoveryFactor": -0.158,
+     "perBetSharpe": -0.0406,
+     "avgDailyPnl": -0.0844,
      "lastDay": {
       "date": "2026-11-10",
-      "pnl": 0.1066
+      "pnl": -0.0844
      },
      "streak": {
-      "kind": "win",
+      "kind": "loss",
       "n": 1
      },
      "daily": [
       {
        "date": "2026-11-10",
-       "pnl": 0.1066
+       "pnl": -0.0844
       }
      ],
      "drawdown": [
@@ -3685,10 +3693,52 @@
       [
        1794344526282,
        -2.9862
+      ],
+      [
+       1794348000000,
+       -3.3612
+      ],
+      [
+       1794348161252,
+       -5.1331
       ]
      ]
     },
     "closed": [
+     {
+      "ts": "2026-11-10T17:10:26.839Z",
+      "ticker": "KXHYPE-26NOV1017-B72",
+      "title": "HYPE price on Nov 10, 2026? — $72 to 72.9999",
+      "cat": "Crypto",
+      "side": "no",
+      "price": 0.96,
+      "contracts": 0.19,
+      "fee": 0.01,
+      "stake": 0.1924,
+      "bankroll": 9.89,
+      "betPct": 1.9454,
+      "evPerDollar": -0.0625,
+      "pnl": -0.1924,
+      "won": false,
+      "settledAt": "2026-11-10T22:02:41.252Z"
+     },
+     {
+      "ts": "2026-11-10T21:05:01.650Z",
+      "ticker": "KXTEMPMIAH-26NOV1017-T80.99",
+      "title": "Will the temp in Miami be above 80.99° on Nov 10, 2026 at 5pm EST? — 81° or above",
+      "cat": "Climate and Weather",
+      "side": "no",
+      "price": 0.94,
+      "contracts": 0.19,
+      "fee": 0.01,
+      "stake": 0.1886,
+      "bankroll": 9.9466,
+      "betPct": 1.8961,
+      "evPerDollar": -0.0532,
+      "pnl": 0.0014,
+      "won": true,
+      "settledAt": "2026-11-10T22:00:00.000Z"
+     },
      {
       "ts": "2026-11-10T17:10:26.839Z",
       "ticker": "KXNASDAQ100U-26NOV10H1600-T27639.99",
@@ -3824,23 +3874,6 @@
       "pnl": 0.004,
       "won": true,
       "settledAt": "2026-11-10T18:05:41.256Z"
-     },
-     {
-      "ts": "2026-11-10T17:10:26.839Z",
-      "ticker": "KXNASDAQ100U-26NOV10H1300-T27589.99",
-      "title": "Will the Nasdaq-100 be above 27589.99 at the end of Nov 10, 2026 at 1pm EST? — 27,590 or above",
-      "cat": "Financials",
-      "side": "no",
-      "price": 0.56,
-      "contracts": 0.33,
-      "fee": 0.01,
-      "stake": 0.1948,
-      "bankroll": 9.86,
-      "betPct": 1.9757,
-      "evPerDollar": -0.0804,
-      "pnl": 0.1352,
-      "won": true,
-      "settledAt": "2026-11-10T18:02:11.273Z"
      }
     ],
     "monteCarlo": null
@@ -3865,7 +3898,7 @@
     "avgBetPct": 2.3631,
     "maxBetPct": 2.502,
     "worstLossPct": -2.502,
-    "betsPerDay": 53.8245,
+    "betsPerDay": 52.0554,
     "trustNow": {
      "trust": 0,
      "why": "learning: 11/30 settled bets"
@@ -4385,7 +4418,7 @@
     "avgBetPct": 1.9538,
     "maxBetPct": 1.9788,
     "worstLossPct": -1.9659,
-    "betsPerDay": 63.6108,
+    "betsPerDay": 61.5201,
     "trustNow": null,
     "busted": null,
     "reachedGoal": null,
@@ -4999,25 +5032,25 @@
     "name": "Series memory, learned bet size",
     "predictor": "memory",
     "sizing": "learn",
-    "equity": 7.8933,
-    "cash": 7.2113,
-    "openPositions": 5,
-    "returnPct": -21.067,
-    "bets": 18,
+    "equity": 8.2853,
+    "cash": 6.9158,
+    "openPositions": 6,
+    "returnPct": -17.147,
+    "bets": 23,
     "shadowBets": 0,
-    "settled": 13,
-    "wins": 3,
-    "pnl": -2.0467,
-    "fees": 0.22,
-    "maxDrawdownPct": 20.787,
-    "lowest": 7.9213,
-    "avgBetPct": 2.2467,
-    "maxBetPct": 2.7431,
+    "settled": 17,
+    "wins": 5,
+    "pnl": -1.6147,
+    "fees": 0.31,
+    "maxDrawdownPct": 22.972,
+    "lowest": 7.7028,
+    "avgBetPct": 2.4561,
+    "maxBetPct": 2.9753,
     "worstLossPct": -2.7431,
-    "betsPerDay": 88.0765,
+    "betsPerDay": 108.8432,
     "trustNow": {
      "trust": 0,
-     "why": "learning: 13/30 settled bets"
+     "why": "learning: 17/30 settled bets"
     },
     "busted": null,
     "reachedGoal": null,
@@ -5077,9 +5110,105 @@
      [
       1794337876210,
       7.9333
+     ],
+     [
+      1794348000000,
+      7.7902
+     ],
+     [
+      1794348000000,
+      7.8168
+     ],
+     [
+      1794348000000,
+      7.7028
+     ],
+     [
+      1794348161254,
+      8.3853
      ]
     ],
     "recent": [
+     {
+      "ts": "2026-11-10T22:14:44.296Z",
+      "ticker": "KXHYPED-26NOV1018-T72.4999",
+      "title": "HYPE price on Nov 10, 2026? — $72.5 or above",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.82,
+      "contracts": 0.28,
+      "fee": 0.01,
+      "stake": 0.2396,
+      "bankroll": 8.2953,
+      "betPct": 2.8884,
+      "evPerDollar": 0.0632,
+      "pnl": null,
+      "won": null
+     },
+     {
+      "ts": "2026-11-10T22:14:44.296Z",
+      "ticker": "KXHYPED-26NOV1018-T73.2499",
+      "title": "HYPE price on Nov 10, 2026? — $73.25 or above",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.18,
+      "contracts": 1.26,
+      "fee": 0.02,
+      "stake": 0.2468,
+      "bankroll": 8.3153,
+      "betPct": 2.968,
+      "evPerDollar": 0.2044,
+      "pnl": null,
+      "won": null
+     },
+     {
+      "ts": "2026-11-10T22:14:44.296Z",
+      "ticker": "KXTEMPCHIHS-26NOV1018-T57.99",
+      "title": "Will the temp in Chicago Metro Area be above 57.99° on Nov 10, 2026 at 6pm EST? — 58° or above",
+      "cat": "Climate and Weather",
+      "side": "yes",
+      "price": 0.1,
+      "contracts": 2.28,
+      "fee": 0.02,
+      "stake": 0.248,
+      "bankroll": 8.3353,
+      "betPct": 2.9753,
+      "evPerDollar": 0.512,
+      "pnl": null,
+      "won": null
+     },
+     {
+      "ts": "2026-11-10T22:14:44.296Z",
+      "ticker": "KXBTCD-26NOV1018-T73699.99",
+      "title": "Bitcoin price on Nov 10, 2026? — $73,700 or above",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.79,
+      "contracts": 0.29,
+      "fee": 0.01,
+      "stake": 0.2391,
+      "bankroll": 8.3453,
+      "betPct": 2.8651,
+      "evPerDollar": 0.0468,
+      "pnl": null,
+      "won": null
+     },
+     {
+      "ts": "2026-11-10T22:14:44.296Z",
+      "ticker": "KXBTCD-26NOV1018-T73999.99",
+      "title": "Bitcoin price on Nov 10, 2026? — $74,000 or above",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.15,
+      "contracts": 1.52,
+      "fee": 0.02,
+      "stake": 0.248,
+      "bankroll": 8.3653,
+      "betPct": 2.9646,
+      "evPerDollar": 0.3133,
+      "pnl": null,
+      "won": null
+     },
      {
       "ts": "2026-11-10T22:04:44.210Z",
       "ticker": "KXHYPED-26NOV1018-T72.9999",
@@ -5087,11 +5216,11 @@
       "cat": "Crypto",
       "side": "yes",
       "price": 0.3,
-      "contracts": 0.38,
-      "fee": 0.01,
-      "stake": 0.124,
-      "bankroll": 7.9033,
-      "betPct": 1.569,
+      "contracts": 0.76,
+      "fee": 0.02,
+      "stake": 0.248,
+      "bankroll": 8.3853,
+      "betPct": 2.9576,
       "evPerDollar": 0.0983,
       "pnl": null,
       "won": null
@@ -5109,8 +5238,9 @@
       "bankroll": 7.9133,
       "betPct": 1.567,
       "evPerDollar": 1.476,
-      "pnl": null,
-      "won": null
+      "pnl": -0.124,
+      "won": false,
+      "settledAt": "2026-11-10T22:00:00.000Z"
      },
      {
       "ts": "2026-11-10T21:15:01.352Z",
@@ -5125,8 +5255,9 @@
       "bankroll": 7.9233,
       "betPct": 1.5574,
       "evPerDollar": 0.0664,
-      "pnl": null,
-      "won": null
+      "pnl": 0.0166,
+      "won": true,
+      "settledAt": "2026-11-10T22:00:00.000Z"
      },
      {
       "ts": "2026-11-10T21:15:01.352Z",
@@ -5141,8 +5272,9 @@
       "bankroll": 7.9333,
       "betPct": 1.5517,
       "evPerDollar": 0.4908,
-      "pnl": null,
-      "won": null
+      "pnl": -0.1231,
+      "won": false,
+      "settledAt": "2026-11-10T22:00:00.000Z"
      },
      {
       "ts": "2026-11-10T18:04:27.230Z",
@@ -5245,110 +5377,26 @@
       "pnl": -0.2446,
       "won": false,
       "settledAt": "2026-11-10T18:02:01.315Z"
-     },
-     {
-      "ts": "2026-11-10T17:25:44.968Z",
-      "ticker": "KXGOLDH-26NOV1013-T4015.99",
-      "title": "Will the gold close price be above 4015.99 USD/ounce on November 10, 2026 at 1:00 PM ET? — Above $4015.99",
-      "cat": "Commodities",
-      "side": "no",
-      "price": 0.34,
-      "contracts": 0.67,
-      "fee": 0.02,
-      "stake": 0.2478,
-      "bankroll": 9.9,
-      "betPct": 2.503,
-      "evPerDollar": 0.3076,
-      "pnl": -0.2478,
-      "won": false,
-      "settledAt": "2026-11-10T18:05:41.259Z"
-     },
-     {
-      "ts": "2026-11-10T17:10:26.839Z",
-      "ticker": "KXETHD-26NOV1013-T2014.99",
-      "title": "Ethereum price at Nov 10, 2026 at 1pm EST? — $2,015 or above",
-      "cat": "Crypto",
-      "side": "no",
-      "price": 0.37,
-      "contracts": 0.61,
-      "fee": 0.01,
-      "stake": 0.2357,
-      "bankroll": 9.91,
-      "betPct": 2.3784,
-      "evPerDollar": 0.1176,
-      "pnl": -0.2357,
-      "won": false,
-      "settledAt": "2026-11-10T18:02:01.315Z"
-     },
-     {
-      "ts": "2026-11-10T17:10:26.839Z",
-      "ticker": "KXETHD-26NOV1013-T2019.99",
-      "title": "Ethereum price at Nov 10, 2026 at 1pm EST? — $2,020 or above",
-      "cat": "Crypto",
-      "side": "no",
-      "price": 0.56,
-      "contracts": 0.42,
-      "fee": 0.01,
-      "stake": 0.2452,
-      "bankroll": 9.92,
-      "betPct": 2.4718,
-      "evPerDollar": 0.0509,
-      "pnl": -0.2452,
-      "won": false,
-      "settledAt": "2026-11-10T18:02:01.315Z"
-     },
-     {
-      "ts": "2026-11-10T17:10:26.839Z",
-      "ticker": "KXHYPED-26NOV1013-T71.2499",
-      "title": "HYPE price on Nov 10, 2026? — $71.25 or above",
-      "cat": "Crypto",
-      "side": "yes",
-      "price": 0.23,
-      "contracts": 0.99,
-      "fee": 0.02,
-      "stake": 0.2477,
-      "bankroll": 9.94,
-      "betPct": 2.492,
-      "evPerDollar": 0.1526,
-      "pnl": -0.2477,
-      "won": false,
-      "settledAt": "2026-11-10T18:02:16.312Z"
-     },
-     {
-      "ts": "2026-11-10T17:10:26.839Z",
-      "ticker": "KXHYPED-26NOV1017-T71.9999",
-      "title": "HYPE price on Nov 10, 2026? — $72 or above",
-      "cat": "Crypto",
-      "side": "yes",
-      "price": 0.25,
-      "contracts": 0.91,
-      "fee": 0.02,
-      "stake": 0.2475,
-      "bankroll": 9.96,
-      "betPct": 2.4849,
-      "evPerDollar": 0.1404,
-      "pnl": null,
-      "won": null
      }
     ],
     "stats": {
-     "trades": 13,
-     "wins": 3,
-     "losses": 10,
-     "winRate": 0.2308,
-     "grossProfit": 0.3851,
-     "grossLoss": 2.4318,
-     "net": -2.0467,
-     "profitFactor": 0.1584,
-     "best": 0.338,
+     "trades": 17,
+     "wins": 5,
+     "losses": 12,
+     "winRate": 0.2941,
+     "grossProfit": 1.0642,
+     "grossLoss": 2.6789,
+     "net": -1.6147,
+     "profitFactor": 0.3973,
+     "best": 0.6625,
      "worst": -0.248,
-     "expectedPayoff": -0.1574,
-     "recoveryFactor": -0.9846,
-     "perBetSharpe": -0.9366,
-     "avgDailyPnl": -2.0467,
+     "expectedPayoff": -0.095,
+     "recoveryFactor": -0.7029,
+     "perBetSharpe": -0.4167,
+     "avgDailyPnl": -1.6147,
      "lastDay": {
       "date": "2026-11-10",
-      "pnl": -2.0467
+      "pnl": -1.6147
      },
      "streak": {
       "kind": "win",
@@ -5357,7 +5405,7 @@
      "daily": [
       {
        "date": "2026-11-10",
-       "pnl": -2.0467
+       "pnl": -1.6147
       }
      ],
      "drawdown": [
@@ -5416,10 +5464,94 @@
       [
        1794337876210,
        -20.667
+      ],
+      [
+       1794348000000,
+       -22.098
+      ],
+      [
+       1794348000000,
+       -21.832
+      ],
+      [
+       1794348000000,
+       -22.972
+      ],
+      [
+       1794348161254,
+       -16.147
       ]
      ]
     },
     "closed": [
+     {
+      "ts": "2026-11-10T17:10:26.839Z",
+      "ticker": "KXHYPED-26NOV1017-T71.9999",
+      "title": "HYPE price on Nov 10, 2026? — $72 or above",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.25,
+      "contracts": 0.91,
+      "fee": 0.02,
+      "stake": 0.2475,
+      "bankroll": 9.96,
+      "betPct": 2.4849,
+      "evPerDollar": 0.1404,
+      "pnl": 0.6625,
+      "won": true,
+      "settledAt": "2026-11-10T22:02:41.254Z"
+     },
+     {
+      "ts": "2026-11-10T21:15:01.352Z",
+      "ticker": "KXTEMPCHIHS-26NOV1017-T62.99",
+      "title": "Will the temp in Chicago Metro Area be above 62.99° on Nov 10, 2026 at 5pm EST? — 63° or above",
+      "cat": "Climate and Weather",
+      "side": "yes",
+      "price": 0.13,
+      "contracts": 0.87,
+      "fee": 0.01,
+      "stake": 0.1231,
+      "bankroll": 7.9333,
+      "betPct": 1.5517,
+      "evPerDollar": 0.4908,
+      "pnl": -0.1231,
+      "won": false,
+      "settledAt": "2026-11-10T22:00:00.000Z"
+     },
+     {
+      "ts": "2026-11-10T21:15:01.352Z",
+      "ticker": "KXTEMPCHIHS-26NOV1017-T61.99",
+      "title": "Will the temp in Chicago Metro Area be above 61.99° on Nov 10, 2026 at 5pm EST? — 62° or above",
+      "cat": "Climate and Weather",
+      "side": "yes",
+      "price": 0.81,
+      "contracts": 0.14,
+      "fee": 0.01,
+      "stake": 0.1234,
+      "bankroll": 7.9233,
+      "betPct": 1.5574,
+      "evPerDollar": 0.0664,
+      "pnl": 0.0166,
+      "won": true,
+      "settledAt": "2026-11-10T22:00:00.000Z"
+     },
+     {
+      "ts": "2026-11-10T21:25:01.641Z",
+      "ticker": "KXTEMPCHIHS-26NOV1017-T63.99",
+      "title": "Will the temp in Chicago Metro Area be above 63.99° on Nov 10, 2026 at 5pm EST? — 64° or above",
+      "cat": "Climate and Weather",
+      "side": "yes",
+      "price": 0.05,
+      "contracts": 2.28,
+      "fee": 0.01,
+      "stake": 0.124,
+      "bankroll": 7.9133,
+      "betPct": 1.567,
+      "evPerDollar": 1.476,
+      "pnl": -0.124,
+      "won": false,
+      "settledAt": "2026-11-10T22:00:00.000Z"
+     },
      {
       "ts": "2026-11-10T17:10:26.839Z",
       "ticker": "KXTEMPCHIHS-26NOV1013-T61.99",
@@ -5521,74 +5653,6 @@
       "pnl": -0.2296,
       "won": false,
       "settledAt": "2026-11-10T19:02:31.266Z"
-     },
-     {
-      "ts": "2026-11-10T17:10:26.839Z",
-      "ticker": "KXGOLDH-26NOV1013-T4019.99",
-      "title": "Will the gold close price be above 4019.99 USD/ounce on November 10, 2026 at 1:00 PM ET? — Above $4019.99",
-      "cat": "Commodities",
-      "side": "no",
-      "price": 0.4,
-      "contracts": 0.58,
-      "fee": 0.01,
-      "stake": 0.242,
-      "bankroll": 9.99,
-      "betPct": 2.4224,
-      "evPerDollar": 0.249,
-      "pnl": 0.338,
-      "won": true,
-      "settledAt": "2026-11-10T18:05:41.259Z"
-     },
-     {
-      "ts": "2026-11-10T17:25:44.968Z",
-      "ticker": "KXGOLDH-26NOV1013-T4015.99",
-      "title": "Will the gold close price be above 4015.99 USD/ounce on November 10, 2026 at 1:00 PM ET? — Above $4015.99",
-      "cat": "Commodities",
-      "side": "no",
-      "price": 0.34,
-      "contracts": 0.67,
-      "fee": 0.02,
-      "stake": 0.2478,
-      "bankroll": 9.9,
-      "betPct": 2.503,
-      "evPerDollar": 0.3076,
-      "pnl": -0.2478,
-      "won": false,
-      "settledAt": "2026-11-10T18:05:41.259Z"
-     },
-     {
-      "ts": "2026-11-10T17:25:44.968Z",
-      "ticker": "KXGOLDH-26NOV1013-T4017.99",
-      "title": "Will the gold close price be above 4017.99 USD/ounce on November 10, 2026 at 1:00 PM ET? — Above $4017.99",
-      "cat": "Commodities",
-      "side": "no",
-      "price": 0.46,
-      "contracts": 0.51,
-      "fee": 0.01,
-      "stake": 0.2446,
-      "bankroll": 9.87,
-      "betPct": 2.4782,
-      "evPerDollar": 0.2057,
-      "pnl": -0.2446,
-      "won": false,
-      "settledAt": "2026-11-10T18:05:41.259Z"
-     },
-     {
-      "ts": "2026-11-10T17:10:26.839Z",
-      "ticker": "KXHYPED-26NOV1013-T71.2499",
-      "title": "HYPE price on Nov 10, 2026? — $71.25 or above",
-      "cat": "Crypto",
-      "side": "yes",
-      "price": 0.23,
-      "contracts": 0.99,
-      "fee": 0.02,
-      "stake": 0.2477,
-      "bankroll": 9.94,
-      "betPct": 2.492,
-      "evPerDollar": 0.1526,
-      "pnl": -0.2477,
-      "won": false,
-      "settledAt": "2026-11-10T18:02:16.312Z"
      }
     ],
     "monteCarlo": null

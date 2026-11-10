@@ -1,16 +1,16 @@
 {
- "updated": "2026-11-10T22:06:40.600Z",
+ "updated": "2026-11-10T22:15:02.321Z",
  "trade": {
   "answer": "No — don't trade real money yet",
   "tone": "bad",
-  "why": "Nothing has proven an edge after fees. Live: 525 markets resolved (199 events); a verdict needs 100+ and the 95% range must exclude zero. Network on unseen past markets: no measurable difference.",
+  "why": "Nothing has proven an edge after fees. Live: 702 markets resolved (261 events); a verdict needs 100+ and the 95% range must exclude zero. Network on unseen past markets: no measurable difference.",
   "next": "Let it keep collecting. The answer changes automatically when a strategy reaches SUCCESS on the live record."
  },
  "learning": [
-  "Live record: 525 of 864 predictions resolved so far (199 separate events).",
-  "longshot: failure retire — no measurable edge after 525 resolved — recommend retiring this hypothesis",
-  "memory: off track — not beating the market so far (+0.0031) — wait for 0 more resolved before judging",
-  "nn: on track — leaning better than the market (-0.0044) — wait for 0 more resolved",
+  "Live record: 702 of 884 predictions resolved so far (261 separate events).",
+  "longshot: failure retire — no measurable edge after 702 resolved — recommend retiring this hypothesis",
+  "memory: off track — not beating the market so far (+0.0045) — wait for 0 more resolved before judging",
+  "nn: on track — leaning better than the market (-0.0019) — wait for 0 more resolved",
   "Neural network: tested on 1140 past markets it never saw → no measurable difference (Brier 0.182 vs market 0.1819).",
   "Training history: 7 runs; data grew 736 → 1425 markets; gap vs market 0.0014 → 0 (below 0 = better than market).",
   "Backtest: 1222 past markets scored."
@@ -48,33 +48,88 @@
    "price": 0.3,
    "ev": 0.0295,
    "url": "https://kalshi.com/markets/kxhyped"
+  },
+  {
+   "title": "Bitcoin price on Nov 10, 2026? — $74,000 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "predictor": "memory",
+   "status": "OFF_TRACK",
+   "side": "yes",
+   "price": 0.15,
+   "ev": 0.047,
+   "url": "https://kalshi.com/markets/kxbtcd"
+  },
+  {
+   "title": "Bitcoin price on Nov 10, 2026? — $73,700 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "predictor": "memory",
+   "status": "OFF_TRACK",
+   "side": "yes",
+   "price": 0.79,
+   "ev": 0.037,
+   "url": "https://kalshi.com/markets/kxbtcd"
+  },
+  {
+   "title": "Will the temp in Chicago Metro Area be above 57.99° on Nov 10, 2026 at 6pm EST? — 58° or above",
+   "cat": "Climate and Weather",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "predictor": "memory",
+   "status": "OFF_TRACK",
+   "side": "yes",
+   "price": 0.1,
+   "ev": 0.0512,
+   "url": "https://kalshi.com/markets/kxtempchihs"
+  },
+  {
+   "title": "HYPE price on Nov 10, 2026? — $73.25 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "predictor": "memory",
+   "status": "OFF_TRACK",
+   "side": "yes",
+   "price": 0.18,
+   "ev": 0.0368,
+   "url": "https://kalshi.com/markets/kxhyped"
+  },
+  {
+   "title": "HYPE price on Nov 10, 2026? — $72.5 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "predictor": "memory",
+   "status": "OFF_TRACK",
+   "side": "yes",
+   "price": 0.82,
+   "ev": 0.0518,
+   "url": "https://kalshi.com/markets/kxhyped"
   }
  ],
  "checks": [
   {
    "name": "Pipeline ran recently",
    "ok": true,
-   "detail": "last cloud run 2 min ago"
+   "detail": "last cloud run 0 min ago"
   },
   {
    "name": "Runs on schedule (every 10 min)",
    "ok": false,
-   "detail": "9 cloud runs in the last 3 h (expect ~18)"
+   "detail": "10 cloud runs in the last 3 h (expect ~18)"
   },
   {
    "name": "New predictions are being logged",
    "ok": true,
-   "detail": "30 logged in the last hour"
+   "detail": "42 logged in the last hour"
   },
   {
    "name": "Outcomes are being collected",
    "ok": true,
-   "detail": "396/414 predictions due >2 h ago have an official result"
+   "detail": "398/416 predictions due >2 h ago have an official result"
   },
   {
    "name": "Scorecard matches the logs",
    "ok": true,
-   "detail": "scorecard counts 864, log has 864"
+   "detail": "scorecard counts 884, log has 884"
   },
   {
    "name": "No prediction logged after its market resolved",
@@ -94,12 +149,12 @@
   {
    "name": "Network trained in the last 2 h",
    "ok": true,
-   "detail": "trained 0 min ago on 1425 markets"
+   "detail": "trained 8 min ago on 1425 markets"
   },
   {
    "name": "Bet-size safety held (≤5% per bet)",
    "ok": true,
-   "detail": "largest bet 2.866%"
+   "detail": "largest bet 2.9753%"
   },
   {
    "name": "Paper money adds up",
@@ -110,6 +165,6 @@
  "problems": 1,
  "needs": [
   "Scheduled runs aren't firing. In the repo: Actions → Kalshi feed → ⋯ → Disable workflow, then Enable workflow. Until then data only updates when a run is started by hand.",
-  "Decision: longshot — no measurable edge after 525 resolved — recommend retiring this hypothesis"
+  "Decision: longshot — no measurable edge after 702 resolved — recommend retiring this hypothesis"
  ]
 }

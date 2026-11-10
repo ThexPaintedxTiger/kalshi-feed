@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-10T22:06:40.644Z",
+ "generated": "2026-11-10T22:15:02.366Z",
  "config": {
   "version": 5,
   "scan": {
@@ -158,20 +158,20 @@
   }
  },
  "progress": {
-  "updated": "2026-11-10T22:06:39.745Z",
+  "updated": "2026-11-10T22:15:01.522Z",
   "goal": "IN_PROGRESS",
-  "resolved": 525,
+  "resolved": 702,
   "health": {
    "ok": true,
    "warmingUp": true,
    "checks": {
     "runsLast24h": {
-     "value": 25,
+     "value": 26,
      "target": 25,
      "ok": true
     },
     "newPredictionsLast24h": {
-     "value": 864,
+     "value": 884,
      "target": 12,
      "ok": true
     },
@@ -192,15 +192,15 @@
   "predictors": {
    "longshot": {
     "status": "FAILURE_RETIRE",
-    "rec": "no measurable edge after 525 resolved — recommend retiring this hypothesis",
-    "n": 525,
-    "brierVsMarket": 0.0009,
+    "rec": "no measurable edge after 702 resolved — recommend retiring this hypothesis",
+    "n": 702,
+    "brierVsMarket": 0.0005,
     "picks": 0,
     "trend": "first snapshot",
     "snap": {
-     "n": 525,
-     "mean": 0.0009,
-     "width": 0.0032
+     "n": 702,
+     "mean": 0.0005,
+     "width": 0.0025
     },
     "backtest": {
      "n": 1222,
@@ -212,15 +212,15 @@
    },
    "memory": {
     "status": "OFF_TRACK",
-    "rec": "not beating the market so far (+0.0031) — wait for 0 more resolved before judging",
-    "n": 196,
-    "brierVsMarket": 0.0031,
-    "picks": 36,
+    "rec": "not beating the market so far (+0.0045) — wait for 0 more resolved before judging",
+    "n": 236,
+    "brierVsMarket": 0.0045,
+    "picks": 48,
     "trend": "first snapshot",
     "snap": {
-     "n": 196,
-     "mean": 0.0031,
-     "width": 0.0185
+     "n": 236,
+     "mean": 0.0045,
+     "width": 0.0165
     },
     "backtest": {
      "n": 1222,
@@ -232,15 +232,15 @@
    },
    "nn": {
     "status": "ON_TRACK",
-    "rec": "leaning better than the market (-0.0044) — wait for 0 more resolved",
-    "n": 104,
-    "brierVsMarket": -0.0044,
+    "rec": "leaning better than the market (-0.0019) — wait for 0 more resolved",
+    "n": 123,
+    "brierVsMarket": -0.0019,
     "picks": 25,
     "trend": "first snapshot",
     "snap": {
-     "n": 104,
-     "mean": -0.0044,
-     "width": 0.0153
+     "n": 123,
+     "mean": -0.0019,
+     "width": 0.0132
     },
     "backtest": null
    }
@@ -248,30 +248,30 @@
   "definitions": "SUCCESS = Brier better than market (95% interval < 0, n ≥ minResolved) AND simulated picks profitable after fees (95% interval > 0, ≥ minPicks). FAILURE = clearly worse than market, or no edge after retireAfter resolved. Recommendations only; nothing changes without owner approval."
  },
  "scorecard": {
-  "resolved": 525,
-  "predictions": 864,
+  "resolved": 702,
+  "predictions": 884,
   "excludedLeakage": 0,
-  "events": 199,
+  "events": 261,
   "predictors": {
    "market": {
-    "n": 525,
+    "n": 702,
     "brier": {
-     "mean": 0.1934,
-     "lo": 0.1681,
-     "hi": 0.2186,
-     "events": 199
+     "mean": 0.1813,
+     "lo": 0.1598,
+     "hi": 0.2029,
+     "events": 261
     },
     "logLoss": {
-     "mean": 0.5707,
-     "lo": 0.5046,
-     "hi": 0.6367,
-     "events": 199
+     "mean": 0.5411,
+     "lo": 0.4839,
+     "hi": 0.5982,
+     "events": 261
     },
     "brierVsMarket": {
      "mean": 0,
      "lo": 0,
      "hi": 0,
-     "events": 199
+     "events": 261
     },
     "verdict": "baseline",
     "picks": {
@@ -289,85 +289,85 @@
     "calibration": [
      {
       "bin": "0-10%",
-      "n": 54,
-      "avgP": 0.0627,
-      "hitRate": 0.0556
+      "n": 86,
+      "avgP": 0.0626,
+      "hitRate": 0.0698
      },
      {
       "bin": "10-20%",
-      "n": 56,
-      "avgP": 0.1404,
-      "hitRate": 0.1964
+      "n": 83,
+      "avgP": 0.1377,
+      "hitRate": 0.1446
      },
      {
       "bin": "20-30%",
-      "n": 46,
-      "avgP": 0.2455,
-      "hitRate": 0.2609
+      "n": 65,
+      "avgP": 0.2458,
+      "hitRate": 0.2615
      },
      {
       "bin": "30-40%",
-      "n": 48,
-      "avgP": 0.3498,
-      "hitRate": 0.3125
+      "n": 60,
+      "avgP": 0.3509,
+      "hitRate": 0.3667
      },
      {
       "bin": "40-50%",
-      "n": 72,
-      "avgP": 0.4504,
-      "hitRate": 0.4306
+      "n": 88,
+      "avgP": 0.4484,
+      "hitRate": 0.4318
      },
      {
       "bin": "50-60%",
-      "n": 73,
-      "avgP": 0.54,
-      "hitRate": 0.6849
+      "n": 91,
+      "avgP": 0.5443,
+      "hitRate": 0.6593
      },
      {
       "bin": "60-70%",
-      "n": 56,
-      "avgP": 0.6413,
-      "hitRate": 0.7321
+      "n": 62,
+      "avgP": 0.642,
+      "hitRate": 0.7258
      },
      {
       "bin": "70-80%",
-      "n": 38,
-      "avgP": 0.7488,
-      "hitRate": 0.6842
+      "n": 53,
+      "avgP": 0.7524,
+      "hitRate": 0.7547
      },
      {
       "bin": "80-90%",
-      "n": 37,
-      "avgP": 0.8555,
-      "hitRate": 0.8378
+      "n": 47,
+      "avgP": 0.8556,
+      "hitRate": 0.8723
      },
      {
       "bin": "90-100%",
-      "n": 45,
-      "avgP": 0.9389,
-      "hitRate": 0.9556
+      "n": 67,
+      "avgP": 0.9391,
+      "hitRate": 0.9552
      }
     ]
    },
    "longshot": {
-    "n": 525,
+    "n": 702,
     "brier": {
-     "mean": 0.1943,
-     "lo": 0.1676,
-     "hi": 0.2209,
-     "events": 199
+     "mean": 0.1818,
+     "lo": 0.1592,
+     "hi": 0.2045,
+     "events": 261
     },
     "logLoss": {
-     "mean": 0.5757,
-     "lo": 0.5035,
-     "hi": 0.6479,
-     "events": 199
+     "mean": 0.5444,
+     "lo": 0.482,
+     "hi": 0.6068,
+     "events": 261
     },
     "brierVsMarket": {
-     "mean": 0.0009,
+     "mean": 0.0005,
      "lo": -0.0007,
-     "hi": 0.0025,
-     "events": 199
+     "hi": 0.0018,
+     "events": 261
     },
     "verdict": "no measurable difference",
     "picks": {
@@ -385,181 +385,181 @@
     "calibration": [
      {
       "bin": "0-10%",
-      "n": 64,
-      "avgP": 0.0552,
-      "hitRate": 0.0625
+      "n": 106,
+      "avgP": 0.0565,
+      "hitRate": 0.066
      },
      {
       "bin": "10-20%",
-      "n": 54,
-      "avgP": 0.1358,
-      "hitRate": 0.2407
+      "n": 75,
+      "avgP": 0.1363,
+      "hitRate": 0.2
      },
      {
       "bin": "20-30%",
-      "n": 49,
-      "avgP": 0.2465,
-      "hitRate": 0.2857
+      "n": 67,
+      "avgP": 0.2462,
+      "hitRate": 0.2985
      },
      {
       "bin": "30-40%",
-      "n": 45,
-      "avgP": 0.3573,
-      "hitRate": 0.3333
+      "n": 56,
+      "avgP": 0.3589,
+      "hitRate": 0.375
      },
      {
       "bin": "40-50%",
-      "n": 64,
-      "avgP": 0.4521,
-      "hitRate": 0.4063
+      "n": 78,
+      "avgP": 0.4497,
+      "hitRate": 0.4103
      },
      {
       "bin": "50-60%",
-      "n": 69,
-      "avgP": 0.5404,
-      "hitRate": 0.6667
+      "n": 87,
+      "avgP": 0.5461,
+      "hitRate": 0.6437
      },
      {
       "bin": "60-70%",
-      "n": 50,
-      "avgP": 0.6401,
-      "hitRate": 0.76
+      "n": 55,
+      "avgP": 0.6412,
+      "hitRate": 0.7455
      },
      {
       "bin": "70-80%",
-      "n": 41,
-      "avgP": 0.7464,
-      "hitRate": 0.7073
+      "n": 51,
+      "avgP": 0.7484,
+      "hitRate": 0.7451
      },
      {
       "bin": "80-90%",
-      "n": 36,
-      "avgP": 0.8557,
-      "hitRate": 0.8056
+      "n": 50,
+      "avgP": 0.8522,
+      "hitRate": 0.86
      },
      {
       "bin": "90-100%",
-      "n": 53,
-      "avgP": 0.9457,
-      "hitRate": 0.9245
+      "n": 77,
+      "avgP": 0.9469,
+      "hitRate": 0.9351
      }
     ]
    },
    "memory": {
-    "n": 196,
+    "n": 236,
     "brier": {
-     "mean": 0.2069,
-     "lo": 0.1625,
-     "hi": 0.2512,
-     "events": 78
+     "mean": 0.1947,
+     "lo": 0.1536,
+     "hi": 0.2359,
+     "events": 97
     },
     "logLoss": {
-     "mean": 0.598,
-     "lo": 0.4834,
-     "hi": 0.7126,
-     "events": 78
+     "mean": 0.5853,
+     "lo": 0.4613,
+     "hi": 0.7093,
+     "events": 97
     },
     "brierVsMarket": {
-     "mean": 0.0031,
-     "lo": -0.0061,
-     "hi": 0.0124,
-     "events": 78
+     "mean": 0.0045,
+     "lo": -0.0038,
+     "hi": 0.0127,
+     "events": 97
     },
     "verdict": "no measurable difference",
     "picks": {
-     "n": 36,
-     "wins": 16,
+     "n": 48,
+     "wins": 21,
      "pnlPerContract": {
-      "mean": -0.0669,
-      "lo": -0.2722,
-      "hi": 0.1383,
-      "events": 18
+      "mean": -0.039,
+      "lo": -0.1997,
+      "hi": 0.1217,
+      "events": 25
      },
-     "totalPnl": -4.08,
+     "totalPnl": -3.95,
      "profitable": false
     },
     "calibration": [
      {
       "bin": "0-10%",
-      "n": 21,
-      "avgP": 0.0479,
-      "hitRate": 0.0952
+      "n": 28,
+      "avgP": 0.0494,
+      "hitRate": 0.1071
      },
      {
       "bin": "10-20%",
-      "n": 24,
-      "avgP": 0.1463,
-      "hitRate": 0.25
+      "n": 27,
+      "avgP": 0.1469,
+      "hitRate": 0.2222
      },
      {
       "bin": "20-30%",
-      "n": 19,
-      "avgP": 0.2537,
-      "hitRate": 0.5263
+      "n": 23,
+      "avgP": 0.2483,
+      "hitRate": 0.4348
      },
      {
       "bin": "30-40%",
-      "n": 17,
-      "avgP": 0.3473,
-      "hitRate": 0.5294
+      "n": 23,
+      "avgP": 0.3525,
+      "hitRate": 0.5652
      },
      {
       "bin": "40-50%",
-      "n": 25,
-      "avgP": 0.444,
-      "hitRate": 0.72
+      "n": 28,
+      "avgP": 0.4452,
+      "hitRate": 0.6429
      },
      {
       "bin": "50-60%",
-      "n": 24,
-      "avgP": 0.5426,
-      "hitRate": 0.7917
+      "n": 25,
+      "avgP": 0.5442,
+      "hitRate": 0.76
      },
      {
       "bin": "60-70%",
-      "n": 16,
-      "avgP": 0.6373,
-      "hitRate": 0.875
+      "n": 18,
+      "avgP": 0.6385,
+      "hitRate": 0.8889
      },
      {
       "bin": "70-80%",
-      "n": 11,
-      "avgP": 0.7339,
-      "hitRate": 0.8182
+      "n": 13,
+      "avgP": 0.7411,
+      "hitRate": 0.8462
      },
      {
       "bin": "80-90%",
-      "n": 20,
-      "avgP": 0.8595,
-      "hitRate": 0.85
+      "n": 22,
+      "avgP": 0.8586,
+      "hitRate": 0.8636
      },
      {
       "bin": "90-100%",
-      "n": 19,
-      "avgP": 0.9386,
-      "hitRate": 0.9474
+      "n": 29,
+      "avgP": 0.9417,
+      "hitRate": 0.9655
      }
     ]
    },
    "nn": {
-    "n": 104,
+    "n": 123,
     "brier": {
-     "mean": 0.2058,
-     "lo": 0.141,
-     "hi": 0.2706,
-     "events": 30
+     "mean": 0.1981,
+     "lo": 0.1317,
+     "hi": 0.2644,
+     "events": 38
     },
     "logLoss": {
-     "mean": 0.5907,
-     "lo": 0.4273,
-     "hi": 0.7541,
-     "events": 30
+     "mean": 0.5836,
+     "lo": 0.4031,
+     "hi": 0.7641,
+     "events": 38
     },
     "brierVsMarket": {
-     "mean": -0.0044,
-     "lo": -0.0121,
-     "hi": 0.0032,
-     "events": 30
+     "mean": -0.0019,
+     "lo": -0.0085,
+     "hi": 0.0047,
+     "events": 38
     },
     "verdict": "no measurable difference",
     "picks": {
@@ -577,21 +577,21 @@
     "calibration": [
      {
       "bin": "0-10%",
-      "n": 7,
-      "avgP": 0.0723,
-      "hitRate": 0
+      "n": 14,
+      "avgP": 0.0709,
+      "hitRate": 0.0714
      },
      {
       "bin": "10-20%",
-      "n": 13,
-      "avgP": 0.1451,
-      "hitRate": 0.2308
+      "n": 14,
+      "avgP": 0.1455,
+      "hitRate": 0.2143
      },
      {
       "bin": "20-30%",
-      "n": 9,
-      "avgP": 0.2576,
-      "hitRate": 0.3333
+      "n": 11,
+      "avgP": 0.255,
+      "hitRate": 0.3636
      },
      {
       "bin": "30-40%",
@@ -601,9 +601,9 @@
      },
      {
       "bin": "40-50%",
-      "n": 4,
-      "avgP": 0.4461,
-      "hitRate": 0.5
+      "n": 5,
+      "avgP": 0.4412,
+      "hitRate": 0.4
      },
      {
       "bin": "50-60%",
@@ -619,9 +619,9 @@
      },
      {
       "bin": "70-80%",
-      "n": 11,
-      "avgP": 0.7502,
-      "hitRate": 0.8182
+      "n": 15,
+      "avgP": 0.7536,
+      "hitRate": 0.8667
      },
      {
       "bin": "80-90%",
@@ -631,8 +631,8 @@
      },
      {
       "bin": "90-100%",
-      "n": 13,
-      "avgP": 0.9467,
+      "n": 17,
+      "avgP": 0.9444,
       "hitRate": 1
      }
     ]
@@ -640,8 +640,8 @@
   },
   "byCategory": {
    "Sports": {
-    "n": 292,
-    "brierMarket": 0.1927
+    "n": 349,
+    "brierMarket": 0.1895
    },
    "Politics": {
     "n": 3,
@@ -652,37 +652,37 @@
     "brierMarket": 0.1465
    },
    "?": {
-    "n": 10,
-    "brierMarket": 0.1189
-   },
-   "Climate and Weather": {
-    "n": 20,
-    "brierMarket": 0.0919
+    "n": 81,
+    "brierMarket": 0.1427
    },
    "Crypto": {
-    "n": 81,
-    "brierMarket": 0.17
+    "n": 109,
+    "brierMarket": 0.1495
+   },
+   "Climate and Weather": {
+    "n": 30,
+    "brierMarket": 0.0681
    },
    "Commodities": {
-    "n": 26,
-    "brierMarket": 0.178
+    "n": 37,
+    "brierMarket": 0.1327
    }
   }
  },
  "totals": {
-  "predictions": 864,
-  "outcomes": 525,
-  "trades": 76,
-  "runs": 25
+  "predictions": 884,
+  "outcomes": 702,
+  "trades": 81,
+  "runs": 26
  },
  "categories": {
   "Sports": {
    "logged": 412,
-   "resolved": 292
+   "resolved": 385
   },
   "Commodities": {
    "logged": 119,
-   "resolved": 26
+   "resolved": 43
   },
   "Politics": {
    "logged": 3,
@@ -697,12 +697,12 @@
    "resolved": 0
   },
   "Crypto": {
-   "logged": 159,
-   "resolved": 91
+   "logged": 172,
+   "resolved": 148
   },
   "Climate and Weather": {
-   "logged": 35,
-   "resolved": 20
+   "logged": 42,
+   "resolved": 30
   }
  },
  "runs": [
@@ -880,9 +880,376 @@
    "scanned": 47589,
    "candidates": 1660,
    "logged": 11
+  },
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "run": "38cc82c",
+   "scanned": 47971,
+   "candidates": 1726,
+   "logged": 20
   }
  ],
  "predictions": [
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "ticker": "KXBNBD-26NOV1018-T679.99",
+   "title": "BNB price on Nov 10, 2026? — $680 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "ask": 0.18,
+   "bid": 0.16,
+   "mid": 0.17,
+   "est": {
+    "market": 0.17,
+    "longshot": 0.1488,
+    "memory": 0.1729,
+    "nn": 0.1739
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxbnbd"
+  },
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "ticker": "KXSOLD-26NOV1018-T83.2499",
+   "title": "SOL price on Nov 10, 2026? — $83.25 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "ask": 0.66,
+   "bid": 0.64,
+   "mid": 0.65,
+   "est": {
+    "market": 0.65,
+    "longshot": 0.6639,
+    "memory": 0.6719,
+    "nn": 0.6545
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxsold"
+  },
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "ticker": "KXETH-26NOV1018-B2057",
+   "title": "Ethereum price at Nov 10, 2026 at 6pm EST? — $2,055 to 2,059.99",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "ask": 0.36,
+   "bid": 0.31,
+   "mid": 0.335,
+   "est": {
+    "market": 0.335,
+    "longshot": 0.3199,
+    "memory": 0.2836,
+    "nn": 0.3403
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxeth"
+  },
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "ticker": "KXXRPD-26NOV1018-T1.0599",
+   "title": "Ripple price at Nov 10, 2026 at 6pm EST? — $1.05991 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "ask": 0.76,
+   "bid": 0.74,
+   "mid": 0.75,
+   "est": {
+    "market": 0.75,
+    "longshot": 0.77,
+    "memory": 0.7521,
+    "nn": 0.7538
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxxrpd"
+  },
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "ticker": "KXSOLD-26NOV1018-T82.7499",
+   "title": "SOL price on Nov 10, 2026? — $82.75 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "ask": 0.97,
+   "bid": 0.95,
+   "mid": 0.96,
+   "est": {
+    "market": 0.96,
+    "longshot": 0.9706,
+    "memory": 0.9819,
+    "nn": 0.9606
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxsold"
+  },
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "ticker": "KXHYPED-26NOV1018-T72.4999",
+   "title": "HYPE price on Nov 10, 2026? — $72.5 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "ask": 0.82,
+   "bid": 0.81,
+   "mid": 0.815,
+   "est": {
+    "market": 0.815,
+    "longshot": 0.8363,
+    "memory": 0.8918,
+    "nn": 0.8179
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxhyped"
+  },
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "ticker": "KXTEMPNYCHS-26NOV1018-T56.99",
+   "title": "Will the temp in New York City be above 56.99° on Nov 10, 2026 at 6pm EST? — 57° or above",
+   "cat": "Climate and Weather",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "ask": 0.54,
+   "bid": 0.51,
+   "mid": 0.525,
+   "est": {
+    "market": 0.525,
+    "longshot": 0.5275,
+    "memory": 0.4895,
+    "nn": 0.5309
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxtempnychs"
+  },
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "ticker": "KXHYPED-26NOV1018-T73.2499",
+   "title": "HYPE price on Nov 10, 2026? — $73.25 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "ask": 0.18,
+   "bid": 0.14,
+   "mid": 0.16,
+   "est": {
+    "market": 0.16,
+    "longshot": 0.1389,
+    "memory": 0.2368,
+    "nn": 0.1635
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxhyped"
+  },
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "ticker": "KXTEMPCHIHS-26NOV1018-T57.99",
+   "title": "Will the temp in Chicago Metro Area be above 57.99° on Nov 10, 2026 at 6pm EST? — 58° or above",
+   "cat": "Climate and Weather",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "ask": 0.1,
+   "bid": 0.04,
+   "mid": 0.07,
+   "est": {
+    "market": 0.07,
+    "longshot": 0.0549,
+    "memory": 0.1612,
+    "nn": 0.0719
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxtempchihs"
+  },
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "ticker": "KXBTC-26NOV1018-B73950",
+   "title": "Bitcoin price range on Nov 10, 2026? — $73,900 to 73,999.99",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "ask": 0.18,
+   "bid": 0.17,
+   "mid": 0.175,
+   "est": {
+    "market": 0.175,
+    "longshot": 0.1537,
+    "memory": 0.1825,
+    "nn": 0.1792
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxbtc"
+  },
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "ticker": "KXTEMPLAXHS-26NOV1018-T79.99",
+   "title": "Will the temp in Coastal Los Angeles be above 79.99° on Nov 10, 2026 at 6pm EST? — 80° or above",
+   "cat": "Climate and Weather",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "ask": 0.83,
+   "bid": 0.79,
+   "mid": 0.81,
+   "est": {
+    "market": 0.81,
+    "longshot": 0.8313,
+    "memory": 0.8151,
+    "nn": 0.8133
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxtemplaxhs"
+  },
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "ticker": "KXETHD-26NOV1018-T2049.99",
+   "title": "Ethereum price at Nov 10, 2026 at 6pm EST? — $2,050 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "ask": 0.86,
+   "bid": 0.84,
+   "mid": 0.85,
+   "est": {
+    "market": 0.85,
+    "longshot": 0.8708,
+    "memory": 0.8385,
+    "nn": 0.8525
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxethd"
+  },
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "ticker": "KXTEMPMIAH-26NOV1018-T79.99",
+   "title": "Will the temp in Miami be above 79.99° on Nov 10, 2026 at 6pm EST? — 80° or above",
+   "cat": "Climate and Weather",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "ask": 0.32,
+   "bid": 0.23,
+   "mid": 0.275,
+   "est": {
+    "market": 0.275,
+    "longshot": 0.2561,
+    "memory": 0.2327,
+    "nn": 0.2801
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxtempmiah"
+  },
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "ticker": "KXETHD-26NOV1018-T2064.99",
+   "title": "Ethereum price at Nov 10, 2026 at 6pm EST? — $2,065 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "ask": 0.08,
+   "bid": 0.07,
+   "mid": 0.075,
+   "est": {
+    "market": 0.075,
+    "longshot": 0.0593,
+    "memory": 0.0635,
+    "nn": 0.0771
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxethd"
+  },
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "ticker": "KXTEMPMIAH-26NOV1018-T78.99",
+   "title": "Will the temp in Miami be above 78.99° on Nov 10, 2026 at 6pm EST? — 79° or above",
+   "cat": "Climate and Weather",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "ask": 0.9,
+   "bid": 0.85,
+   "mid": 0.875,
+   "est": {
+    "market": 0.875,
+    "longshot": 0.8948,
+    "memory": 0.8327,
+    "nn": 0.8773
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxtempmiah"
+  },
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "ticker": "KXBTC-26NOV1018-B73850",
+   "title": "Bitcoin price range on Nov 10, 2026? — $73,800 to 73,899.99",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "ask": 0.26,
+   "bid": 0.25,
+   "mid": 0.255,
+   "est": {
+    "market": 0.255,
+    "longshot": 0.2352,
+    "memory": 0.2625,
+    "nn": 0.2601
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxbtc"
+  },
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "ticker": "KXTEMPNYCHS-26NOV1018-T57.99",
+   "title": "Will the temp in New York City be above 57.99° on Nov 10, 2026 at 6pm EST? — 58° or above",
+   "cat": "Climate and Weather",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "ask": 0.05,
+   "bid": 0.03,
+   "mid": 0.04,
+   "est": {
+    "market": 0.04,
+    "longshot": 0.0294,
+    "memory": 0.01,
+    "nn": 0.0413
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxtempnychs"
+  },
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "ticker": "KXBTCD-26NOV1018-T73699.99",
+   "title": "Bitcoin price on Nov 10, 2026? — $73,700 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "ask": 0.79,
+   "bid": 0.78,
+   "mid": 0.785,
+   "est": {
+    "market": 0.785,
+    "longshot": 0.8061,
+    "memory": 0.847,
+    "nn": 0.7883
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxbtcd"
+  },
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "ticker": "KXTEMPLAXHS-26NOV1018-T80.99",
+   "title": "Will the temp in Coastal Los Angeles be above 80.99° on Nov 10, 2026 at 6pm EST? — 81° or above",
+   "cat": "Climate and Weather",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "ask": 0.3,
+   "bid": 0.2,
+   "mid": 0.25,
+   "est": {
+    "market": 0.25,
+    "longshot": 0.23,
+    "memory": 0.2551,
+    "nn": 0.2546
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxtemplaxhs"
+  },
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "ticker": "KXBTCD-26NOV1018-T73999.99",
+   "title": "Bitcoin price on Nov 10, 2026? — $74,000 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "ask": 0.15,
+   "bid": 0.14,
+   "mid": 0.145,
+   "est": {
+    "market": 0.145,
+    "longshot": 0.1244,
+    "memory": 0.207,
+    "nn": 0.1484
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxbtcd"
+  },
   {
    "ts": "2026-11-10T22:04:44.210Z",
    "ticker": "KXBTC-26NOV1018-B73750",
@@ -1096,7 +1463,7 @@
     "memory": 0.4262,
     "nn": 0.4215
    },
-   "outcome": "awaiting",
+   "outcome": "no",
    "url": "https://kalshi.com/markets/kxwtih"
   },
   {
@@ -1114,7 +1481,7 @@
     "memory": 0.915,
     "nn": 0.9089
    },
-   "outcome": "awaiting",
+   "outcome": "yes",
    "url": "https://kalshi.com/markets/kxbnb"
   },
   {
@@ -1132,7 +1499,7 @@
     "memory": 0.2654,
     "nn": 0.2554
    },
-   "outcome": "awaiting",
+   "outcome": "no",
    "url": "https://kalshi.com/markets/kxtemplaxhs"
   },
   {
@@ -1150,7 +1517,7 @@
     "memory": 0.0612,
     "nn": 0.0699
    },
-   "outcome": "awaiting",
+   "outcome": "no",
    "url": "https://kalshi.com/markets/kxwtih"
   },
   {
@@ -1168,7 +1535,7 @@
     "memory": 0.7862,
     "nn": 0.7876
    },
-   "outcome": "awaiting",
+   "outcome": "yes",
    "url": "https://kalshi.com/markets/kxwtih"
   },
   {
@@ -1186,7 +1553,7 @@
     "memory": 0.99,
     "nn": 0.9677
    },
-   "outcome": "awaiting",
+   "outcome": "yes",
    "url": "https://kalshi.com/markets/kxtempchihs"
   },
   {
@@ -1204,7 +1571,7 @@
     "memory": 0.9112,
     "nn": 0.9196
    },
-   "outcome": "awaiting",
+   "outcome": "yes",
    "url": "https://kalshi.com/markets/kxwtih"
   },
   {
@@ -1222,7 +1589,7 @@
     "memory": 0.1338,
     "nn": 0.0325
    },
-   "outcome": "awaiting",
+   "outcome": "no",
    "url": "https://kalshi.com/markets/kxtempchihs"
   },
   {
@@ -1258,7 +1625,7 @@
     "memory": 0.01,
     "nn": 0.0279
    },
-   "outcome": "awaiting",
+   "outcome": "no",
    "url": "https://kalshi.com/markets/kxtempmiah"
   },
   {
@@ -1294,7 +1661,7 @@
     "memory": 0.7754,
     "nn": 0.7668
    },
-   "outcome": "awaiting",
+   "outcome": "yes",
    "url": "https://kalshi.com/markets/kxtemplaxhs"
   },
   {
@@ -1312,7 +1679,7 @@
     "memory": 0.8838,
     "nn": 0.772
    },
-   "outcome": "awaiting",
+   "outcome": "yes",
    "url": "https://kalshi.com/markets/kxtempchihs"
   },
   {
@@ -1330,7 +1697,7 @@
     "memory": 0.9294,
     "nn": 0.9516
    },
-   "outcome": "awaiting",
+   "outcome": "yes",
    "url": "https://kalshi.com/markets/kxtempnychs"
   },
   {
@@ -1348,7 +1715,7 @@
     "memory": 0.1462,
     "nn": 0.1501
    },
-   "outcome": "awaiting",
+   "outcome": "no",
    "url": "https://kalshi.com/markets/kxwtih"
   },
   {
@@ -1366,7 +1733,7 @@
     "memory": 0.2038,
     "nn": 0.0981
    },
-   "outcome": "awaiting",
+   "outcome": "no",
    "url": "https://kalshi.com/markets/kxtempchihs"
   },
   {
@@ -1402,7 +1769,7 @@
     "memory": 0.0794,
     "nn": 0.0981
    },
-   "outcome": "awaiting",
+   "outcome": "no",
    "url": "https://kalshi.com/markets/kxtempnychs"
   },
   {
@@ -1438,7 +1805,7 @@
     "memory": 0.0641,
     "nn": 0.0934
    },
-   "outcome": "awaiting",
+   "outcome": "no",
    "url": "https://kalshi.com/markets/kxtempmiah"
   },
   {
@@ -3222,369 +3589,79 @@
    },
    "outcome": "yes",
    "url": "https://kalshi.com/markets/kxethd"
-  },
-  {
-   "ts": "2026-11-10T17:10:26.839Z",
-   "ticker": "KXHYPED-26NOV1013-T71.2499",
-   "title": "HYPE price on Nov 10, 2026? — $71.25 or above",
-   "cat": "Crypto",
-   "resolvesAt": "2026-11-10T18:00:00.000Z",
-   "ask": 0.23,
-   "bid": 0.22,
-   "mid": 0.225,
-   "est": {
-    "market": 0.225,
-    "longshot": 0.2042,
-    "memory": 0.2851,
-    "nn": 0.2977
-   },
-   "outcome": "no",
-   "url": "https://kalshi.com/markets/kxhyped"
-  },
-  {
-   "ts": "2026-11-10T17:10:26.839Z",
-   "ticker": "KXHYPED-26NOV1013-T70.4999",
-   "title": "HYPE price on Nov 10, 2026? — $70.5 or above",
-   "cat": "Crypto",
-   "resolvesAt": "2026-11-10T18:00:00.000Z",
-   "ask": 0.69,
-   "bid": 0.64,
-   "mid": 0.665,
-   "est": {
-    "market": 0.665,
-    "longshot": 0.6801,
-    "memory": 0.7251,
-    "nn": 0.7339
-   },
-   "outcome": "yes",
-   "url": "https://kalshi.com/markets/kxhyped"
-  },
-  {
-   "ts": "2026-11-10T17:10:26.839Z",
-   "ticker": "KXSOLD-26NOV1013-T82.2499",
-   "title": "SOL price on Nov 10, 2026? — $82.25 or above",
-   "cat": "Crypto",
-   "resolvesAt": "2026-11-10T18:00:00.000Z",
-   "ask": 0.31,
-   "bid": 0.28,
-   "mid": 0.295,
-   "est": {
-    "market": 0.295,
-    "longshot": 0.2772,
-    "memory": 0.2929,
-    "nn": 0.3633
-   },
-   "outcome": "yes",
-   "url": "https://kalshi.com/markets/kxsold"
-  },
-  {
-   "ts": "2026-11-10T17:10:26.839Z",
-   "ticker": "KXXRP-26NOV1013-B1.0499500",
-   "title": "Ripple price at Nov 10, 2026 at 1pm EST? — $1.04 to 1.0599",
-   "cat": "Crypto",
-   "resolvesAt": "2026-11-10T18:00:00.000Z",
-   "ask": 0.7,
-   "bid": 0.67,
-   "mid": 0.685,
-   "est": {
-    "market": 0.685,
-    "longshot": 0.7015,
-    "memory": 0.7231,
-    "nn": 0.7554
-   },
-   "outcome": "yes",
-   "url": "https://kalshi.com/markets/kxxrp"
-  },
-  {
-   "ts": "2026-11-10T17:10:26.839Z",
-   "ticker": "KXINXU-26NOV10H1300-T7489.9999",
-   "title": "Will the S&P 500 be above 7489.9999 on Nov 10, 2026 at 1pm EST? — 7,490 or above",
-   "cat": "Financials",
-   "resolvesAt": "2026-11-10T18:00:00.000Z",
-   "ask": 0.7,
-   "bid": 0.65,
-   "mid": 0.675,
-   "est": {
-    "market": 0.675,
-    "longshot": 0.6908,
-    "memory": 0.6502,
-    "nn": 0.7339
-   },
-   "outcome": "no",
-   "url": "https://kalshi.com/markets/kxinxu"
-  },
-  {
-   "ts": "2026-11-10T17:10:26.839Z",
-   "ticker": "KXHYPED-26NOV1017-T71.9999",
-   "title": "HYPE price on Nov 10, 2026? — $72 or above",
-   "cat": "Crypto",
-   "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "ask": 0.25,
-   "bid": 0.24,
-   "mid": 0.245,
-   "est": {
-    "market": 0.245,
-    "longshot": 0.2248,
-    "memory": 0.3051,
-    "nn": 0.2314
-   },
-   "outcome": "awaiting",
-   "url": "https://kalshi.com/markets/kxhyped"
-  },
-  {
-   "ts": "2026-11-10T17:10:26.839Z",
-   "ticker": "KXINXU-26NOV10H1300-T7494.9999",
-   "title": "Will the S&P 500 be above 7494.9999 on Nov 10, 2026 at 1pm EST? — 7,495 or above",
-   "cat": "Financials",
-   "resolvesAt": "2026-11-10T18:00:00.000Z",
-   "ask": 0.58,
-   "bid": 0.53,
-   "mid": 0.555,
-   "est": {
-    "market": 0.555,
-    "longshot": 0.5604,
-    "memory": 0.5302,
-    "nn": 0.6247
-   },
-   "outcome": "no",
-   "url": "https://kalshi.com/markets/kxinxu"
-  },
-  {
-   "ts": "2026-11-10T17:10:26.839Z",
-   "ticker": "KXSOLD-26NOV1013-T81.7499",
-   "title": "SOL price on Nov 10, 2026? — $81.75 or above",
-   "cat": "Crypto",
-   "resolvesAt": "2026-11-10T18:00:00.000Z",
-   "ask": 0.66,
-   "bid": 0.62,
-   "mid": 0.64,
-   "est": {
-    "market": 0.64,
-    "longshot": 0.6531,
-    "memory": 0.6379,
-    "nn": 0.7047
-   },
-   "outcome": "yes",
-   "url": "https://kalshi.com/markets/kxsold"
-  },
-  {
-   "ts": "2026-11-10T17:10:26.839Z",
-   "ticker": "KXNASDAQ100U-26NOV10H1300-T27579.99",
-   "title": "Will the Nasdaq-100 be above 27579.99 at the end of Nov 10, 2026 at 1pm EST? — 27,580 or above",
-   "cat": "Financials",
-   "resolvesAt": "2026-11-10T18:00:00.000Z",
-   "ask": 0.54,
-   "bid": 0.49,
-   "mid": 0.515,
-   "est": {
-    "market": 0.515,
-    "longshot": 0.5165,
-    "memory": 0.5137,
-    "nn": 0.5908
-   },
-   "outcome": "no",
-   "url": "https://kalshi.com/markets/kxnasdaq100u"
-  },
-  {
-   "ts": "2026-11-10T17:10:26.839Z",
-   "ticker": "KXHYPED-26NOV1017-T69.9999",
-   "title": "HYPE price on Nov 10, 2026? — $70 or above",
-   "cat": "Crypto",
-   "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "ask": 0.78,
-   "bid": 0.73,
-   "mid": 0.755,
-   "est": {
-    "market": 0.755,
-    "longshot": 0.7752,
-    "memory": 0.8151,
-    "nn": 0.7254
-   },
-   "outcome": "awaiting",
-   "url": "https://kalshi.com/markets/kxhyped"
-  },
-  {
-   "ts": "2026-11-10T17:10:26.839Z",
-   "ticker": "KXDJI-10NOV26-GE52125P00",
-   "title": "Dow Jones price: At least 52,125 November 10, 2026 at 4pm ET — At least $52,125",
-   "cat": "Financials",
-   "resolvesAt": "2026-11-10T20:59:00.000Z",
-   "ask": 0.57,
-   "bid": 0.53,
-   "mid": 0.55,
-   "est": {
-    "market": 0.55,
-    "longshot": 0.555,
-    "memory": 0.55,
-    "nn": 0.5294
-   },
-   "outcome": "yes",
-   "url": "https://kalshi.com/markets/kxdji"
-  },
-  {
-   "ts": "2026-11-10T17:10:26.839Z",
-   "ticker": "KXTEMPCHIHS-26NOV1013-T62.99",
-   "title": "Will the temp in Chicago Metro Area be above 62.99° on Nov 10, 2026 at 1pm EST? — 63° or above",
-   "cat": "Climate and Weather",
-   "resolvesAt": "2026-11-10T18:00:00.000Z",
-   "ask": 0.08,
-   "bid": 0.05,
-   "mid": 0.065,
-   "est": {
-    "market": 0.065,
-    "longshot": 0.0506,
-    "memory": 0.1462,
-    "nn": 0.0777
-   },
-   "outcome": "no",
-   "url": "https://kalshi.com/markets/kxtempchihs"
-  },
-  {
-   "ts": "2026-11-10T17:10:26.839Z",
-   "ticker": "KXXRPD-26NOV1013-T1.0599",
-   "title": "Ripple price at Nov 10, 2026 at 1pm EST? — $1.05991 or above",
-   "cat": "Crypto",
-   "resolvesAt": "2026-11-10T18:00:00.000Z",
-   "ask": 0.06,
-   "bid": 0.03,
-   "mid": 0.045,
-   "est": {
-    "market": 0.045,
-    "longshot": 0.0336,
-    "memory": 0.0178,
-    "nn": 0.0589
-   },
-   "outcome": "no",
-   "url": "https://kalshi.com/markets/kxxrpd"
-  },
-  {
-   "ts": "2026-11-10T17:10:26.839Z",
-   "ticker": "KXGOLDH-26NOV1013-T4019.99",
-   "title": "Will the gold close price be above 4019.99 USD/ounce on November 10, 2026 at 1:00 PM ET? — Above $4019.99",
-   "cat": "Commodities",
-   "resolvesAt": "2026-11-10T18:00:00.000Z",
-   "ask": 0.69,
-   "bid": 0.6,
-   "mid": 0.645,
-   "est": {
-    "market": 0.645,
-    "longshot": 0.6586,
-    "memory": 0.4804,
-    "nn": 0.5744
-   },
-   "outcome": "no",
-   "url": "https://kalshi.com/markets/kxgoldh"
-  },
-  {
-   "ts": "2026-11-10T17:10:26.839Z",
-   "ticker": "KXNASDAQ100U-26NOV10H1600-T27539.99",
-   "title": "Will the Nasdaq-100 be above 27539.99 at the end of Nov 10, 2026 at 4pm EST? — 27,540 or above",
-   "cat": "Financials",
-   "resolvesAt": "2026-11-10T21:00:00.000Z",
-   "ask": 0.64,
-   "bid": 0.59,
-   "mid": 0.615,
-   "est": {
-    "market": 0.615,
-    "longshot": 0.626,
-    "memory": 0.6137,
-    "nn": 0.6033
-   },
-   "outcome": "yes",
-   "url": "https://kalshi.com/markets/kxnasdaq100u"
-  },
-  {
-   "ts": "2026-11-10T17:10:26.839Z",
-   "ticker": "KXTEMPCHIHS-26NOV1013-T61.99",
-   "title": "Will the temp in Chicago Metro Area be above 61.99° on Nov 10, 2026 at 1pm EST? — 62° or above",
-   "cat": "Climate and Weather",
-   "resolvesAt": "2026-11-10T18:00:00.000Z",
-   "ask": 0.81,
-   "bid": 0.74,
-   "mid": 0.775,
-   "est": {
-    "market": 0.775,
-    "longshot": 0.7958,
-    "memory": 0.8562,
-    "nn": 0.7956
-   },
-   "outcome": "yes",
-   "url": "https://kalshi.com/markets/kxtempchihs"
-  },
-  {
-   "ts": "2026-11-10T17:10:26.839Z",
-   "ticker": "KXXRPD-26NOV1013-T1.0399",
-   "title": "Ripple price at Nov 10, 2026 at 1pm EST? — $1.03991 or above",
-   "cat": "Crypto",
-   "resolvesAt": "2026-11-10T18:00:00.000Z",
-   "ask": 0.74,
-   "bid": 0.71,
-   "mid": 0.725,
-   "est": {
-    "market": 0.725,
-    "longshot": 0.7439,
-    "memory": 0.6978,
-    "nn": 0.7775
-   },
-   "outcome": "yes",
-   "url": "https://kalshi.com/markets/kxxrpd"
-  },
-  {
-   "ts": "2026-11-10T17:10:26.839Z",
-   "ticker": "KXSILVERD-26NOV1017-T50.50",
-   "title": "Will the silver close price be above 50.50 USD/t.oz on November 10, 2026 at 5:00 PM EST? — Above $50.50",
-   "cat": "Commodities",
-   "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "ask": 0.96,
-   "bid": 0.95,
-   "mid": 0.955,
-   "est": {
-    "market": 0.955,
-    "longshot": 0.9664,
-    "memory": 0.955,
-    "nn": 0.9308
-   },
-   "outcome": "awaiting",
-   "url": "https://kalshi.com/markets/kxsilverd"
-  },
-  {
-   "ts": "2026-11-10T17:10:26.839Z",
-   "ticker": "KXNASDAQ100U-26NOV10H1300-T27589.99",
-   "title": "Will the Nasdaq-100 be above 27589.99 at the end of Nov 10, 2026 at 1pm EST? — 27,590 or above",
-   "cat": "Financials",
-   "resolvesAt": "2026-11-10T18:00:00.000Z",
-   "ask": 0.49,
-   "bid": 0.44,
-   "mid": 0.465,
-   "est": {
-    "market": 0.465,
-    "longshot": 0.4615,
-    "memory": 0.4637,
-    "nn": 0.5418
-   },
-   "outcome": "no",
-   "url": "https://kalshi.com/markets/kxnasdaq100u"
-  },
-  {
-   "ts": "2026-11-10T17:10:26.839Z",
-   "ticker": "KXTEMPLAXHS-26NOV1013-T76.99",
-   "title": "Will the temp in Coastal Los Angeles be above 76.99° on Nov 10, 2026 at 1pm EST? — 77° or above",
-   "cat": "Climate and Weather",
-   "resolvesAt": "2026-11-10T18:00:00.000Z",
-   "ask": 0.88,
-   "bid": 0.84,
-   "mid": 0.86,
-   "est": {
-    "market": 0.86,
-    "longshot": 0.8805,
-    "memory": 0.8183,
-    "nn": 0.8666
-   },
-   "outcome": "yes",
-   "url": "https://kalshi.com/markets/kxtemplaxhs"
   }
  ],
  "trades": [
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "predictor": "memory",
+   "ticker": "KXHYPED-26NOV1018-T72.4999",
+   "title": "HYPE price on Nov 10, 2026? — $72.5 or above",
+   "cat": "Crypto",
+   "side": "yes",
+   "cost": 0.82,
+   "ev": 0.0518,
+   "fee": 0.02,
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "outcome": "open",
+   "pnl": null
+  },
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "predictor": "memory",
+   "ticker": "KXHYPED-26NOV1018-T73.2499",
+   "title": "HYPE price on Nov 10, 2026? — $73.25 or above",
+   "cat": "Crypto",
+   "side": "yes",
+   "cost": 0.18,
+   "ev": 0.0368,
+   "fee": 0.02,
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "outcome": "open",
+   "pnl": null
+  },
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "predictor": "memory",
+   "ticker": "KXTEMPCHIHS-26NOV1018-T57.99",
+   "title": "Will the temp in Chicago Metro Area be above 57.99° on Nov 10, 2026 at 6pm EST? — 58° or above",
+   "cat": "Climate and Weather",
+   "side": "yes",
+   "cost": 0.1,
+   "ev": 0.0512,
+   "fee": 0.01,
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "outcome": "open",
+   "pnl": null
+  },
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "predictor": "memory",
+   "ticker": "KXBTCD-26NOV1018-T73699.99",
+   "title": "Bitcoin price on Nov 10, 2026? — $73,700 or above",
+   "cat": "Crypto",
+   "side": "yes",
+   "cost": 0.79,
+   "ev": 0.037,
+   "fee": 0.02,
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "outcome": "open",
+   "pnl": null
+  },
+  {
+   "ts": "2026-11-10T22:14:44.296Z",
+   "predictor": "memory",
+   "ticker": "KXBTCD-26NOV1018-T73999.99",
+   "title": "Bitcoin price on Nov 10, 2026? — $74,000 or above",
+   "cat": "Crypto",
+   "side": "yes",
+   "cost": 0.15,
+   "ev": 0.047,
+   "fee": 0.01,
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
+   "outcome": "open",
+   "pnl": null
+  },
   {
    "ts": "2026-11-10T22:04:44.210Z",
    "predictor": "memory",
@@ -3610,8 +3687,8 @@
    "ev": 0.0738,
    "fee": 0.01,
    "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "outcome": "awaiting",
-   "pnl": null
+   "outcome": "no",
+   "pnl": -0.06
   },
   {
    "ts": "2026-11-10T21:15:01.352Z",
@@ -3624,8 +3701,8 @@
    "ev": 0.0538,
    "fee": 0.02,
    "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "outcome": "awaiting",
-   "pnl": null
+   "outcome": "yes",
+   "pnl": 0.17
   },
   {
    "ts": "2026-11-10T21:15:01.352Z",
@@ -3638,8 +3715,8 @@
    "ev": 0.0638,
    "fee": 0.01,
    "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "outcome": "awaiting",
-   "pnl": null
+   "outcome": "no",
+   "pnl": -0.14
   },
   {
    "ts": "2026-11-10T18:04:27.230Z",
@@ -4212,8 +4289,8 @@
    "ev": 0.0351,
    "fee": 0.02,
    "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "outcome": "awaiting",
-   "pnl": null
+   "outcome": "yes",
+   "pnl": 0.73
   },
   {
    "ts": "2026-11-10T17:10:26.839Z",
@@ -4408,8 +4485,8 @@
    "ev": 0.0341,
    "fee": 0.02,
    "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "outcome": "awaiting",
-   "pnl": null
+   "outcome": "yes",
+   "pnl": -0.58
   },
   {
    "ts": "2026-11-10T16:47:36.738Z",
@@ -4436,8 +4513,8 @@
    "ev": 0.0291,
    "fee": 0.02,
    "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "outcome": "awaiting",
-   "pnl": null
+   "outcome": "yes",
+   "pnl": -0.28
   },
   {
    "ts": "2026-11-10T16:47:36.738Z",
@@ -4478,8 +4555,8 @@
    "ev": 0.0341,
    "fee": 0.02,
    "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "outcome": "awaiting",
-   "pnl": null
+   "outcome": "no",
+   "pnl": 0.21
   },
   {
    "ts": "2026-11-10T16:47:36.738Z",
@@ -4492,8 +4569,8 @@
    "ev": 0.0341,
    "fee": 0.02,
    "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "outcome": "awaiting",
-   "pnl": null
+   "outcome": "no",
+   "pnl": 0.53
   },
   {
    "ts": "2026-11-10T16:38:57.636Z",
@@ -4576,8 +4653,8 @@
    "ev": 0.08,
    "fee": 0.01,
    "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "outcome": "awaiting",
-   "pnl": null
+   "outcome": "yes",
+   "pnl": 0.09
   },
   {
    "ts": "2026-11-10T16:38:57.636Z",
@@ -4590,8 +4667,8 @@
    "ev": 0.0683,
    "fee": 0.02,
    "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "outcome": "awaiting",
-   "pnl": null
+   "outcome": "no",
+   "pnl": -0.29
   },
   {
    "ts": "2026-11-10T16:38:57.636Z",
@@ -4604,8 +4681,8 @@
    "ev": 0.0833,
    "fee": 0.01,
    "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "outcome": "awaiting",
-   "pnl": null
+   "outcome": "no",
+   "pnl": -0.13
   },
   {
    "ts": "2026-11-10T16:38:57.636Z",
@@ -4632,8 +4709,8 @@
    "ev": 0.0883,
    "fee": 0.01,
    "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "outcome": "awaiting",
-   "pnl": null
+   "outcome": "no",
+   "pnl": -0.12
   },
   {
    "ts": "2026-11-10T16:38:57.636Z",
@@ -4998,152 +5075,152 @@
   }
  },
  "memory": {
-  "samples": 1597,
-  "series": 166,
+  "samples": 1894,
+  "series": 172,
   "top": [
    {
     "series": "KXBTCD",
     "cat": "Crypto",
-    "n": 90,
-    "yesRate": 0.5111,
-    "avgPrice": 0.4621,
-    "bias": 0.049,
-    "brierMarket": 0.231,
-    "last": "2026-11-10T19:02:41.297Z",
-    "live": 19,
-    "backtest": 71
-   },
-   {
-    "series": "KXETHD",
-    "cat": "Crypto",
-    "n": 89,
-    "yesRate": 0.4607,
-    "avgPrice": 0.4988,
-    "bias": -0.0381,
-    "brierMarket": 0.207,
-    "last": "2026-11-10T19:02:31.266Z",
-    "live": 17,
-    "backtest": 72
-   },
-   {
-    "series": "KXSOLD",
-    "cat": "Crypto",
-    "n": 89,
-    "yesRate": 0.4944,
-    "avgPrice": 0.4985,
-    "bias": -0.0042,
-    "brierMarket": 0.183,
-    "last": "2026-11-10T19:02:11.314Z",
-    "live": 16,
-    "backtest": 73
+    "n": 115,
+    "yesRate": 0.5478,
+    "avgPrice": 0.475,
+    "bias": 0.0728,
+    "brierMarket": 0.2102,
+    "last": "2026-11-10T22:02:36.322Z",
+    "live": 34,
+    "backtest": 81
    },
    {
     "series": "KXBTC",
     "cat": "Crypto",
-    "n": 88,
-    "yesRate": 0.2955,
-    "avgPrice": 0.3023,
-    "bias": -0.0068,
-    "brierMarket": 0.1855,
-    "last": "2026-11-10T19:02:41.300Z",
-    "live": 16,
-    "backtest": 72
+    "n": 108,
+    "yesRate": 0.3056,
+    "avgPrice": 0.2967,
+    "bias": 0.0089,
+    "brierMarket": 0.1786,
+    "last": "2026-11-10T22:02:36.328Z",
+    "live": 26,
+    "backtest": 82
+   },
+   {
+    "series": "KXSOLD",
+    "cat": "Crypto",
+    "n": 104,
+    "yesRate": 0.5288,
+    "avgPrice": 0.5028,
+    "bias": 0.0261,
+    "brierMarket": 0.1787,
+    "last": "2026-11-10T22:02:26.257Z",
+    "live": 22,
+    "backtest": 82
+   },
+   {
+    "series": "KXETHD",
+    "cat": "Crypto",
+    "n": 102,
+    "yesRate": 0.4804,
+    "avgPrice": 0.4941,
+    "bias": -0.0137,
+    "brierMarket": 0.194,
+    "last": "2026-11-10T22:02:36.326Z",
+    "live": 21,
+    "backtest": 81
    },
    {
     "series": "KXTEMPMIAH",
     "cat": "Climate and Weather",
-    "n": 77,
-    "yesRate": 0.4416,
-    "avgPrice": 0.4868,
-    "bias": -0.0452,
-    "brierMarket": 0.1247,
-    "last": "2026-11-10T20:10:51.257Z",
-    "live": 5,
-    "backtest": 72
+    "n": 87,
+    "yesRate": 0.4368,
+    "avgPrice": 0.4887,
+    "bias": -0.052,
+    "brierMarket": 0.1293,
+    "last": "2026-11-10T22:00:00.000Z",
+    "live": 7,
+    "backtest": 80
    },
    {
     "series": "KXTEMPLAXHS",
     "cat": "Climate and Weather",
-    "n": 75,
-    "yesRate": 0.52,
-    "avgPrice": 0.5258,
-    "bias": -0.0058,
-    "brierMarket": 0.19,
-    "last": "2026-11-10T20:10:56.204Z",
-    "live": 6,
-    "backtest": 69
+    "n": 85,
+    "yesRate": 0.5294,
+    "avgPrice": 0.5231,
+    "bias": 0.0063,
+    "brierMarket": 0.189,
+    "last": "2026-11-10T22:00:00.000Z",
+    "live": 8,
+    "backtest": 77
    },
    {
     "series": "KXXRPD",
     "cat": "Crypto",
-    "n": 75,
-    "yesRate": 0.4933,
-    "avgPrice": 0.4921,
-    "bias": 0.0013,
-    "brierMarket": 0.1593,
-    "last": "2026-11-10T19:31:26.257Z",
-    "live": 6,
-    "backtest": 69
-   },
-   {
-    "series": "KXTEMPNYCHS",
-    "cat": "Climate and Weather",
-    "n": 69,
-    "yesRate": 0.4348,
-    "avgPrice": 0.4678,
-    "bias": -0.033,
-    "brierMarket": 0.1315,
-    "last": "2026-11-10T19:40:51.212Z",
-    "live": 4,
-    "backtest": 65
+    "n": 85,
+    "yesRate": 0.4941,
+    "avgPrice": 0.4915,
+    "bias": 0.0026,
+    "brierMarket": 0.1545,
+    "last": "2026-11-10T22:00:00.000Z",
+    "live": 10,
+    "backtest": 75
    },
    {
     "series": "KXTEMPCHIHS",
     "cat": "Climate and Weather",
-    "n": 68,
-    "yesRate": 0.6029,
-    "avgPrice": 0.4751,
-    "bias": 0.1278,
-    "brierMarket": 0.1997,
-    "last": "2026-11-10T20:10:51.259Z",
-    "live": 5,
-    "backtest": 63
+    "n": 80,
+    "yesRate": 0.5875,
+    "avgPrice": 0.4735,
+    "bias": 0.114,
+    "brierMarket": 0.1838,
+    "last": "2026-11-10T22:00:00.000Z",
+    "live": 9,
+    "backtest": 71
+   },
+   {
+    "series": "KXTEMPNYCHS",
+    "cat": "Climate and Weather",
+    "n": 80,
+    "yesRate": 0.425,
+    "avgPrice": 0.4694,
+    "bias": -0.0444,
+    "brierMarket": 0.1202,
+    "last": "2026-11-10T22:00:00.000Z",
+    "live": 6,
+    "backtest": 74
+   },
+   {
+    "series": "KXITFMATCH",
+    "cat": "Sports",
+    "n": 61,
+    "yesRate": 0.5082,
+    "avgPrice": 0.5023,
+    "bias": 0.0059,
+    "brierMarket": 0.1581,
+    "last": "2026-11-10T21:19:16.206Z",
+    "live": 61,
+    "backtest": 0
    },
    {
     "series": "KXNASDAQ100U",
     "cat": "Financials",
-    "n": 60,
-    "yesRate": 0.65,
-    "avgPrice": 0.4942,
-    "bias": 0.1558,
-    "brierMarket": 0.1947,
+    "n": 61,
+    "yesRate": 0.6557,
+    "avgPrice": 0.4947,
+    "bias": 0.1611,
+    "brierMarket": 0.1952,
     "last": "2026-11-10T21:02:06.282Z",
     "live": 49,
-    "backtest": 11
+    "backtest": 12
    },
    {
     "series": "KXGOLDH",
     "cat": "Commodities",
-    "n": 55,
-    "yesRate": 0.3273,
-    "avgPrice": 0.5019,
-    "bias": -0.1746,
-    "brierMarket": 0.2412,
-    "last": "2026-11-10T19:05:36.406Z",
+    "n": 57,
+    "yesRate": 0.3158,
+    "avgPrice": 0.5018,
+    "bias": -0.186,
+    "brierMarket": 0.2415,
+    "last": "2026-11-10T21:09:26.261Z",
     "live": 15,
-    "backtest": 40
-   },
-   {
-    "series": "KXSOLE",
-    "cat": "Crypto",
-    "n": 49,
-    "yesRate": 0.3265,
-    "avgPrice": 0.3971,
-    "bias": -0.0706,
-    "brierMarket": 0.1874,
-    "last": "2026-11-10T19:02:11.320Z",
-    "live": 3,
-    "backtest": 46
+    "backtest": 42
    }
   ]
  },
@@ -5734,7 +5811,7 @@
   ]
  },
  "paper": {
-  "updated": "2026-11-10T22:06:39.802Z",
+  "updated": "2026-11-10T22:15:01.580Z",
   "start": 10,
   "goal": 1000,
   "safety": {
@@ -8976,8 +9053,8 @@
    ]
   },
   "forward": {
-   "rows": 161,
-   "settled": 104,
+   "rows": 181,
+   "settled": 123,
    "portfolios": [
     {
      "id": "cash",
@@ -9043,22 +9120,22 @@
      "name": "Coin flip, 2% bets (fee-drag control)",
      "predictor": "coin",
      "sizing": "fixed",
-     "equity": 9.9366,
-     "cash": 7.4898,
+     "equity": 9.7456,
+     "cash": 7.3195,
      "openPositions": 14,
-     "returnPct": -0.634,
-     "bets": 23,
+     "returnPct": -2.544,
+     "bets": 25,
      "shadowBets": 0,
-     "settled": 9,
-     "wins": 5,
-     "pnl": 0.1066,
-     "fees": 0.28,
+     "settled": 11,
+     "wins": 6,
+     "pnl": -0.0844,
+     "fees": 0.3,
      "maxDrawdownPct": 5.1885,
      "lowest": 9.7599,
-     "avgBetPct": 1.9176,
+     "avgBetPct": 1.9118,
      "maxBetPct": 1.9798,
      "worstLossPct": -1.9708,
-     "betsPerDay": 112.5422,
+     "betsPerDay": 118.3078,
      "trustNow": null,
      "busted": null,
      "reachedGoal": null,
@@ -9102,9 +9179,49 @@
       [
        1794344526282,
        9.9866
+      ],
+      [
+       1794348000000,
+       9.948
+      ],
+      [
+       1794348161252,
+       9.7656
       ]
      ],
      "recent": [
+      {
+       "ts": "2026-11-10T22:04:44.210Z",
+       "ticker": "KXBTCD-26NOV1018-T73899.99",
+       "title": "Bitcoin price on Nov 10, 2026? — $73,900 or above",
+       "cat": "Crypto",
+       "side": "yes",
+       "price": 0.3,
+       "contracts": 0.53,
+       "fee": 0.01,
+       "stake": 0.169,
+       "bankroll": 9.7556,
+       "betPct": 1.7323,
+       "evPerDollar": -0.0833,
+       "pnl": null,
+       "won": null
+      },
+      {
+       "ts": "2026-11-10T22:04:44.210Z",
+       "ticker": "KXBTCD-26NOV1018-T73799.99",
+       "title": "Bitcoin price on Nov 10, 2026? — $73,800 or above",
+       "cat": "Crypto",
+       "side": "no",
+       "price": 0.49,
+       "contracts": 0.37,
+       "fee": 0.01,
+       "stake": 0.1913,
+       "bankroll": 9.7656,
+       "betPct": 1.9589,
+       "evPerDollar": -0.051,
+       "pnl": null,
+       "won": null
+      },
       {
        "ts": "2026-11-10T21:05:01.650Z",
        "ticker": "KXTEMPMIAH-26NOV1017-T80.99",
@@ -9118,8 +9235,9 @@
        "bankroll": 9.9466,
        "betPct": 1.8961,
        "evPerDollar": -0.0532,
-       "pnl": null,
-       "won": null
+       "pnl": 0.0014,
+       "won": true,
+       "settledAt": "2026-11-10T22:00:00.000Z"
       },
       {
        "ts": "2026-11-10T21:05:01.650Z",
@@ -9313,71 +9431,38 @@
        "bankroll": 9.89,
        "betPct": 1.9454,
        "evPerDollar": -0.0625,
-       "pnl": null,
-       "won": null
-      },
-      {
-       "ts": "2026-11-10T17:10:26.839Z",
-       "ticker": "KXWTIH-26NOV1013-T86.49",
-       "title": "Will the WTI Oil close price be above 86.49 USD/barrel on November 10, 2026 at 1:00 PM ET? — Above $86.49",
-       "cat": "Commodities",
-       "side": "no",
-       "price": 0.93,
-       "contracts": 0.2,
-       "fee": 0.01,
-       "stake": 0.196,
-       "bankroll": 9.9,
-       "betPct": 1.9798,
-       "evPerDollar": -0.0484,
-       "pnl": 0.004,
-       "won": true,
-       "settledAt": "2026-11-10T18:05:41.256Z"
-      },
-      {
-       "ts": "2026-11-10T17:10:26.839Z",
-       "ticker": "KXNASDAQ100U-26NOV10H1600-T27639.99",
-       "title": "Will the Nasdaq-100 be above 27639.99 at the end of Nov 10, 2026 at 4pm EST? — 27,640 or above",
-       "cat": "Financials",
-       "side": "yes",
-       "price": 0.39,
-       "contracts": 0.47,
-       "fee": 0.01,
-       "stake": 0.1933,
-       "bankroll": 9.91,
-       "betPct": 1.9506,
-       "evPerDollar": -0.1154,
-       "pnl": 0.2767,
-       "won": true,
-       "settledAt": "2026-11-10T21:02:06.282Z"
+       "pnl": -0.1924,
+       "won": false,
+       "settledAt": "2026-11-10T22:02:41.252Z"
       }
      ],
      "stats": {
-      "trades": 9,
-      "wins": 5,
-      "losses": 4,
-      "winRate": 0.5556,
-      "grossProfit": 0.8847,
-      "grossLoss": 0.7781,
-      "net": 0.1066,
-      "profitFactor": 1.137,
+      "trades": 11,
+      "wins": 6,
+      "losses": 5,
+      "winRate": 0.5455,
+      "grossProfit": 0.8861,
+      "grossLoss": 0.9705,
+      "net": -0.0844,
+      "profitFactor": 0.913,
       "best": 0.2938,
       "worst": -0.1957,
-      "expectedPayoff": 0.0118,
-      "recoveryFactor": 0.1996,
-      "perBetSharpe": 0.0593,
-      "avgDailyPnl": 0.1066,
+      "expectedPayoff": -0.0077,
+      "recoveryFactor": -0.158,
+      "perBetSharpe": -0.0406,
+      "avgDailyPnl": -0.0844,
       "lastDay": {
        "date": "2026-11-10",
-       "pnl": 0.1066
+       "pnl": -0.0844
       },
       "streak": {
-       "kind": "win",
+       "kind": "loss",
        "n": 1
       },
       "daily": [
        {
         "date": "2026-11-10",
-        "pnl": 0.1066
+        "pnl": -0.0844
        }
       ],
       "drawdown": [
@@ -9420,10 +9505,52 @@
        [
         1794344526282,
         -2.9862
+       ],
+       [
+        1794348000000,
+        -3.3612
+       ],
+       [
+        1794348161252,
+        -5.1331
        ]
       ]
      },
      "closed": [
+      {
+       "ts": "2026-11-10T17:10:26.839Z",
+       "ticker": "KXHYPE-26NOV1017-B72",
+       "title": "HYPE price on Nov 10, 2026? — $72 to 72.9999",
+       "cat": "Crypto",
+       "side": "no",
+       "price": 0.96,
+       "contracts": 0.19,
+       "fee": 0.01,
+       "stake": 0.1924,
+       "bankroll": 9.89,
+       "betPct": 1.9454,
+       "evPerDollar": -0.0625,
+       "pnl": -0.1924,
+       "won": false,
+       "settledAt": "2026-11-10T22:02:41.252Z"
+      },
+      {
+       "ts": "2026-11-10T21:05:01.650Z",
+       "ticker": "KXTEMPMIAH-26NOV1017-T80.99",
+       "title": "Will the temp in Miami be above 80.99° on Nov 10, 2026 at 5pm EST? — 81° or above",
+       "cat": "Climate and Weather",
+       "side": "no",
+       "price": 0.94,
+       "contracts": 0.19,
+       "fee": 0.01,
+       "stake": 0.1886,
+       "bankroll": 9.9466,
+       "betPct": 1.8961,
+       "evPerDollar": -0.0532,
+       "pnl": 0.0014,
+       "won": true,
+       "settledAt": "2026-11-10T22:00:00.000Z"
+      },
       {
        "ts": "2026-11-10T17:10:26.839Z",
        "ticker": "KXNASDAQ100U-26NOV10H1600-T27639.99",
@@ -9559,23 +9686,6 @@
        "pnl": 0.004,
        "won": true,
        "settledAt": "2026-11-10T18:05:41.256Z"
-      },
-      {
-       "ts": "2026-11-10T17:10:26.839Z",
-       "ticker": "KXNASDAQ100U-26NOV10H1300-T27589.99",
-       "title": "Will the Nasdaq-100 be above 27589.99 at the end of Nov 10, 2026 at 1pm EST? — 27,590 or above",
-       "cat": "Financials",
-       "side": "no",
-       "price": 0.56,
-       "contracts": 0.33,
-       "fee": 0.01,
-       "stake": 0.1948,
-       "bankroll": 9.86,
-       "betPct": 1.9757,
-       "evPerDollar": -0.0804,
-       "pnl": 0.1352,
-       "won": true,
-       "settledAt": "2026-11-10T18:02:11.273Z"
       }
      ],
      "monteCarlo": null
@@ -9600,7 +9710,7 @@
      "avgBetPct": 2.3631,
      "maxBetPct": 2.502,
      "worstLossPct": -2.502,
-     "betsPerDay": 53.8245,
+     "betsPerDay": 52.0554,
      "trustNow": {
       "trust": 0,
       "why": "learning: 11/30 settled bets"
@@ -10120,7 +10230,7 @@
      "avgBetPct": 1.9538,
      "maxBetPct": 1.9788,
      "worstLossPct": -1.9659,
-     "betsPerDay": 63.6108,
+     "betsPerDay": 61.5201,
      "trustNow": null,
      "busted": null,
      "reachedGoal": null,
@@ -10734,25 +10844,25 @@
      "name": "Series memory, learned bet size",
      "predictor": "memory",
      "sizing": "learn",
-     "equity": 7.8933,
-     "cash": 7.2113,
-     "openPositions": 5,
-     "returnPct": -21.067,
-     "bets": 18,
+     "equity": 8.2853,
+     "cash": 6.9158,
+     "openPositions": 6,
+     "returnPct": -17.147,
+     "bets": 23,
      "shadowBets": 0,
-     "settled": 13,
-     "wins": 3,
-     "pnl": -2.0467,
-     "fees": 0.22,
-     "maxDrawdownPct": 20.787,
-     "lowest": 7.9213,
-     "avgBetPct": 2.2467,
-     "maxBetPct": 2.7431,
+     "settled": 17,
+     "wins": 5,
+     "pnl": -1.6147,
+     "fees": 0.31,
+     "maxDrawdownPct": 22.972,
+     "lowest": 7.7028,
+     "avgBetPct": 2.4561,
+     "maxBetPct": 2.9753,
      "worstLossPct": -2.7431,
-     "betsPerDay": 88.0765,
+     "betsPerDay": 108.8432,
      "trustNow": {
       "trust": 0,
-      "why": "learning: 13/30 settled bets"
+      "why": "learning: 17/30 settled bets"
      },
      "busted": null,
      "reachedGoal": null,
@@ -10812,9 +10922,105 @@
       [
        1794337876210,
        7.9333
+      ],
+      [
+       1794348000000,
+       7.7902
+      ],
+      [
+       1794348000000,
+       7.8168
+      ],
+      [
+       1794348000000,
+       7.7028
+      ],
+      [
+       1794348161254,
+       8.3853
       ]
      ],
      "recent": [
+      {
+       "ts": "2026-11-10T22:14:44.296Z",
+       "ticker": "KXHYPED-26NOV1018-T72.4999",
+       "title": "HYPE price on Nov 10, 2026? — $72.5 or above",
+       "cat": "Crypto",
+       "side": "yes",
+       "price": 0.82,
+       "contracts": 0.28,
+       "fee": 0.01,
+       "stake": 0.2396,
+       "bankroll": 8.2953,
+       "betPct": 2.8884,
+       "evPerDollar": 0.0632,
+       "pnl": null,
+       "won": null
+      },
+      {
+       "ts": "2026-11-10T22:14:44.296Z",
+       "ticker": "KXHYPED-26NOV1018-T73.2499",
+       "title": "HYPE price on Nov 10, 2026? — $73.25 or above",
+       "cat": "Crypto",
+       "side": "yes",
+       "price": 0.18,
+       "contracts": 1.26,
+       "fee": 0.02,
+       "stake": 0.2468,
+       "bankroll": 8.3153,
+       "betPct": 2.968,
+       "evPerDollar": 0.2044,
+       "pnl": null,
+       "won": null
+      },
+      {
+       "ts": "2026-11-10T22:14:44.296Z",
+       "ticker": "KXTEMPCHIHS-26NOV1018-T57.99",
+       "title": "Will the temp in Chicago Metro Area be above 57.99° on Nov 10, 2026 at 6pm EST? — 58° or above",
+       "cat": "Climate and Weather",
+       "side": "yes",
+       "price": 0.1,
+       "contracts": 2.28,
+       "fee": 0.02,
+       "stake": 0.248,
+       "bankroll": 8.3353,
+       "betPct": 2.9753,
+       "evPerDollar": 0.512,
+       "pnl": null,
+       "won": null
+      },
+      {
+       "ts": "2026-11-10T22:14:44.296Z",
+       "ticker": "KXBTCD-26NOV1018-T73699.99",
+       "title": "Bitcoin price on Nov 10, 2026? — $73,700 or above",
+       "cat": "Crypto",
+       "side": "yes",
+       "price": 0.79,
+       "contracts": 0.29,
+       "fee": 0.01,
+       "stake": 0.2391,
+       "bankroll": 8.3453,
+       "betPct": 2.8651,
+       "evPerDollar": 0.0468,
+       "pnl": null,
+       "won": null
+      },
+      {
+       "ts": "2026-11-10T22:14:44.296Z",
+       "ticker": "KXBTCD-26NOV1018-T73999.99",
+       "title": "Bitcoin price on Nov 10, 2026? — $74,000 or above",
+       "cat": "Crypto",
+       "side": "yes",
+       "price": 0.15,
+       "contracts": 1.52,
+       "fee": 0.02,
+       "stake": 0.248,
+       "bankroll": 8.3653,
+       "betPct": 2.9646,
+       "evPerDollar": 0.3133,
+       "pnl": null,
+       "won": null
+      },
       {
        "ts": "2026-11-10T22:04:44.210Z",
        "ticker": "KXHYPED-26NOV1018-T72.9999",
@@ -10822,11 +11028,11 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.3,
-       "contracts": 0.38,
-       "fee": 0.01,
-       "stake": 0.124,
-       "bankroll": 7.9033,
-       "betPct": 1.569,
+       "contracts": 0.76,
+       "fee": 0.02,
+       "stake": 0.248,
+       "bankroll": 8.3853,
+       "betPct": 2.9576,
        "evPerDollar": 0.0983,
        "pnl": null,
        "won": null
@@ -10844,8 +11050,9 @@
        "bankroll": 7.9133,
        "betPct": 1.567,
        "evPerDollar": 1.476,
-       "pnl": null,
-       "won": null
+       "pnl": -0.124,
+       "won": false,
+       "settledAt": "2026-11-10T22:00:00.000Z"
       },
       {
        "ts": "2026-11-10T21:15:01.352Z",
@@ -10860,8 +11067,9 @@
        "bankroll": 7.9233,
        "betPct": 1.5574,
        "evPerDollar": 0.0664,
-       "pnl": null,
-       "won": null
+       "pnl": 0.0166,
+       "won": true,
+       "settledAt": "2026-11-10T22:00:00.000Z"
       },
       {
        "ts": "2026-11-10T21:15:01.352Z",
@@ -10876,8 +11084,9 @@
        "bankroll": 7.9333,
        "betPct": 1.5517,
        "evPerDollar": 0.4908,
-       "pnl": null,
-       "won": null
+       "pnl": -0.1231,
+       "won": false,
+       "settledAt": "2026-11-10T22:00:00.000Z"
       },
       {
        "ts": "2026-11-10T18:04:27.230Z",
@@ -10980,110 +11189,26 @@
        "pnl": -0.2446,
        "won": false,
        "settledAt": "2026-11-10T18:02:01.315Z"
-      },
-      {
-       "ts": "2026-11-10T17:25:44.968Z",
-       "ticker": "KXGOLDH-26NOV1013-T4015.99",
-       "title": "Will the gold close price be above 4015.99 USD/ounce on November 10, 2026 at 1:00 PM ET? — Above $4015.99",
-       "cat": "Commodities",
-       "side": "no",
-       "price": 0.34,
-       "contracts": 0.67,
-       "fee": 0.02,
-       "stake": 0.2478,
-       "bankroll": 9.9,
-       "betPct": 2.503,
-       "evPerDollar": 0.3076,
-       "pnl": -0.2478,
-       "won": false,
-       "settledAt": "2026-11-10T18:05:41.259Z"
-      },
-      {
-       "ts": "2026-11-10T17:10:26.839Z",
-       "ticker": "KXETHD-26NOV1013-T2014.99",
-       "title": "Ethereum price at Nov 10, 2026 at 1pm EST? — $2,015 or above",
-       "cat": "Crypto",
-       "side": "no",
-       "price": 0.37,
-       "contracts": 0.61,
-       "fee": 0.01,
-       "stake": 0.2357,
-       "bankroll": 9.91,
-       "betPct": 2.3784,
-       "evPerDollar": 0.1176,
-       "pnl": -0.2357,
-       "won": false,
-       "settledAt": "2026-11-10T18:02:01.315Z"
-      },
-      {
-       "ts": "2026-11-10T17:10:26.839Z",
-       "ticker": "KXETHD-26NOV1013-T2019.99",
-       "title": "Ethereum price at Nov 10, 2026 at 1pm EST? — $2,020 or above",
-       "cat": "Crypto",
-       "side": "no",
-       "price": 0.56,
-       "contracts": 0.42,
-       "fee": 0.01,
-       "stake": 0.2452,
-       "bankroll": 9.92,
-       "betPct": 2.4718,
-       "evPerDollar": 0.0509,
-       "pnl": -0.2452,
-       "won": false,
-       "settledAt": "2026-11-10T18:02:01.315Z"
-      },
-      {
-       "ts": "2026-11-10T17:10:26.839Z",
-       "ticker": "KXHYPED-26NOV1013-T71.2499",
-       "title": "HYPE price on Nov 10, 2026? — $71.25 or above",
-       "cat": "Crypto",
-       "side": "yes",
-       "price": 0.23,
-       "contracts": 0.99,
-       "fee": 0.02,
-       "stake": 0.2477,
-       "bankroll": 9.94,
-       "betPct": 2.492,
-       "evPerDollar": 0.1526,
-       "pnl": -0.2477,
-       "won": false,
-       "settledAt": "2026-11-10T18:02:16.312Z"
-      },
-      {
-       "ts": "2026-11-10T17:10:26.839Z",
-       "ticker": "KXHYPED-26NOV1017-T71.9999",
-       "title": "HYPE price on Nov 10, 2026? — $72 or above",
-       "cat": "Crypto",
-       "side": "yes",
-       "price": 0.25,
-       "contracts": 0.91,
-       "fee": 0.02,
-       "stake": 0.2475,
-       "bankroll": 9.96,
-       "betPct": 2.4849,
-       "evPerDollar": 0.1404,
-       "pnl": null,
-       "won": null
       }
      ],
      "stats": {
-      "trades": 13,
-      "wins": 3,
-      "losses": 10,
-      "winRate": 0.2308,
-      "grossProfit": 0.3851,
-      "grossLoss": 2.4318,
-      "net": -2.0467,
-      "profitFactor": 0.1584,
-      "best": 0.338,
+      "trades": 17,
+      "wins": 5,
+      "losses": 12,
+      "winRate": 0.2941,
+      "grossProfit": 1.0642,
+      "grossLoss": 2.6789,
+      "net": -1.6147,
+      "profitFactor": 0.3973,
+      "best": 0.6625,
       "worst": -0.248,
-      "expectedPayoff": -0.1574,
-      "recoveryFactor": -0.9846,
-      "perBetSharpe": -0.9366,
-      "avgDailyPnl": -2.0467,
+      "expectedPayoff": -0.095,
+      "recoveryFactor": -0.7029,
+      "perBetSharpe": -0.4167,
+      "avgDailyPnl": -1.6147,
       "lastDay": {
        "date": "2026-11-10",
-       "pnl": -2.0467
+       "pnl": -1.6147
       },
       "streak": {
        "kind": "win",
@@ -11092,7 +11217,7 @@
       "daily": [
        {
         "date": "2026-11-10",
-        "pnl": -2.0467
+        "pnl": -1.6147
        }
       ],
       "drawdown": [
@@ -11151,10 +11276,94 @@
        [
         1794337876210,
         -20.667
+       ],
+       [
+        1794348000000,
+        -22.098
+       ],
+       [
+        1794348000000,
+        -21.832
+       ],
+       [
+        1794348000000,
+        -22.972
+       ],
+       [
+        1794348161254,
+        -16.147
        ]
       ]
      },
      "closed": [
+      {
+       "ts": "2026-11-10T17:10:26.839Z",
+       "ticker": "KXHYPED-26NOV1017-T71.9999",
+       "title": "HYPE price on Nov 10, 2026? — $72 or above",
+       "cat": "Crypto",
+       "side": "yes",
+       "price": 0.25,
+       "contracts": 0.91,
+       "fee": 0.02,
+       "stake": 0.2475,
+       "bankroll": 9.96,
+       "betPct": 2.4849,
+       "evPerDollar": 0.1404,
+       "pnl": 0.6625,
+       "won": true,
+       "settledAt": "2026-11-10T22:02:41.254Z"
+      },
+      {
+       "ts": "2026-11-10T21:15:01.352Z",
+       "ticker": "KXTEMPCHIHS-26NOV1017-T62.99",
+       "title": "Will the temp in Chicago Metro Area be above 62.99° on Nov 10, 2026 at 5pm EST? — 63° or above",
+       "cat": "Climate and Weather",
+       "side": "yes",
+       "price": 0.13,
+       "contracts": 0.87,
+       "fee": 0.01,
+       "stake": 0.1231,
+       "bankroll": 7.9333,
+       "betPct": 1.5517,
+       "evPerDollar": 0.4908,
+       "pnl": -0.1231,
+       "won": false,
+       "settledAt": "2026-11-10T22:00:00.000Z"
+      },
+      {
+       "ts": "2026-11-10T21:15:01.352Z",
+       "ticker": "KXTEMPCHIHS-26NOV1017-T61.99",
+       "title": "Will the temp in Chicago Metro Area be above 61.99° on Nov 10, 2026 at 5pm EST? — 62° or above",
+       "cat": "Climate and Weather",
+       "side": "yes",
+       "price": 0.81,
+       "contracts": 0.14,
+       "fee": 0.01,
+       "stake": 0.1234,
+       "bankroll": 7.9233,
+       "betPct": 1.5574,
+       "evPerDollar": 0.0664,
+       "pnl": 0.0166,
+       "won": true,
+       "settledAt": "2026-11-10T22:00:00.000Z"
+      },
+      {
+       "ts": "2026-11-10T21:25:01.641Z",
+       "ticker": "KXTEMPCHIHS-26NOV1017-T63.99",
+       "title": "Will the temp in Chicago Metro Area be above 63.99° on Nov 10, 2026 at 5pm EST? — 64° or above",
+       "cat": "Climate and Weather",
+       "side": "yes",
+       "price": 0.05,
+       "contracts": 2.28,
+       "fee": 0.01,
+       "stake": 0.124,
+       "bankroll": 7.9133,
+       "betPct": 1.567,
+       "evPerDollar": 1.476,
+       "pnl": -0.124,
+       "won": false,
+       "settledAt": "2026-11-10T22:00:00.000Z"
+      },
       {
        "ts": "2026-11-10T17:10:26.839Z",
        "ticker": "KXTEMPCHIHS-26NOV1013-T61.99",
@@ -11256,74 +11465,6 @@
        "pnl": -0.2296,
        "won": false,
        "settledAt": "2026-11-10T19:02:31.266Z"
-      },
-      {
-       "ts": "2026-11-10T17:10:26.839Z",
-       "ticker": "KXGOLDH-26NOV1013-T4019.99",
-       "title": "Will the gold close price be above 4019.99 USD/ounce on November 10, 2026 at 1:00 PM ET? — Above $4019.99",
-       "cat": "Commodities",
-       "side": "no",
-       "price": 0.4,
-       "contracts": 0.58,
-       "fee": 0.01,
-       "stake": 0.242,
-       "bankroll": 9.99,
-       "betPct": 2.4224,
-       "evPerDollar": 0.249,
-       "pnl": 0.338,
-       "won": true,
-       "settledAt": "2026-11-10T18:05:41.259Z"
-      },
-      {
-       "ts": "2026-11-10T17:25:44.968Z",
-       "ticker": "KXGOLDH-26NOV1013-T4015.99",
-       "title": "Will the gold close price be above 4015.99 USD/ounce on November 10, 2026 at 1:00 PM ET? — Above $4015.99",
-       "cat": "Commodities",
-       "side": "no",
-       "price": 0.34,
-       "contracts": 0.67,
-       "fee": 0.02,
-       "stake": 0.2478,
-       "bankroll": 9.9,
-       "betPct": 2.503,
-       "evPerDollar": 0.3076,
-       "pnl": -0.2478,
-       "won": false,
-       "settledAt": "2026-11-10T18:05:41.259Z"
-      },
-      {
-       "ts": "2026-11-10T17:25:44.968Z",
-       "ticker": "KXGOLDH-26NOV1013-T4017.99",
-       "title": "Will the gold close price be above 4017.99 USD/ounce on November 10, 2026 at 1:00 PM ET? — Above $4017.99",
-       "cat": "Commodities",
-       "side": "no",
-       "price": 0.46,
-       "contracts": 0.51,
-       "fee": 0.01,
-       "stake": 0.2446,
-       "bankroll": 9.87,
-       "betPct": 2.4782,
-       "evPerDollar": 0.2057,
-       "pnl": -0.2446,
-       "won": false,
-       "settledAt": "2026-11-10T18:05:41.259Z"
-      },
-      {
-       "ts": "2026-11-10T17:10:26.839Z",
-       "ticker": "KXHYPED-26NOV1013-T71.2499",
-       "title": "HYPE price on Nov 10, 2026? — $71.25 or above",
-       "cat": "Crypto",
-       "side": "yes",
-       "price": 0.23,
-       "contracts": 0.99,
-       "fee": 0.02,
-       "stake": 0.2477,
-       "bankroll": 9.94,
-       "betPct": 2.492,
-       "evPerDollar": 0.1526,
-       "pnl": -0.2477,
-       "won": false,
-       "settledAt": "2026-11-10T18:02:16.312Z"
       }
      ],
      "monteCarlo": null
@@ -11332,18 +11473,18 @@
   }
  },
  "status": {
-  "updated": "2026-11-10T22:06:40.600Z",
+  "updated": "2026-11-10T22:15:02.321Z",
   "trade": {
    "answer": "No — don't trade real money yet",
    "tone": "bad",
-   "why": "Nothing has proven an edge after fees. Live: 525 markets resolved (199 events); a verdict needs 100+ and the 95% range must exclude zero. Network on unseen past markets: no measurable difference.",
+   "why": "Nothing has proven an edge after fees. Live: 702 markets resolved (261 events); a verdict needs 100+ and the 95% range must exclude zero. Network on unseen past markets: no measurable difference.",
    "next": "Let it keep collecting. The answer changes automatically when a strategy reaches SUCCESS on the live record."
   },
   "learning": [
-   "Live record: 525 of 864 predictions resolved so far (199 separate events).",
-   "longshot: failure retire — no measurable edge after 525 resolved — recommend retiring this hypothesis",
-   "memory: off track — not beating the market so far (+0.0031) — wait for 0 more resolved before judging",
-   "nn: on track — leaning better than the market (-0.0044) — wait for 0 more resolved",
+   "Live record: 702 of 884 predictions resolved so far (261 separate events).",
+   "longshot: failure retire — no measurable edge after 702 resolved — recommend retiring this hypothesis",
+   "memory: off track — not beating the market so far (+0.0045) — wait for 0 more resolved before judging",
+   "nn: on track — leaning better than the market (-0.0019) — wait for 0 more resolved",
    "Neural network: tested on 1140 past markets it never saw → no measurable difference (Brier 0.182 vs market 0.1819).",
    "Training history: 7 runs; data grew 736 → 1425 markets; gap vs market 0.0014 → 0 (below 0 = better than market).",
    "Backtest: 1222 past markets scored."
@@ -11381,33 +11522,88 @@
     "price": 0.3,
     "ev": 0.0295,
     "url": "https://kalshi.com/markets/kxhyped"
+   },
+   {
+    "title": "Bitcoin price on Nov 10, 2026? — $74,000 or above",
+    "cat": "Crypto",
+    "resolvesAt": "2026-11-10T23:00:00.000Z",
+    "predictor": "memory",
+    "status": "OFF_TRACK",
+    "side": "yes",
+    "price": 0.15,
+    "ev": 0.047,
+    "url": "https://kalshi.com/markets/kxbtcd"
+   },
+   {
+    "title": "Bitcoin price on Nov 10, 2026? — $73,700 or above",
+    "cat": "Crypto",
+    "resolvesAt": "2026-11-10T23:00:00.000Z",
+    "predictor": "memory",
+    "status": "OFF_TRACK",
+    "side": "yes",
+    "price": 0.79,
+    "ev": 0.037,
+    "url": "https://kalshi.com/markets/kxbtcd"
+   },
+   {
+    "title": "Will the temp in Chicago Metro Area be above 57.99° on Nov 10, 2026 at 6pm EST? — 58° or above",
+    "cat": "Climate and Weather",
+    "resolvesAt": "2026-11-10T23:00:00.000Z",
+    "predictor": "memory",
+    "status": "OFF_TRACK",
+    "side": "yes",
+    "price": 0.1,
+    "ev": 0.0512,
+    "url": "https://kalshi.com/markets/kxtempchihs"
+   },
+   {
+    "title": "HYPE price on Nov 10, 2026? — $73.25 or above",
+    "cat": "Crypto",
+    "resolvesAt": "2026-11-10T23:00:00.000Z",
+    "predictor": "memory",
+    "status": "OFF_TRACK",
+    "side": "yes",
+    "price": 0.18,
+    "ev": 0.0368,
+    "url": "https://kalshi.com/markets/kxhyped"
+   },
+   {
+    "title": "HYPE price on Nov 10, 2026? — $72.5 or above",
+    "cat": "Crypto",
+    "resolvesAt": "2026-11-10T23:00:00.000Z",
+    "predictor": "memory",
+    "status": "OFF_TRACK",
+    "side": "yes",
+    "price": 0.82,
+    "ev": 0.0518,
+    "url": "https://kalshi.com/markets/kxhyped"
    }
   ],
   "checks": [
    {
     "name": "Pipeline ran recently",
     "ok": true,
-    "detail": "last cloud run 2 min ago"
+    "detail": "last cloud run 0 min ago"
    },
    {
     "name": "Runs on schedule (every 10 min)",
     "ok": false,
-    "detail": "9 cloud runs in the last 3 h (expect ~18)"
+    "detail": "10 cloud runs in the last 3 h (expect ~18)"
    },
    {
     "name": "New predictions are being logged",
     "ok": true,
-    "detail": "30 logged in the last hour"
+    "detail": "42 logged in the last hour"
    },
    {
     "name": "Outcomes are being collected",
     "ok": true,
-    "detail": "396/414 predictions due >2 h ago have an official result"
+    "detail": "398/416 predictions due >2 h ago have an official result"
    },
    {
     "name": "Scorecard matches the logs",
     "ok": true,
-    "detail": "scorecard counts 864, log has 864"
+    "detail": "scorecard counts 884, log has 884"
    },
    {
     "name": "No prediction logged after its market resolved",
@@ -11427,12 +11623,12 @@
    {
     "name": "Network trained in the last 2 h",
     "ok": true,
-    "detail": "trained 0 min ago on 1425 markets"
+    "detail": "trained 8 min ago on 1425 markets"
    },
    {
     "name": "Bet-size safety held (≤5% per bet)",
     "ok": true,
-    "detail": "largest bet 2.866%"
+    "detail": "largest bet 2.9753%"
    },
    {
     "name": "Paper money adds up",
@@ -11443,7 +11639,7 @@
   "problems": 1,
   "needs": [
    "Scheduled runs aren't firing. In the repo: Actions → Kalshi feed → ⋯ → Disable workflow, then Enable workflow. Until then data only updates when a run is started by hand.",
-   "Decision: longshot — no measurable edge after 525 resolved — recommend retiring this hypothesis"
+   "Decision: longshot — no measurable edge after 702 resolved — recommend retiring this hypothesis"
   ]
  },
  "briefings": [
@@ -11484,7 +11680,7 @@
   }
  ],
  "focus": {
-  "updated": "2026-11-10T22:06:40.322Z",
+  "updated": "2026-11-10T22:15:02.097Z",
   "markets": [
    {
     "ticker": "KXHYPED-26NOV1018-T72.9999",
@@ -11505,9 +11701,9 @@
       "cost": 0.3
      }
     },
-    "price": 0.215,
+    "price": 0.31,
     "chg30m": null,
-    "chg3h": -0.03,
+    "chg3h": 0.065,
     "series": [
      [
       1794348060000,
@@ -11538,59 +11734,236 @@
       1794348360000,
       0.215,
       10.34
+     ],
+     [
+      1794348420000,
+      0.205,
+      0
+     ],
+     [
+      1794348480000,
+      0.245,
+      40
+     ],
+     [
+      1794348540000,
+      0.265,
+      0
+     ],
+     [
+      1794348600000,
+      0.265,
+      0
+     ],
+     [
+      1794348660000,
+      0.22,
+      0
+     ],
+     [
+      1794348720000,
+      0.255,
+      0
+     ],
+     [
+      1794348780000,
+      0.25,
+      0
+     ],
+     [
+      1794348840000,
+      0.32,
+      0
+     ],
+     [
+      1794348900000,
+      0.31,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxhyped"
    },
    {
-    "ticker": "KXBTCD-26NOV1018-T73799.99",
-    "title": "Bitcoin price on Nov 10, 2026? — $73,800 or above",
+    "ticker": "KXBTCD-26NOV1018-T73999.99",
+    "title": "Bitcoin price on Nov 10, 2026? — $74,000 or above",
     "cat": "Crypto",
     "resolvesAt": "2026-11-10T23:00:00.000Z",
-    "loggedPrice": 0.515,
+    "loggedPrice": 0.145,
     "est": {
-     "market": 0.515,
-     "longshot": 0.5165,
-     "memory": 0.5551,
-     "nn": 0.4961
+     "market": 0.145,
+     "longshot": 0.1244,
+     "memory": 0.207,
+     "nn": 0.1484
     },
-    "picks": {},
-    "price": 0.495,
+    "picks": {
+     "memory": {
+      "side": "yes",
+      "ev": 0.047,
+      "cost": 0.15
+     }
+    },
+    "price": 0.145,
     "chg30m": null,
     "chg3h": 0,
     "series": [
      [
       1794348060000,
-      0.495,
-      553.55
+      0.145,
+      5389.45
      ],
      [
       1794348120000,
-      0.465,
-      1407.57
+      0.135,
+      8010.82
      ],
      [
       1794348180000,
-      0.455,
-      8132.65
+      0.125,
+      9220.56
      ],
      [
       1794348240000,
-      0.455,
-      1854.88
+      0.115,
+      4355.67
      ],
      [
       1794348300000,
-      0.515,
-      610.24
+      0.145,
+      1108.11
      ],
      [
       1794348360000,
-      0.495,
-      8454.69
+      0.145,
+      6587.09
+     ],
+     [
+      1794348420000,
+      0.135,
+      628.08
+     ],
+     [
+      1794348480000,
+      0.195,
+      4789.44
+     ],
+     [
+      1794348540000,
+      0.195,
+      1034.01
+     ],
+     [
+      1794348600000,
+      0.195,
+      1470.06
+     ],
+     [
+      1794348660000,
+      0.175,
+      1312.9
+     ],
+     [
+      1794348720000,
+      0.165,
+      1090.24
+     ],
+     [
+      1794348780000,
+      0.135,
+      4541.88
+     ],
+     [
+      1794348840000,
+      0.155,
+      1716.66
+     ],
+     [
+      1794348900000,
+      0.145,
+      1769.58
      ]
     ],
     "url": "https://kalshi.com/markets/kxbtcd"
+   },
+   {
+    "ticker": "KXTEMPCHIHS-26NOV1018-T57.99",
+    "title": "Will the temp in Chicago Metro Area be above 57.99° on Nov 10, 2026 at 6pm EST? — 58° or above",
+    "cat": "Climate and Weather",
+    "resolvesAt": "2026-11-10T23:00:00.000Z",
+    "loggedPrice": 0.07,
+    "est": {
+     "market": 0.07,
+     "longshot": 0.0549,
+     "memory": 0.1612,
+     "nn": 0.0719
+    },
+    "picks": {
+     "memory": {
+      "side": "yes",
+      "ev": 0.0512,
+      "cost": 0.1
+     }
+    },
+    "price": 0.07,
+    "chg30m": null,
+    "chg3h": -0.435,
+    "series": [
+     [
+      1794348120000,
+      0.505,
+      0
+     ],
+     [
+      1794348360000,
+      0.5,
+      0
+     ],
+     [
+      1794348420000,
+      0.495,
+      0
+     ],
+     [
+      1794348480000,
+      0.025,
+      0
+     ],
+     [
+      1794348540000,
+      0.025,
+      0
+     ],
+     [
+      1794348600000,
+      0.025,
+      0
+     ],
+     [
+      1794348660000,
+      0.04,
+      15
+     ],
+     [
+      1794348720000,
+      0.04,
+      5.35
+     ],
+     [
+      1794348780000,
+      0.035,
+      0
+     ],
+     [
+      1794348840000,
+      0.065,
+      139.01
+     ],
+     [
+      1794348900000,
+      0.07,
+      29.16
+     ]
+    ],
+    "url": "https://kalshi.com/markets/kxtempchihs"
    },
    {
     "ticker": "KXSOLE-26NOV1018-B83.375",
@@ -11605,9 +11978,9 @@
      "nn": 0.2844
     },
     "picks": {},
-    "price": 0.31,
+    "price": 0.36,
     "chg30m": null,
-    "chg3h": -0.01,
+    "chg3h": 0.04,
     "series": [
      [
       1794348060000,
@@ -11638,6 +12011,51 @@
       1794348360000,
       0.31,
       0
+     ],
+     [
+      1794348420000,
+      0.31,
+      0
+     ],
+     [
+      1794348480000,
+      0.31,
+      0
+     ],
+     [
+      1794348540000,
+      0.335,
+      0
+     ],
+     [
+      1794348600000,
+      0.34,
+      0
+     ],
+     [
+      1794348660000,
+      0.34,
+      0
+     ],
+     [
+      1794348720000,
+      0.34,
+      0
+     ],
+     [
+      1794348780000,
+      0.335,
+      0
+     ],
+     [
+      1794348840000,
+      0.34,
+      0
+     ],
+     [
+      1794348900000,
+      0.36,
+      12.79
      ]
     ],
     "url": "https://kalshi.com/markets/kxsole"
@@ -11655,9 +12073,9 @@
      "nn": 0.2892
     },
     "picks": {},
-    "price": 0.285,
+    "price": 0.315,
     "chg30m": null,
-    "chg3h": -0.015,
+    "chg3h": 0.015,
     "series": [
      [
       1794348060000,
@@ -11688,6 +12106,51 @@
       1794348360000,
       0.285,
       0
+     ],
+     [
+      1794348420000,
+      0.28,
+      0
+     ],
+     [
+      1794348480000,
+      0.315,
+      0
+     ],
+     [
+      1794348540000,
+      0.34,
+      12.94
+     ],
+     [
+      1794348600000,
+      0.365,
+      0
+     ],
+     [
+      1794348660000,
+      0.28,
+      0
+     ],
+     [
+      1794348720000,
+      0.285,
+      0
+     ],
+     [
+      1794348780000,
+      0.25,
+      0
+     ],
+     [
+      1794348840000,
+      0.305,
+      129.69
+     ],
+     [
+      1794348900000,
+      0.315,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxsold"
@@ -11705,9 +12168,9 @@
      "nn": 0.5767
     },
     "picks": {},
-    "price": 0.615,
+    "price": 0.58,
     "chg30m": null,
-    "chg3h": 0.07,
+    "chg3h": 0.035,
     "series": [
      [
       1794348060000,
@@ -11738,6 +12201,51 @@
       1794348360000,
       0.615,
       288.37
+     ],
+     [
+      1794348420000,
+      0.545,
+      464.41
+     ],
+     [
+      1794348480000,
+      0.63,
+      319
+     ],
+     [
+      1794348540000,
+      0.665,
+      658.58
+     ],
+     [
+      1794348600000,
+      0.665,
+      0
+     ],
+     [
+      1794348660000,
+      0.65,
+      223.65
+     ],
+     [
+      1794348720000,
+      0.645,
+      8.97
+     ],
+     [
+      1794348780000,
+      0.585,
+      1.45
+     ],
+     [
+      1794348840000,
+      0.575,
+      362.91
+     ],
+     [
+      1794348900000,
+      0.58,
+      234.7
      ]
     ],
     "url": "https://kalshi.com/markets/kxethd"
@@ -11788,464 +12296,469 @@
       1794348360000,
       0.215,
       3
+     ],
+     [
+      1794348420000,
+      0.215,
+      0
+     ],
+     [
+      1794348480000,
+      0.195,
+      49.78
+     ],
+     [
+      1794348540000,
+      0.2,
+      8.51
+     ],
+     [
+      1794348600000,
+      0.19,
+      0
+     ],
+     [
+      1794348660000,
+      0.2,
+      0
+     ],
+     [
+      1794348720000,
+      0.215,
+      24.68
+     ],
+     [
+      1794348780000,
+      0.215,
+      33.14
+     ],
+     [
+      1794348840000,
+      0.215,
+      0
+     ],
+     [
+      1794348900000,
+      0.215,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxbtc"
    },
    {
-    "ticker": "KXBIGGESTQUAKE-10NOV26-5.8",
-    "title": "What will the biggest earthquake be on Nov 10, 2026? — Magnitude of at least 5.8",
+    "ticker": "KXTEMPLAXHS-26NOV1018-T80.99",
+    "title": "Will the temp in Coastal Los Angeles be above 80.99° on Nov 10, 2026 at 6pm EST? — 81° or above",
     "cat": "Climate and Weather",
-    "resolvesAt": "2026-11-10T23:59:59.000Z",
-    "loggedPrice": 0.225,
+    "resolvesAt": "2026-11-10T23:00:00.000Z",
+    "loggedPrice": 0.25,
     "est": {
-     "market": 0.225,
-     "longshot": 0.2042,
-     "memory": 0.225,
-     "nn": 0.225
+     "market": 0.25,
+     "longshot": 0.23,
+     "memory": 0.2551,
+     "nn": 0.2546
     },
     "picks": {},
-    "price": 0.09,
-    "chg30m": -0.02,
-    "chg3h": -0.12,
+    "price": 0.24,
+    "chg30m": null,
+    "chg3h": -0.265,
     "series": [
      [
-      1794337620000,
-      0.21,
+      1794348120000,
+      0.505,
       0
      ],
      [
-      1794337920000,
-      0.21,
+      1794348360000,
+      0.49,
       0
      ],
      [
-      1794337980000,
-      0.21,
+      1794348420000,
+      0.415,
       0
      ],
      [
-      1794338040000,
-      0.22,
-      18.28
+      1794348480000,
+      0.235,
+      19
      ],
      [
-      1794338100000,
-      0.215,
+      1794348540000,
+      0.13,
+      24
+     ],
+     [
+      1794348600000,
+      0.08,
       0
      ],
      [
-      1794338160000,
-      0.215,
+      1794348660000,
+      0.05,
+      347.54
+     ],
+     [
+      1794348720000,
+      0.065,
       0
      ],
      [
-      1794338220000,
-      0.215,
+      1794348780000,
+      0.115,
+      12.87
+     ],
+     [
+      1794348840000,
+      0.115,
+      7.25
+     ],
+     [
+      1794348900000,
+      0.24,
+      10.87
+     ]
+    ],
+    "url": "https://kalshi.com/markets/kxtemplaxhs"
+   },
+   {
+    "ticker": "KXTEMPNYCHS-26NOV1018-T57.99",
+    "title": "Will the temp in New York City be above 57.99° on Nov 10, 2026 at 6pm EST? — 58° or above",
+    "cat": "Climate and Weather",
+    "resolvesAt": "2026-11-10T23:00:00.000Z",
+    "loggedPrice": 0.04,
+    "est": {
+     "market": 0.04,
+     "longshot": 0.0294,
+     "memory": 0.01,
+     "nn": 0.0413
+    },
+    "picks": {},
+    "price": 0.04,
+    "chg30m": null,
+    "chg3h": -0.465,
+    "series": [
+     [
+      1794348120000,
+      0.505,
       0
      ],
      [
-      1794338280000,
-      0.215,
+      1794348360000,
+      0.49,
       0
      ],
      [
-      1794338340000,
-      0.195,
-      20
-     ],
-     [
-      1794338400000,
-      0.19,
+      1794348420000,
+      0.37,
       0
      ],
      [
-      1794338460000,
-      0.19,
+      1794348480000,
+      0.17,
+      8
+     ],
+     [
+      1794348540000,
+      0.075,
+      235.39
+     ],
+     [
+      1794348600000,
+      0.075,
       0
      ],
      [
-      1794338520000,
-      0.2,
+      1794348660000,
+      0.07,
       0
      ],
      [
-      1794338580000,
-      0.195,
-      0
+      1794348720000,
+      0.065,
+      11.98
      ],
      [
-      1794338700000,
-      0.195,
-      0
-     ],
-     [
-      1794338760000,
-      0.195,
-      0
-     ],
-     [
-      1794338820000,
-      0.195,
-      0
-     ],
-     [
-      1794338880000,
-      0.2,
-      0
-     ],
-     [
-      1794338940000,
-      0.195,
-      0
-     ],
-     [
-      1794339060000,
-      0.2,
-      0
-     ],
-     [
-      1794339120000,
-      0.21,
-      7.91
-     ],
-     [
-      1794339180000,
-      0.205,
-      0
-     ],
-     [
-      1794339240000,
-      0.195,
-      0
-     ],
-     [
-      1794339300000,
-      0.195,
-      0
-     ],
-     [
-      1794339360000,
-      0.195,
-      0
-     ],
-     [
-      1794339480000,
-      0.195,
-      0
-     ],
-     [
-      1794339660000,
-      0.145,
-      54
-     ],
-     [
-      1794339720000,
-      0.14,
+      1794348780000,
+      0.065,
       2
      ],
      [
-      1794339840000,
-      0.14,
+      1794348840000,
+      0.04,
+      80.48
+     ],
+     [
+      1794348900000,
+      0.04,
+      37.5
+     ]
+    ],
+    "url": "https://kalshi.com/markets/kxtempnychs"
+   },
+   {
+    "ticker": "KXTEMPMIAH-26NOV1018-T78.99",
+    "title": "Will the temp in Miami be above 78.99° on Nov 10, 2026 at 6pm EST? — 79° or above",
+    "cat": "Climate and Weather",
+    "resolvesAt": "2026-11-10T23:00:00.000Z",
+    "loggedPrice": 0.875,
+    "est": {
+     "market": 0.875,
+     "longshot": 0.8948,
+     "memory": 0.8327,
+     "nn": 0.8773
+    },
+    "picks": {},
+    "price": 0.875,
+    "chg30m": null,
+    "chg3h": 0.37,
+    "series": [
+     [
+      1794348120000,
+      0.505,
       0
      ],
      [
-      1794339960000,
-      0.145,
+      1794348360000,
+      0.565,
+      0.35
+     ],
+     [
+      1794348420000,
+      0.635,
       0
      ],
      [
-      1794340020000,
-      0.145,
+      1794348480000,
+      0.76,
       0
      ],
      [
-      1794340080000,
-      0.14,
+      1794348540000,
+      0.825,
+      4
+     ],
+     [
+      1794348600000,
+      0.915,
+      128.29
+     ],
+     [
+      1794348660000,
+      0.9,
+      7.39
+     ],
+     [
+      1794348720000,
+      0.9,
       0
      ],
      [
-      1794340140000,
-      0.165,
-      49.04
+      1794348780000,
+      0.87,
+      66.07
      ],
      [
-      1794340200000,
-      0.165,
+      1794348840000,
+      0.885,
       0
      ],
      [
-      1794340260000,
-      0.165,
+      1794348900000,
+      0.875,
+      5.46
+     ]
+    ],
+    "url": "https://kalshi.com/markets/kxtempmiah"
+   },
+   {
+    "ticker": "KXXRPD-26NOV1018-T1.0599",
+    "title": "Ripple price at Nov 10, 2026 at 6pm EST? — $1.05991 or above",
+    "cat": "Crypto",
+    "resolvesAt": "2026-11-10T23:00:00.000Z",
+    "loggedPrice": 0.75,
+    "est": {
+     "market": 0.75,
+     "longshot": 0.77,
+     "memory": 0.7521,
+     "nn": 0.7538
+    },
+    "picks": {},
+    "price": 0.75,
+    "chg30m": null,
+    "chg3h": 0.265,
+    "series": [
+     [
+      1794348060000,
+      0.485,
       0
      ],
      [
-      1794340320000,
-      0.165,
-      0
-     ],
-     [
-      1794340380000,
-      0.17,
-      4.7
-     ],
-     [
-      1794340500000,
-      0.17,
-      0
-     ],
-     [
-      1794340920000,
-      0.17,
-      0
-     ],
-     [
-      1794340980000,
-      0.17,
-      0
-     ],
-     [
-      1794341040000,
-      0.17,
-      0
-     ],
-     [
-      1794341160000,
-      0.17,
-      0
-     ],
-     [
-      1794341220000,
-      0.12,
-      61
-     ],
-     [
-      1794341340000,
-      0.12,
-      0
-     ],
-     [
-      1794341400000,
-      0.12,
-      0
-     ],
-     [
-      1794341460000,
-      0.12,
-      0
-     ],
-     [
-      1794341520000,
-      0.12,
-      0
-     ],
-     [
-      1794341580000,
-      0.12,
-      0
-     ],
-     [
-      1794341880000,
-      0.12,
-      5
-     ],
-     [
-      1794342000000,
-      0.12,
-      0
-     ],
-     [
-      1794342120000,
-      0.12,
-      0
-     ],
-     [
-      1794342240000,
-      0.12,
-      0
-     ],
-     [
-      1794342360000,
-      0.11,
-      0
-     ],
-     [
-      1794342960000,
-      0.105,
-      0
-     ],
-     [
-      1794343500000,
-      0.105,
-      0
-     ],
-     [
-      1794343860000,
-      0.11,
-      0
-     ],
-     [
-      1794344640000,
-      0.1,
-      0
-     ],
-     [
-      1794344880000,
-      0.1,
-      50
-     ],
-     [
-      1794345000000,
-      0.11,
-      0
-     ],
-     [
-      1794345060000,
-      0.15,
-      15.4
-     ],
-     [
-      1794345120000,
-      0.15,
-      0
-     ],
-     [
-      1794345240000,
-      0.15,
-      0
-     ],
-     [
-      1794345360000,
-      0.15,
-      0
-     ],
-     [
-      1794345600000,
-      0.155,
-      0
-     ],
-     [
-      1794345720000,
-      0.155,
-      0
-     ],
-     [
-      1794345780000,
-      0.11,
-      0
-     ],
-     [
-      1794345840000,
-      0.11,
-      0
-     ],
-     [
-      1794346260000,
-      0.11,
-      3.92
-     ],
-     [
-      1794346320000,
-      0.11,
-      0.78
-     ],
-     [
-      1794346560000,
-      0.11,
-      0
-     ],
-     [
-      1794346620000,
-      0.11,
-      0.11
-     ],
-     [
-      1794346860000,
-      0.115,
-      0
-     ],
-     [
-      1794346920000,
-      0.16,
-      15.69
-     ],
-     [
-      1794346980000,
-      0.16,
-      0
-     ],
-     [
-      1794347040000,
-      0.155,
-      0
-     ],
-     [
-      1794347100000,
-      0.16,
-      0
-     ],
-     [
-      1794347160000,
-      0.145,
-      15.69
-     ],
-     [
-      1794347220000,
-      0.145,
-      0
-     ],
-     [
-      1794347280000,
-      0.145,
-      0
-     ],
-     [
-      1794347340000,
-      0.14,
-      0
-     ],
-     [
-      1794347400000,
-      0.145,
-      0
-     ],
-     [
-      1794347460000,
-      0.145,
-      0
-     ],
-     [
-      1794347580000,
-      0.14,
-      0
-     ],
-     [
-      1794347640000,
-      0.095,
-      0
-     ],
-     [
-      1794348000000,
-      0.095,
+      1794348120000,
+      0.4,
       0
      ],
      [
       1794348180000,
-      0.09,
-      3.27
+      0.415,
+      41
+     ],
+     [
+      1794348240000,
+      0.465,
+      0
      ],
      [
       1794348300000,
-      0.09,
-      47.03
+      0.47,
+      0
      ],
      [
       1794348360000,
-      0.09,
+      0.48,
+      0
+     ],
+     [
+      1794348420000,
+      0.52,
+      0
+     ],
+     [
+      1794348480000,
+      0.615,
+      0
+     ],
+     [
+      1794348540000,
+      0.685,
+      24.77
+     ],
+     [
+      1794348600000,
+      0.72,
+      0
+     ],
+     [
+      1794348660000,
+      0.67,
+      5
+     ],
+     [
+      1794348720000,
+      0.72,
+      0
+     ],
+     [
+      1794348780000,
+      0.665,
+      0
+     ],
+     [
+      1794348840000,
+      0.725,
+      0
+     ],
+     [
+      1794348900000,
+      0.75,
       0
      ]
     ],
-    "url": "https://kalshi.com/markets/kxbiggestquake"
+    "url": "https://kalshi.com/markets/kxxrpd"
+   },
+   {
+    "ticker": "KXETH-26NOV1018-B2057",
+    "title": "Ethereum price at Nov 10, 2026 at 6pm EST? — $2,055 to 2,059.99",
+    "cat": "Crypto",
+    "resolvesAt": "2026-11-10T23:00:00.000Z",
+    "loggedPrice": 0.335,
+    "est": {
+     "market": 0.335,
+     "longshot": 0.3199,
+     "memory": 0.2836,
+     "nn": 0.3403
+    },
+    "picks": {},
+    "price": 0.335,
+    "chg30m": null,
+    "chg3h": 0.065,
+    "series": [
+     [
+      1794348060000,
+      0.27,
+      0
+     ],
+     [
+      1794348120000,
+      0.275,
+      0
+     ],
+     [
+      1794348180000,
+      0.27,
+      0
+     ],
+     [
+      1794348240000,
+      0.285,
+      0
+     ],
+     [
+      1794348300000,
+      0.3,
+      0
+     ],
+     [
+      1794348360000,
+      0.305,
+      10
+     ],
+     [
+      1794348420000,
+      0.305,
+      0
+     ],
+     [
+      1794348480000,
+      0.28,
+      10
+     ],
+     [
+      1794348540000,
+      0.31,
+      10
+     ],
+     [
+      1794348600000,
+      0.32,
+      2.81
+     ],
+     [
+      1794348660000,
+      0.325,
+      27.81
+     ],
+     [
+      1794348720000,
+      0.33,
+      0
+     ],
+     [
+      1794348780000,
+      0.325,
+      0
+     ],
+     [
+      1794348840000,
+      0.34,
+      0
+     ],
+     [
+      1794348900000,
+      0.335,
+      0
+     ]
+    ],
+    "url": "https://kalshi.com/markets/kxeth"
    }
   ]
  }
