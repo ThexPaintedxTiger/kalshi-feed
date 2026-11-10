@@ -15,6 +15,12 @@ jobs:
         with:
           node-version: 20
       - run: node scan.mjs
+      - name: AI picks (free Gemini, hourly)
+        run: node agents.mjs
+        continue-on-error: true
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          FORCE: ${{ github.event_name == 'workflow_dispatch' && '1' || '0' }}
       - name: Save bets.json
         run: |
           git config user.name "kalshi-feed-bot"

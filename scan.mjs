@@ -54,6 +54,7 @@ for (const m of markets) {
 for (const k of Object.keys(hist)) { hist[k] = hist[k].filter(p => p[0] * 1000 >= keep); if (!hist[k].length) delete hist[k]; }
 writeFileSync("history.json", JSON.stringify(hist));
  sets.sort((a, b) => b.profit - a.profit);
-const out = { feed: "kalshi", updated: new Date().toISOString(), events: events.length, liquid: markets.length, sets: sets.slice(0, 25), markets: markets.slice(0, 150) };
+let old = {}; try { old = JSON.parse(readFileSync("bets.json", "utf8")); } catch {}
+const out = { picks: old.picks || [], picksUpdated: old.picksUpdated, picksAgents: old.picksAgents, feed: "kalshi", updated: new Date().toISOString(), events: events.length, liquid: markets.length, sets: sets.slice(0, 25), markets: markets.slice(0, 150) };
 writeFileSync("bets.json", JSON.stringify(out));
 console.log(`events ${events.length}, liquid markets ${markets.length}, profit sets ${sets.length}`);
