@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-10T17:51:35.647Z",
+ "generated": "2026-11-10T17:52:47.322Z",
  "config": {
   "version": 4,
   "scan": {
@@ -157,20 +157,20 @@
   }
  },
  "progress": {
-  "updated": "2026-11-10T17:50:23.500Z",
+  "updated": "2026-11-10T17:52:46.821Z",
   "goal": "IN_PROGRESS",
-  "resolved": 92,
+  "resolved": 98,
   "health": {
    "ok": true,
    "warmingUp": true,
    "checks": {
     "runsLast24h": {
-     "value": 12,
+     "value": 13,
      "target": 7,
      "ok": true
     },
     "newPredictionsLast24h": {
-     "value": 800,
+     "value": 803,
      "target": 3,
      "ok": true
     },
@@ -191,15 +191,15 @@
   "predictors": {
    "longshot": {
     "status": "ON_TRACK",
-    "rec": "leaning better than the market (-0.0021) — wait for 8 more resolved",
-    "n": 92,
-    "brierVsMarket": -0.0021,
+    "rec": "leaning better than the market (-0.0024) — wait for 2 more resolved",
+    "n": 98,
+    "brierVsMarket": -0.0024,
     "picks": 0,
     "trend": "first snapshot",
     "snap": {
-     "n": 92,
-     "mean": -0.0021,
-     "width": 0.005
+     "n": 98,
+     "mean": -0.0024,
+     "width": 0.0045
     },
     "backtest": {
      "n": 852,
@@ -233,30 +233,30 @@
   "definitions": "SUCCESS = Brier better than market (95% interval < 0, n ≥ minResolved) AND simulated picks profitable after fees (95% interval > 0, ≥ minPicks). FAILURE = clearly worse than market, or no edge after retireAfter resolved. Recommendations only; nothing changes without owner approval."
  },
  "scorecard": {
-  "resolved": 92,
-  "predictions": 800,
+  "resolved": 98,
+  "predictions": 803,
   "excludedLeakage": 0,
-  "events": 18,
+  "events": 21,
   "predictors": {
    "market": {
-    "n": 92,
+    "n": 98,
     "brier": {
-     "mean": 0.1115,
-     "lo": 0.0677,
-     "hi": 0.1553,
-     "events": 18
+     "mean": 0.1155,
+     "lo": 0.0748,
+     "hi": 0.1563,
+     "events": 21
     },
     "logLoss": {
-     "mean": 0.3637,
-     "lo": 0.251,
-     "hi": 0.4763,
-     "events": 18
+     "mean": 0.3747,
+     "lo": 0.2707,
+     "hi": 0.4788,
+     "events": 21
     },
     "brierVsMarket": {
      "mean": 0,
      "lo": 0,
      "hi": 0,
-     "events": 18
+     "events": 21
     },
     "verdict": "baseline",
     "picks": {
@@ -280,9 +280,9 @@
      },
      {
       "bin": "10-20%",
-      "n": 13,
-      "avgP": 0.1315,
-      "hitRate": 0.1538
+      "n": 14,
+      "avgP": 0.1311,
+      "hitRate": 0.1429
      },
      {
       "bin": "20-30%",
@@ -298,21 +298,21 @@
      },
      {
       "bin": "40-50%",
-      "n": 7,
-      "avgP": 0.4357,
-      "hitRate": 0.1429
+      "n": 9,
+      "avgP": 0.44,
+      "hitRate": 0.1111
      },
      {
       "bin": "50-60%",
-      "n": 9,
-      "avgP": 0.5328,
-      "hitRate": 0.3333
+      "n": 10,
+      "avgP": 0.53,
+      "hitRate": 0.4
      },
      {
       "bin": "60-70%",
-      "n": 9,
-      "avgP": 0.6367,
-      "hitRate": 0.4444
+      "n": 10,
+      "avgP": 0.635,
+      "hitRate": 0.5
      },
      {
       "bin": "70-80%",
@@ -322,8 +322,8 @@
      },
      {
       "bin": "80-90%",
-      "n": 5,
-      "avgP": 0.855,
+      "n": 6,
+      "avgP": 0.8583,
       "hitRate": 1
      },
      {
@@ -335,24 +335,24 @@
     ]
    },
    "longshot": {
-    "n": 92,
+    "n": 98,
     "brier": {
-     "mean": 0.1094,
-     "lo": 0.0637,
-     "hi": 0.1551,
-     "events": 18
+     "mean": 0.1131,
+     "lo": 0.0708,
+     "hi": 0.1555,
+     "events": 21
     },
     "logLoss": {
-     "mean": 0.3564,
-     "lo": 0.2345,
-     "hi": 0.4783,
-     "events": 18
+     "mean": 0.3666,
+     "lo": 0.2549,
+     "hi": 0.4784,
+     "events": 21
     },
     "brierVsMarket": {
-     "mean": -0.0021,
-     "lo": -0.0046,
-     "hi": 0.0004,
-     "events": 18
+     "mean": -0.0024,
+     "lo": -0.0047,
+     "hi": -0.0002,
+     "events": 21
     },
     "verdict": "insufficient data",
     "picks": {
@@ -376,9 +376,9 @@
      },
      {
       "bin": "10-20%",
-      "n": 10,
-      "avgP": 0.1281,
-      "hitRate": 0.2
+      "n": 11,
+      "avgP": 0.126,
+      "hitRate": 0.1818
      },
      {
       "bin": "20-30%",
@@ -394,21 +394,21 @@
      },
      {
       "bin": "40-50%",
-      "n": 5,
-      "avgP": 0.4429,
+      "n": 7,
+      "avgP": 0.4451,
       "hitRate": 0
      },
      {
       "bin": "50-60%",
-      "n": 9,
-      "avgP": 0.536,
-      "hitRate": 0.3333
+      "n": 10,
+      "avgP": 0.533,
+      "hitRate": 0.4
      },
      {
       "bin": "60-70%",
-      "n": 7,
-      "avgP": 0.6337,
-      "hitRate": 0.4286
+      "n": 8,
+      "avgP": 0.6335,
+      "hitRate": 0.5
      },
      {
       "bin": "70-80%",
@@ -418,8 +418,8 @@
      },
      {
       "bin": "80-90%",
-      "n": 5,
-      "avgP": 0.8526,
+      "n": 6,
+      "avgP": 0.8597,
       "hitRate": 1
      },
      {
@@ -529,8 +529,8 @@
   },
   "byCategory": {
    "Sports": {
-    "n": 2,
-    "brierMarket": 0.0992
+    "n": 8,
+    "brierMarket": 0.1295
    },
    "Financials": {
     "n": 23,
@@ -555,15 +555,15 @@
   }
  },
  "totals": {
-  "predictions": 800,
-  "outcomes": 92,
+  "predictions": 803,
+  "outcomes": 98,
   "trades": 68,
-  "runs": 12
+  "runs": 13
  },
  "categories": {
   "Sports": {
    "logged": 412,
-   "resolved": 2
+   "resolved": 8
   },
   "Commodities": {
    "logged": 104,
@@ -574,7 +574,7 @@
    "resolved": 0
   },
   "Financials": {
-   "logged": 123,
+   "logged": 126,
    "resolved": 23
   },
   "Economics": {
@@ -674,9 +674,70 @@
    "scanned": 45270,
    "candidates": 608,
    "logged": 6
+  },
+  {
+   "ts": "2026-11-10T17:52:26.686Z",
+   "run": "831cca5",
+   "scanned": 45284,
+   "candidates": 615,
+   "logged": 3
   }
  ],
  "predictions": [
+  {
+   "ts": "2026-11-10T17:52:26.686Z",
+   "ticker": "KXINXU-26NOV10H1600-T7439.9999",
+   "title": "Will the S&P 500 be above 7439.9999 on Nov 10, 2026 at 4pm EST? — 7,440 or above",
+   "cat": "Financials",
+   "resolvesAt": "2026-11-10T21:00:00.000Z",
+   "ask": 0.91,
+   "bid": 0.9,
+   "mid": 0.905,
+   "est": {
+    "market": 0.905,
+    "longshot": 0.9227,
+    "memory": 0.8704,
+    "nn": 0.8824
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxinxu"
+  },
+  {
+   "ts": "2026-11-10T17:52:26.686Z",
+   "ticker": "KXNASDAQ100U-26NOV10H1600-T27339.99",
+   "title": "Will the Nasdaq-100 be above 27339.99 at the end of Nov 10, 2026 at 4pm EST? — 27,340 or above",
+   "cat": "Financials",
+   "resolvesAt": "2026-11-10T21:00:00.000Z",
+   "ask": 0.87,
+   "bid": 0.82,
+   "mid": 0.845,
+   "est": {
+    "market": 0.845,
+    "longshot": 0.8659,
+    "memory": 0.8301,
+    "nn": 0.8102
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxnasdaq100u"
+  },
+  {
+   "ts": "2026-11-10T17:52:26.686Z",
+   "ticker": "KXNASDAQ100U-26NOV10H1600-T27659.99",
+   "title": "Will the Nasdaq-100 be above 27659.99 at the end of Nov 10, 2026 at 4pm EST? — 27,660 or above",
+   "cat": "Financials",
+   "resolvesAt": "2026-11-10T21:00:00.000Z",
+   "ask": 0.18,
+   "bid": 0.13,
+   "mid": 0.155,
+   "est": {
+    "market": 0.155,
+    "longshot": 0.1341,
+    "memory": 0.1401,
+    "nn": 0.126
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxnasdaq100u"
+  },
   {
    "ts": "2026-11-10T17:48:13.359Z",
    "ticker": "KXNASDAQ100U-26NOV10H1600-T27479.99",
@@ -3272,57 +3333,6 @@
    },
    "outcome": "open",
    "url": "https://kalshi.com/markets/kxdota2map"
-  },
-  {
-   "ts": "2026-11-10T16:47:36.738Z",
-   "ticker": "KXBRENTD-26NOV1017-T93.50",
-   "title": "Will the brent crude oil close price be above 93.50 USD/Bbl on November 10, 2026 at 5:00 PM EST? — Above $93.50",
-   "cat": "Commodities",
-   "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "ask": 0.05,
-   "bid": 0.03,
-   "mid": 0.04,
-   "est": {
-    "market": 0.04,
-    "longshot": 0.0294,
-    "memory": 0.04
-   },
-   "outcome": "open",
-   "url": "https://kalshi.com/markets/kxbrentd"
-  },
-  {
-   "ts": "2026-11-10T16:47:36.738Z",
-   "ticker": "KXINXU-26NOV10H1600-T7444.9999",
-   "title": "Will the S&P 500 be above 7444.9999 on Nov 10, 2026 at 4pm EST? — 7,445 or above",
-   "cat": "Financials",
-   "resolvesAt": "2026-11-10T21:00:00.000Z",
-   "ask": 0.88,
-   "bid": 0.86,
-   "mid": 0.87,
-   "est": {
-    "market": 0.87,
-    "longshot": 0.89,
-    "memory": 0.87
-   },
-   "outcome": "open",
-   "url": "https://kalshi.com/markets/kxinxu"
-  },
-  {
-   "ts": "2026-11-10T16:47:36.738Z",
-   "ticker": "KXNCAAWBSPREAD-26NOV10BELLBGSU-BGSU27",
-   "title": "Bowling Green wins by over 26.5 points",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T19:00:00.000Z",
-   "ask": 0.77,
-   "bid": 0.74,
-   "mid": 0.755,
-   "est": {
-    "market": 0.755,
-    "longshot": 0.7752,
-    "memory": 0.755
-   },
-   "outcome": "open",
-   "url": "https://kalshi.com/markets/kxncaawbspread"
   }
  ],
  "trades": [
@@ -4627,152 +4637,152 @@
   }
  },
  "memory": {
-  "samples": 828,
-  "series": 108,
+  "samples": 950,
+  "series": 110,
   "top": [
    {
     "series": "KXBTCD",
     "cat": "Crypto",
-    "n": 57,
-    "yesRate": 0.4561,
-    "avgPrice": 0.4683,
-    "bias": -0.0122,
-    "brierMarket": 0.2274,
+    "n": 67,
+    "yesRate": 0.4478,
+    "avgPrice": 0.4695,
+    "bias": -0.0217,
+    "brierMarket": 0.2225,
     "last": "2026-11-10T17:03:26.297Z",
     "live": 11,
-    "backtest": 46
+    "backtest": 56
    },
    {
     "series": "KXBTC",
     "cat": "Crypto",
-    "n": 56,
-    "yesRate": 0.2143,
-    "avgPrice": 0.2221,
-    "bias": -0.0078,
-    "brierMarket": 0.1615,
+    "n": 66,
+    "yesRate": 0.2424,
+    "avgPrice": 0.2727,
+    "bias": -0.0303,
+    "brierMarket": 0.1711,
     "last": "2026-11-10T17:03:26.300Z",
     "live": 10,
-    "backtest": 46
+    "backtest": 56
    },
    {
     "series": "KXETHD",
     "cat": "Crypto",
-    "n": 55,
-    "yesRate": 0.4182,
-    "avgPrice": 0.5115,
-    "bias": -0.0934,
-    "brierMarket": 0.2296,
+    "n": 65,
+    "yesRate": 0.4308,
+    "avgPrice": 0.5054,
+    "bias": -0.0746,
+    "brierMarket": 0.2262,
     "last": "2026-11-10T17:03:21.322Z",
     "live": 9,
-    "backtest": 46
+    "backtest": 56
    },
    {
     "series": "KXSOLD",
     "cat": "Crypto",
-    "n": 54,
-    "yesRate": 0.5,
-    "avgPrice": 0.5029,
-    "bias": -0.0029,
-    "brierMarket": 0.2044,
+    "n": 64,
+    "yesRate": 0.4844,
+    "avgPrice": 0.4988,
+    "bias": -0.0145,
+    "brierMarket": 0.2057,
     "last": "2026-11-10T17:03:06.311Z",
     "live": 8,
-    "backtest": 46
+    "backtest": 56
    },
    {
     "series": "KXTEMPMIAH",
     "cat": "Climate and Weather",
-    "n": 48,
-    "yesRate": 0.4583,
-    "avgPrice": 0.5066,
-    "bias": -0.0482,
-    "brierMarket": 0.1164,
-    "last": "2026-11-10T17:00:00.000Z",
+    "n": 58,
+    "yesRate": 0.4828,
+    "avgPrice": 0.4981,
+    "bias": -0.0153,
+    "brierMarket": 0.1177,
+    "last": "2026-11-10T17:10:36.202Z",
     "live": 2,
-    "backtest": 46
-   },
-   {
-    "series": "KXXRPD",
-    "cat": "Crypto",
-    "n": 48,
-    "yesRate": 0.4167,
-    "avgPrice": 0.4553,
-    "bias": -0.0386,
-    "brierMarket": 0.1654,
-    "last": "2026-11-10T17:00:00.000Z",
-    "live": 2,
-    "backtest": 46
+    "backtest": 56
    },
    {
     "series": "KXTEMPLAXHS",
     "cat": "Climate and Weather",
-    "n": 47,
-    "yesRate": 0.4681,
-    "avgPrice": 0.5293,
-    "bias": -0.0612,
-    "brierMarket": 0.1764,
-    "last": "2026-11-10T17:00:00.000Z",
+    "n": 57,
+    "yesRate": 0.4737,
+    "avgPrice": 0.5039,
+    "bias": -0.0303,
+    "brierMarket": 0.1851,
+    "last": "2026-11-10T17:10:36.206Z",
     "live": 2,
-    "backtest": 45
+    "backtest": 55
    },
    {
-    "series": "KXGOLDH",
-    "cat": "Commodities",
-    "n": 46,
-    "yesRate": 0.2609,
-    "avgPrice": 0.4971,
-    "bias": -0.2362,
-    "brierMarket": 0.2427,
-    "last": "2026-11-10T17:06:11.258Z",
-    "live": 8,
-    "backtest": 38
+    "series": "KXXRPD",
+    "cat": "Crypto",
+    "n": 57,
+    "yesRate": 0.4561,
+    "avgPrice": 0.4962,
+    "bias": -0.0401,
+    "brierMarket": 0.155,
+    "last": "2026-11-10T17:00:00.000Z",
+    "live": 2,
+    "backtest": 55
    },
    {
     "series": "KXTEMPNYCHS",
     "cat": "Climate and Weather",
-    "n": 42,
-    "yesRate": 0.4048,
-    "avgPrice": 0.4629,
-    "bias": -0.0581,
-    "brierMarket": 0.1535,
+    "n": 51,
+    "yesRate": 0.4314,
+    "avgPrice": 0.4697,
+    "bias": -0.0383,
+    "brierMarket": 0.1416,
     "last": "2026-11-10T17:00:00.000Z",
     "live": 2,
-    "backtest": 40
+    "backtest": 49
    },
    {
     "series": "KXTEMPCHIHS",
     "cat": "Climate and Weather",
-    "n": 41,
-    "yesRate": 0.6098,
-    "avgPrice": 0.4702,
-    "bias": 0.1395,
-    "brierMarket": 0.2413,
-    "last": "2026-11-10T17:00:00.000Z",
+    "n": 50,
+    "yesRate": 0.58,
+    "avgPrice": 0.4369,
+    "bias": 0.1431,
+    "brierMarket": 0.2301,
+    "last": "2026-11-10T17:10:36.204Z",
     "live": 2,
+    "backtest": 48
+   },
+   {
+    "series": "KXGOLDH",
+    "cat": "Commodities",
+    "n": 47,
+    "yesRate": 0.2553,
+    "avgPrice": 0.4979,
+    "bias": -0.2426,
+    "brierMarket": 0.2436,
+    "last": "2026-11-10T17:06:11.258Z",
+    "live": 8,
     "backtest": 39
    },
    {
     "series": "KXWTIH",
     "cat": "Commodities",
-    "n": 38,
-    "yesRate": 0.4737,
-    "avgPrice": 0.5003,
-    "bias": -0.0266,
-    "brierMarket": 0.2492,
+    "n": 39,
+    "yesRate": 0.4872,
+    "avgPrice": 0.5,
+    "bias": -0.0128,
+    "brierMarket": 0.2495,
     "last": "2026-11-10T17:06:06.253Z",
     "live": 4,
-    "backtest": 34
+    "backtest": 35
    },
    {
-    "series": "KXSILVERH",
-    "cat": "Commodities",
-    "n": 29,
-    "yesRate": 0.4138,
-    "avgPrice": 0.4795,
-    "bias": -0.0657,
-    "brierMarket": 0.2347,
-    "last": "2026-11-10T17:06:11.260Z",
+    "series": "KXSOLE",
+    "cat": "Crypto",
+    "n": 34,
+    "yesRate": 0.2059,
+    "avgPrice": 0.3343,
+    "bias": -0.1284,
+    "brierMarket": 0.1628,
+    "last": "2026-11-10T17:03:06.317Z",
     "live": 2,
-    "backtest": 27
+    "backtest": 32
    }
   ]
  },
@@ -5533,7 +5543,7 @@
   ]
  },
  "paper": {
-  "updated": "2026-11-10T17:50:23.566Z",
+  "updated": "2026-11-10T17:52:46.872Z",
   "start": 10,
   "goal": 1000,
   "safety": {
@@ -7636,7 +7646,7 @@
    ]
   },
   "forward": {
-   "rows": 97,
+   "rows": 100,
    "settled": 0,
    "portfolios": [
     {
@@ -7692,7 +7702,7 @@
      "avgBetPct": 1.9549,
      "maxBetPct": 1.9798,
      "worstLossPct": 0,
-     "betsPerDay": 495.5615,
+     "betsPerDay": 445.7413,
      "trustNow": null,
      "busted": null,
      "reachedGoal": null,
@@ -7934,7 +7944,7 @@
      "avgBetPct": 2.3631,
      "maxBetPct": 2.502,
      "worstLossPct": 0,
-     "betsPerDay": 419.3213,
+     "betsPerDay": 377.1658,
      "trustNow": {
       "trust": 0,
       "why": "learning: 0/30 settled bets"
@@ -8147,7 +8157,7 @@
      "avgBetPct": 1.9538,
      "maxBetPct": 1.9788,
      "worstLossPct": 0,
-     "betsPerDay": 495.5615,
+     "betsPerDay": 445.7413,
      "trustNow": null,
      "busted": null,
      "reachedGoal": null,
@@ -8425,7 +8435,7 @@
      "avgBetPct": 2.3765,
      "maxBetPct": 2.503,
      "worstLossPct": 0,
-     "betsPerDay": 419.3213,
+     "betsPerDay": 377.1658,
      "trustNow": {
       "trust": 0,
       "why": "learning: 0/30 settled bets"
@@ -8622,16 +8632,16 @@
   }
  },
  "status": {
-  "updated": "2026-11-10T17:51:35.593Z",
+  "updated": "2026-11-10T17:52:47.278Z",
   "trade": {
    "answer": "No — don't trade real money yet",
    "tone": "bad",
-   "why": "Nothing has proven an edge after fees. Live: 92 markets resolved (18 events); a verdict needs 100+ and the 95% range must exclude zero. Network on unseen past markets: worse than market (out-of-sample).",
+   "why": "Nothing has proven an edge after fees. Live: 98 markets resolved (21 events); a verdict needs 100+ and the 95% range must exclude zero. Network on unseen past markets: worse than market (out-of-sample).",
    "next": "Let it keep collecting. The answer changes automatically when a strategy reaches SUCCESS on the live record."
   },
   "learning": [
-   "Live record: 92 of 800 predictions resolved so far (18 separate events).",
-   "longshot: on track — leaning better than the market (-0.0021) — wait for 8 more resolved",
+   "Live record: 98 of 803 predictions resolved so far (21 separate events).",
+   "longshot: on track — leaning better than the market (-0.0024) — wait for 2 more resolved",
    "memory: off track — not beating the market so far (0) — wait for 80 more resolved before judging",
    "Neural network: tested on 753 past markets it never saw → worse than market (out-of-sample) (Brier 0.1929 vs market 0.1804).",
    "Training history: 2 runs; data grew 736 → 942 markets; gap vs market 0.0014 → 0.0125 (below 0 = better than market).",
@@ -8731,17 +8741,17 @@
    {
     "name": "Pipeline ran recently",
     "ok": true,
-    "detail": "last cloud run 3 min ago"
+    "detail": "last cloud run 0 min ago"
    },
    {
     "name": "Runs on schedule (every 10 min)",
     "ok": false,
-    "detail": "8 cloud runs in the last 3 h (expect ~18)"
+    "detail": "9 cloud runs in the last 3 h (expect ~18)"
    },
    {
     "name": "New predictions are being logged",
     "ok": true,
-    "detail": "97 logged in the last hour"
+    "detail": "100 logged in the last hour"
    },
    {
     "name": "Outcomes are being collected",
@@ -8751,7 +8761,7 @@
    {
     "name": "Scorecard matches the logs",
     "ok": true,
-    "detail": "scorecard counts 800, log has 800"
+    "detail": "scorecard counts 803, log has 803"
    },
    {
     "name": "No prediction logged after its market resolved",
@@ -8771,7 +8781,7 @@
    {
     "name": "Network trained in the last 2 h",
     "ok": true,
-    "detail": "trained 1 min ago on 942 markets"
+    "detail": "trained 2 min ago on 942 markets"
    },
    {
     "name": "Bet-size safety held (≤5% per bet)",

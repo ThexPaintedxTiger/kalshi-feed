@@ -90,3 +90,9 @@
 {"ticker":"KXTEMPLAXHS-26NOV1012-T72.99","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T17:00:00Z","checkedAt":"2026-11-10T17:25:44.443Z"}
 {"ticker":"KXATPCHALLENGERMATCH-26NOV10PIRNAR-PIR","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T17:30:31Z","checkedAt":"2026-11-10T17:32:32.894Z"}
 {"ticker":"KXATPCHALLENGERMATCH-26NOV10PIRNAR-NAR","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T17:30:31Z","checkedAt":"2026-11-10T17:32:32.894Z"}
+{"ticker":"KXATPCHALLENGERMATCH-26NOV10BAEGLI-GLI","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-10T17:52:11.220532Z","closedAt":"2026-11-10T17:50:12Z","checkedAt":"2026-11-10T17:52:26.206Z"}
+{"ticker":"KXDOTA2GAME-26NOV100800ICZ10-IC","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T17:49:26Z","checkedAt":"2026-11-10T17:52:26.206Z"}
+{"ticker":"KXATPCHALLENGERMATCH-26NOV10MOEBAR-BAR","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-10T17:52:11.223829Z","closedAt":"2026-11-10T17:50:12Z","checkedAt":"2026-11-10T17:52:26.206Z"}
+{"ticker":"KXATPCHALLENGERMATCH-26NOV10BAEGLI-BAE","result":"yes","raw":"yes","status":"finalized","settledAt":"2026-11-10T17:52:11.220532Z","closedAt":"2026-11-10T17:50:12Z","checkedAt":"2026-11-10T17:52:26.206Z"}
+{"ticker":"KXATPCHALLENGERMATCH-26NOV10MOEBAR-MOE","result":"yes","raw":"yes","status":"finalized","settledAt":"2026-11-10T17:52:11.223829Z","closedAt":"2026-11-10T17:50:12Z","checkedAt":"2026-11-10T17:52:26.206Z"}
+{"ticker":"KXDOTA2GAME-26NOV100800ICZ10-Z10","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T17:49:26Z","checkedAt":"2026-11-10T17:52:26.206Z"}

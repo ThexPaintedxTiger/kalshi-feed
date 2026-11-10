@@ -1,18 +1,18 @@
 {
- "updated": "2026-11-10T17:50:23.500Z",
+ "updated": "2026-11-10T17:52:46.821Z",
  "goal": "IN_PROGRESS",
- "resolved": 92,
+ "resolved": 98,
  "health": {
   "ok": true,
   "warmingUp": true,
   "checks": {
    "runsLast24h": {
-    "value": 12,
+    "value": 13,
     "target": 7,
     "ok": true
    },
    "newPredictionsLast24h": {
-    "value": 800,
+    "value": 803,
     "target": 3,
     "ok": true
    },
@@ -33,15 +33,15 @@
  "predictors": {
   "longshot": {
    "status": "ON_TRACK",
-   "rec": "leaning better than the market (-0.0021) — wait for 8 more resolved",
-   "n": 92,
-   "brierVsMarket": -0.0021,
+   "rec": "leaning better than the market (-0.0024) — wait for 2 more resolved",
+   "n": 98,
+   "brierVsMarket": -0.0024,
    "picks": 0,
    "trend": "first snapshot",
    "snap": {
-    "n": 92,
-    "mean": -0.0021,
-    "width": 0.005
+    "n": 98,
+    "mean": -0.0024,
+    "width": 0.0045
    },
    "backtest": {
     "n": 852,
