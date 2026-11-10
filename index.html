@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Agent Flow</title><style id="css">
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#14151a;color:#e6e7eb;font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow:hidden}
+button,input,select,textarea{font:inherit;color:inherit}
+button{background:#2a2c35;border:1px solid #3a3d48;border-radius:8px;padding:6px 12px;cursor:pointer}
+button:hover{background:#343743}
+button.primary{background:#ff6d5a;border-color:#ff6d5a;color:#fff;font-weight:600}
+button.primary:hover{background:#ff8270}
+button.danger{color:#ff8a80}
+button:disabled{opacity:.5;cursor:default}
+input,select,textarea{background:#1c1e25;border:1px solid #363944;border-radius:8px;padding:7px 9px;width:100%}
+textarea{resize:vertical;min-height:120px}
+label{display:block;font-size:12px;color:#9a9daa;margin:12px 0 4px;text-transform:uppercase;letter-spacing:.04em}
+#app-root{display:grid;grid-template-rows:52px 1fr;height:100vh}
+header{display:flex;align-items:center;gap:8px;padding:0 12px;border-bottom:1px solid #262832;background:#191a20}
+header .logo{font-weight:700;letter-spacing:.02em;margin-right:6px;white-space:nowrap}
+header .logo span{color:#ff6d5a}
+header select{width:auto;max-width:220px}
+header .sp{flex:1}
+#status{font-size:12px;color:#9a9daa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:260px}
+main{display:grid;grid-template-columns:220px 1fr 340px;min-height:0}
+aside{background:#191a20;overflow:auto;min-height:0}
+#palette{border-right:1px solid #262832;padding:12px}
+#palette h3,#panel h3{margin:4px 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:#9a9daa}
+.pal{display:flex;gap:10px;align-items:center;padding:8px 10px;border:1px solid #2c2f39;border-radius:10px;margin-bottom:6px;cursor:pointer;background:#1f2128;user-select:none}
+.pal:hover{border-color:#4a4e5c;background:#252731}
+.pal .ic{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 22%,transparent);flex:none}
+.pal small{display:block;color:#8b8e9b;font-size:11px;line-height:1.3}
+#canvas{position:relative;overflow:hidden;background-color:#14151a;background-image:radial-gradient(#2b2e38 1px,transparent 1px);background-size:22px 22px;touch-action:none;cursor:grab}
+#canvas.panning{cursor:grabbing}
+#world{position:absolute;left:0;top:0;transform-origin:0 0}
+#edges{position:absolute;left:0;top:0;width:1px;height:1px;overflow:visible}
+#edges path.e{fill:none;stroke:#5c6070;stroke-width:2.5}
+#edges path.hit{fill:none;stroke:transparent;stroke-width:14;cursor:pointer}
+#edges g.sel path.e{stroke:#ff6d5a}
+#edges g.live path.e{stroke:#7dd3fc;stroke-dasharray:6 5;animation:dash 0.6s linear infinite}
+#edges path.tmp{fill:none;stroke:#ff6d5a;stroke-width:2;stroke-dasharray:5 4}
+@keyframes dash{to{stroke-dashoffset:-11}}
+.node{position:absolute;width:230px;background:#22242c;border:1.5px solid #353844;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.35);user-select:none;cursor:move}
+.node.sel{border-color:#ff6d5a;box-shadow:0 0 0 3px rgba(255,109,90,.18),0 6px 20px rgba(0,0,0,.35)}
+.node .nh{display:flex;align-items:center;gap:9px;padding:10px 12px 6px}
+.node .ic{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 25%,transparent);font-size:16px;flex:none}
+.node .nm{font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.node .nb{padding:0 12px 11px;color:#9a9daa;font-size:12px;max-height:54px;overflow:hidden}
+.node .st{width:10px;height:10px;border-radius:50%;background:#444855;flex:none}
+.node[data-status=running] .st{background:#7dd3fc;box-shadow:0 0 0 4px rgba(125,211,252,.2);animation:pulse 1s infinite}
+.node[data-status=done] .st{background:#4ade80}
+.node[data-status=error] .st{background:#f87171}
+.node[data-status=running]{border-color:#7dd3fc}
+@keyframes pulse{50%{opacity:.4}}
+.port{position:absolute;top:22px;width:16px;height:16px;border-radius:50%;background:#14151a;border:2px solid #737889;cursor:crosshair}
+.port:hover{border-color:#ff6d5a;background:#ff6d5a}
+.port.in{left:-9px}.port.out{right:-9px}
+.node .tag{position:absolute;top:-10px;right:10px;font-size:10px;background:#2f323d;border:1px solid #3c3f4b;border-radius:6px;padding:1px 6px;color:#aeb1bd}
+#zoom{position:absolute;left:12px;bottom:12px;display:flex;gap:6px}
+#zoom button{padding:5px 10px}
+#hint{position:absolute;right:12px;bottom:12px;font-size:12px;color:#6f7280;pointer-events:none;text-align:right}
+#banner{position:absolute;left:50%;top:12px;transform:translateX(-50%);background:#2a2420;border:1px solid #6b4a2a;color:#fbd5a5;padding:8px 14px;border-radius:10px;font-size:13px;display:none;max-width:80%}
+#panel{border-left:1px solid #262832;padding:14px;display:flex;flex-direction:column}
+.row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.out-box{margin-top:6px;background:#16171c;border:1px solid #2c2f39;border-radius:10px;padding:10px 12px;font-size:13px;overflow:auto;max-height:46vh}
+.out-box h1,.out-box h2,.out-box h3,.out-box h4{font-size:14px;margin:10px 0 4px;color:#fff}
+.out-box p{margin:5px 0}.out-box ul,.out-box ol{margin:4px 0;padding-left:20px}
+.out-box code{background:#262832;padding:1px 4px;border-radius:4px}
+.out-box pre{background:#20222a;padding:8px;border-radius:6px;white-space:pre-wrap}
+.muted{color:#8b8e9b;font-size:12px}
+#log{margin-top:auto;padding-top:12px;font-size:12px;color:#8b8e9b;max-height:140px;overflow:auto;border-top:1px solid #262832}
+#log div{padding:2px 0}
+.mobile-tabs{display:none}
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;place-items:center;z-index:20}
+#modal.open{display:grid}
+#modal .box{background:#1d1f26;border:1px solid #343743;border-radius:14px;padding:18px 20px;width:min(460px,94vw);max-height:90vh;overflow:auto}
+#modal h2{margin:0 0 4px;font-size:17px}
+#modal a{color:#7dd3fc}
+.ok{color:#4ade80}.bad{color:#f87171}
+@media (max-width:860px){
+ main{grid-template-columns:1fr}
+ #palette,#panel{position:absolute;top:52px;bottom:0;z-index:5;width:min(340px,92vw);display:none;box-shadow:0 0 30px rgba(0,0,0,.5)}
+ #palette{left:0}#panel{right:0}
+ #palette.open,#panel.open{display:block}#panel.open{display:flex}
+ .mobile-tabs{display:inline-flex;gap:6px}
+ header .logo{display:none}#status{display:none}
+}
+#brainView{position:fixed;inset:0;z-index:50;background:radial-gradient(ellipse at center,#1b1d2b 0%,#0b0c10 75%);display:none}
+#brainView.open{display:block}
+#brainCv{width:100%;height:100%;display:block;cursor:grab;touch-action:none}
+#brainHud{position:absolute;top:12px;right:12px;width:290px;max-height:calc(100% - 24px);overflow:auto;background:rgba(20,21,26,.85);border:1px solid #262832;border-radius:10px;padding:12px;backdrop-filter:blur(6px)}
+.bh-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+#brainStats{font-size:22px;font-weight:700;margin-bottom:8px}#brainStats small{display:block;font-size:12px;font-weight:400;color:#9aa0ad}
+.bh-row{font-size:12px;margin:7px 0}.bh-bar{height:5px;border-radius:3px;background:#262832;margin-top:3px;overflow:hidden}.bh-bar i{display:block;height:100%}
+.bh-prev{text-transform:none;letter-spacing:0;color:#e6e7eb;display:flex;gap:6px;align-items:center;font-size:12px;margin:10px 0 4px}.bh-prev input{width:auto}
+@media(max-width:700px){#brainHud{top:auto;bottom:8px;left:8px;right:8px;width:auto;max-height:42%}}
+#dashView{position:fixed;inset:0;z-index:50;background:#111217;display:none;overflow:auto}#dashView.open{display:block}
+.dwrap{max-width:1000px;margin:0 auto;padding:16px}.dwrap h4{margin:22px 0 8px;color:#9aa0ad;text-transform:uppercase;font-size:12px;letter-spacing:.06em}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:12px}.kpi{background:#191a20;border:1px solid #262832;border-radius:10px;padding:12px}.kpi b{display:block;font-size:24px}.kpi span{font-size:12px;color:#9aa0ad}
+.dbar{width:100%;height:90px;background:#191a20;border:1px solid #262832;border-radius:10px;padding:6px;box-sizing:border-box}
+.dhead,.drow summary{display:grid;grid-template-columns:2fr 1fr 1.2fr 1.4fr 1fr;gap:8px;align-items:center;padding:8px 10px;font-size:13px}.dhead{color:#9aa0ad;font-size:12px}
+.drow{background:#191a20;border:1px solid #262832;border-radius:8px;margin:6px 0}.drow summary{cursor:pointer;list-style:none}.drow .out-box{margin:0 10px 10px;max-height:360px;overflow:auto}.dn{font-weight:600}
+.dst{font-size:12px;text-transform:capitalize}.dst[data-s=done]{color:#4ade80}.dst[data-s=running]{color:#38bdf8}.dst[data-s=error]{color:#f87171}.dst[data-s=idle]{color:#9aa0ad}
+.dsp{display:block;height:4px;background:#262832;border-radius:2px;margin-top:3px}.dsp i{display:block;height:100%;background:#38bdf8;border-radius:2px}
+@media(max-width:700px){.dhead{display:none}.drow summary{grid-template-columns:1fr 1fr}}
+.bets{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-bottom:6px}
+.bet{border:1px solid #262832;border-radius:10px;padding:12px;background:#191a20;display:flex;flex-direction:column;gap:6px}
+.bt{font-weight:600}.bp{display:flex;align-items:center;gap:8px}.bp b{font-size:20px}.bp .dsp{flex:1}.bn{font-size:12px}
+.bf{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
+.blink{background:#22c55e;color:#06210f;font-weight:700;padding:6px 10px;border-radius:8px;text-decoration:none;font-size:13px}
+.bet{position:relative}.bet.arb{border-color:#16a34a}
+.btag{align-self:flex-start;font-size:10px;font-weight:800;letter-spacing:.06em;padding:2px 6px;border-radius:5px;background:#16a34a;color:#04130a}.btag.ai{background:#a78bfa;color:#160b2e}.btag.live{background:#0ea5e9;color:#03141d}
+.bp span{font-size:12px}.bedge{font-size:12px;font-weight:700;color:#f87171}.bedge[data-pos=true]{color:#4ade80}
+.bdet summary{cursor:pointer;font-size:12px;color:#9aa0ad}.bfacts{display:grid;grid-template-columns:1fr auto;gap:2px 10px;font-size:12px;margin-top:6px}.bfacts span{color:#9aa0ad}
+</style></head><body><script id="state" type="application/json">{"workflows":[{"id":"wrefyon","name":"Kalshi Neural Forecaster","goal":"Find the best Kalshi bets from live data — report only, never trade. Data layer → three specialist analysts → ensemble → risk check. Prefer safe profit sets, then bets where the combined win chance beats the price.","nodes":[{"id":"0ybf0dn","type":"trigger","icon":"⏰","name":"Start","color":"#f59e0b","instructions":"Focus on digital downloads that are easy to make.","tier":"default","x":40,"y":240,"output":""},{"id":"6hgpbkj","type":"kdata","icon":"📈","name":"Kalshi Data","color":"#10b981","instructions":"# Live Kalshi data — free, no AI. Settings (name = value):\nmode = all         # arbitrage | markets | all\ntop = 15\nmin_volume = 50\nmin_profit = 0.01\nmax_days = 90\nsearch =          # e.g. fed, bitcoin, nfl\nfeed = https://raw.githubusercontent.com/ThexPaintedxTiger/kalshi-feed/main/bets.json\nserver =          # optional\n# If auto-load fails: open the data link in the panel, copy the whole page and paste it under this line.\n","tier":"default","x":290,"y":240,"output":""},{"id":"eadr56s","type":"agent","icon":"📉","name":"Momentum Analyst","color":"#38bdf8","instructions":"Use ONLY the Kalshi data in your input — never invent markets, prices or links. For each of the top 10 bets (profit sets first) give one line: title | your win % | confidence (high/med/low) | one-line reason. Judge from price moves (1h/24h), trading activity and spread: is money flowing in or out, and is the move likely to continue or revert?","tier":"quick","x":580,"y":60,"output":""},{"id":"n3yrcj7","type":"agent","icon":"📚","name":"Base-Rate Analyst","color":"#facc15","instructions":"Use ONLY the Kalshi data in your input — never invent markets, prices or links. For each of the top 10 bets (profit sets first) give one line: title | your win % | confidence (high/med/low) | one-line reason. Judge from base rates and what you know: how often events like this happen, deadlines, and whether the market price looks too high or too low.","tier":"quick","x":580,"y":240,"output":""},{"id":"ityymdf","type":"agent","icon":"💧","name":"Liquidity & Rules Analyst","color":"#4ade80","instructions":"Use ONLY the Kalshi data in your input — never invent markets, prices or links. For each of the top 10 bets (profit sets first) give one line: title | your win % | confidence (high/med/low) | one-line reason. Judge tradability and resolution risk: spread, volume, settle date, and rule traps (ties, 'other', early close, vague wording). Lower your % when rules are risky.","tier":"quick","x":580,"y":420,"output":""},{"id":"ogcpgor","type":"agent","icon":"🧠","name":"Ensemble Forecaster","color":"#a78bfa","instructions":"You combine three analysts like a neural network's output layer. For each bet: weight each analyst's win % by confidence (high 3, med 2, low 1) and compute the weighted average in a calc block (e.g. fed = (62*3 + 55*2 + 70*1)/6). Edge = your average minus the market price in cents. Keep profit sets that pass the rules check, plus bets with edge of 5 points or more (either side: if the edge is negative, the NO side is the bet — say so). Output: a ranked list with market %, ensemble %, edge, cost, settle date and one-line why, then a bets block: title | ensemble win % | exact kalshi.com link from the data | edge and side.","tier":"default","x":880,"y":240,"output":""},{"id":"8088lqu","type":"agent","icon":"🛡️","name":"Risk Checker","color":"#fb923c","instructions":"Check the Ensemble Forecaster's picks against the Kalshi data: every price, link and date must match; drop picks with spread over 5¢, volume under 500, or risky rules. Suggest a small, equal stake per pick (never more than 2% of a bankroll each). Output a short checklist and a final bets block (same format, exact links).","tier":"quick","x":1170,"y":240,"output":""}],"edges":[{"id":"41gf5dm","from":"0ybf0dn","to":"6hgpbkj"},{"id":"7p40kup","from":"6hgpbkj","to":"eadr56s"},{"id":"0eyboc6","from":"6hgpbkj","to":"n3yrcj7"},{"id":"85p28q1","from":"6hgpbkj","to":"ityymdf"},{"id":"6q4is8k","from":"6hgpbkj","to":"ogcpgor"},{"id":"w6a4hv9","from":"eadr56s","to":"ogcpgor"},{"id":"w74396o","from":"n3yrcj7","to":"ogcpgor"},{"id":"0gz23jk","from":"ityymdf","to":"ogcpgor"},{"id":"f9qbpd3","from":"ogcpgor","to":"8088lqu"},{"id":"udigia5","from":"6hgpbkj","to":"8088lqu"}],"pan":{"x":20,"y":20},"k":0.75}],"current":"wrefyon","savedAt":1794310466330}</script><script id="app">
+(function(){
+"use strict";
+const TEMPLATES=[
+ {type:"trigger",icon:"⏰",name:"Start",color:"#f59e0b",desc:"Kicks off the workflow",instructions:"Focus on digital downloads that are easy to make."},
+ {type:"agent",icon:"🔎",name:"Trend Scout",color:"#38bdf8",desc:"Finds what's selling now",instructions:"Identify 5 promising digital-product niches for Etsy right now, considering the current season and upcoming holidays. For each give: niche, why it's timely, target buyer, how crowded it is (low/med/high), and one example product."},
+ {type:"agent",icon:"💡",name:"Product Designer",color:"#a78bfa",desc:"Turns a niche into a product",instructions:"Pick the 2 strongest niches from the input. For each, spec one digital product that can be made in under a day with Canva or Google Docs: what's inside, number of pages, file formats, sizes, and a step-by-step build checklist."},
+ {type:"agent",icon:"✍️",name:"Listing Writer",color:"#4ade80",desc:"Titles, descriptions, tags",instructions:"For each product, write an Etsy listing: a title under 140 characters with the main keywords first, a scannable description (what you get, how it works, instant download note), and exactly 13 tags, each 20 characters or fewer."},
+ {type:"agent",icon:"💲",name:"Pricing Strategist",color:"#facc15",desc:"Prices and bundles",instructions:"Suggest a launch price, a regular price and one bundle offer for each product, with a one-line reason for each. Keep it realistic for a new shop with no reviews."},
+ {type:"agent",icon:"🖼️",name:"Mockup & Pin Creator",color:"#f472b6",desc:"Image ideas and Pinterest copy",instructions:"For each product, write 3 mockup image descriptions (what to show, background, text overlay) and 2 Pinterest pin titles with descriptions to drive traffic to the listing."},
+ {type:"agent",icon:"✅",name:"QA Manager",color:"#fb923c",desc:"Checks everything, final plan",instructions:"Review all the input. Fix any title over 140 characters or tag over 20 characters, flag anything that could be a trademark or copyright problem, then output a final launch checklist the shop owner can follow today, in order."},
+ {type:"agent",icon:"💬",name:"Customer Support",color:"#2dd4bf",desc:"Replies to buyer messages",instructions:"Write friendly, short reply templates for: download not working, request for a refund on a digital item, custom request, and a thank-you message after purchase."},
+ {type:"agent",icon:"📊",name:"Analyst",color:"#60a5fa",desc:"Reviews results, next steps",instructions:"Given the input (stats, notes or previous results), list what's working, what isn't, and the 3 highest-impact changes to make this week."},
+ {type:"kdata",icon:"📈",name:"Kalshi Data",color:"#10b981",desc:"Live Kalshi prices & sure-profit scan — free, no AI",instructions:"# Live Kalshi data — free, no AI. Settings (name = value):\nmode = arbitrage   # arbitrage | markets | all\ntop = 15\nmin_volume = 50\nmin_profit = 0.01\nmax_days = 90\nsearch =          # e.g. fed, bitcoin, nfl\nfeed = https://raw.githubusercontent.com/ThexPaintedxTiger/kalshi-feed/main/bets.json\nserver =          # optional\n# If auto-load fails: open the data link in the panel, copy the whole page and paste it under this line.\n"},
+ {type:"compute",icon:"🧮",name:"Calculator",color:"#22d3ee",desc:"Exact math — free, instant, no AI",instructions:"# Numbers from the agents before this one are in: nums\n# One formula per line:  name = expression\ntotal = sum(nums)\naverage = round(avg(nums), 2)\nbiggest = max(nums)"},
+ {type:"agent",icon:"🤖",name:"Custom Agent",color:"#9ca3af",desc:"Write your own job",instructions:"Describe what this agent should do with the input it receives."}
+];
+const uid=()=>Math.random().toString(36).slice(2,9);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const tpl=n=>TEMPLATES.find(t=>t.name===n);
+
+function etsyWorkflow(){
+ const mk=(n,x,y)=>{const t=tpl(n);return {id:uid(),type:t.type,icon:t.icon,name:t.name,color:t.color,instructions:t.instructions,tier:"default",x,y,output:""}};
+ const a=mk("Start",40,220),b=mk("Trend Scout",320,220),c=mk("Product Designer",600,220),d=mk("Listing Writer",900,60),e=mk("Pricing Strategist",900,230),f=mk("Mockup & Pin Creator",900,400),g=mk("QA Manager",1200,230);
+ const E=(p,q)=>({id:uid(),from:p.id,to:q.id});
+ return {id:uid(),name:"Etsy Passive Income",goal:"Run a passive-income Etsy shop selling digital downloads (printables, planners, templates) that are made once and sold many times.",nodes:[a,b,c,d,e,f,g],edges:[E(a,b),E(b,c),E(c,d),E(c,e),E(c,f),E(d,g),E(e,g),E(f,g)],pan:{x:30,y:20},k:0.8};
+}
+function blankWorkflow(){const t=tpl("Start");return {id:uid(),name:"New workflow",goal:"Describe what this team of agents is working toward.",nodes:[{id:uid(),type:"trigger",icon:t.icon,name:"Start",color:t.color,instructions:"",tier:"default",x:80,y:200,output:""}],edges:[],pan:{x:0,y:0},k:1}}
+
+// ---------- state ----------
+let state=null;
+try{state=JSON.parse(document.getElementById("state").textContent)}catch(e){}
+let local=null;try{local=JSON.parse(localStorage.getItem("agentflow-draft")||"null")}catch(e){}
+if(local&&(!state||(local.savedAt||0)>(state.savedAt||0)))state=local;
+if(!state||!state.workflows||!state.workflows.length){const w=etsyWorkflow();state={workflows:[w],current:w.id,savedAt:0}}
+let wf=state.workflows.find(w=>w.id===state.current)||state.workflows[0];
+let sel=null,selEdge=null,running=false,abortCtl=null,dirty=false;
+const status={};
+
+// ---------- UI shell ----------
+document.body.insertAdjacentHTML("afterbegin",`
+<div id="app-root">
+<header>
+ <div class="logo">Agent<span>Flow</span></div>
+ <span class="mobile-tabs"><button id="mPal">＋ Agents</button></span>
+ <select id="wfSel"></select>
+ <button id="newWf" title="New blank workflow">New</button>
+ <button id="kalWf" title="Add the Kalshi Neural Forecaster workflow">＋ Kalshi template</button>
+ <button id="etsyWf" title="Add the Etsy starter workflow">＋ Etsy template</button>
+ <div class="sp"></div>
+ <span id="status"></span>
+ <button id="dashBtn" title="Results and what each agent did">📊 Dashboard</button>
+ <button id="brainBtn" title="See your agents as a 3D brain">🧠 Brain</button>
+ <button id="engBtn" title="Choose which AI runs the agents">⚙ AI</button>
+ <button id="expBtn" title="Download your workflows as a backup file" style="display:none">Export</button><button id="impBtn" style="display:none">Import</button><input type="file" id="impFile" accept=".json" style="display:none">
+ <button id="saveBtn">Save</button>
+ <button id="stopBtn" disabled>Stop</button>
+ <button id="runBtn" class="primary">▶ Run workflow</button>
+ <span class="mobile-tabs"><button id="mPanel">⚙</button></span>
+</header>
+<main>
+ <aside id="palette"><h3>Agents</h3><div class="muted" style="margin:-4px 0 10px">Click to add to the canvas, then drag from a node's right dot to another's left dot to connect.</div><div id="palList"></div></aside>
+ <section id="canvas">
+  <div id="world"><svg id="edges"></svg><div id="nodes"></div></div>
+  <div id="banner"></div>
+  <div id="zoom"><button id="zIn">＋</button><button id="zOut">−</button><button id="zFit">Fit</button></div>
+  <div id="hint">Drag background to pan · scroll to zoom · Delete removes selection</div>
+ </section>
+ <div id="modal"><div class="box" id="modalBox"></div></div>
+ <aside id="panel"><div id="panelBody"></div><div id="log"></div></aside>
+</main>
+</div>`);
+const $=s=>document.querySelector(s);
+const canvas=$("#canvas"),world=$("#world"),svg=$("#edges"),nodesEl=$("#nodes");
+
+$("#palList").innerHTML=TEMPLATES.map((t,i)=>`<div class="pal" data-i="${i}" style="--c:${t.color}"><div class="ic">${t.icon}</div><div><b>${esc(t.name)}</b><small>${esc(t.desc)}</small></div></div>`).join("");
+$("#palList").addEventListener("click",e=>{const p=e.target.closest(".pal");if(!p)return;addNode(TEMPLATES[+p.dataset.i]);$("#palette").classList.remove("open")});
+$("#mPal").onclick=()=>{$("#palette").classList.toggle("open");$("#panel").classList.remove("open")};
+$("#mPanel").onclick=()=>{$("#panel").classList.toggle("open");$("#palette").classList.remove("open")};
+
+function log(msg){const d=document.createElement("div");d.textContent=new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})+"  "+msg;$("#log").prepend(d)}
+function setStatus(t){$("#status").textContent=t}
+function banner(t){const b=$("#banner");b.textContent=t;b.style.display=t?"block":"none"}
+function touch(){dirty=true;state.savedAt=Date.now();try{localStorage.setItem("agentflow-draft",JSON.stringify(state))}catch(e){};setStatus("Unsaved changes")}
+
+// ---------- workflows ----------
+function renderWfSel(){$("#wfSel").innerHTML=state.workflows.map(w=>`<option value="${w.id}" ${w.id===wf.id?"selected":""}>${esc(w.name)}</option>`).join("")}
+$("#wfSel").onchange=e=>{switchWf(e.target.value)};
+function switchWf(id){wf=state.workflows.find(w=>w.id===id);state.current=id;sel=null;selEdge=null;renderAll();touch()}
+$("#newWf").onclick=()=>{const w=blankWorkflow();state.workflows.push(w);switchWf(w.id)};
+$("#kalWf").onclick=()=>{const mk=(n,x,y,o={})=>{const t=tpl(n);return Object.assign({id:uid(),type:t.type,icon:t.icon,name:t.name,color:t.color,instructions:t.instructions,tier:"default",x,y,output:""},o)};
+ const A=(icon,name,color,x,y,tier,ins)=>mk("Start",x,y,{type:"agent",icon,name,color,tier,instructions:ins});
+ const SPEC="Use ONLY the Kalshi data in your input — never invent markets, prices or links. For each of the top 10 bets (profit sets first) give one line: title | your win % | confidence (high/med/low) | one-line reason. ";
+ const s=mk("Start",40,240),d=mk("Kalshi Data",290,240,{instructions:tpl("Kalshi Data").instructions.replace("mode = arbitrage ","mode = all       ")}),
+ m=A("📉","Momentum Analyst","#38bdf8",580,60,"quick",SPEC+"Judge from price moves (1h/24h), trading activity and spread: is money flowing in or out, and is the move likely to continue or revert?"),
+ b=A("📚","Base-Rate Analyst","#facc15",580,240,"quick",SPEC+"Judge from base rates and what you know: how often events like this happen, deadlines, and whether the market price looks too high or too low."),
+ l=A("💧","Liquidity & Rules Analyst","#4ade80",580,420,"quick",SPEC+"Judge tradability and resolution risk: spread, volume, settle date, and rule traps (ties, 'other', early close, vague wording). Lower your % when rules are risky."),
+ e=A("🧠","Ensemble Forecaster","#a78bfa",880,240,"default","You combine three analysts like a neural network's output layer. For each bet: weight each analyst's win % by confidence (high 3, med 2, low 1) and compute the weighted average in a calc block (e.g. fed = (62*3 + 55*2 + 70*1)/6). Edge = your average minus the market price in cents. Keep profit sets that pass the rules check, plus bets with edge of 5 points or more (either side: if the edge is negative, the NO side is the bet — say so). Output: a ranked list with market %, ensemble %, edge, cost, settle date and one-line why, then a bets block: title | ensemble win % | exact kalshi.com link from the data | edge and side."),
+ r=A("🛡️","Risk Checker","#fb923c",1170,240,"quick","Check the Ensemble Forecaster's picks against the Kalshi data: every price, link and date must match; drop picks with spread over 5¢, volume under 500, or risky rules. Suggest a small, equal stake per pick (never more than 2% of a bankroll each). Output a short checklist and a final bets block (same format, exact links).");
+ const E=(p,q)=>({id:uid(),from:p.id,to:q.id});
+ const w={id:uid(),name:"Kalshi Neural Forecaster",goal:"Find the best Kalshi bets from live data — report only, never trade. Data layer → three specialist analysts → ensemble → risk check. Prefer safe profit sets, then bets where the combined win chance beats the price.",nodes:[s,d,m,b,l,e,r],edges:[E(s,d),E(d,m),E(d,b),E(d,l),E(d,e),E(m,e),E(b,e),E(l,e),E(e,r),E(d,r)],pan:{x:20,y:20},k:0.75};state.workflows.push(w);switchWf(w.id)};
+$("#etsyWf").onclick=()=>{const w=etsyWorkflow();state.workflows.push(w);switchWf(w.id)};
+
+// ---------- view ----------
+function applyView(){world.style.transform=`translate(${wf.pan.x}px,${wf.pan.y}px) scale(${wf.k})`}
+function toWorld(cx,cy){const r=canvas.getBoundingClientRect();return {x:(cx-r.left-wf.pan.x)/wf.k,y:(cy-r.top-wf.pan.y)/wf.k}}
+function zoomAt(f,cx,cy){const r=canvas.getBoundingClientRect();cx=cx??r.left+r.width/2;cy=cy??r.top+r.height/2;const p=toWorld(cx,cy);wf.k=Math.min(2,Math.max(0.3,wf.k*f));wf.pan.x=cx-r.left-p.x*wf.k;wf.pan.y=cy-r.top-p.y*wf.k;applyView()}
+canvas.addEventListener("wheel",e=>{e.preventDefault();zoomAt(e.deltaY<0?1.1:1/1.1,e.clientX,e.clientY)},{passive:false});
+$("#zIn").onclick=()=>zoomAt(1.2);$("#zOut").onclick=()=>zoomAt(1/1.2);
+$("#zFit").onclick=fit;
+function fit(){if(!wf.nodes.length)return;const r=canvas.getBoundingClientRect();let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;wf.nodes.forEach(n=>{x0=Math.min(x0,n.x);y0=Math.min(y0,n.y);x1=Math.max(x1,n.x+230);y1=Math.max(y1,n.y+110)});wf.k=Math.min(1.2,Math.max(0.3,Math.min((r.width-60)/(x1-x0),(r.height-60)/(y1-y0))));wf.pan.x=(r.width-(x1-x0)*wf.k)/2-x0*wf.k;wf.pan.y=(r.height-(y1-y0)*wf.k)/2-y0*wf.k;applyView()}
+
+// ---------- nodes ----------
+function preview(n){const t=(n.output||"").replace(/[#*`>]/g,"").trim();return t?t.slice(0,140):(n.type==="trigger"?"Start here · run notes: "+(n.instructions||"none"):n.instructions.slice(0,110))}
+function nodeHTML(n){return `<div class="node${sel===n.id?" sel":""}" data-id="${n.id}" data-status="${status[n.id]||(n.output?"done":"idle")}" style="left:${n.x}px;top:${n.y}px;--c:${n.color}">
+ ${n.type==="trigger"?"":'<div class="port in"></div>'}<div class="port out"></div>
+ ${n.tier&&n.tier!=="default"?`<span class="tag">${n.tier}</span>`:""}
+ <div class="nh"><div class="ic">${esc(n.icon)}</div><div class="nm">${esc(n.name)}</div><div class="st"></div></div>
+ <div class="nb">${esc(preview(n))}</div></div>`}
+function renderNodes(){nodesEl.innerHTML=wf.nodes.map(nodeHTML).join("");renderEdges()}
+function updateNode(n){const el=nodesEl.querySelector(`[data-id="${n.id}"]`);if(el)el.outerHTML=nodeHTML(n)}
+function addNode(t){const r=canvas.getBoundingClientRect();const c=toWorld(r.left+r.width/2,r.top+r.height/2);const n={id:uid(),type:t.type,icon:t.icon,name:t.name,color:t.color,instructions:t.instructions,tier:"default",x:c.x-115+Math.random()*40,y:c.y-50+Math.random()*40,output:""};wf.nodes.push(n);sel=n.id;selEdge=null;renderNodes();renderPanel();touch()}
+function delNode(id){wf.nodes=wf.nodes.filter(n=>n.id!==id);wf.edges=wf.edges.filter(e=>e.from!==id&&e.to!==id);if(sel===id)sel=null;renderNodes();renderPanel();touch()}
+const byId=id=>wf.nodes.find(n=>n.id===id);
+
+// ---------- edges ----------
+function pathD(x1,y1,x2,y2){const dx=Math.max(50,Math.abs(x2-x1)*0.5);return `M${x1},${y1} C${x1+dx},${y1} ${x2-dx},${y2} ${x2},${y2}`}
+function renderEdges(tmp){let h="";for(const e of wf.edges){const a=byId(e.from),b=byId(e.to);if(!a||!b)continue;const d=pathD(a.x+230,a.y+30,b.x,b.y+30);const live=status[b.id]==="running";h+=`<g data-e="${e.id}" class="${selEdge===e.id?"sel":""} ${live?"live":""}"><path class="e" d="${d}"/><path class="hit" d="${d}"/></g>`}if(tmp)h+=`<path class="tmp" d="${tmp}"/>`;svg.innerHTML=h}
+svg.addEventListener("pointerdown",e=>{const g=e.target.closest("g[data-e]");if(!g)return;e.stopPropagation();selEdge=g.dataset.e;sel=null;renderNodes();renderPanel()});
+function wouldCycle(from,to){const seen=new Set([to]),st=[to];while(st.length){const c=st.pop();if(c===from)return true;wf.edges.filter(e=>e.from===c).forEach(e=>{if(!seen.has(e.to)){seen.add(e.to);st.push(e.to)}})}return false}
+
+// ---------- pointer interactions ----------
+let drag=null;
+canvas.addEventListener("pointerdown",e=>{
+ if(e.target.closest("#zoom")||e.target.closest("g[data-e]"))return;
+ const port=e.target.closest(".port.out"),nodeEl=e.target.closest(".node");
+ if(port){const n=byId(nodeEl.dataset.id);drag={mode:"link",from:n};e.preventDefault();return}
+ if(nodeEl){if(e.target.closest(".port.in"))return;const n=byId(nodeEl.dataset.id);const p=toWorld(e.clientX,e.clientY);drag={mode:"node",n,ox:p.x-n.x,oy:p.y-n.y,moved:false};if(sel!==n.id||selEdge){sel=n.id;selEdge=null;nodesEl.querySelectorAll(".node.sel").forEach(x=>x.classList.remove("sel"));nodeEl.classList.add("sel");renderEdges();renderPanel()}return}
+ drag={mode:"pan",sx:e.clientX,sy:e.clientY,px:wf.pan.x,py:wf.pan.y,moved:false};canvas.classList.add("panning");
+});
+window.addEventListener("pointermove",e=>{
+ if(!drag)return;
+ if(drag.mode==="pan"){wf.pan.x=drag.px+e.clientX-drag.sx;wf.pan.y=drag.py+e.clientY-drag.sy;if(Math.abs(e.clientX-drag.sx)+Math.abs(e.clientY-drag.sy)>3)drag.moved=true;applyView()}
+ else if(drag.mode==="node"){const p=toWorld(e.clientX,e.clientY);drag.n.x=Math.round(p.x-drag.ox);drag.n.y=Math.round(p.y-drag.oy);drag.moved=true;const el=nodesEl.querySelector(`[data-id="${drag.n.id}"]`);el.style.left=drag.n.x+"px";el.style.top=drag.n.y+"px";renderEdges()}
+ else if(drag.mode==="link"){const p=toWorld(e.clientX,e.clientY);renderEdges(pathD(drag.from.x+230,drag.from.y+30,p.x,p.y))}
+});
+window.addEventListener("pointerup",e=>{
+ if(!drag)return;const d=drag;drag=null;canvas.classList.remove("panning");
+ if(d.mode==="pan"){if(!d.moved&&(sel||selEdge)){sel=null;selEdge=null;renderNodes();renderPanel()}else if(d.moved)touch()}
+ else if(d.mode==="node"){if(d.moved)touch()}
+ else if(d.mode==="link"){const t=document.elementFromPoint(e.clientX,e.clientY);let target=null;const nEl=t&&t.closest(".node");if(nEl){const n=byId(nEl.dataset.id);if(n&&n.type!=="trigger")target=n}
+  if(target&&target.id!==d.from.id){if(wf.edges.some(x=>x.from===d.from.id&&x.to===target.id))log("Already connected");else if(wouldCycle(d.from.id,target.id))log("That connection would create a loop");else{wf.edges.push({id:uid(),from:d.from.id,to:target.id});touch();log(`Connected ${d.from.name} → ${target.name}`)}}
+  renderEdges()}
+});
+window.addEventListener("keydown",e=>{if(["INPUT","TEXTAREA","SELECT"].includes(document.activeElement.tagName))return;if(e.key==="Delete"||e.key==="Backspace"){if(sel){delNode(sel)}else if(selEdge){wf.edges=wf.edges.filter(x=>x.id!==selEdge);selEdge=null;renderEdges();renderPanel();touch()}}});
+
+// ---------- markdown ----------
+function inline(s){return s.replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/`([^`]+)`/g,"<code>$1</code>")}
+function md(t){const L=esc(t).split("\n");let h="",list=null,code=false,buf=[];const close=()=>{if(list){h+=`</${list}>`;list=null}};
+ for(const l of L){if(/^```/.test(l)){if(code){h+="<pre>"+buf.join("\n")+"</pre>";buf=[];code=false}else{close();code=true}continue}if(code){buf.push(l);continue}
+  let m;if((m=l.match(/^(#{1,4})\s+(.*)/))){close();h+=`<h${m[1].length}>${inline(m[2])}</h${m[1].length}>`}
+  else if((m=l.match(/^\s*[-*•]\s+(.*)/))){if(list!=="ul"){close();h+="<ul>";list="ul"}h+=`<li>${inline(m[1])}</li>`}
+  else if((m=l.match(/^\s*\d+[.)]\s+(.*)/))){if(list!=="ol"){close();h+="<ol>";list="ol"}h+=`<li>${inline(m[1])}</li>`}
+  else if(!l.trim()){close()}else{close();h+=`<p>${inline(l)}</p>`}}
+ close();if(code)h+="<pre>"+buf.join("\n")+"</pre>";return h}
+
+// ---------- side panel ----------
+function renderPanel(){
+ const P=$("#panelBody");
+ if(selEdge){const e=wf.edges.find(x=>x.id===selEdge);const a=e&&byId(e.from),b=e&&byId(e.to);if(!e){selEdge=null;return renderPanel()}
+  P.innerHTML=`<h3>Connection</h3><p>${esc(a.name)} → ${esc(b.name)}</p><p class="muted">${esc(b.name)} receives ${esc(a.name)}'s output as its input.</p><div class="row"><button class="danger" id="rmEdge">Remove connection</button></div>`;
+  $("#rmEdge").onclick=()=>{wf.edges=wf.edges.filter(x=>x.id!==selEdge);selEdge=null;renderEdges();renderPanel();touch()};return}
+ const n=sel&&byId(sel);
+ if(!n){P.innerHTML=`<h3>Workflow</h3>
+  <label>Name</label><input id="wName" value="${esc(wf.name)}">
+  <label>Team goal</label><textarea id="wGoal" style="min-height:90px">${esc(wf.goal)}</textarea>
+  <p class="muted">Every agent sees this goal plus the output of the agents connected into it. Agents run left to right, following the arrows.</p>
+  <p class="muted">${wf.nodes.length} agents · ${wf.edges.length} connections</p>
+  <div class="row"><button id="clrOut">Clear all results</button>${state.workflows.length>1?'<button class="danger" id="delWf">Delete workflow</button>':""}</div>`;
+  $("#wName").oninput=e=>{wf.name=e.target.value;renderWfSel();touch()};
+  $("#wGoal").oninput=e=>{wf.goal=e.target.value;touch()};
+  $("#clrOut").onclick=()=>{wf.nodes.forEach(x=>{x.output="";delete status[x.id]});renderNodes();touch()};
+  const dw=$("#delWf");if(dw)dw.onclick=()=>{if(dw.dataset.ok){state.workflows=state.workflows.filter(w=>w.id!==wf.id);wf=state.workflows[0];state.current=wf.id;renderAll();touch()}else{dw.dataset.ok=1;dw.textContent="Click again to delete"}};
+  return}
+ const isT=n.type==="trigger";
+ const ups=wf.edges.filter(e=>e.to===n.id).map(e=>byId(e.from)).filter(Boolean);
+ P.innerHTML=`<h3>${isT?"Trigger":"Agent"}</h3>
+  <div style="display:grid;grid-template-columns:56px 1fr;gap:8px"><div><label>Icon</label><input id="nIcon" value="${esc(n.icon)}" maxlength="4" style="text-align:center"></div><div><label>Name</label><input id="nName" value="${esc(n.name)}"></div></div>
+  <label>${isT?"Run notes (passed to the first agents)":n.type==="kdata"?`Settings — then optionally paste data. Copy-paste link: <a href="https://raw.githubusercontent.com/ThexPaintedxTiger/kalshi-feed/main/bets.json" target="_blank" rel="noopener">open the free feed</a> (small) or <a href="${KAPI}" target="_blank" rel="noopener">raw Kalshi data</a>`:n.type==="compute"?"Formulas — one per line, name = expression. Numbers from connected agents are in nums. Free: no AI used.":"Job / instructions"}</label><textarea id="nInst">${esc(n.instructions)}</textarea>
+  ${isT?"":`<div style="${["compute","kdata"].includes(n.type)?"display:none":""}"><label>Thinking power</label><select id="nTier"><option value="quick">Quick (fast, simple jobs)</option><option value="default">Balanced</option><option value="complex">Deep (hard jobs, slower)</option></select></div>
+  <p class="muted">Gets input from: ${ups.length?ups.map(u=>esc(u.name)).join(", "):"nothing yet — connect an agent into it"}</p>`}
+  <div class="row">${isT?"":'<button class="primary" id="runOne">▶ Run this agent</button>'}<button class="danger" id="delN">Delete</button></div>
+  ${isT?"":`<label style="display:flex;justify-content:space-between;align-items:center">Output <span><button id="cpy" style="padding:2px 8px;font-size:12px;text-transform:none;letter-spacing:0">Copy</button></span></label>
+  <div class="out-box" id="outBox">${n.output?md(n.output):'<span class="muted">No output yet. Run the workflow or this agent.</span>'}</div>`}`;
+ $("#nIcon").oninput=e=>{n.icon=e.target.value||"🤖";updateNode(n);touch()};
+ $("#nName").oninput=e=>{n.name=e.target.value;updateNode(n);touch()};
+ $("#nInst").oninput=e=>{n.instructions=e.target.value;updateNode(n);touch()};
+ $("#delN").onclick=()=>delNode(n.id);
+ if(!isT){$("#nTier").value=n.tier||"default";$("#nTier").onchange=e=>{n.tier=e.target.value;updateNode(n);touch()};
+  $("#runOne").onclick=()=>runWorkflow([n.id]);
+  $("#cpy").onclick=async e=>{try{await navigator.clipboard.writeText(n.output||"");e.target.textContent="Copied"}catch(err){e.target.textContent="Copy failed"}setTimeout(()=>e.target.textContent="Copy",1500)}}
+}
+
+// ---------- AI engines ----------
+const INSIDE_CLAUDE=!!(window.claude&&window.claude.use);
+const ENGINES={
+ claude:{label:"Claude (only inside claude.ai — uses your Claude plan)",key:false},
+ gemini:{label:"Google Gemini — free key, best free quality",key:true,keyUrl:"https://aistudio.google.com/apikey",keyName:"Google AI Studio"},
+ groq:{label:"Groq — free key, very fast",key:true,keyUrl:"https://console.groq.com/keys",keyName:"Groq",base:"https://api.groq.com/openai/v1",model:"openai/gpt-oss-120b"},
+ openrouter:{label:"OpenRouter free models — free key",key:true,keyUrl:"https://openrouter.ai/keys",keyName:"OpenRouter",base:"https://openrouter.ai/api/v1",model:"openrouter/free"},
+ ollama:{label:"Ollama — free, runs on your own computer",key:false,base:"http://localhost:11434/v1"}
+};
+let cfg={engine:INSIDE_CLAUDE?"claude":"gemini",keys:{},models:{}};
+try{Object.assign(cfg,JSON.parse(localStorage.getItem("agentflow-engine")||"{}"))}catch(e){}
+if(!INSIDE_CLAUDE&&cfg.engine==="claude")cfg.engine="gemini";if(INSIDE_CLAUDE)cfg.engine="claude";
+function saveCfg(){try{localStorage.setItem("agentflow-engine",JSON.stringify(cfg))}catch(e){}renderEngBtn()}
+function renderEngBtn(){const n={claude:"Claude",gemini:"Gemini (free)",groq:"Groq (free)",openrouter:"OpenRouter (free)",ollama:"Ollama (local)"}[cfg.engine];$("#engBtn").textContent="⚙ AI: "+n}
+const sleep=(ms,sig)=>new Promise((r,j)=>{const t=setTimeout(r,ms);if(sig)sig.addEventListener("abort",()=>{clearTimeout(t);j(new Error("stopped"))},{once:true})});
+async function listModels(eng,key){
+ if(eng==="gemini"){const r=await fetch("https://generativelanguage.googleapis.com/v1beta/models?pageSize=1000&key="+encodeURIComponent(key));const j=await r.json();if(!r.ok)throw new Error((j.error&&j.error.message)||r.status);
+  return (j.models||[]).filter(m=>(m.supportedGenerationMethods||[]).includes("generateContent")&&/gemini/.test(m.name)&&!/image|tts|live|embed|audio|robotics|computer/.test(m.name)).map(m=>m.name.replace("models/",""))}
+ const E=ENGINES[eng];const r=await fetch(E.base+"/models",{headers:key?{Authorization:"Bearer "+key}:{}});const j=await r.json();if(!r.ok)throw new Error((j.error&&j.error.message)||r.status);
+ let ids=(j.data||[]).map(m=>m.id);if(eng==="openrouter"){const free=(j.data||[]).filter(m=>/:free$/.test(m.id)||m.id==="openrouter/free").map(m=>m.id);ids=["openrouter/free",...free.filter(i=>i!=="openrouter/free")]}
+ if(eng==="groq")ids=ids.filter(i=>!/whisper|tts|guard|orpheus|playai/.test(i));return ids}
+function pickGemini(ids){const f=ids.filter(i=>/flash/.test(i)&&!/lite|preview|exp/.test(i));const pool=f.length?f:ids;return pool.sort((a,b)=>a.localeCompare(b,undefined,{numeric:true})).pop()}
+async function callEngine(prompt,n,signal,onText){
+ const eng=cfg.engine;
+ if(eng==="claude"){const sample=await getSample();if(!sample)throw {code:"no_claude"};const res=await sample(prompt,{modelTier:n.tier||"default",cache:false,signal,onText:({text})=>onText(text)});return res.text}
+ const E=ENGINES[eng],key=cfg.keys[eng]||"";
+ if(E.key&&!key)throw {code:"no_key"};
+ let model=cfg.models[eng];
+ if(!model){if(eng==="gemini"){model=pickGemini(await listModels("gemini",key))}else if(eng==="ollama"){model=(await listModels("ollama"))[0]}else model=E.model;if(!model)throw new Error("No model found");cfg.models[eng]=model;saveCfg()}
+ for(let attempt=0;;attempt++){
+  let r;
+  if(eng==="gemini"){r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(key)}`,{method:"POST",signal,headers:{"Content-Type":"application/json"},body:JSON.stringify({contents:[{role:"user",parts:[{text:prompt}]}]})})}
+  else{const h={"Content-Type":"application/json"};if(key)h.Authorization="Bearer "+key;if(eng==="openrouter"){h["X-Title"]="Agent Flow"}r=await fetch(E.base+"/chat/completions",{method:"POST",signal,headers:h,body:JSON.stringify({model,messages:[{role:"user",content:prompt}]})})}
+  if(r.status===429&&attempt<3){const wait=[20,40,60][attempt];log(`Free limit reached — waiting ${wait}s, then retrying ${n.name}`);await sleep(wait*1000,signal);continue}
+  const j=await r.json().catch(()=>({}));
+  if(!r.ok)throw new Error((j.error&&(j.error.message||j.error))||("HTTP "+r.status));
+  let text=eng==="gemini"?((j.candidates&&j.candidates[0]&&j.candidates[0].content&&j.candidates[0].content.parts)||[]).map(p=>p.text||"").join(""):(j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content)||"";
+  text=text.replace(/<think>[\s\S]*?<\/think>/g,"").trim();
+  if(!text)throw new Error("Empty answer from the AI");onText(text);return text}
+}
+function openEngine(){
+ const M=$("#modal"),B=$("#modalBox");M.classList.add("open");
+ const draw=()=>{const eng=cfg.engine,E=ENGINES[eng];
+  B.innerHTML=`<h2>Which AI runs your agents?</h2><p class="muted">Free options need a free key (no credit card). The key stays in this browser only — it is never saved into your workflows.</p>
+  <label>AI engine</label><select id="eSel">${Object.entries(ENGINES).map(([k,v])=>`<option value="${k}" ${k===eng?"selected":""}>${esc(v.label)}</option>`).join("")}</select>
+  ${eng==="claude"&&!INSIDE_CLAUDE?'<p class="bad">Claude only works when this page is opened in claude.ai.</p>':""}
+  ${eng!=="claude"&&INSIDE_CLAUDE?'<p class="bad">Inside claude.ai the page can\'t reach other AI services. Use the downloaded Agent Flow file (open it in Chrome) for free engines.</p>':""}
+  ${E.key?`<label>${esc(E.keyName)} API key</label><input id="eKey" type="password" placeholder="Paste your key" value="${esc(cfg.keys[eng]||"")}"><p class="muted">Get one free: <a href="${E.keyUrl}" target="_blank" rel="noopener">${E.keyUrl}</a></p>`:""}
+  ${eng==="ollama"?'<p class="muted">Install Ollama from <a href="https://ollama.com" target="_blank" rel="noopener">ollama.com</a>, run <code>ollama pull qwen3</code> (or any model), and start it with the setting <code>OLLAMA_ORIGINS=*</code> so this page can talk to it. Quality depends on your computer.</p>':""}
+  ${eng!=="claude"?`<label>Model</label><div style="display:flex;gap:6px"><input id="eModel" list="eModels" placeholder="Auto" value="${esc(cfg.models[eng]||"")}"><datalist id="eModels"></datalist><button id="eLoad">Load list</button></div><p class="muted">${eng==="gemini"?"Leave on Auto to use the newest free Flash model.":eng==="openrouter"?"openrouter/free picks a free model for you. Free models change often.":"Leave blank for the default."}</p>`:""}
+  <div class="row"><button class="primary" id="eTest">Save & test</button><button id="eClose">Close</button></div><p id="eMsg" class="muted"></p>`;
+  $("#eSel").onchange=e=>{cfg.engine=e.target.value;saveCfg();draw()};
+  const k=$("#eKey");if(k)k.oninput=e=>{cfg.keys[eng]=e.target.value.trim();saveCfg()};
+  const m=$("#eModel");if(m)m.oninput=e=>{cfg.models[eng]=e.target.value.trim();saveCfg()};
+  const L=$("#eLoad");if(L)L.onclick=async()=>{$("#eMsg").textContent="Loading…";try{const ids=await listModels(eng,cfg.keys[eng]);$("#eModels").innerHTML=ids.map(i=>`<option value="${esc(i)}">`).join("");$("#eMsg").textContent=ids.length+" models found — click the Model box to pick one."}catch(err){$("#eMsg").innerHTML='<span class="bad">'+esc(err.message||err)+"</span>"}};
+  $("#eTest").onclick=async()=>{$("#eMsg").textContent="Testing…";try{const t=await callEngine("Reply with exactly: ready",{name:"Test",tier:"quick"},undefined,()=>{});$("#eMsg").innerHTML=`<span class="ok">Working ✓</span> ${esc(cfg.engine==="claude"?"":"("+(cfg.models[cfg.engine]||"")+")")} said: ${esc(t.slice(0,60))}`;}catch(err){$("#eMsg").innerHTML='<span class="bad">'+esc(errText(err))+"</span>"}};
+  $("#eClose").onclick=()=>M.classList.remove("open")};
+ draw()}
+function errText(err){if(err&&err.code==="no_key")return "Add your free API key in ⚙ AI first.";if(err&&err.code==="no_claude")return "Claude only runs inside claude.ai. Pick a free engine in ⚙ AI.";if(err&&err.code==="not_granted")return "Allow this page to use Claude when asked.";if(err instanceof TypeError||/Failed to fetch|NetworkError/.test(String(err&&err.message)))return cfg.engine==="ollama"?"Can't reach Ollama — is it running with OLLAMA_ORIGINS=* ?":INSIDE_CLAUDE?"Blocked: inside claude.ai only Claude works. Use the downloaded file for free engines.":"Couldn't reach the AI service — check your internet and key.";return (err&&err.message)||String(err)}
+$("#engBtn").onclick=openEngine;$("#modal").addEventListener("click",e=>{if(e.target.id==="modal")$("#modal").classList.remove("open")});
+renderEngBtn();
+
+// ---------- running ----------
+let samplePromise=null;
+function getSample(){if(!samplePromise)samplePromise=(window.claude&&window.claude.use)?window.claude.use("sample").catch(()=>null):Promise.resolve(null);return samplePromise}
+function topo(){const indeg={};wf.nodes.forEach(n=>indeg[n.id]=0);wf.edges.forEach(e=>{if(indeg[e.to]!=null)indeg[e.to]++});const q=wf.nodes.filter(n=>!indeg[n.id]).sort((a,b)=>a.x-b.x).map(n=>n.id),out=[];while(q.length){const c=q.shift();out.push(c);wf.edges.filter(e=>e.from===c).forEach(e=>{if(--indeg[e.to]===0)q.push(e.to)})}return out.length===wf.nodes.length?out:null}
+function setNodeStatus(n,s){status[n.id]=s;updateNode(n);renderEdges()}
+function buildPrompt(n){
+ const ups=wf.edges.filter(e=>e.to===n.id).map(e=>byId(e.from)).filter(u=>u&&u.output);
+ const today=new Date().toLocaleDateString(undefined,{weekday:"long",year:"numeric",month:"long",day:"numeric"});
+ return `You are "${n.name}", one AI agent in a team of agents.
+Team goal: ${wf.goal}
+Today's date: ${today}
+
+YOUR JOB:
+${n.instructions}
+
+${ups.length?"INPUT FROM THE AGENTS BEFORE YOU:\n\n"+ups.map(u=>`=== ${u.name} ===\n${u.output}`).join("\n\n"):"(No input from other agents — work from the goal and your job.)"}
+
+Reply with your finished work only — no preamble, no questions back. Use short Markdown headings and bullet lists, no tables. Be specific and practical. Your output is handed to the next agents, so keep it self-contained.
+If you need exact math (totals, profit, percentages), write it in a \`\`\`calc block, one \`name = expression\` per line (+ - * / ^, sum(), avg(), min(), max(), round(x,2)); a calculator adds the exact answers under it.
+If you recommend or report any bets/markets, also list them in a \`\`\`bets block, one per line: Market title | chance % | full kalshi.com market link (only if you are sure of it) | short note.`}
+async function runNode(n){const t0=performance.now();if(DB.on)setTimeout(dashRender);const ok=await runNode0(n);
+ if(n.type!=="trigger"&&(ok||!abortCtl.signal.aborted)){const s=n.stats||(n.stats={runs:0,fails:0,ms:0});if(ok){s.runs++;s.ms+=Math.round(performance.now()-t0)}else s.fails++}
+ dashRender();return ok}
+async function runNode0(n){
+ if(n.type==="kdata"){setNodeStatus(n,"running");log(`${n.name} is loading live Kalshi data…`);try{n.output=await kRun(n,abortCtl&&abortCtl.signal);setNodeStatus(n,"done");if(sel===n.id)renderPanel();log(`${n.name}: ${(n.bets||[]).length} bets found`);return true}catch(err){n.output="⚠ "+err.message;setNodeStatus(n,"error");if(sel===n.id)renderPanel();log(`${n.name}: ${err.message}`);return false}}
+ if(n.type==="compute"){n.output=calcRun(n.instructions,upInput(n));setNodeStatus(n,"done");if(sel===n.id)renderPanel();log(`${n.name} calculated`);return true}
+ if(n.type==="trigger"){n.output=`Run started ${new Date().toLocaleString()}.\nGoal: ${wf.goal}${n.instructions?"\nNotes: "+n.instructions:""}`;setNodeStatus(n,"done");return true}
+ setNodeStatus(n,"running");n.output="";log(`${n.name} is working…`);
+ try{
+  const text=await callEngine(buildPrompt(n),n,abortCtl.signal,t=>{n.output=t;const nb=nodesEl.querySelector(`[data-id="${n.id}"] .nb`);if(nb)nb.textContent=preview(n);if(sel===n.id){const ob=$("#outBox");if(ob)ob.innerHTML=md(t)}});
+  n.output=calcBlocks(text||n.output,n);setNodeStatus(n,"done");if(sel===n.id)renderPanel();log(`${n.name} finished`);return true;
+ }catch(err){setNodeStatus(n,"error");
+  if(err&&["not_granted","no_key","no_claude"].includes(err.code)){banner(errText(err))}
+  else if(err instanceof TypeError&&!abortCtl.signal.aborted){banner(errText(err))}
+  else if(err&&err.code==="rate_limited"){banner("Claude is busy (rate limited). Wait a minute, then run again.")}
+  else if(abortCtl.signal.aborted){log(`${n.name} stopped`)}
+  else log(`${n.name} failed: ${errText(err)}`);
+  return false}
+}
+async function runWorkflow(only){
+ if(running)return;
+ const needAI=!(only&&only.every(id=>["compute","kdata"].includes((byId(id)||{}).type)))&&wf.nodes.some(n=>n.type==="agent");
+ if(needAI&&cfg.engine==="claude"&&!(await getSample())){banner("Claude only runs inside claude.ai. Click ⚙ AI and pick a free engine.");openEngine();return}
+ if(needAI&&ENGINES[cfg.engine].key&&!cfg.keys[cfg.engine]){openEngine();return}
+ banner("");
+ let order;
+ if(only)order=only;else{order=topo();if(!order){log("Workflow has a loop — remove a connection");return}wf.nodes.forEach(n=>{delete status[n.id];n.output=""});renderNodes()}
+ running=true;abortCtl=new AbortController();$("#runBtn").disabled=true;$("#stopBtn").disabled=false;setStatus(only?"Running one agent…":"Running workflow…");
+ const failed=new Set(),done=new Set(),runT0=Date.now();
+ for(const id of order){if(abortCtl.signal.aborted)break;const n=byId(id);if(!n)continue;
+  if(!only&&wf.edges.some(e=>e.to===id&&failed.has(e.from))){failed.add(id);setNodeStatus(n,"error");log(`${n.name} skipped (an input failed)`);continue}
+  const ok=await runNode(n);if(ok)done.add(id);if(!ok){failed.add(id);if(abortCtl.signal.aborted)break;if($("#banner").style.display==="block")break}
+  else if(cfg.engine!=="claude"&&n.type!=="trigger"){try{await sleep(2500,abortCtl.signal)}catch(e){break}}}
+ running=false;$("#runBtn").disabled=false;$("#stopBtn").disabled=true;
+ if(!only){wf.edges.forEach(e=>{if(done.has(e.from)&&done.has(e.to))e.w=(e.w||0)+1});if(done.size){wf.runs=(wf.runs||0)+1;wf.history=(wf.history||[]).concat({t:runT0,ms:Date.now()-runT0,ok:done.size,fail:failed.size}).slice(-30)}}dashRender();if(BR.on)brainHud();
+ touch();renderPanel();
+ setStatus(abortCtl.signal.aborted?"Stopped":failed.size?"Finished with errors":"Done ✓ — open 📊 Dashboard for the results");
+}
+$("#runBtn").onclick=()=>runWorkflow();
+$("#stopBtn").onclick=()=>{if(abortCtl)abortCtl.abort()};
+
+// ---------- saving ----------
+function buildDoc(){
+ const clean=JSON.parse(JSON.stringify(state));clean.savedAt=Date.now();
+ const st=JSON.stringify(clean).replace(/</g,"\\u003c");
+ return "<!DOCTYPE html>\n<html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>Agent Flow</title><style id=\"css\">"+$("#css").textContent+"</style></head><body><script id=\"state\" type=\"application/json\">"+st+"<\/script><script id=\"app\">"+$("#app").textContent+"<\/script></body></html>";
+}
+$("#saveBtn").onclick=async()=>{
+ const b=$("#saveBtn");b.disabled=true;b.textContent="Saving…";
+ let art=null;try{art=window.claude&&window.claude.use?await window.claude.use("artifact"):null}catch(e){}
+ if(!art){b.disabled=false;b.textContent="Save";setStatus("Saved in this browser only");log("Saved locally (open in claude.ai to save everywhere)");return}
+ try{try{localStorage.removeItem("agentflow-draft")}catch(e){}await art.publish(buildDoc());dirty=false;setStatus("Saved ✓")}
+ catch(err){setStatus(err&&err.code==="conflict"?"Someone else saved first — reloading":"Save failed: "+((err&&err.code)||err));b.disabled=false;b.textContent="Save"}
+};
+
+if(!INSIDE_CLAUDE){$("#expBtn").style.display="";$("#impBtn").style.display=""}
+$("#expBtn").onclick=()=>{const blob=new Blob([JSON.stringify(state,null,1)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="agentflow-workflows.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)};
+$("#impBtn").onclick=()=>$("#impFile").click();
+$("#impFile").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(!d.workflows)throw 0;d.workflows.forEach(w=>{if(!state.workflows.some(x=>x.id===w.id))state.workflows.push(w)});switchWf(d.workflows[0].id);log("Imported "+d.workflows.length+" workflow(s)")}catch(err){log("That file isn't an Agent Flow export")}e.target.value=""};
+// ---------- 3D brain view ----------
+const BR={on:false,rx:-0.3,ry:0.7,preview:0,pts:null,drag:null,hudT:0};
+const effOf=e=>1-Math.pow(0.8,(e.w||0)+BR.preview);
+function brainPts(){if(BR.pts)return BR.pts;const P=[];let s=7;const rnd=()=>(s=(s*16807)%2147483647)/2147483647;
+ for(let i=0;i<3400;i++){const u=rnd()*2-1,th=rnd()*Math.PI*2,q=Math.sqrt(1-u*u);const x=q*Math.cos(th),y=u,z=q*Math.sin(th);
+  const g=1+0.06*Math.sin(9*x+4*z)*Math.cos(7*y+3*z)+0.03*Math.sin(17*z+5*y);
+  let X=x*0.95*g,Y=y*0.78*g,Z=z*1.2*g;if(Y<-0.35)Y=-0.35+(Y+0.35)*0.4;
+  if(Math.abs(X)<0.04)continue;X+=Math.sign(X)*0.05;P.push([X,Y,Z,0])}
+ for(let i=0;i<550;i++){const u=rnd()*2-1,th=rnd()*Math.PI*2,q=Math.sqrt(1-u*u),g=1+0.05*Math.sin(28*u);P.push([q*Math.cos(th)*0.55*g,-0.5+u*0.22*g,-0.9+q*Math.sin(th)*0.32*g,1])}
+ for(let i=0;i<160;i++){const a=rnd()*Math.PI*2,h=rnd();P.push([Math.cos(a)*0.11,-0.5-h*0.6,-0.4+Math.sin(a)*0.11-h*0.15,1])}
+ return BR.pts=P}
+function brainLayout(){const ns=wf.nodes,pos={};if(!ns.length)return pos;const xs=ns.map(n=>n.x),ys=ns.map(n=>n.y),x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
+ ns.forEach(n=>{const tx=x1>x0?(n.x-x0)/(x1-x0):.5,ty=y1>y0?(n.y-y0)/(y1-y0):.5,z=1.0-2.0*tx,phi=-1.2+2.4*ty,s=Math.sqrt(Math.max(.08,1-(z/1.25)**2));pos[n.id]=[Math.sin(phi)*0.8*s,Math.cos(phi)*0.66*s+0.04,z*0.95]});return pos}
+function proj(p,W,H){let[x,y,z]=p;const cy=Math.cos(BR.ry),sy=Math.sin(BR.ry);[x,z]=[x*cy+z*sy,-x*sy+z*cy];const cx=Math.cos(BR.rx),sx=Math.sin(BR.rx);[y,z]=[y*cx-z*sx,y*sx+z*cx];const f=Math.min(W,H)*0.36*3.2/(3.2-z);return[W/2+x*f,H/2-y*f+10,z]}
+const hex=c=>/^#[0-9a-f]{6}$/i.test(c||"")?c:"#ffffff";
+function brainHud(){const es=wf.edges.filter(e=>byId(e.from)&&byId(e.to));const avg=es.length?es.reduce((a,e)=>a+effOf(e),0)/es.length:0;
+ $("#brainStats").innerHTML=`${Math.round(avg*100)}% team sync<small>${wf.runs||0} full run${wf.runs===1?"":"s"} so far${BR.preview?" · previewing +10 runs":""}</small>`;
+ $("#brainList").innerHTML=es.slice().sort((a,b)=>effOf(b)-effOf(a)).map(e=>{const ef=effOf(e),h=210-165*ef;return`<div class="bh-row">${esc(byId(e.from).name)} → ${esc(byId(e.to).name)} <span class="muted">· ${e.w||0}×</span><div class="bh-bar"><i style="width:${Math.max(3,ef*100)}%;background:hsl(${h},90%,60%)"></i></div></div>`}).join("")||'<p class="muted">Connect some agents first.</p>'}
+function brainFrame(t){if(!BR.on)return;const cv=$("#brainCv"),W=cv.clientWidth,H=cv.clientHeight,dpr=devicePixelRatio||1;if(cv.width!==Math.round(W*dpr)||cv.height!==Math.round(H*dpr)){cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr)}
+ const g=cv.getContext("2d");g.setTransform(dpr,0,0,dpr,0,0);g.clearRect(0,0,W,H);if(!BR.drag)BR.ry+=0.002;
+ g.globalCompositeOperation="lighter";
+ for(const p of brainPts()){const[x,y,z]=proj(p,W,H),a=0.09+0.32*(z+1.3)/2.6;g.fillStyle=p[3]?`rgba(167,139,250,${a})`:`rgba(140,175,255,${a})`;g.fillRect(x,y,1.6,1.6)}
+ const pos=brainLayout(),sec=t/1000;
+ for(const e of wf.edges){const A=pos[e.from],B=pos[e.to];if(!A||!B)continue;const ef=effOf(e),h=210-165*ef,C=[(A[0]+B[0])*.3,(A[1]+B[1])*.3+.12,(A[2]+B[2])*.3];
+  const Q=s=>{const u=1-s;return[0,1,2].map(i=>u*u*A[i]+2*u*s*C[i]+s*s*B[i])};
+  g.strokeStyle=`hsla(${h},90%,60%,${0.1+0.55*ef})`;g.lineWidth=0.6+3.4*ef;g.beginPath();for(let i=0;i<=24;i++){const[x,y]=proj(Q(i/24),W,H);i?g.lineTo(x,y):g.moveTo(x,y)}g.stroke();
+  const np=1+Math.round(ef*4),sp=0.1+0.75*ef,off=(e.id.charCodeAt(0)%10)/10;
+  for(let k=0;k<np;k++){const[x,y]=proj(Q((sec*sp+k/np+off)%1),W,H),r=(1.5+2.5*ef)*4,gr=g.createRadialGradient(x,y,0,x,y,r);gr.addColorStop(0,`hsla(${h},100%,78%,.95)`);gr.addColorStop(1,`hsla(${h},100%,60%,0)`);g.fillStyle=gr;g.beginPath();g.arc(x,y,r,0,7);g.fill()}}
+ const items=wf.nodes.map(n=>{const[x,y,z]=proj(pos[n.id],W,H);return{n,x,y,z}}).sort((a,b)=>a.z-b.z);
+ for(const it of items){const c=hex(it.n.color),r=(6+4*(it.z+1)/2)*(1+0.08*Math.sin(sec*3+it.x)),gr=g.createRadialGradient(it.x,it.y,0,it.x,it.y,r*3);gr.addColorStop(0,"#ffffff");gr.addColorStop(.2,c);gr.addColorStop(.45,c+"66");gr.addColorStop(1,c+"00");g.fillStyle=gr;g.beginPath();g.arc(it.x,it.y,r*3,0,7);g.fill()}
+ g.globalCompositeOperation="source-over";g.font="12px system-ui,sans-serif";g.textAlign="center";
+ for(const it of items){g.fillStyle=`rgba(230,231,235,${0.4+0.6*(it.z+1)/2})`;g.fillText(it.n.icon+" "+it.n.name,it.x,it.y-18)}
+ if(t-BR.hudT>1000){BR.hudT=t;brainHud()}
+ requestAnimationFrame(brainFrame)}
+$("#app-root").insertAdjacentHTML("beforeend",`<div id="brainView"><canvas id="brainCv"></canvas><div id="brainHud"><div class="bh-top"><b>🧠 Team brain</b><button id="brainClose">✕</button></div><div id="brainStats"></div><div id="brainList"></div><label class="bh-prev"><input type="checkbox" id="brainPrev"> Preview after 10 more runs</label><p class="muted">Each agent is a neuron. Every time two connected agents both finish a run, their pathway strengthens — brighter, thicker, faster signals, like neurons that fire together wiring together. Drag to rotate. Click Save to keep the learning.</p></div></div>`);
+$("#brainBtn").onclick=()=>{BR.on=true;$("#brainView").classList.add("open");brainHud();requestAnimationFrame(brainFrame)};
+$("#brainClose").onclick=()=>{BR.on=false;$("#brainView").classList.remove("open")};
+$("#brainPrev").onchange=e=>{BR.preview=e.target.checked?10:0;brainHud()};
+{const cv=$("#brainCv");cv.addEventListener("pointerdown",e=>{BR.drag=[e.clientX,e.clientY];cv.setPointerCapture(e.pointerId)});
+ cv.addEventListener("pointermove",e=>{if(!BR.drag)return;BR.ry+=(e.clientX-BR.drag[0])*0.008;BR.rx=Math.max(-1.3,Math.min(1.3,BR.rx+(e.clientY-BR.drag[1])*0.008));BR.drag=[e.clientX,e.clientY]});
+ const up=()=>{BR.drag=null};cv.addEventListener("pointerup",up);cv.addEventListener("pointercancel",up)}
+// ---------- Calculator ("second brain" for exact math, runs free in the page) ----------
+// ---------- Kalshi Data agent (real numbers, free, no AI) ----------
+const KAPI="https://api.elections.kalshi.com/trade-api/v2/events?status=open&with_nested_markets=true&limit=200";
+const kFee=p=>Math.ceil(0.07*p*(1-p)*100-1e-9)/100;
+function kCfg(src){const c={mode:"arbitrage",top:15,min_volume:50,min_profit:0.01,max_days:90,server:"",search:"",feed:"https://raw.githubusercontent.com/ThexPaintedxTiger/kalshi-feed/main/bets.json"};let json="";const s=String(src||""),j=s.search(/^\s*[\[{]/m);
+ const head=j<0?s:s.slice(0,j);if(j>=0)json=s.slice(j);
+ for(const ln of head.split("\n")){const m=ln.replace(/#.*$/,"").match(/^\s*(\w+)\s*=\s*(.+?)\s*$/);if(m&&m[1] in c)c[m[1]]=typeof c[m[1]]==="number"?+m[2]:m[2]}return{c,json}}
+async function kFetch(c,signal){const evs=[];let cursor="";for(let p=0;p<4;p++){const url=KAPI+(cursor?"&cursor="+encodeURIComponent(cursor):"");const r=await fetch(c.server?c.server.replace(/\/$/,"")+"/?url="+encodeURIComponent(url):url,{signal});if(!r.ok)throw new Error("HTTP "+r.status);const j=await r.json();evs.push(...(j.events||[]));cursor=j.cursor;if(!cursor)break}return{events:evs}}
+const kLink=e=>"https://kalshi.com/markets/"+String(e.series_ticker||e.event_ticker||"").toLowerCase();
+function kAnalyze(data,c){const evs=Array.isArray(data)?data:data.events||[],now=Date.now(),bets=[],arbs=[];const q=c.search.toLowerCase();
+ for(const e of evs){const ms=(e.markets||[]).filter(m=>m.status==="active"||m.status==="open");if(!ms.length)continue;if(q&&!(e.title+" "+(e.category||"")).toLowerCase().includes(q))continue;
+  const days=m=>(Date.parse(m.close_time)-now)/864e5;
+  for(const m of ms){const ya=+m.yes_ask_dollars,yb=+m.yes_bid_dollars,vol=+(m.volume_fp||0),v24=+(m.volume_24h_fp||0);if(!(ya>0&&ya<1)||vol<c.min_volume||days(m)>c.max_days)continue;
+   bets.push({t:(m.title||e.title)+(m.yes_sub_title&&ms.length>1?" — "+m.yes_sub_title:""),pc:Math.round((yb>0?(ya+yb)/2:ya)*100),url:kLink(e),price:ya,bid:yb,spread:+(ya-(yb||0)).toFixed(2),vol,v24,close:m.close_time,ticker:m.ticker,cat:e.category||"",rules:m.rules_primary||"",kind:"market",note:`YES ${Math.round(ya*100)}¢ · vol ${Math.round(vol).toLocaleString()} · closes ${new Date(m.close_time).toLocaleDateString()}`})}
+  if(e.mutually_exclusive&&ms.length>1&&ms.every(m=>+m.yes_ask_dollars>0)){const cost=ms.reduce((a,m)=>a+ +m.yes_ask_dollars,0),fees=ms.reduce((a,m)=>a+kFee(+m.yes_ask_dollars),0),profit=+(1-cost-fees).toFixed(4),qty=Math.min(...ms.map(m=>+(m.yes_ask_size_fp||0)));
+   const lastDays=Math.max(...ms.map(days));if(profit>=c.min_profit&&cost>=0.9&&lastDays<=c.max_days)arbs.push({t:e.title,pc:100,url:kLink(e),price:+cost.toFixed(2),fees:+fees.toFixed(2),profit,qty:Math.floor(qty),close:ms.map(m=>m.close_time).sort().pop(),legs:ms.map(m=>`${m.yes_sub_title||m.ticker} ${Math.round(+m.yes_ask_dollars*100)}¢`),cat:e.category||"",kind:"arb",note:`Buy every YES for $${cost.toFixed(2)} + ~$${fees.toFixed(2)} fees → $${profit.toFixed(2)} profit per set · up to ${Math.floor(qty)} sets — only safe if these outcomes cover EVERY result (check ties/“other” in the rules)`})}}
+ const sc=b=>b.v24*2+b.vol/50-b.spread*500;bets.sort((a,b)=>sc(b)-sc(a));arbs.sort((a,b)=>b.profit-a.profit);
+ const pick=(c.mode==="all"?[...arbs,...bets]:c.mode==="markets"?bets:arbs).slice(0,c.top);return{pick,arbs,bets,events:evs.length}}
+function kFromFeed(d,c){const now=Date.now(),q=c.search.toLowerCase(),ok=b=>(!q||(b.t+" "+(b.cat||"")).toLowerCase().includes(q))&&(Date.parse(b.close)-now)/864e5<=c.max_days;
+ const bets=(d.markets||[]).filter(b=>ok(b)&&b.vol>=c.min_volume).map(b=>({...b,kind:"market",note:`YES ${Math.round(b.price*100)}¢ · vol ${b.vol.toLocaleString()} · closes ${new Date(b.close).toLocaleDateString()}`}));
+ const arbs=(d.sets||[]).filter(b=>ok(b)&&b.profit>=c.min_profit).map(b=>({...b,pc:100,kind:"arb",note:`Buy every YES for $${b.price} + ~$${b.fees} fees → $${b.profit} profit per set · up to ${b.qty} sets — only safe if these outcomes cover EVERY result (check ties/“other” in the rules)`}));
+ return{pick:(c.mode==="all"?[...arbs,...bets]:c.mode==="markets"?bets:arbs).slice(0,c.top),arbs,bets,events:d.events||0,updated:d.updated}}
+async function kRun(n,signal){const{c,json}=kCfg(n.instructions);let data;
+ if(json.trim()){try{data=JSON.parse(json)}catch(e){throw new Error("The pasted data isn't complete JSON — copy the whole page again.")}}
+ else{const errs=[];if(c.feed)try{const x=await fetch(c.feed+(c.feed.includes("?")?"&":"?")+"t="+Math.floor(Date.now()/6e4),{signal});if(!x.ok)throw new Error("HTTP "+x.status);data=await x.json()}catch(e){if(signal&&signal.aborted)throw e;errs.push("feed: "+e.message)}
+  if(!data)try{data=await kFetch(c,signal)}catch(e){if(signal&&signal.aborted)throw e;errs.push("Kalshi: "+e.message)}
+  if(!data)throw new Error(`Couldn't load data automatically (${errs.join("; ")}). Inside claude.ai pages can't load outside data: open the feed link in this agent's panel, copy the whole page, and paste it at the bottom of its settings.`)}
+ const r=data&&data.feed==="kalshi"?kFromFeed(data,c):kAnalyze(data,c);n.bets=r.pick;
+ const L=[`# Kalshi data — ${r.updated?"feed updated "+new Date(r.updated).toLocaleString():new Date().toLocaleString()}`,`Scanned ${r.events} events: ${r.bets.length} liquid markets, ${r.arbs.length} sure-profit sets (mode: ${c.mode}).`,"Prices are live Kalshi asks; win % = market price (what traders think). Fees estimated with Kalshi's 0.07×P×(1−P) formula.",""];
+ for(const b of r.pick)L.push(b.kind==="arb"?`- **${b.t}** — cost $${b.price} + fees $${b.fees} → **profit $${b.profit}/set**, qty ${b.qty}, settles ${new Date(b.close).toLocaleDateString()}. Legs: ${b.legs.join(", ")}. ${b.url}`:`- **${b.t}** — ${b.pc}% · YES ${Math.round(b.price*100)}¢ (bid ${Math.round(b.bid*100)}¢) · vol ${Math.round(b.vol)} (24h ${Math.round(b.v24)}) · closes ${new Date(b.close).toLocaleDateString()}${b.chg1h!=null?` · moved ${b.chg1h>0?"+":""}${b.chg1h}¢ in 1h`:""}${b.chg24h!=null?`, ${b.chg24h>0?"+":""}${b.chg24h}¢ in 24h`:""}${b.volGrowth!=null?` · ${b.volGrowth} traded in 24h`:""} · ${b.url}`);
+ if(!r.pick.length)L.push("- Nothing matched the filters this time. Try mode = all or lower min_volume.");
+ return L.join("\n")}
+function calcEval(src,vars){
+ const F={sum:(...a)=>a.flat(9).reduce((x,y)=>x+y,0),avg:(...a)=>{a=a.flat(9);return a.length?a.reduce((x,y)=>x+y,0)/a.length:0},min:(...a)=>(a=a.flat(9)).length?Math.min(...a):0,max:(...a)=>(a=a.flat(9)).length?Math.max(...a):0,count:(...a)=>a.flat(9).length,
+  round:(x,d=0)=>Math.round(x*10**d)/10**d,floor:Math.floor,ceil:Math.ceil,abs:Math.abs,sqrt:Math.sqrt,log:Math.log10,pct:(a,b)=>b?a/b*100:0,
+  sort:(...a)=>a.flat(9).sort((x,y)=>x-y),first:a=>a[0],last:a=>a[a.length-1],median:(...a)=>{a=a.flat(9).sort((x,y)=>x-y);const m=a.length>>1;return a.length%2?a[m]:(a[m-1]+a[m])/2}};
+ const T=src.match(/\d*\.?\d+(?:e[+-]?\d+)?|[A-Za-z_]\w*|\*\*|[-+*/%^(),[\]]/gi)||[];
+ if(T.join("")!==src.replace(/\s+/g,""))throw new Error("can't read: "+src);
+ let i=0;const pk=()=>T[i],nx=()=>T[i++],ex=t=>{if(T[i++]!==t)throw new Error(`expected "${t}"`)};
+ const E=()=>{let v=Tm();while(pk()==="+"||pk()==="-")v=nx()==="+"?v+Tm():v-Tm();return v};
+ const Tm=()=>{let v=P();while(["*","/","%"].includes(pk())){const o=nx(),r=P();v=o==="*"?v*r:o==="/"?v/r:v%r}return v};
+ const P=()=>{const v=U();if(pk()==="^"||pk()==="**"){nx();return v**P()}return v};
+ const U=()=>{if(pk()==="-"){nx();return -U()}if(pk()==="+"){nx();return U()}return A()};
+ const A=()=>{const t=nx();let v;if(t==null)throw new Error("unfinished line");
+  if(t==="("){v=E();ex(")")}else if(t==="["){v=[];if(pk()!=="]")do v.push(E());while(pk()===","&&nx());ex("]")}
+  else if(/^[\d.]/.test(t))v=parseFloat(t);
+  else if(pk()==="("&&F[t]){nx();const a=[];if(pk()!==")")do a.push(E());while(pk()===","&&nx());ex(")");v=F[t](...a)}
+  else if(t in vars)v=vars[t];else throw new Error(`unknown name "${t}"`);
+  while(pk()==="["){nx();const k=E();ex("]");v=v[k<0?v.length+k:k]}return v};
+ const v=E();if(i<T.length)throw new Error(`unexpected "${T[i]}"`);return v}
+const calcFmt=v=>Array.isArray(v)?"["+v.map(calcFmt).join(", ")+"]":typeof v==="number"?(Number.isFinite(v)?(+v.toFixed(4)).toLocaleString():"not a number"):String(v);
+function calcRun(src,input){const nums=(String(input||"").match(/-?\$?\d[\d,]*\.?\d*/g)||[]).map(s=>+s.replace(/[$,]/g,"")).filter(Number.isFinite);
+ const vars={nums,pi:Math.PI},out=[];
+ for(const raw of String(src).split("\n")){const line=raw.replace(/#.*$/,"").trim();if(!line)continue;const m=line.match(/^([A-Za-z_]\w*)\s*=\s*(.+)$/);
+  try{const v=calcEval(m?m[2]:line,vars);if(m)vars[m[1]]=v;out.push(`- **${m?m[1]:line}** = ${calcFmt(v)}`)}catch(e){out.push(`- ⚠ \`${line}\` — ${e.message}`)}}
+ return out.join("\n")||"- (no formulas)"}
+const upInput=n=>wf.edges.filter(e=>e.to===n.id).map(e=>byId(e.from)).filter(u=>u&&u.output).map(u=>u.output).join("\n");
+function calcBlocks(text,n){return String(text).replace(/```calc\s*\n([\s\S]*?)```/g,(all,src)=>all+"\n\n**🧮 Calculator results**\n"+calcRun(src,upInput(n))+"\n")}
+
+// ---------- Dashboard ----------
+const DB={on:false};
+const fmtMs=ms=>!ms?"—":ms<1000?Math.round(ms)+" ms":ms<60000?(ms/1000).toFixed(1)+" s":(ms/60000).toFixed(1)+" min";
+const wordsOf=t=>(t||"").trim().split(/\s+/).filter(Boolean).length;
+function dashRender(){if(!DB.on)return;const ag=wf.nodes.filter(n=>n.type!=="trigger"),H=wf.history||[],runs=H.length,okRuns=H.filter(h=>!h.fail).length;
+ const words=ag.reduce((a,n)=>a+wordsOf(n.output),0),es=wf.edges.filter(e=>byId(e.from)&&byId(e.to)),sync=es.length?es.reduce((a,e)=>a+1-Math.pow(.8,e.w||0),0)/es.length:0,avgMs=runs?H.reduce((a,h)=>a+h.ms,0)/runs:0;
+ const st=n=>status[n.id]||(n.output?"done":"idle"),busy=ag.filter(n=>st(n)==="running").length;
+ const kpi=(v,l)=>`<div class="kpi"><b>${v}</b><span>${l}</span></div>`;
+ const mx=Math.max(1,...H.map(h=>h.ms)),bars=H.length?`<svg viewBox="0 0 ${H.length*14} 60" preserveAspectRatio="none" class="dbar">${H.map((h,k)=>`<rect x="${k*14+2}" y="${60-Math.max(2,h.ms/mx*58)}" width="10" height="${Math.max(2,h.ms/mx*58)}" rx="2" fill="${h.fail?"#f87171":"#4ade80"}"><title>${new Date(h.t).toLocaleString()} · ${fmtMs(h.ms)} · ${h.ok} done${h.fail?", "+h.fail+" failed":""}</title></rect>`).join("")}</svg>`:'<p class="muted">No full runs yet — click ▶ Run workflow.</p>';
+ const mxA=Math.max(1,...ag.map(n=>n.stats&&n.stats.runs?n.stats.ms/n.stats.runs:0));
+ const rows=ag.map(n=>{const s=n.stats||{},a=s.runs?s.ms/s.runs:0;return`<details class="drow"><summary><span class="dn">${esc(n.icon)} ${esc(n.name)}${n.type==="compute"?' <small class="muted">calculator</small>':""}</span><span class="dst" data-s="${st(n)}">${st(n)}</span><span>${s.runs||0} ok · ${s.fails||0} failed</span><span>${fmtMs(a)}<i class="dsp"><i style="width:${a/mxA*100}%"></i></i></span><span>${wordsOf(n.output).toLocaleString()} words</span></summary><div class="out-box">${n.output?md(n.output):'<span class="muted">No output yet.</span>'}</div></details>`}).join("");
+ const bets=[],seen=new Set();for(const n of ag){const o=n.output||"";for(const m of o.matchAll(/```bets\s*\n([\s\S]*?)```/g))for(const ln of m[1].split("\n")){const p=ln.split("|").map(x=>x.trim());if(!p[0]||seen.has(p[0].toLowerCase()))continue;seen.add(p[0].toLowerCase());const pc=parseFloat((p[1]||"").replace(/[^\d.]/g,""));bets.push({t:p[0].replace(/^[-*]\s*/,""),pc:Number.isFinite(pc)?Math.min(100,pc):null,url:/^https:\/\/(www\.)?kalshi\.com\//.test(p[2]||"")?p[2]:"",note:p.slice(3).join(" | "),by:n.name,ai:1})}}
+ for(const n of ag)for(const b of n.bets||[]){const k=b.t.toLowerCase();const ex=bets.find(x=>x.t.toLowerCase()===k);if(ex){Object.assign(ex,{data:b});continue}bets.push({...b,by:n.name,data:b})}
+ const fmtD=d=>d?new Date(d).toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"}):"";
+ const betHTML=bets.length?`<div class="bets">${bets.map(b=>{const d=b.data||{},link=b.url||d.url||"https://www.google.com/search?q="+encodeURIComponent("site:kalshi.com "+b.t),mk=d.price!=null&&d.kind!=="arb"?Math.round(d.price*100):null,edge=b.ai&&mk!=null&&b.pc!=null?Math.round(b.pc-mk):null,arb=d.kind==="arb";
+  const facts=[arb?["Cost / set","$"+d.price]:null,arb?["Fees (est.)","$"+d.fees]:null,arb?["Profit / set","$"+d.profit]:null,arb?["Max sets",d.qty]:null,mk!=null?["YES price",mk+"¢"]:null,d.bid?["Bid",Math.round(d.bid*100)+"¢"]:null,d.spread!=null&&!arb?["Spread",Math.round(d.spread*100)+"¢"]:null,d.vol?["Volume",Math.round(d.vol).toLocaleString()]:null,d.v24!=null&&!arb?["24h volume",Math.round(d.v24).toLocaleString()]:null,d.chg1h!=null?["1h move",(d.chg1h>0?"+":"")+d.chg1h+"¢"]:null,d.chg24h!=null?["24h move",(d.chg24h>0?"+":"")+d.chg24h+"¢"]:null,d.volGrowth!=null?["Traded (24h)",d.volGrowth.toLocaleString()]:null,d.close?["Closes",fmtD(d.close)]:null,mk!=null?["Pays if YES","$1 per "+mk+"¢"]:null].filter(Boolean);
+  return`<div class="bet${arb?" arb":""}">${arb?'<span class="btag">PROFIT SET · CHECK RULES</span>':b.ai?'<span class="btag ai">AI PICK</span>':'<span class="btag live">LIVE MARKET</span>'}<div class="bt">${esc(b.t)}</div>
+  <div class="bp"><b>${arb?"$"+d.profit:b.pc==null?"—":b.pc+"%"}</b><span class="muted">${arb?"profit per set":b.ai?"AI win chance":"market win chance"}</span></div>${arb?"":`<i class="dsp"><i style="width:${b.pc||0}%"></i></i>`}
+  ${edge!=null?`<div class="bedge" data-pos="${edge>0}">Edge vs price: ${edge>0?"+":""}${edge} pts</div>`:""}
+  ${b.note?`<div class="muted bn">${esc(b.note)}</div>`:""}
+  ${facts.length||d.legs||d.rules?`<details class="bdet"><summary>Data</summary><div class="bfacts">${facts.map(([k,v])=>`<span>${k}</span><b>${esc(String(v))}</b>`).join("")}</div>${d.legs?`<div class="bn muted">Legs: ${esc(d.legs.join(", "))}</div>`:""}${d.rules?`<div class="bn muted">${esc(d.rules.slice(0,240))}</div>`:""}</details>`:""}
+  <div class="bf"><small class="muted">from ${esc(b.by)}</small><a class="blink" href="${esc(link)}" target="_blank" rel="noopener">${b.url||d.url?"Open in Kalshi ↗":"Find on Kalshi ↗"}</a></div></div>`}).join("")}</div><p class="muted" style="font-size:12px">⚠ Prices move fast. Win % from 📈 Kalshi Data is the market price; AI win % is an estimate, not a promise. Check the price and rules in Kalshi before you bet — never bet money you can't lose.</p>`:'<p class="muted">Bets show here after a run. Tip: ＋ Kalshi template adds a workflow that loads live Kalshi data.</p>';
+ const sinks=ag.filter(n=>!wf.edges.some(e=>e.from===n.id)&&n.output);
+ $("#dashBody").innerHTML=`<div class="kpis">${kpi(runs,"full runs")}${kpi(runs?Math.round(okRuns/runs*100)+"%":"—","runs with no errors")}${kpi(fmtMs(avgMs),"avg run time")}${kpi(busy?busy+" working":ag.length,busy?"agents right now":"agents")}${kpi(words.toLocaleString(),"words produced")}${kpi(Math.round(sync*100)+"%","team sync 🧠")}</div>
+ <h4>Run history</h4>${bars}
+ <h4>Agents</h4><div class="dhead"><span>Agent</span><span>Status</span><span>Runs</span><span>Avg time</span><span>Output</span></div>${rows||'<p class="muted">No agents yet.</p>'}
+ <h4>🎯 Bets</h4>${betHTML}
+ <h4>Final results</h4>${sinks.length?sinks.map(n=>`<details class="drow" open><summary><span class="dn">${esc(n.icon)} ${esc(n.name)}</span></summary><div class="out-box">${md(n.output)}</div></details>`).join(""):'<p class="muted">Results from the last agents in the flow show here after a run.</p>'}`}
+$("#app-root").insertAdjacentHTML("beforeend",`<div id="dashView"><div class="dwrap"><div class="bh-top"><h2 style="margin:0">📊 ${'<span id="dashName"></span>'} dashboard</h2><button id="dashClose">✕</button></div><div id="dashBody"></div></div></div>`);
+$("#dashBtn").onclick=()=>{DB.on=true;$("#dashName").textContent=wf.name;$("#dashView").classList.add("open");dashRender()};
+$("#dashClose").onclick=()=>{DB.on=false;$("#dashView").classList.remove("open")};
+function renderAll(){renderWfSel();applyView();renderNodes();renderPanel()}
+renderAll();
+if(!state.savedAt)requestAnimationFrame(fit);
+setStatus(state.savedAt?"Loaded":"Starter Etsy workflow loaded");
+log("Click ▶ Run workflow to let the agents work. Click an agent to edit its job or read its output.");
+})();
+</script></body></html>
