@@ -41,6 +41,12 @@ and count something as an improvement only when the scorecard shows it.
 - Findings and lessons: `docs/findings.md`, `docs/lessons.md`. Architecture and setup: `docs/architecture.md`.
 - Git is the history.
 
+## 24/7 streamer (owner's computer)
+`node stream.mjs`: every minute live prices for open watched markets (one public call; minute log in `local/ticks/`, not pushed;
+current prices in `data/live.json`), outcomes, and an immediate network retrain when new outcomes arrive; full scan every 10 min;
+push every 5 min. Heartbeat `data/stream.json`: while < 15 min old, cloud runs of `cycle.sh` skip (no duplicate predictions).
+Public data only (owner kept the no-keys rule; Kalshi's WebSocket stream would need an account key).
+
 ## Live mode and dev agent
 - `cycle.sh` = one pipeline cycle. `feed.yml` runs it on the 10-minute cron (if GitHub fires it); `live.yml` runs `live.sh`: 6 cycles, 10 minutes apart (≈1 h).
 - Dev agent: Claude session `session_017aScWtmMzeyXzzwrarJEyL` (Sonnet), woken hourly at :54 by scheduled task `trig_01VBpUdvVfLrxySgxCPLceHk`,

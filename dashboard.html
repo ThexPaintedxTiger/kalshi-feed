@@ -642,6 +642,8 @@ function liveAgents() {
       now: `${okN}/${S.checks.length} checks pass${S.problems ? ` · ${S.problems} issue${S.problems > 1 ? "s" : ""}` : ""}`, what: "Checks every hand-off each cycle (schedule, logging, outcomes, leakage, duplicates, bet-size safety) and writes the plain-English status." },
     { c: "var(--teal)", ic: "💵", nm: "Paper traders", file: "paper.mjs", ts: D.paper?.updated, every: 10,
       now: `${f.length} portfolios · best live: ${best ? `${best.name.split(",")[0]} $${best.equity.toFixed(2)}` : "none yet"}`, what: "$10 paper portfolios trade the predictions with real prices and fees. Simulation only: nothing is ever traded." },
+    { c: "var(--good)", ic: "📡", nm: "24/7 streamer (your computer)", file: "stream.mjs", ts: D.stream?.at, every: 1,
+      now: D.stream ? `${D.live?.n ?? 0} live prices at ${D.live ? when(D.live.at) : "–"} · running since ${when(D.stream.startedAt)}` : "not started — run: node stream.mjs", what: "Polls live Kalshi prices every minute, collects outcomes, and retrains the network the moment new outcomes arrive; full scan every 10 min. While it runs, the cloud schedule steps aside." },
     { c: "var(--warn)", ic: "🪙", nm: "Coinbase crypto agent", file: "external/crypto.mjs", ts: D.external?.at, every: 10,
       now: D.external ? `${D.external.crypto.got}/${D.external.crypto.tried} crypto markets priced from Coinbase last cycle` : "not run yet", what: "Outside data: prices Kalshi crypto strikes from the coin's Coinbase spot price and recent volatility (random-walk model). Scored as the crypto_fair predictor." },
     { c: "var(--info)", ic: "🌡", nm: "NWS weather agent", file: "external/weather.mjs", ts: D.external?.at, every: 10,

@@ -2,6 +2,17 @@
 
 **Read-only. Never trades. No account, no keys.**
 
+## Run it 24/7 on your computer
+Needs [Node.js 20+](https://nodejs.org) and git, signed in to GitHub with push access to this repo.
+```
+git clone https://github.com/ThexPaintedxTiger/kalshi-feed
+cd kalshi-feed
+node stream.mjs
+```
+Every minute: live prices for watched markets, new outcomes, and an immediate network retrain when outcomes arrive. Full scan every
+10 minutes; pushes every 5. Ctrl+C stops it; the cloud schedule takes over when it isn't running. Keep the computer from sleeping
+(power settings). Minute-by-minute prices stay on your computer in `local/ticks/` (not pushed).
+
 ## Live dashboard
 https://thexpaintedxtiger.github.io/kalshi-feed/dashboard.html (refreshes every 5 minutes; header shows how fresh the data is).
 

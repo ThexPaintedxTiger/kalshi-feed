@@ -17,8 +17,11 @@ check("Pipeline ran recently", lastCloud && ago(lastCloud.ts) <= 30, lastCloud ?
 const cloud3h = cloud.filter(r => ago(r.ts) <= 180).length;
 check("Runs on schedule (every 10 min)", cloud3h >= 12, `${cloud3h} cloud runs in the last 3 h (expect ~18)`);
 check("New predictions are being logged", preds.some(p => ago(p.ts) <= 60), `${preds.filter(p => ago(p.ts) <= 60).length} logged in the last hour`);
-const due = preds.filter(p => ago(p.resolvesAt) > 120), have = new Set(outcomes.map(o => o.ticker)), missing = due.filter(p => !have.has(p.ticker));
-check("Outcomes are being collected", missing.length <= Math.max(5, due.length * 0.1), `${due.length - missing.length}/${due.length} predictions due >2 h ago have an official result`);
+// Index and commodity markets settle when the official number is published (often hours later), so the rule is 24 h (config.goals.health).
+const H = config.goals.health.maxBacklogHours * 60, have = new Set(outcomes.map(o => o.ticker));
+const due = preds.filter(p => ago(p.resolvesAt) > H), missing = due.filter(p => !have.has(p.ticker));
+const waiting = preds.filter(p => ago(p.resolvesAt) > 0 && ago(p.resolvesAt) <= H && !have.has(p.ticker)).length;
+check("Outcomes are being collected", missing.length <= Math.max(5, due.length * 0.02), `${due.length - missing.length}/${due.length} predictions due >${H / 60} h ago have an official result; ${waiting} newer ones awaiting Kalshi's settlement`);
 check("Scorecard matches the logs", sc.predictions === preds.length, `scorecard counts ${sc.predictions}, log has ${preds.length}`);
 check("No prediction logged after its market resolved", (sc.excludedLeakage || 0) === 0, `leakage ${sc.excludedLeakage || 0}`);
 const dup = preds.length - new Set(preds.map(p => p.ticker)).size;
