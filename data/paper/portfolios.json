@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T20:57:03.934Z",
+ "updated": "2026-11-10T21:05:18.651Z",
  "start": 10,
  "goal": 1000,
  "safety": {
@@ -2827,8 +2827,8 @@
   ]
  },
  "forward": {
-  "rows": 127,
-  "settled": 86,
+  "rows": 131,
+  "settled": 100,
   "portfolios": [
    {
     "id": "cash",
@@ -2894,22 +2894,22 @@
     "name": "Coin flip, 2% bets (fee-drag control)",
     "predictor": "coin",
     "sizing": "fixed",
-    "equity": 9.6999,
-    "cash": 7.7852,
-    "openPositions": 11,
-    "returnPct": -3.001,
-    "bets": 19,
+    "equity": 9.9366,
+    "cash": 7.4898,
+    "openPositions": 14,
+    "returnPct": -0.634,
+    "bets": 23,
     "shadowBets": 0,
-    "settled": 8,
-    "wins": 4,
-    "pnl": -0.1701,
-    "fees": 0.23,
+    "settled": 9,
+    "wins": 5,
+    "pnl": 0.1066,
+    "fees": 0.28,
     "maxDrawdownPct": 5.1885,
     "lowest": 9.7599,
-    "avgBetPct": 1.9171,
+    "avgBetPct": 1.9176,
     "maxBetPct": 1.9798,
     "worstLossPct": -1.9708,
-    "betsPerDay": 121.8297,
+    "betsPerDay": 141.1884,
     "trustNow": null,
     "busted": null,
     "reachedGoal": null,
@@ -2949,9 +2949,77 @@
      [
       1794337876212,
       9.7599
+     ],
+     [
+      1794344526282,
+      9.9866
      ]
     ],
     "recent": [
+     {
+      "ts": "2026-11-10T21:05:01.650Z",
+      "ticker": "KXTEMPMIAH-26NOV1017-T80.99",
+      "title": "Will the temp in Miami be above 80.99° on Nov 10, 2026 at 5pm EST? — 81° or above",
+      "cat": "Climate and Weather",
+      "side": "no",
+      "price": 0.94,
+      "contracts": 0.19,
+      "fee": 0.01,
+      "stake": 0.1886,
+      "bankroll": 9.9466,
+      "betPct": 1.8961,
+      "evPerDollar": -0.0532,
+      "pnl": null,
+      "won": null
+     },
+     {
+      "ts": "2026-11-10T21:05:01.650Z",
+      "ticker": "KXNATGASD-26NOV1017-T3.455",
+      "title": "Will the natural gas close price be above 3.455 USD/MMBtu on November 10, 2026 at 5:00 PM EST? — Above $3.455",
+      "cat": "Commodities",
+      "side": "no",
+      "price": 0.22,
+      "contracts": 0.82,
+      "fee": 0.01,
+      "stake": 0.1904,
+      "bankroll": 9.9566,
+      "betPct": 1.9123,
+      "evPerDollar": -0.1818,
+      "pnl": null,
+      "won": null
+     },
+     {
+      "ts": "2026-11-10T21:05:01.650Z",
+      "ticker": "KXBIGGESTQUAKE-10NOV26-6.4",
+      "title": "What will the biggest earthquake be on Nov 10, 2026? — Magnitude of at least 6.4",
+      "cat": "Climate and Weather",
+      "side": "yes",
+      "price": 0.04,
+      "contracts": 4.41,
+      "fee": 0.02,
+      "stake": 0.1964,
+      "bankroll": 9.9766,
+      "betPct": 1.9686,
+      "evPerDollar": -0.375,
+      "pnl": null,
+      "won": null
+     },
+     {
+      "ts": "2026-11-10T21:05:01.650Z",
+      "ticker": "KXNATGASD-26NOV1017-T3.450",
+      "title": "Will the natural gas close price be above 3.450 USD/MMBtu on November 10, 2026 at 5:00 PM EST? — Above $3.450",
+      "cat": "Commodities",
+      "side": "yes",
+      "price": 0.9,
+      "contracts": 0.2,
+      "fee": 0.01,
+      "stake": 0.19,
+      "bankroll": 9.9866,
+      "betPct": 1.9025,
+      "evPerDollar": -0.0278,
+      "pnl": null,
+      "won": null
+     },
      {
       "ts": "2026-11-10T20:55:01.382Z",
       "ticker": "KXNATGASD-26NOV1017-T3.460",
@@ -3129,103 +3197,38 @@
       "bankroll": 9.91,
       "betPct": 1.9506,
       "evPerDollar": -0.1154,
-      "pnl": null,
-      "won": null
-     },
-     {
-      "ts": "2026-11-10T17:10:26.839Z",
-      "ticker": "KXTEMPMIAH-26NOV1013-T82.99",
-      "title": "Will the temp in Miami be above 82.99° on Nov 10, 2026 at 1pm EST? — 83° or above",
-      "cat": "Climate and Weather",
-      "side": "no",
-      "price": 0.07,
-      "contracts": 2.51,
-      "fee": 0.02,
-      "stake": 0.1957,
-      "bankroll": 9.93,
-      "betPct": 1.9708,
-      "evPerDollar": -0.5714,
-      "pnl": -0.1957,
-      "won": false,
-      "settledAt": "2026-11-10T19:11:16.208Z"
-     },
-     {
-      "ts": "2026-11-10T17:10:26.839Z",
-      "ticker": "KXBTCD-26NOV1013-T72899.99",
-      "title": "Bitcoin price on Nov 10, 2026? — $72,900 or above",
-      "cat": "Crypto",
-      "side": "yes",
-      "price": 0.5,
-      "contracts": 0.37,
-      "fee": 0.01,
-      "stake": 0.195,
-      "bankroll": 9.94,
-      "betPct": 1.9618,
-      "evPerDollar": -0.05,
-      "pnl": 0.175,
+      "pnl": 0.2767,
       "won": true,
-      "settledAt": "2026-11-10T18:11:56.295Z"
-     },
-     {
-      "ts": "2026-11-10T17:10:26.839Z",
-      "ticker": "KXNATGASD-26NOV1017-T3.355",
-      "title": "Will the natural gas close price be above 3.355 USD/MMBtu on November 10, 2026 at 5:00 PM EST? — Above $3.355",
-      "cat": "Commodities",
-      "side": "yes",
-      "price": 0.98,
-      "contracts": 0.19,
-      "fee": 0.01,
-      "stake": 0.1962,
-      "bankroll": 9.95,
-      "betPct": 1.9719,
-      "evPerDollar": -0.0255,
-      "pnl": null,
-      "won": null
-     },
-     {
-      "ts": "2026-11-10T17:10:26.839Z",
-      "ticker": "KXINXU-26NOV10H1600-T7539.9999",
-      "title": "Will the S&P 500 be above 7539.9999 on Nov 10, 2026 at 4pm EST? — 7,540 or above",
-      "cat": "Financials",
-      "side": "no",
-      "price": 0.95,
-      "contracts": 0.19,
-      "fee": 0.01,
-      "stake": 0.1905,
-      "bankroll": 9.96,
-      "betPct": 1.9127,
-      "evPerDollar": -0.0316,
-      "pnl": null,
-      "won": null
+      "settledAt": "2026-11-10T21:02:06.282Z"
      }
     ],
     "stats": {
-     "trades": 8,
-     "wins": 4,
+     "trades": 9,
+     "wins": 5,
      "losses": 4,
-     "winRate": 0.5,
-     "grossProfit": 0.608,
+     "winRate": 0.5556,
+     "grossProfit": 0.8847,
      "grossLoss": 0.7781,
-     "net": -0.1701,
-     "profitFactor": 0.7814,
+     "net": 0.1066,
+     "profitFactor": 1.137,
      "best": 0.2938,
      "worst": -0.1957,
-     "expectedPayoff": -0.0213,
-     "recoveryFactor": -0.3185,
-     "perBetSharpe": -0.1135,
-     "avgDailyPnl": -0.1701,
+     "expectedPayoff": 0.0118,
+     "recoveryFactor": 0.1996,
+     "perBetSharpe": 0.0593,
+     "avgDailyPnl": 0.1066,
      "lastDay": {
       "date": "2026-11-10",
-      "pnl": -0.1701
+      "pnl": 0.1066
      },
      "streak": {
-      "kind": "loss",
-      "n": 3
+      "kind": "win",
+      "n": 1
      },
      "daily": [
       {
        "date": "2026-11-10",
-       "pnl": -0.1701
+       "pnl": 0.1066
       }
      ],
      "drawdown": [
@@ -3264,10 +3267,31 @@
       [
        1794337876212,
        -5.1885
+      ],
+      [
+       1794344526282,
+       -2.9862
       ]
      ]
     },
     "closed": [
+     {
+      "ts": "2026-11-10T17:10:26.839Z",
+      "ticker": "KXNASDAQ100U-26NOV10H1600-T27639.99",
+      "title": "Will the Nasdaq-100 be above 27639.99 at the end of Nov 10, 2026 at 4pm EST? — 27,640 or above",
+      "cat": "Financials",
+      "side": "yes",
+      "price": 0.39,
+      "contracts": 0.47,
+      "fee": 0.01,
+      "stake": 0.1933,
+      "bankroll": 9.91,
+      "betPct": 1.9506,
+      "evPerDollar": -0.1154,
+      "pnl": 0.2767,
+      "won": true,
+      "settledAt": "2026-11-10T21:02:06.282Z"
+     },
      {
       "ts": "2026-11-10T17:10:26.839Z",
       "ticker": "KXTEMPLAXHS-26NOV1013-T76.99",
@@ -3427,7 +3451,7 @@
     "avgBetPct": 2.3631,
     "maxBetPct": 2.502,
     "worstLossPct": -2.502,
-    "betsPerDay": 70.533,
+    "betsPerDay": 67.5249,
     "trustNow": {
      "trust": 0,
      "why": "learning: 11/30 settled bets"
@@ -3947,7 +3971,7 @@
     "avgBetPct": 1.9538,
     "maxBetPct": 1.9788,
     "worstLossPct": -1.9659,
-    "betsPerDay": 83.3572,
+    "betsPerDay": 79.8021,
     "trustNow": null,
     "busted": null,
     "reachedGoal": null,
@@ -4576,7 +4600,7 @@
     "avgBetPct": 2.4425,
     "maxBetPct": 2.7431,
     "worstLossPct": -2.7431,
-    "betsPerDay": 89.7693,
+    "betsPerDay": 85.9408,
     "trustNow": {
      "trust": 0,
      "why": "learning: 13/30 settled bets"

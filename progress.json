@@ -1,18 +1,18 @@
 {
- "updated": "2026-11-10T20:57:03.888Z",
+ "updated": "2026-11-10T21:05:18.609Z",
  "goal": "IN_PROGRESS",
- "resolved": 410,
+ "resolved": 472,
  "health": {
   "ok": false,
   "warmingUp": true,
   "checks": {
    "runsLast24h": {
-    "value": 17,
+    "value": 18,
     "target": 20,
     "ok": false
    },
    "newPredictionsLast24h": {
-    "value": 830,
+    "value": 834,
     "target": 10,
     "ok": true
    },
@@ -33,15 +33,15 @@
  "predictors": {
   "longshot": {
    "status": "FAILURE_RETIRE",
-   "rec": "no measurable edge after 410 resolved — recommend retiring this hypothesis",
-   "n": 410,
-   "brierVsMarket": 0.0011,
+   "rec": "no measurable edge after 472 resolved — recommend retiring this hypothesis",
+   "n": 472,
+   "brierVsMarket": 0.0009,
    "picks": 0,
    "trend": "first snapshot",
    "snap": {
-    "n": 410,
-    "mean": 0.0011,
-    "width": 0.0034
+    "n": 472,
+    "mean": 0.0009,
+    "width": 0.0033
    },
    "backtest": {
     "n": 1101,
@@ -53,15 +53,15 @@
   },
   "memory": {
    "status": "OFF_TRACK",
-   "rec": "not beating the market so far (+0.0039) — wait for 0 more resolved before judging",
-   "n": 167,
-   "brierVsMarket": 0.0039,
-   "picks": 35,
+   "rec": "not beating the market so far (+0.0034) — wait for 0 more resolved before judging",
+   "n": 189,
+   "brierVsMarket": 0.0034,
+   "picks": 36,
    "trend": "first snapshot",
    "snap": {
-    "n": 167,
-    "mean": 0.0039,
-    "width": 0.0206
+    "n": 189,
+    "mean": 0.0034,
+    "width": 0.0202
    },
    "backtest": {
     "n": 1101,
@@ -73,15 +73,15 @@
   },
   "nn": {
    "status": "ON_TRACK",
-   "rec": "leaning better than the market (-0.0069) — wait for 14 more resolved",
-   "n": 86,
-   "brierVsMarket": -0.0069,
+   "rec": "leaning better than the market (-0.0062) — wait for 0 more resolved",
+   "n": 100,
+   "brierVsMarket": -0.0062,
    "picks": 25,
    "trend": "first snapshot",
    "snap": {
-    "n": 86,
-    "mean": -0.0069,
-    "width": 0.0176
+    "n": 100,
+    "mean": -0.0062,
+    "width": 0.0171
    },
    "backtest": null
   }
