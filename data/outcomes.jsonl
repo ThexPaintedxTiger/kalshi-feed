@@ -88,3 +88,5 @@
 {"ticker":"KXTEMPNYCHS-26NOV1012-T58.99","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T17:00:00Z","checkedAt":"2026-11-10T17:25:44.443Z"}
 {"ticker":"KXTEMPLAXHS-26NOV1012-T73.99","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T17:00:00Z","checkedAt":"2026-11-10T17:25:44.443Z"}
 {"ticker":"KXTEMPLAXHS-26NOV1012-T72.99","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T17:00:00Z","checkedAt":"2026-11-10T17:25:44.443Z"}
+{"ticker":"KXATPCHALLENGERMATCH-26NOV10PIRNAR-PIR","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T17:30:31Z","checkedAt":"2026-11-10T17:32:32.894Z"}
+{"ticker":"KXATPCHALLENGERMATCH-26NOV10PIRNAR-NAR","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T17:30:31Z","checkedAt":"2026-11-10T17:32:32.894Z"}
