@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T17:52:47.278Z",
+ "updated": "2026-11-10T17:54:50.414Z",
  "trade": {
   "answer": "No — don't trade real money yet",
   "tone": "bad",
@@ -7,7 +7,7 @@
   "next": "Let it keep collecting. The answer changes automatically when a strategy reaches SUCCESS on the live record."
  },
  "learning": [
-  "Live record: 98 of 803 predictions resolved so far (21 separate events).",
+  "Live record: 98 of 805 predictions resolved so far (21 separate events).",
   "longshot: on track — leaning better than the market (-0.0024) — wait for 2 more resolved",
   "memory: off track — not beating the market so far (0) — wait for 80 more resolved before judging",
   "Neural network: tested on 753 past markets it never saw → worse than market (out-of-sample) (Brier 0.1929 vs market 0.1804).",
@@ -113,12 +113,12 @@
   {
    "name": "Runs on schedule (every 10 min)",
    "ok": false,
-   "detail": "9 cloud runs in the last 3 h (expect ~18)"
+   "detail": "10 cloud runs in the last 3 h (expect ~18)"
   },
   {
    "name": "New predictions are being logged",
    "ok": true,
-   "detail": "100 logged in the last hour"
+   "detail": "102 logged in the last hour"
   },
   {
    "name": "Outcomes are being collected",
@@ -128,7 +128,7 @@
   {
    "name": "Scorecard matches the logs",
    "ok": true,
-   "detail": "scorecard counts 803, log has 803"
+   "detail": "scorecard counts 805, log has 805"
   },
   {
    "name": "No prediction logged after its market resolved",
@@ -148,7 +148,7 @@
   {
    "name": "Network trained in the last 2 h",
    "ok": true,
-   "detail": "trained 2 min ago on 942 markets"
+   "detail": "trained 4 min ago on 942 markets"
   },
   {
    "name": "Bet-size safety held (≤5% per bet)",

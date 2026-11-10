@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-10T17:52:47.322Z",
+ "generated": "2026-11-10T17:54:50.465Z",
  "config": {
   "version": 4,
   "scan": {
@@ -157,7 +157,7 @@
   }
  },
  "progress": {
-  "updated": "2026-11-10T17:52:46.821Z",
+  "updated": "2026-11-10T17:54:49.769Z",
   "goal": "IN_PROGRESS",
   "resolved": 98,
   "health": {
@@ -165,12 +165,12 @@
    "warmingUp": true,
    "checks": {
     "runsLast24h": {
-     "value": 13,
+     "value": 14,
      "target": 7,
      "ok": true
     },
     "newPredictionsLast24h": {
-     "value": 803,
+     "value": 805,
      "target": 3,
      "ok": true
     },
@@ -234,7 +234,7 @@
  },
  "scorecard": {
   "resolved": 98,
-  "predictions": 803,
+  "predictions": 805,
   "excludedLeakage": 0,
   "events": 21,
   "predictors": {
@@ -555,10 +555,10 @@
   }
  },
  "totals": {
-  "predictions": 803,
+  "predictions": 805,
   "outcomes": 98,
   "trades": 68,
-  "runs": 13
+  "runs": 14
  },
  "categories": {
   "Sports": {
@@ -574,7 +574,7 @@
    "resolved": 0
   },
   "Financials": {
-   "logged": 126,
+   "logged": 128,
    "resolved": 23
   },
   "Economics": {
@@ -681,9 +681,52 @@
    "scanned": 45284,
    "candidates": 615,
    "logged": 3
+  },
+  {
+   "ts": "2026-11-10T17:54:33.725Z",
+   "run": "fea75c3",
+   "scanned": 45285,
+   "candidates": 614,
+   "logged": 2
   }
  ],
  "predictions": [
+  {
+   "ts": "2026-11-10T17:54:33.725Z",
+   "ticker": "KXNASDAQ100U-26NOV10H1600-T27299.99",
+   "title": "Will the Nasdaq-100 be above 27299.99 at the end of Nov 10, 2026 at 4pm EST? — 27,300 or above",
+   "cat": "Financials",
+   "resolvesAt": "2026-11-10T21:00:00.000Z",
+   "ask": 0.93,
+   "bid": 0.88,
+   "mid": 0.905,
+   "est": {
+    "market": 0.905,
+    "longshot": 0.9227,
+    "memory": 0.8901,
+    "nn": 0.8819
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxnasdaq100u"
+  },
+  {
+   "ts": "2026-11-10T17:54:33.725Z",
+   "ticker": "KXNASDAQ100U-26NOV10H1600-T27279.99",
+   "title": "Will the Nasdaq-100 be above 27279.99 at the end of Nov 10, 2026 at 4pm EST? — 27,280 or above",
+   "cat": "Financials",
+   "resolvesAt": "2026-11-10T21:00:00.000Z",
+   "ask": 0.94,
+   "bid": 0.9,
+   "mid": 0.92,
+   "est": {
+    "market": 0.92,
+    "longshot": 0.9362,
+    "memory": 0.9051,
+    "nn": 0.9004
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxnasdaq100u"
+  },
   {
    "ts": "2026-11-10T17:52:26.686Z",
    "ticker": "KXINXU-26NOV10H1600-T7439.9999",
@@ -3299,40 +3342,6 @@
    },
    "outcome": "open",
    "url": "https://kalshi.com/markets/kxgoldd"
-  },
-  {
-   "ts": "2026-11-10T16:47:36.738Z",
-   "ticker": "KXNASDAQ100-26NOV10H1600-B27350",
-   "title": "Will the Nasdaq-100 be between 27300 and 27399.9900 at the end of Nov 10, 2026 at 4pm EST? — 27,300 to 27,399.99",
-   "cat": "Financials",
-   "resolvesAt": "2026-11-10T21:00:00.000Z",
-   "ask": 0.12,
-   "bid": 0.07,
-   "mid": 0.095,
-   "est": {
-    "market": 0.095,
-    "longshot": 0.0773,
-    "memory": 0.095
-   },
-   "outcome": "open",
-   "url": "https://kalshi.com/markets/kxnasdaq100"
-  },
-  {
-   "ts": "2026-11-10T16:47:36.738Z",
-   "ticker": "KXDOTA2MAP-26NOV101100IAPCH-1-CH",
-   "title": "CyberHero wins map 1",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T19:00:00.000Z",
-   "ask": 0.99,
-   "bid": 0.94,
-   "mid": 0.965,
-   "est": {
-    "market": 0.965,
-    "longshot": 0.9746,
-    "memory": 0.99
-   },
-   "outcome": "open",
-   "url": "https://kalshi.com/markets/kxdota2map"
   }
  ],
  "trades": [
@@ -5543,7 +5552,7 @@
   ]
  },
  "paper": {
-  "updated": "2026-11-10T17:52:46.872Z",
+  "updated": "2026-11-10T17:54:49.835Z",
   "start": 10,
   "goal": 1000,
   "safety": {
@@ -7646,7 +7655,7 @@
    ]
   },
   "forward": {
-   "rows": 100,
+   "rows": 102,
    "settled": 0,
    "portfolios": [
     {
@@ -7702,7 +7711,7 @@
      "avgBetPct": 1.9549,
      "maxBetPct": 1.9798,
      "worstLossPct": 0,
-     "betsPerDay": 445.7413,
+     "betsPerDay": 424.3477,
      "trustNow": null,
      "busted": null,
      "reachedGoal": null,
@@ -7944,7 +7953,7 @@
      "avgBetPct": 2.3631,
      "maxBetPct": 2.502,
      "worstLossPct": 0,
-     "betsPerDay": 377.1658,
+     "betsPerDay": 359.0634,
      "trustNow": {
       "trust": 0,
       "why": "learning: 0/30 settled bets"
@@ -8157,7 +8166,7 @@
      "avgBetPct": 1.9538,
      "maxBetPct": 1.9788,
      "worstLossPct": 0,
-     "betsPerDay": 445.7413,
+     "betsPerDay": 424.3477,
      "trustNow": null,
      "busted": null,
      "reachedGoal": null,
@@ -8435,7 +8444,7 @@
      "avgBetPct": 2.3765,
      "maxBetPct": 2.503,
      "worstLossPct": 0,
-     "betsPerDay": 377.1658,
+     "betsPerDay": 359.0634,
      "trustNow": {
       "trust": 0,
       "why": "learning: 0/30 settled bets"
@@ -8632,7 +8641,7 @@
   }
  },
  "status": {
-  "updated": "2026-11-10T17:52:47.278Z",
+  "updated": "2026-11-10T17:54:50.414Z",
   "trade": {
    "answer": "No — don't trade real money yet",
    "tone": "bad",
@@ -8640,7 +8649,7 @@
    "next": "Let it keep collecting. The answer changes automatically when a strategy reaches SUCCESS on the live record."
   },
   "learning": [
-   "Live record: 98 of 803 predictions resolved so far (21 separate events).",
+   "Live record: 98 of 805 predictions resolved so far (21 separate events).",
    "longshot: on track — leaning better than the market (-0.0024) — wait for 2 more resolved",
    "memory: off track — not beating the market so far (0) — wait for 80 more resolved before judging",
    "Neural network: tested on 753 past markets it never saw → worse than market (out-of-sample) (Brier 0.1929 vs market 0.1804).",
@@ -8746,12 +8755,12 @@
    {
     "name": "Runs on schedule (every 10 min)",
     "ok": false,
-    "detail": "9 cloud runs in the last 3 h (expect ~18)"
+    "detail": "10 cloud runs in the last 3 h (expect ~18)"
    },
    {
     "name": "New predictions are being logged",
     "ok": true,
-    "detail": "100 logged in the last hour"
+    "detail": "102 logged in the last hour"
    },
    {
     "name": "Outcomes are being collected",
@@ -8761,7 +8770,7 @@
    {
     "name": "Scorecard matches the logs",
     "ok": true,
-    "detail": "scorecard counts 803, log has 803"
+    "detail": "scorecard counts 805, log has 805"
    },
    {
     "name": "No prediction logged after its market resolved",
@@ -8781,7 +8790,7 @@
    {
     "name": "Network trained in the last 2 h",
     "ok": true,
-    "detail": "trained 2 min ago on 942 markets"
+    "detail": "trained 4 min ago on 942 markets"
    },
    {
     "name": "Bet-size safety held (≤5% per bet)",
