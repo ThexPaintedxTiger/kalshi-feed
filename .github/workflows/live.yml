@@ -10,7 +10,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: kalshi-feed
+  group: kalshi-feed-${{ github.ref }}
   cancel-in-progress: false
 jobs:
   live:
