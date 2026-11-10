@@ -1,0 +1,18 @@
+{
+ "KXTEMPNYCHS": {
+  "forecast": "https://api.weather.gov/gridpoints/OKX/33,42/forecast/hourly",
+  "station": "KNYC"
+ },
+ "KXTEMPMIAH": {
+  "forecast": "https://api.weather.gov/gridpoints/MFL/110,50/forecast/hourly",
+  "station": "KMIA"
+ },
+ "KXTEMPLAXHS": {
+  "forecast": "https://api.weather.gov/gridpoints/LOX/148,41/forecast/hourly",
+  "station": "KLAX"
+ },
+ "KXTEMPCHIHS": {
+  "forecast": "https://api.weather.gov/gridpoints/LOT/76,73/forecast/hourly",
+  "station": "KMDW"
+ }
+}

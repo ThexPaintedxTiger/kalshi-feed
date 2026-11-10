@@ -1,18 +1,18 @@
 {
- "updated": "2026-11-10T22:55:15.371Z",
+ "updated": "2026-11-10T23:11:13.388Z",
  "goal": "IN_PROGRESS",
- "resolved": 781,
+ "resolved": 823,
  "health": {
   "ok": true,
   "warmingUp": true,
   "checks": {
    "runsLast24h": {
-    "value": 30,
-    "target": 28,
+    "value": 31,
+    "target": 29,
     "ok": true
    },
    "newPredictionsLast24h": {
-    "value": 902,
+    "value": 970,
     "target": 14,
     "ok": true
    },
@@ -33,57 +33,77 @@
  "predictors": {
   "longshot": {
    "status": "FAILURE_RETIRE",
-   "rec": "no measurable edge after 781 resolved — recommend retiring this hypothesis",
-   "n": 781,
+   "rec": "no measurable edge after 823 resolved — recommend retiring this hypothesis",
+   "n": 823,
    "brierVsMarket": 0.0005,
    "picks": 0,
    "trend": "first snapshot",
    "snap": {
-    "n": 781,
+    "n": 823,
     "mean": 0.0005,
     "width": 0.0025
    },
    "backtest": {
-    "n": 1222,
-    "brierVsMarket": -0.0001,
+    "n": 1334,
+    "brierVsMarket": -0.0002,
     "verdict": "no measurable difference",
     "picks": 0,
     "pnlPerContract": null
    }
   },
   "memory": {
-   "status": "OFF_TRACK",
-   "rec": "not beating the market so far (+0.0035) — wait for 0 more resolved before judging",
-   "n": 272,
-   "brierVsMarket": 0.0035,
-   "picks": 50,
+   "status": "FAILURE_RETIRE",
+   "rec": "no measurable edge after 312 resolved — recommend retiring this hypothesis",
+   "n": 312,
+   "brierVsMarket": 0.0039,
+   "picks": 61,
    "trend": "first snapshot",
    "snap": {
-    "n": 272,
-    "mean": 0.0035,
-    "width": 0.0151
+    "n": 312,
+    "mean": 0.0039,
+    "width": 0.0142
    },
    "backtest": {
-    "n": 1222,
+    "n": 1334,
     "brierVsMarket": -0.0003,
     "verdict": "no measurable difference",
-    "picks": 21,
-    "pnlPerContract": 0.1119
+    "picks": 23,
+    "pnlPerContract": 0.087
    }
   },
   "nn": {
    "status": "ON_TRACK",
-   "rec": "leaning better than the market (-0.0019) — wait for 0 more resolved",
-   "n": 139,
-   "brierVsMarket": -0.0019,
+   "rec": "leaning better than the market (-0.0018) — wait for 0 more resolved",
+   "n": 179,
+   "brierVsMarket": -0.0018,
    "picks": 25,
    "trend": "first snapshot",
    "snap": {
-    "n": 139,
-    "mean": -0.0019,
-    "width": 0.0125
+    "n": 179,
+    "mean": -0.0018,
+    "width": 0.0101
    },
    "backtest": null
+  },
+  "crypto_fair": {
+   "status": "INSUFFICIENT",
+   "rec": "wait: 0/20 resolved before any trend is readable",
+   "n": 0,
+   "brierVsMarket": null,
+   "picks": 0,
+   "trend": "first snapshot",
+   "snap": {
+    "n": 0,
+    "mean": null,
+    "width": null
+   },
+   "backtest": {
+    "n": 52,
+    "brierVsMarket": 0.0162,
+    "verdict": "no measurable difference",
+    "picks": 25,
+    "pnlPerContract": -0.0932
+   }
   }
  },
  "definitions": "SUCCESS = Brier better than market (95% interval < 0, n ≥ minResolved) AND simulated picks profitable after fees (95% interval > 0, ≥ minPicks). FAILURE = clearly worse than market, or no edge after retireAfter resolved. Recommendations only; nothing changes without owner approval."
