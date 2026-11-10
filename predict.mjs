@@ -1,7 +1,8 @@
 // Research step: find Kalshi markets that resolve within the next few hours, estimate probabilities
 // with each enabled predictor, and APPEND one prediction per market to data/predictions/YYYY-MM.jsonl
 // BEFORE the market resolves. Rows are never edited afterwards. Simulation only: nothing is traded.
-import { config, kalshi, sleep, resolvesAt, series, r4, readJsonl, appendJsonl, predictionFiles, categories } from "./lib.mjs";
+import { minuteStats } from "./nnlib.mjs";
+import { config, kalshi, sleep, resolvesAt, series, r4, readJsonl, appendJsonl, predictionFiles, hotFile, categories } from "./lib.mjs";
 import { estimate } from "./predictors.mjs";
 import * as crypto from "./external/crypto.mjs";
 import * as weather from "./external/weather.mjs";
@@ -54,13 +55,16 @@ for (let i = 0; chosen.length < S.maxNewPerRun && Object.values(byCat).some(a =>
 // 5. Predictors (predictors.mjs; hypotheses in config.json, versioned by "cfg"). Memory only uses markets settled before now.
 const recall = makeRecall(loadSamples());
 // 30-minute price move for each chosen market (one batch call): mid now − mid ~30 min ago, from 1-minute candles.
-const move = {};
+const move = {}, vol = {};
 try {
   for (let i = 0; i < chosen.length; i += 100) {
     const j = await kalshi(`/markets/candlesticks?market_tickers=${chosen.slice(i, i + 100).map(c => encodeURIComponent(c.m.ticker)).join(",")}&start_ts=${nowS - 2100}&end_ts=${nowS}&period_interval=1`);
     for (const mk of j.markets || []) {
-      const pts = (mk.candlesticks || []).filter(c => c.yes_bid?.close_dollars != null && c.yes_ask?.close_dollars != null && c.end_period_ts <= nowS - 1500);
+      const all = (mk.candlesticks || []).filter(c => c.yes_bid?.close_dollars != null && c.yes_ask?.close_dollars != null);
+      const pts = all.filter(c => c.end_period_ts <= nowS - 1500);
       if (pts.length) move[mk.market_ticker] = (+pts[0].yes_bid.close_dollars + +pts[0].yes_ask.close_dollars) / 2;
+      const v = minuteStats(all.map(c => ({ t: c.end_period_ts, mid: (+c.yes_bid.close_dollars + +c.yes_ask.close_dollars) / 2 })), nowS).vol30;
+      if (v != null) vol[mk.market_ticker] = v;                                  // minute volatility, same candles (no extra call)
     }
   }
 } catch (e) { console.log("price-move lookup failed:", e.message); }
@@ -75,14 +79,14 @@ for (const { m } of chosen) {
 }
 writeJson("data/external/last.json", { at: new Date(now).toISOString(), ...extStat });
 const rows = chosen.map(({ m, ask, bid, mid, res, lead }) => {
-  const chg30 = m.ticker in move ? r4(mid - move[m.ticker]) : null;
-  const { est, picks } = estimate({ mid, ask, bid, series: series(m), at: now, cat: cats.map[series(m)] || "", resolvesAt: res, chg30, ext: ext[m.ticker] }, { recall });
+  const chg30 = m.ticker in move ? r4(mid - move[m.ticker]) : null, vol30 = vol[m.ticker] ?? null;
+  const { est, picks } = estimate({ mid, ask, bid, series: series(m), at: now, cat: cats.map[series(m)] || "", resolvesAt: res, leadMin: lead / 6e4, chg30, vol30, ext: ext[m.ticker] }, { recall });
   return {
     ts: runId, run: sha, cfg: config.version,
     ticker: m.ticker, event: m.event_ticker, series: series(m), cat: cats.map[series(m)] || "",
     title: m.title + (m.yes_sub_title && !String(m.title).includes(m.yes_sub_title) ? " — " + m.yes_sub_title : ""),
     rules: String(m.rules_primary || "").slice(0, 300),
-    resolvesAt: res, leadMin: Math.round(lead / 6e4), chg30, ...(ext[m.ticker] ? { ext: ext[m.ticker] } : {}),
+    resolvesAt: res, leadMin: Math.round(lead / 6e4), chg30, vol30, ...(ext[m.ticker] ? { ext: ext[m.ticker] } : {}),
     ask, bid, mid: r4(mid), spread: r4(ask - bid), askSize: +(m.yes_ask_size_fp || 0), bidSize: +(m.yes_bid_size_fp || 0),
     vol: Math.round(+(m.volume_fp || 0)), v24: Math.round(+(m.volume_24h_fp || 0)), oi: Math.round(+(m.open_interest_fp || 0)),
     est, picks,
@@ -90,7 +94,7 @@ const rows = chosen.map(({ m, ask, bid, mid, res, lead }) => {
   };
 });
 
-const [, file] = predictionFiles();
+const file = hotFile("predictions");
 appendJsonl(file, rows);
 appendJsonl("data/runs.jsonl", [{ ts: runId, run: sha, scanned: markets.length, candidates: cand.length, logged: rows.length }]); // heartbeat
 console.log(`scanned ${markets.length} markets (${pages} pages), ${cand.length} resolve in ${S.minLeadMinutes}m–${S.horizonHours}h, logged ${rows.length} new → ${file}`);

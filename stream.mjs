@@ -4,6 +4,7 @@
 // Every minute:  live bid/ask for every open market the agent watches (one public Kalshi call) → minute price log on this
 //                computer (local/ticks/, not pushed) + current prices in data/live.json; collect new outcomes; when new
 //                outcomes arrived, retrain the neural network right away and rescore everything.
+// Storage:       old months move to data/archive/ (verified gzip); an uncompressed copy of everything stays in local/archive/.
 // Every 10 min:  the full scan (new predictions, backtest, focus prices, Gemini, dashboard) — the same steps as cycle.sh.
 // Every 5 min:   commit + push. A heartbeat (data/stream.json) tells the cloud schedule to step aside while this runs.
 // Public data only: no Kalshi account, no keys, nothing that can trade.
@@ -15,6 +16,7 @@ import { kalshi, readJsonl, writeJson, predictionFiles, r4, sleep } from "./lib.
 const NO_PUSH = process.env.NO_PUSH === "1", LIMIT = +process.env.STREAM_MINUTES || Infinity, started = Date.now();
 const node = (f, env = {}) => { const r = spawnSync(process.execPath, [f], { stdio: "pipe", encoding: "utf8", env: { ...process.env, ...env } });
   const out = (r.stdout || "").trim().split("\n").pop(); if (r.status !== 0) log(`${f} failed: ${(r.stderr || "").trim().split("\n").pop()}`); return { ok: r.status === 0, out }; };
+const nodeArgs = (f, args) => { const r = spawnSync(process.execPath, [f, ...args], { stdio: "pipe", encoding: "utf8" }); return { ok: r.status === 0, out: (r.stdout || "").trim().split("\n").pop() }; };
 const git = (...a) => spawnSync("git", a, { stdio: "pipe", encoding: "utf8" });
 const log = m => console.log(`${new Date().toISOString().slice(11, 19)}  ${m}`);
 const outcomesCount = () => readJsonl("data/outcomes.jsonl").length;
@@ -58,19 +60,21 @@ while (!stop && Date.now() - started < LIMIT * 6e4) {
     if (Date.now() - lastFull >= 10 * 6e4) {                                     // full scan
       lastFull = Date.now();
       if (!node("test.mjs").ok) { log("tests failed — not running the pipeline; fix before continuing"); break; }
+      const ar = node("archive.mjs"); if (!/nothing due/.test(ar.out)) log(ar.out.slice(0, 200));
       const before = outcomesCount();
       node("resolve.mjs");
       const fresh = outcomesCount() - before;
-      for (const f of ["memory.mjs", "predict.mjs", "backtest.mjs", "nn.mjs", "score.mjs", "progress.mjs", "paper.mjs", "focus.mjs", "scan.mjs", "agents.mjs", "status.mjs", "dashboard.mjs"]) {
-        const r = node(f, f === "nn.mjs" && fresh > 0 ? { FORCE: "1" } : {});     // new outcomes → retrain now, not on the hourly timer
-        if (["predict.mjs", "nn.mjs", "status.mjs"].includes(f) && r.out) log(r.out.slice(0, 160));
+      log(node("snapshots.mjs").out.slice(0, 160));                                  // minute log → training rows for resolved markets
+      for (const f of ["memory.mjs", "predict.mjs", "backtest.mjs", "nn.mjs", "score.mjs", "progress.mjs", "paper.mjs", "focus.mjs", "scan.mjs", "agents.mjs", "storage.mjs", "status.mjs", "dashboard.mjs"]) {
+        const r = f === "storage.mjs" ? nodeArgs(f, ["--mirror"]) : node(f, f === "nn.mjs" && fresh > 0 ? { FORCE: "1" } : {});     // new outcomes → retrain now, not on the hourly timer
+        if (["predict.mjs", "nn.mjs", "storage.mjs", "status.mjs"].includes(f) && r.out) log(r.out.slice(0, 160));
       }
     } else {                                                                     // minute: prices, outcomes, learn if new
       const n = await tick(), before = outcomesCount();
       node("resolve.mjs");
       const fresh = outcomesCount() - before;
       if (fresh > 0) {
-        for (const f of ["memory.mjs"]) node(f);
+        for (const f of ["snapshots.mjs", "memory.mjs"]) node(f);                 // new outcomes → their minute snapshots join training too
         const nn = node("nn.mjs", { FORCE: "1" });                                // retrain now: new outcomes to learn from
         for (const f of ["score.mjs", "progress.mjs", "paper.mjs", "status.mjs", "dashboard.mjs"]) node(f);
         log(`${n} live prices · ${fresh} new outcome(s) → retrained: ${nn.out.slice(0, 120)}`);

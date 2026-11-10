@@ -1,5 +1,5 @@
 {
- "version": 7,
+ "version": 8,
  "scan": {
   "windowDays": 16,
   "horizonHours": 6,
@@ -189,5 +189,12 @@
   "devSession": "session_017aScWtmMzeyXzzwrarJEyL",
   "cyclesPerHour": 6,
   "schedule": "hourly at :54 UTC"
+ },
+ "storage": {
+  "maxHotMB": 40,
+  "repoLimitMB": 1024,
+  "warnDays": 90,
+  "minFreeGB": 5,
+  "note": "archive.mjs moves hot logs older than last month (or over maxHotMB) to data/archive/ as verified gzip; storage.mjs watches sizes."
  }
 }

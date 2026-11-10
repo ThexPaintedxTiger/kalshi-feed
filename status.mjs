@@ -36,6 +36,8 @@ for (const [k, name] of [["crypto", "Coinbase crypto agent"], ["weather", "NWS w
   const x = ext?.[k];
   check(`Outside data: ${name}`, ext && ago(ext.at) <= 30 && (!x?.tried || x.got > 0), ext ? `${x?.got ?? 0}/${x?.tried ?? 0} markets got an outside estimate, ${Math.round(ago(ext.at))} min ago` : "not run yet");
 }
+const st = readJson("data/storage.json", null);
+check("Storage has room (archive + limits)", st && st.ok, st ? `${st.repoMB ?? "?"} MB in GitHub${st.daysToRepoLimit != null ? `, ~${st.daysToRepoLimit} days to ${st.repoLimitMB} MB` : ""} · ${st.archivedFiles} files archived${st.problems?.length ? " · " + st.problems.join("; ") : ""}` : "not measured yet");
 const problems = checks.filter(c => !c.ok);
 
 // ---- Should I trade? ----
@@ -58,6 +60,7 @@ const learning = [
   firstLog && lastLog && trainLog.length > 1 ? `Training history: ${trainLog.length} runs; data grew ${firstLog.n} → ${lastLog.n} markets; gap vs market ${firstLog.oosDiff} → ${lastLog.oosDiff} (below 0 = better than market).` : "Training history: first run, no trend yet.",
   nn.oos?.folds?.length ? `Network learning check: gap vs market by amount of training data ${nn.oos.folds.map(f => `${f.trainN}→${f.gap >= 0 ? "+" : ""}${f.gap}`).join(", ")} (shrinking = learning; ~0 = copying the market).` : "Network learning check: not available yet.",
   `Backtest: ${backtestRows().length} past markets scored.`,
+  nn.sources ? `Network data: ${nn.sources.live} live + ${nn.sources.backtest} backtest markets${nn.sources.minuteSnapshots ? ` + ${nn.sources.minuteSnapshots} minute snapshots from ${nn.sources.minuteMarkets} markets (24/7 streamer)` : ""}${nn.sources.archivedFiles ? `, including ${nn.sources.archivedFiles} archived month files` : ""} — it reads the whole history, nothing is dropped.` : "Network data: not trained yet.",
 ];
 
 // ---- Paper watchlist: what the strategies would bet on right now (open live predictions with a pick). Not advice. ----

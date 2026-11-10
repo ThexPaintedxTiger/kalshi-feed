@@ -39,6 +39,12 @@ and count something as an improvement only when the scorecard shows it.
 - Settings: `config.json` (horizon, filters, predictors and their hypotheses, edge threshold). `cfg` in each row = config version;
   bump `version` whenever a setting that affects predictions changes.
 - Findings and lessons: `docs/findings.md`, `docs/lessons.md`. Architecture and setup: `docs/architecture.md`.
+- **Storage tiers** (`archive.mjs`, `storage.mjs`): hot logs (this + last month) → `data/archive/<kind>/YYYY-MM[.partN].jsonl.gz`
+  (older months or any hot file > 40 MB; gzip verified by row count + SHA-256 before the hot file is removed; index in `data/archive/index.json`)
+  → uncompressed copy of everything on the owner's computer in `local/archive/` (streamer, never deleted). Readers use `lib.mjs → allMonthFiles`,
+  so memory, the network, scoring and the MCP server see the whole history. Watchdog check "Storage has room"; sizes in `data/storage.json`.
+- Minute snapshots: `snapshots.mjs` turns the streamer's minute ticks into training-only rows (`data/snapshots/`), 60/30/15/5 min before resolution,
+  using only ticks up to that moment; each market weighted to 1; never in the network's walk-forward test set.
 - Git is the history.
 
 ## 24/7 streamer (owner's computer)

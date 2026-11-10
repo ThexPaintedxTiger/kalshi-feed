@@ -1,0 +1,35 @@
+{
+ "at": "2026-11-10T23:48:41.178Z",
+ "hotMB": {
+  "predictions": 0.7069,
+  "backtest": 0.574,
+  "snapshots": 0
+ },
+ "archiveMB": {
+  "predictions": 0,
+  "backtest": 0,
+  "snapshots": 0
+ },
+ "archivedFiles": 0,
+ "archiveRows": 0,
+ "archiveSavedMB": 0,
+ "archiveFailures": [],
+ "oversizeHot": [],
+ "repoMB": 9.165,
+ "repoGrowthMBPerDay": null,
+ "daysToRepoLimit": null,
+ "repoLimitMB": 1024,
+ "localCopyMB": 1.4438,
+ "ticksMB": 0.0273,
+ "freeDiskGB": 29.8482,
+ "limits": {
+  "maxHotMB": 40,
+  "repoLimitMB": 1024,
+  "warnDays": 90,
+  "minFreeGB": 5,
+  "note": "archive.mjs moves hot logs older than last month (or over maxHotMB) to data/archive/ as verified gzip; storage.mjs watches sizes."
+ },
+ "ok": true,
+ "problems": [],
+ "host": "other"
+}

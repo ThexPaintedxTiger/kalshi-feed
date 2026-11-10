@@ -34,7 +34,7 @@ Order in the Action: test → resolve → memory → predict → backtest (hourl
 - **import-trades.mjs**: owner's CSV export → `private/my-trades-report.json` (git-ignored). Column names matched by aliases.
 
 ## Neural network and paper trading (config v4)
-- **nnlib.mjs**: MLP 16 inputs → 16 → 8 → 1 (tanh), P(YES) = sigmoid(logit(price) + output). Output layer starts at 0, so untrained = market.
+- **nnlib.mjs**: MLP 23 inputs (config v8: price, spread, time, category, series memory, 30-min move, outside estimate, minute volatility, time left) → hidden layers (config.nn.hidden) → 1 (tanh), P(YES) = sigmoid(logit(price) + output). Output layer starts at 0, so untrained = market.
   Adam, L2 1e-3, mini-batch 32, early stopping. Inputs: price (logit), spread, distance from 50¢, hour of day, category, series memory as of the
   prediction time. Volume is NOT an input: backtest rows only know final volume, which includes trades after the prediction.
 - **nn.mjs** (hourly): dataset = backtest rows + resolved live predictions (non-excluded categories). (1) walk-forward: 5 time blocks, train on
@@ -132,3 +132,16 @@ Storage: ~700 bytes per prediction; expect a few MB per month. If it grows too l
 - `resolvesAt` for sports is Kalshi's expected time; games can run long (fine: outcome is checked later).
 - One prediction per market (the first time it's seen), so later price moves aren't scored.
 - Simulated picks assume you get filled at the quoted ask/bid for 1 contract (depth not modeled).
+
+## Storage tiers (config.storage)
+1. **Hot** `data/<kind>/YYYY-MM.jsonl` (kind = predictions, backtest, snapshots): appended to; this month and last month.
+2. **Archive** `data/archive/<kind>/YYYY-MM[.partN].jsonl.gz`: `archive.mjs` (each cycle, after tests) moves months older than last month, or a hot
+   file over `maxHotMB`, after checking that the gzip decompresses to the same rows and SHA-256. Index: `data/archive/index.json`.
+3. **Owner's computer** `local/archive/` (git-ignored): `storage.mjs --mirror` from the streamer keeps an uncompressed copy of every log; `local/ticks/`
+   keeps the minute price log. Neither is ever deleted by code.
+- `lib.mjs → allMonthFiles(kind)` / `readJsonl` read hot + archive as one history (`.gz` transparently). Memory, nn, paper, score, dashboard and MCP use it.
+- `storage.mjs` → `data/storage.json` (+ daily `data/storage-history.jsonl`): tier sizes, GitHub's repo size (public API, no key), growth per day,
+  days to `repoLimitMB`, free disk. Watchdog check "Storage has room". If the repo nears its limit, the recommended fix is to commit the large
+  derived files (dashboard.json, history.json) hourly instead of every cycle — an owner decision.
+- `snapshots.mjs` (streamer): minute ticks of resolved markets → `data/snapshots/` training rows at 60/30/15/5 min before resolution (ticks up to that
+  moment only). `nn.mjs` adds them to training (weight 1 per market in total, only markets resolved before the fold's test window, never tested on).

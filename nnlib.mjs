@@ -6,7 +6,8 @@
 export const CATS = ["Crypto", "Financials", "Economics", "Commodities", "Climate and Weather", "Politics"];
 export const FEATURES = ["price (logit)", "spread", "distance from 50¢", "hour (sin)", "hour (cos)",
   ...CATS.map(c => "cat: " + c), "cat: other", "series gap (shrunk)", "series history size", "series YES rate",
-  "price move 30 min", "has 30-min history", "outside estimate − price", "has outside data"];
+  "price move 30 min", "has 30-min history", "outside estimate − price", "has outside data",
+  "minute volatility 30 min", "has minute volatility", "time left (log hours)"];
 
 const clipP = p => Math.min(0.99, Math.max(0.01, p));
 export const logit = p => Math.log(clipP(p) / (1 - clipP(p)));
@@ -15,6 +16,20 @@ export const logLoss = (p, y) => { const q = clipP(p); return -(y * Math.log(q) 
 
 // Inputs available before resolution only: price, spread, time of day, category, and series memory as of time `at`.
 const outside = r => r.ext?.crypto?.p ?? r.ext?.weather?.p ?? null;
+// Minutes from the moment of the estimate to resolution (live rows store leadMin; others from at/ts).
+const leadMin = r => r.leadMin ?? Math.max(0, (Date.parse(r.resolvesAt) - (r.at ?? Date.parse(r.ts))) / 6e4);
+
+// From 1-minute mids up to the estimate time T (oldest first, [{t: unix s, mid}]), only points at or before T:
+// chg30 = mid now − mid ≥25 min earlier; vol30 = std of minute-to-minute changes over the last 30 min (needs ≥ 5 points).
+// Used the same way for live candles, backtest candles and the streamer's minute ticks, so the inputs match.
+export function minuteStats(points, T) {
+  const p = points.filter(x => x.t <= T && x.t > T - 1800 && Number.isFinite(x.mid)).sort((a, b) => a.t - b.t);
+  if (!p.length) return { chg30: null, vol30: null };
+  const old = p.find(x => x.t <= T - 1500), d = p.slice(1).map((x, i) => x.mid - p[i].mid);
+  const m = d.reduce((s, x) => s + x, 0) / (d.length || 1);
+  return { chg30: old ? Math.round((p.at(-1).mid - old.mid) * 1e4) / 1e4 : null,
+    vol30: d.length >= 4 ? Math.round(Math.sqrt(d.reduce((s, x) => s + (x - m) ** 2, 0) / d.length) * 1e4) / 1e4 : null };
+}
 export function features(r, recall) {
   const d = new Date(r.resolvesAt), h = d.getUTCHours() + d.getUTCMinutes() / 60;
   const s = recall ? recall(r.series, r.at) : null;
@@ -22,7 +37,8 @@ export function features(r, recall) {
     ...CATS.map(c => (r.cat === c ? 1 : 0)), CATS.includes(r.cat) ? 0 : 1,
     s ? (s.n / (s.n + 20)) * s.bias * 5 : 0, s ? Math.log1p(s.n) / 5 : 0, s ? s.yesRate - 0.5 : 0,
     r.chg30 == null ? 0 : Math.max(-1, Math.min(1, r.chg30 * 5)), r.chg30 == null ? 0 : 1,
-    outside(r) == null ? 0 : Math.max(-1, Math.min(1, (logit(outside(r)) - logit(r.mid)) / 3)), outside(r) == null ? 0 : 1];
+    outside(r) == null ? 0 : Math.max(-1, Math.min(1, (logit(outside(r)) - logit(r.mid)) / 3)), outside(r) == null ? 0 : 1,
+    r.vol30 == null ? 0 : Math.min(1, r.vol30 * 50), r.vol30 == null ? 0 : 1, Math.log1p(leadMin(r) / 60) / 2];
 }
 
 export function rng(seed) { // mulberry32: same seed → same training run
@@ -58,7 +74,7 @@ export const meanLoss = (m, data) => data.reduce((s, d) => s + logLoss(predict(m
 // Gradient of log loss for one sample, added into g. dL/dz_out = p − y.
 export function backprop(m, d, g) {
   const { acts, out } = forward(m, d.x), p = sigm(logit(d.mid) + out);
-  let delta = [p - d.y];
+  let delta = [(p - d.y) * (d.w ?? 1)];                                     // w < 1: minute snapshots share one market's weight
   for (let l = m.W.length - 1; l >= 0; l--) {
     const a = acts[l];
     for (let i = 0; i < delta.length; i++) { g.b[l][i] += delta[i]; for (let j = 0; j < a.length; j++) g.W[l][i][j] += delta[i] * a[j]; }
@@ -72,7 +88,9 @@ export function train(data, o = {}) {
   const opt = { hidden: [16, 8], epochs: 300, lr: 0.01, l2: 1e-3, batch: 32, patience: 25, seed: 7, valFrac: 0, ...o };
   const rand = rng(opt.seed), nIn = data[0].x.length;
   const cut = opt.valFrac ? Math.floor(data.length * (1 - opt.valFrac)) : data.length;
-  const tr = data.slice(0, cut), va = data.slice(cut);
+  // opt.extra: training-only rows (minute snapshots). Only those whose market resolved before the held-out part begins.
+  const va = data.slice(cut), vaStart = va.length ? va[0].t : Infinity;
+  const tr = [...data.slice(0, cut), ...(opt.extra || []).filter(e => e.resolvedT < vaStart)];
   let m = init([nIn, ...opt.hidden, 1], rand);
   const M = zeros(m), V = zeros(m); let t = 0;
   const curve = []; let best = { loss: Infinity, model: clone(m), epoch: 0 };

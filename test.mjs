@@ -11,6 +11,13 @@ import { orderFee, kellyFraction, simulate, monteCarlo, tradeStats, disagreement
 import { learningEvidence } from "./nnlib.mjs";
 import * as CR from "./external/crypto.mjs";
 import * as WX from "./external/weather.mjs";
+import { mkdtempSync, mkdirSync, writeFileSync, existsSync, readFileSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { gzipSync } from "node:zlib";
+import { readJsonl as rj, allMonthFiles } from "./lib.mjs";
+import { archiveFile, due } from "./archive.mjs";
+import { minuteStats, features as nnFeatures, FEATURES as NN_FEATURES } from "./nnlib.mjs";
+import { buildSnapshots } from "./snapshots.mjs";
 
 // Fees: Kalshi taker fee rounds up to the cent.
 assert.equal(fee(0.5), 0.02);          // 0.07 × .5 × .5 = 1.75¢ → 2¢
@@ -175,5 +182,40 @@ assert.equal(r4(kellyFraction(0.6, 0.5)), 0.2); assert.equal(kellyFraction(0.4, 
   assert.ok(!("crypto_fair" in e3.est) && !("weather_nws" in e3.est));          // not their market → not scored there
   const e4 = estimate({ mid: 0.5, ask: 0.51, bid: 0.49, series: "KXBTCD", at: 1, cat: "Crypto", resolvesAt: new Date().toISOString(), ext: { crypto: { p: 0.7 } } }, {});
   assert.equal(e4.est.crypto_fair, 0.7); assert.equal(e4.picks.crypto_fair.side, "yes");
+}
+// Storage tiers: gzip round-trip, verified archive move, hot + archive read as one history.
+{
+  const root = mkdtempSync(`${tmpdir()}/kf-`), rows = [{ a: 1 }, { a: 2 }, { a: 3 }], txt = rows.map(r => JSON.stringify(r)).join("\n") + "\n";
+  mkdirSync(`${root}/data/predictions`, { recursive: true });
+  writeFileSync(`${root}/x.jsonl.gz`, gzipSync(txt)); assert.deepEqual(rj(`${root}/x.jsonl.gz`), rows);
+  writeFileSync(`${root}/data/predictions/2026-01.jsonl`, txt); writeFileSync(`${root}/data/predictions/2026-11.jsonl`, '{"a":4}\n');
+  const d = due(root, new Date("2026-11-15T00:00:00Z"));
+  assert.deepEqual(d.map(x => x.ym), ["2026-01"]);                                // only months before last month (or oversized)
+  const e = archiveFile(d[0].src, "predictions", "2026-01", root);
+  assert.equal(e.rows, 3); assert.ok(!existsSync(`${root}/data/predictions/2026-01.jsonl`));
+  assert.deepEqual(rj(`${root}/${e.file}`), rows);                                // lossless
+  writeFileSync(`${root}/data/predictions/2026-01.jsonl`, '{"a":5}\n');           // a late append to an archived month → becomes a part
+  const e2 = archiveFile(`${root}/data/predictions/2026-01.jsonl`, "predictions", "2026-01", root);
+  assert.match(e2.file, /2026-01\.part1\.jsonl\.gz$/);
+  const cwd = process.cwd(); process.chdir(root);
+  try { assert.deepEqual(allMonthFiles("predictions").flatMap(f => rj(f)).map(r => r.a), [1, 2, 3, 5, 4]); }   // nothing forgotten, in order
+  finally { process.chdir(cwd); rmSync(root, { recursive: true, force: true }); }
+}
+// Minute data: volatility math, and snapshots never use a tick after their own time (leakage).
+{
+  const pts = [0, 60, 120, 180, 240, 300, 360].map((t, i) => ({ t: 1000 + t, mid: 0.5 + (i % 2 ? 0.01 : 0) }));
+  assert.equal(minuteStats(pts, 1400).vol30, 0.01);                                // alternating ±1¢ → std 1¢
+  assert.equal(minuteStats(pts.slice(0, 3), 1400).vol30, null);                     // too few points
+  const res = Date.parse("2026-11-10T12:00:00Z"), iso = s => new Date(res - s * 1000).toISOString();
+  const ticks = [];
+  for (let s = 3600; s >= 0; s -= 60) ticks.push({ t: iso(s), k: "K1", b: s > 600 ? 0.40 : 0.90, a: s > 600 ? 0.42 : 0.92 });   // jumps 10 min before close
+  const meta = { K1: { ticker: "K1", resolvesAt: new Date(res).toISOString(), series: "KX", cat: "Crypto", title: "t" } };
+  const sn = buildSnapshots(ticks, meta, { K1: "yes" });
+  assert.deepEqual(sn.map(r => r.leadMin).sort((a, b) => a - b), [5, 15, 30, 60]);
+  for (const r of sn) assert.equal(r.mid, r.leadMin > 10 ? 0.41 : 0.91);            // the jump is invisible before it happened
+  assert.equal(buildSnapshots(ticks, meta, {}).length, 0);                           // unresolved → no rows
+  assert.equal(buildSnapshots(ticks, meta, { K1: "yes" }, new Set(["K1|5", "K1|15", "K1|30", "K1|60"])).length, 0);   // no duplicates
+  const w = sn.map(() => 1 / sn.length).reduce((a, b) => a + b, 0); assert.ok(Math.abs(w - 1) < 1e-9);
+  assert.equal(nnFeatures({ ...sn[0], at: Date.parse(sn[0].ts) }, null).length, NN_FEATURES.length);
 }
 console.log("all tests passed");

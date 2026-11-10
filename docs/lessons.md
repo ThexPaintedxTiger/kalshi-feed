@@ -41,4 +41,9 @@ What we changed because the data (or a mistake) taught us something. Newest firs
   Status was FAILURE_RETIRE (no edge after `retireAfter` resolved). `on: false` stops new estimates; past rows stay in the logs and its
   final record stays in the scorecard, labelled RETIRED and excluded from the overall goal. The `longshot-learn` paper portfolio was removed.
   Lesson: a published bias (favorite-longshot) didn't show up in short Kalshi markets at a measurable size; the price already absorbed it.
+- 2026-11-10 (**forgetting bug caught**): `predictionFiles()` only returned this month and last month, and `allPredictions()` used it, so memory,
+  the network and paper trading would have silently dropped live data older than ~2 months. Now the readers use `allMonthFiles()` (hot + archive);
+  `predictionFiles()` stays for de-duplication/resolving only. Lesson: any "recent files" shortcut must never feed learning or scoring.
+- 2026-11-10: Network inputs 20 → 23 (config v8): minute volatility over 30 min (+ flag) from the same 1-minute candles already fetched, and time
+  left to resolution. Minute snapshots from the streamer join training only. No result claimed; the walk-forward verdict decides.
 - 2026-11-10: Dashboard trimmed from 8 tabs to 5 (Profit & loss → Trading, Trades → Agent, Skills → Data). Old links (#pnl, #trades, #skills) still work.

@@ -1,8 +1,7 @@
 // Memory: what we know about each Kalshi series from settled markets we've seen (live record + backtest).
 // - recall(series, at): leak-safe lookup using only markets settled BEFORE `at` (used by the memory predictor).
 // - data/memory/series.json: human/MCP-readable summary per series (rebuilt each run from the logs; derived, not history).
-import { existsSync, readdirSync } from "node:fs";
-import { readJsonl, writeJson, readJson, predictionFiles, r4 } from "./lib.mjs";
+import { readJsonl, writeJson, readJson, allMonthFiles, r4 } from "./lib.mjs";
 
 // Samples = settled markets with the market price we logged and the result.
 export function loadSamples() {
@@ -31,11 +30,10 @@ export function makeRecall(samples) {
   };
 }
 
-export function allPredictions() { return predictionFiles().flatMap(f => readJsonl(f)); }
-export function backtestRows() {
-  const d = "data/backtest";
-  return existsSync(d) ? readdirSync(d).filter(f => /^\d{4}-\d{2}\.jsonl$/.test(f)).sort().flatMap(f => readJsonl(`${d}/${f}`)) : [];
-}
+// Full history, hot + archived months (nothing is forgotten as files move to the archive).
+export function allPredictions() { return allMonthFiles("predictions").flatMap(f => readJsonl(f)); }
+export function backtestRows() { return allMonthFiles("backtest").flatMap(f => readJsonl(f)); }
+export function snapshotRows() { return allMonthFiles("snapshots").flatMap(f => readJsonl(f)); }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   const samples = loadSamples(), recall = makeRecall(samples), cats = readJson("data/series.json", { map: {} }).map;

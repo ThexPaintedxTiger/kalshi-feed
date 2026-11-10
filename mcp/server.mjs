@@ -7,13 +7,16 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
+import { gunzipSync } from "node:zlib";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const p = f => join(ROOT, f);
 const json = (f, d = null) => { try { return JSON.parse(readFileSync(p(f), "utf8")); } catch { return d; } };
-const jsonl = dir => existsSync(p(dir)) ? readdirSync(p(dir)).filter(f => /^\d{4}-\d{2}\.jsonl$/.test(f)).sort()
-  .flatMap(f => readFileSync(p(`${dir}/${f}`), "utf8").split("\n").filter(Boolean).map(l => JSON.parse(l))) : [];
+// Hot months (data/<kind>/) plus gzipped archived months (data/archive/<kind>/), oldest first.
+const jsonl = dir => [dir.replace("data/", "data/archive/"), dir].filter(d => existsSync(p(d)))
+  .flatMap(d => readdirSync(p(d)).filter(f => /^\d{4}-\d{2}(\.part\d+)?\.jsonl(\.gz)?$/.test(f)).sort().map(f => `${d}/${f}`))
+  .flatMap(f => { const b = readFileSync(p(f)); return (f.endsWith(".gz") ? gunzipSync(b) : b).toString("utf8").split("\n").filter(Boolean).map(l => JSON.parse(l)); });
 const outcomes = () => existsSync(p("data/outcomes.jsonl")) ? Object.fromEntries(readFileSync(p("data/outcomes.jsonl"), "utf8").split("\n").filter(Boolean).map(l => JSON.parse(l)).map(o => [o.ticker, o.result])) : {};
 const reply = obj => ({ content: [{ type: "text", text: JSON.stringify(obj, null, 1) }] });
 

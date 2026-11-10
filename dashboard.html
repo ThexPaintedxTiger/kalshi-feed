@@ -284,6 +284,8 @@ button.primary{background:var(--accent);border-color:var(--accent);color:#fff;fo
     </div>
     <div style="height:16px"></div>
     <div class="panel"><h2>Memory: what each series taught us</h2><div class="tscroll" id="mem"></div></div>
+    <div style="height:16px"></div>
+    <div class="panel"><h2>Storage · where the data lives and what the network learns from</h2><div id="storage"></div></div>
     <div style="height:24px"></div>
     <h2 style="margin:4px 0 10px">Skills &amp; tools</h2>
     <div class="panel"><h2>Skills Claude uses for this agent</h2>
@@ -998,7 +1000,23 @@ function renderLearning() {
     </div>`;
 }
 
-function render() { if (!D) return; renderLive(); renderToday(); renderTrading(); renderLiveAgents(); wireAgentButton(); renderNN(); renderLearning(); renderPnL(); renderKpis(); renderAgent(); renderGoals(); renderTrades(); renderData(); renderSkills(); renderHistory(); paintPills(); }
+function render() { if (!D) return; renderLive(); renderToday(); renderTrading(); renderLiveAgents(); wireAgentButton(); renderNN(); renderLearning(); renderPnL(); renderKpis(); renderAgent(); renderGoals(); renderTrades(); renderData(); renderSkills(); renderHistory(); renderStorage(); paintPills(); }
+// Storage tiers: hot logs in GitHub → verified gzip archive in GitHub → uncompressed copy on the owner's computer.
+function renderStorage() {
+  const st = D.storage, src = D.nn?.sources, el = $("#storage"); if (!el) return;
+  if (!st) { el.innerHTML = `<div class="empty">Storage is measured each cycle; nothing recorded yet.</div>`; return; }
+  const sum = o => Object.values(o || {}).reduce((a, b) => a + b, 0), mb = x => x == null ? "–" : `${(+x).toFixed(x < 10 ? 2 : 0)} MB`;
+  const tiers = [
+    ["Hot logs (GitHub)", mb(sum(st.hotMB)), "This month and last month as plain .jsonl. New rows are appended here."],
+    ["Archive (GitHub)", `${mb(sum(st.archiveMB))} · ${st.archivedFiles} files · ${st.archiveRows.toLocaleString()} rows`, `Older months, gzipped (~9× smaller) after a row-count and SHA-256 check. Read exactly like hot logs. Saved ${mb(st.archiveSavedMB)}.`],
+    ["Your computer", st.localCopyMB ? `${mb(st.localCopyMB)} copy · ${mb(st.ticksMB)} minute ticks` : "not running", "The 24/7 streamer keeps an uncompressed copy of every log plus the minute price log in local/ (never pushed, never deleted)."],
+    ["GitHub repo", `${mb(st.repoMB)} of ${mb(st.repoLimitMB)}`, st.repoGrowthMBPerDay != null ? `Growing ${st.repoGrowthMBPerDay} MB/day → about ${st.daysToRepoLimit ?? "∞"} days to the limit.` : "Growth rate appears after a day of history."],
+  ];
+  el.innerHTML = `<div class="kpis">${tiers.map(([n, v, w]) => `<div class="kpi"><span>${esc(n)}</span><b style="font-size:16px">${esc(v)}</b><span class="small">${esc(w)}</span></div>`).join("")}</div>
+    <p class="small" style="margin:12px 0 0"><span class="pill ${st.ok ? "c-good" : "c-warn"}">${st.ok ? "storage ok" : "check"}</span>
+    ${st.problems?.length ? esc(st.problems.join("; ")) : "Nothing near a limit."}</p>
+    <p class="small muted" style="margin:8px 0 0">The network trains on ${src ? `${(src.live || 0).toLocaleString()} live + ${(src.backtest || 0).toLocaleString()} backtest markets${src.minuteSnapshots ? ` + ${src.minuteSnapshots.toLocaleString()} minute snapshots (${src.minuteMarkets} markets)` : ""}${src.archivedFiles ? `, incl. ${src.archivedFiles} archived files` : ""}` : "everything once trained"}: the whole history, hot and archived. Minute snapshots are training-only and never used to score it.</p>`;
+}
 function paintPills() {
   const g = D.progress.goal || "IN_PROGRESS", h = D.progress.health;
   $("#goalPill").className = "pill " + statusTone(g); $("#goalPill").textContent = "goal: " + label(g);

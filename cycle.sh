@@ -12,6 +12,7 @@ if [ "${GITHUB_ACTIONS:-}" = "true" ] && [ "${FORCE:-0}" != "1" ] && node -e 'co
   echo "24/7 streamer is active on the owner's computer — skipping this cloud cycle"; exit 0
 fi
 need "Tests" node test.mjs
+want "Archive old logs (verified gzip)" node archive.mjs
 need "Check outcomes" node resolve.mjs
 need "Memory" node memory.mjs
 need "Research: log predictions" node predict.mjs
@@ -23,6 +24,7 @@ need "Paper portfolios" node paper.mjs
 want "Agent Flow feed (every 25 min)" node scan.mjs
 want "Gemini picks (hourly)" timeout 360 node agents.mjs
 want "Focus markets (live prices)" node focus.mjs
+want "Storage watchdog" node storage.mjs
 need "Watchdog" node status.mjs
 need "Dashboard data" node dashboard.mjs
 

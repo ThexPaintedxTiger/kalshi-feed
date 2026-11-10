@@ -1,11 +1,10 @@
 // Builds dashboard.json: one small file with everything dashboard.html shows (agent pipeline, skills,
 // simulated trades, data, goals). Code only, no API or AI calls.
 import { readdirSync, readFileSync, existsSync } from "node:fs";
-import { config, readJsonl, readJson, writeJson, fee, r4 } from "./lib.mjs";
+import { config, readJsonl, readJson, writeJson, fee, r4, allMonthFiles } from "./lib.mjs";
 
 const now = Date.now();
-const dir = "data/predictions";
-const preds = existsSync(dir) ? readdirSync(dir).filter(f => f.endsWith(".jsonl")).sort().flatMap(f => readJsonl(`${dir}/${f}`)) : [];
+const preds = allMonthFiles("predictions").flatMap(f => readJsonl(f));
 const out = Object.fromEntries(readJsonl("data/outcomes.jsonl").map(o => [o.ticker, o]));
 const runs = readJsonl("data/runs.jsonl");
 const progress = readJson("progress.json", {}), scorecard = readJson("scorecard.json", {}), bets = readJson("bets.json", {});
@@ -63,6 +62,7 @@ writeJson("dashboard.json", {
   status: readJson("status.json", null),
   external: readJson("data/external/last.json", null),
   stream: readJson("data/stream.json", null),
+  storage: readJson("data/storage.json", null),
   live: (() => { const l = readJson("data/live.json", null); return l && { at: l.at, n: l.markets.length }; })(),
   briefings: readJsonl("data/briefing.jsonl").slice(-6).reverse(),
   focus: readJson("data/focus.json", null),

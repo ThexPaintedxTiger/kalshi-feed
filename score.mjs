@@ -2,8 +2,7 @@
 // Every predictor is compared with the market price on the SAME markets. An "edge" is only claimed when
 // enough markets resolved AND the difference is outside ~95% noise, counted per event (markets in one
 // event move together, so they aren't independent samples).
-import { config, readJsonl, writeJson, clip, r4, fee } from "./lib.mjs";
-import { readdirSync, existsSync } from "node:fs";
+import { config, readJsonl, writeJson, clip, r4, fee, allMonthFiles } from "./lib.mjs";
 
 export function brier(p, y) { return (p - y) ** 2; }
 export function logLoss(p, y) { const q = clip(p); return -(y * Math.log(q) + (1 - y) * Math.log(1 - q)); }
@@ -67,8 +66,7 @@ export function score(preds, outcomes, cfg = config) {
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  const dir = "data/predictions";
-  const preds = existsSync(dir) ? readdirSync(dir).filter(f => f.endsWith(".jsonl")).sort().flatMap(f => readJsonl(`${dir}/${f}`)) : [];
+  const preds = allMonthFiles("predictions").flatMap(f => readJsonl(f));
   const sc = score(preds, readJsonl("data/outcomes.jsonl"));
   writeJson("scorecard.json", sc);
   console.log(`scorecard: ${sc.predictions} predictions, ${sc.resolved} resolved, ` +
