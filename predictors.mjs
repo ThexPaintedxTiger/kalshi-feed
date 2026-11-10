@@ -25,6 +25,10 @@ export const PRED = {
 };
 
 // nn needs c.cat and c.resolvesAt as well.
+// Outside-data predictors: only where an outside estimate exists for this market (null = not scored here).
+PRED.crypto_fair = c => c.ext?.crypto?.p ?? null;
+PRED.weather_nws = c => c.ext?.weather?.p ?? null;
+
 PRED.nn = (c, ctx) => { const m = model(), x = features(c, ctx?.recall); return m && m.W[0][0].length === x.length ? predict(m, x, c.mid) : c.mid; };
 
 export const enabled = () => Object.keys(PRED).filter(k => config.predictors[k]?.on);
@@ -33,7 +37,8 @@ export const enabled = () => Object.keys(PRED).filter(k => config.predictors[k]?
 export function estimate(c, ctx, skip = []) {
   const est = {}, picks = {};
   for (const k of enabled().filter(k => !skip.includes(k))) {
-    const p = r4(PRED[k](c, ctx)), e = ev(p, c.ask, c.bid);
+    const raw = PRED[k](c, ctx); if (raw == null) continue;
+    const p = r4(raw), e = ev(p, c.ask, c.bid);
     est[k] = p;
     const side = e.yes >= e.no ? "yes" : "no", edge = Math.max(e.yes, e.no);
     if (edge >= config.picks.minEdge) picks[k] = { side, ev: r4(edge), cost: side === "yes" ? c.ask : r4(1 - c.bid) };

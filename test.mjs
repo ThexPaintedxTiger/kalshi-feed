@@ -9,6 +9,8 @@ import { parseCsv, mapColumns, normalize } from "./import-trades.mjs";
 import { init, rng, backprop, predict, train, logLoss as nnLoss } from "./nnlib.mjs";
 import { orderFee, kellyFraction, simulate, monteCarlo, tradeStats, disagreementReview } from "./paper.mjs";
 import { learningEvidence } from "./nnlib.mjs";
+import * as CR from "./external/crypto.mjs";
+import * as WX from "./external/weather.mjs";
 
 // Fees: Kalshi taker fee rounds up to the cent.
 assert.equal(fee(0.5), 0.02);          // 0.07 × .5 × .5 = 1.75¢ → 2¢
@@ -153,5 +155,25 @@ assert.equal(r4(kellyFraction(0.6, 0.5)), 0.2); assert.equal(kellyFraction(0.4, 
   const B = (side, p, mid, won) => ({ side, p, mid, won, pnl: won ? 0.4 : -0.5 });
   const rv = disagreementReview([B("yes", 0.7, 0.5, true), B("yes", 0.7, 0.5, false), B("no", 0.2, 0.4, true), B("no", 0.3, 0.45, false)]);
   assert.equal(rv.n, 4); assert.equal(rv.netCloser, 0.5); assert.equal(rv.losses, 2);
+}
+// Outside-data agents: probability math, mapping, "doesn't apply" → no estimate.
+{
+  assert.ok(Math.abs(CR.Phi(0) - 0.5) < 1e-7 && Math.abs(CR.Phi(1.96) - 0.975) < 1e-3);
+  const base = { spot: 100, sigmaMin: 0.001, minutes: 100 };                      // σ·√τ = 1%
+  assert.ok(Math.abs(CR.fairProb({ ...base, strikeType: "greater", floor: 100 }) - 0.5) < 1e-6);
+  assert.ok(CR.fairProb({ ...base, strikeType: "greater", floor: 90 }) > 0.99);   // deep in the money
+  assert.ok(CR.fairProb({ ...base, strikeType: "greater", floor: 110 }) < 0.01);
+  assert.ok(Math.abs(CR.fairProb({ ...base, strikeType: "less", cap: 100 }) - 0.5) < 1e-6);
+  const btw = CR.fairProb({ ...base, strikeType: "between", floor: 99, cap: 101 });
+  assert.ok(btw > 0.6 && btw < 0.7);                                               // ±1σ ≈ 68%
+  assert.equal(CR.product("KXBTCD"), "BTC-USD"); assert.equal(CR.product("KXHYPED"), null); assert.equal(CR.product("KXINXU"), null);
+  assert.equal(WX.tempProb({ F: 60, sigma: 2, strikeType: "greater", floor: 60 }).toFixed(2), "0.50");
+  assert.ok(WX.tempProb({ F: 60, sigma: 1, strikeType: "greater", floor: 64 }) < 0.01);
+  assert.ok(WX.sigmaFor(0, true) < WX.sigmaFor(3, true) && WX.sigmaFor(30) === 5);
+  assert.equal(WX.covers("KXTEMPNYCHS"), true); assert.equal(WX.covers("KXBTCD"), false);
+  const e3 = estimate({ mid: 0.5, ask: 0.51, bid: 0.49, series: "KXINXU", at: 1, cat: "Financials", resolvesAt: new Date().toISOString() }, {});
+  assert.ok(!("crypto_fair" in e3.est) && !("weather_nws" in e3.est));          // not their market → not scored there
+  const e4 = estimate({ mid: 0.5, ask: 0.51, bid: 0.49, series: "KXBTCD", at: 1, cat: "Crypto", resolvesAt: new Date().toISOString(), ext: { crypto: { p: 0.7 } } }, {});
+  assert.equal(e4.est.crypto_fair, 0.7); assert.equal(e4.picks.crypto_fair.side, "yes");
 }
 console.log("all tests passed");

@@ -6,7 +6,7 @@
 export const CATS = ["Crypto", "Financials", "Economics", "Commodities", "Climate and Weather", "Politics"];
 export const FEATURES = ["price (logit)", "spread", "distance from 50¢", "hour (sin)", "hour (cos)",
   ...CATS.map(c => "cat: " + c), "cat: other", "series gap (shrunk)", "series history size", "series YES rate",
-  "price move 30 min", "has 30-min history"];
+  "price move 30 min", "has 30-min history", "outside estimate − price", "has outside data"];
 
 const clipP = p => Math.min(0.99, Math.max(0.01, p));
 export const logit = p => Math.log(clipP(p) / (1 - clipP(p)));
@@ -14,13 +14,15 @@ export const sigm = x => 1 / (1 + Math.exp(-x));
 export const logLoss = (p, y) => { const q = clipP(p); return -(y * Math.log(q) + (1 - y) * Math.log(1 - q)); };
 
 // Inputs available before resolution only: price, spread, time of day, category, and series memory as of time `at`.
+const outside = r => r.ext?.crypto?.p ?? r.ext?.weather?.p ?? null;
 export function features(r, recall) {
   const d = new Date(r.resolvesAt), h = d.getUTCHours() + d.getUTCMinutes() / 60;
   const s = recall ? recall(r.series, r.at) : null;
   return [logit(r.mid) / 3, (r.ask - r.bid) * 10, Math.abs(r.mid - 0.5) * 2, Math.sin(2 * Math.PI * h / 24), Math.cos(2 * Math.PI * h / 24),
     ...CATS.map(c => (r.cat === c ? 1 : 0)), CATS.includes(r.cat) ? 0 : 1,
     s ? (s.n / (s.n + 20)) * s.bias * 5 : 0, s ? Math.log1p(s.n) / 5 : 0, s ? s.yesRate - 0.5 : 0,
-    r.chg30 == null ? 0 : Math.max(-1, Math.min(1, r.chg30 * 5)), r.chg30 == null ? 0 : 1];
+    r.chg30 == null ? 0 : Math.max(-1, Math.min(1, r.chg30 * 5)), r.chg30 == null ? 0 : 1,
+    outside(r) == null ? 0 : Math.max(-1, Math.min(1, (logit(outside(r)) - logit(r.mid)) / 3)), outside(r) == null ? 0 : 1];
 }
 
 export function rng(seed) { // mulberry32: same seed → same training run

@@ -18,6 +18,13 @@ Dated, sourced observations. Facts here are verified unless marked *hypothesis*.
 - Candle yield: only ~25% of liquid settled markets have a two-sided quote within 10¢ spread an hour before close; many open less than an hour before close.
 - ~~First backtest (302 markets)~~ **Retracted**: its sample was biased by outcome-dependent selection (see lessons.md). Rebuilt in config v3.
 
+## 2026-11-10 — Outside data checks
+- Kalshi markets carry `strike_type` (greater/less/between) with `floor_strike`/`cap_strike`. Coinbase lists BTC, ETH, SOL, XRP, DOGE, HYPE, BNB;
+  Coinbase HYPE-USD (~$72) is not Kalshi's HYPE (strikes ~$91) → excluded.
+- Weather hourly temperature markets settle on Synoptic Data at a set hour. 13 min before the hour, a forecast alone missed badly (LA forecast
+  85°F vs market near-certain below 83°); with the latest NWS station observation (KMIA, KLAX, KMDW, KNYC) the estimate tracked the market
+  (Chicago 57°+: market 0.78, ours 0.777).
+
 ## Hypotheses to test (not yet evidence)
 - *Series memory*: a series' past gap between outcome and price persists. Predictor `memory` (minN 10, shrink 20). Needs history to activate.
 - *Favorite-longshot bias*: cheap contracts win less often than their price implies. Predictor `longshot` (slope 1.1).

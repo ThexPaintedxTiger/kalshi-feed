@@ -1,5 +1,5 @@
 {
- "version": 5,
+ "version": 6,
  "scan": {
   "windowDays": 16,
   "horizonHours": 6,
@@ -33,6 +33,14 @@
   "nn": {
    "on": true,
    "hypothesis": "A small neural network trained on settled markets (price, spread, time of day, category, series memory) can correct the market price. Starts equal to the market; judged only on data it never trained on."
+  },
+  "crypto_fair": {
+   "on": true,
+   "hypothesis": "Outside data: a coin's Coinbase spot price and recent volatility (random-walk model) price Kalshi crypto strikes better than the market."
+  },
+  "weather_nws": {
+   "on": true,
+   "hypothesis": "Outside data: the latest NWS station observation plus the forecast's change to the target hour prices Kalshi hourly temperature markets better than the market."
   }
  },
  "picks": {
@@ -141,6 +149,20 @@
     "id": "memory-learn",
     "name": "Series memory, learned bet size",
     "predictor": "memory",
+    "sizing": "learn",
+    "minEdge": 0.02
+   },
+   {
+    "id": "crypto-learn",
+    "name": "Crypto fair value, learned bet size",
+    "predictor": "crypto_fair",
+    "sizing": "learn",
+    "minEdge": 0.02
+   },
+   {
+    "id": "weather-learn",
+    "name": "Weather forecast, learned bet size",
+    "predictor": "weather_nws",
     "sizing": "learn",
     "minEdge": 0.02
    }

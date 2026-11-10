@@ -6,6 +6,7 @@
 // here (it trains on these rows); its honest test is the walk-forward run in nn.mjs.
 import { config, kalshi, sleep, series, r4, readJson, writeJson, appendJsonl, categories } from "./lib.mjs";
 import { estimate } from "./predictors.mjs";
+import * as crypto from "./external/crypto.mjs";
 import { loadSamples, makeRecall, backtestRows } from "./memory.mjs";
 import { score } from "./score.mjs";
 
@@ -75,10 +76,12 @@ for (const [a, b, dir] of slices) {
     const { m, ask, bid, mid, mid0 } = cand.sort((x, y) => Math.abs(x.mid - 0.5) - Math.abs(y.mid - 0.5))[0];
     const chg30 = mid0 == null ? null : r4(mid - mid0);
     const resAt = new Date(res).toISOString();
-    const { est, picks } = estimate({ mid, ask, bid, series: series(m), at: T * 1000, cat, resolvesAt: resAt, chg30 }, { recall }, ["nn"]);
+    let ext = null;
+    if (crypto.product(series(m))) { try { const e = await crypto.estimate(m, T * 1000, series(m)); if (e) ext = { crypto: e }; } catch {} }
+    const { est, picks } = estimate({ mid, ask, bid, series: series(m), at: T * 1000, cat, resolvesAt: resAt, chg30, ext }, { recall }, ["nn"]);
     rows.push({ bt: 1, ts: new Date(T * 1000).toISOString(), cfg: config.version, ticker: m.ticker, event: m.event_ticker, series: series(m), cat,
       title: m.title + (m.yes_sub_title && !String(m.title).includes(m.yes_sub_title) ? " — " + m.yes_sub_title : ""),
-      resolvesAt: resAt, ask, bid, mid: r4(mid), spread: r4(ask - bid), chg30, est, picks, y: m.result === "yes" ? 1 : 0, settledAt: m.settlement_ts || m.close_time });
+      resolvesAt: resAt, ask, bid, mid: r4(mid), spread: r4(ask - bid), chg30, ...(ext ? { ext } : {}), est, picks, y: m.result === "yes" ? 1 : 0, settledAt: m.settlement_ts || m.close_time });
     doneEvents.add(m.event_ticker);
   }
   if (complete) { if (dir === "fwd") state.newest = Math.max(state.newest, b); else state.oldest = Math.min(state.oldest, a); }

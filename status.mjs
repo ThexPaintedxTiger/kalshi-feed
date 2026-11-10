@@ -28,6 +28,11 @@ check("Network trained in the last 2 h", nn.trained && ago(nn.trained) <= 120, n
 const pfs = [...(paper?.replay?.portfolios || []), ...(paper?.forward?.portfolios || [])];
 check("Bet-size safety held (≤5% per bet)", pfs.every(p => (p.maxBetPct || 0) <= config.paper.safety.maxFracPerBet * 100 + 0.01), `largest bet ${Math.max(0, ...pfs.map(p => p.maxBetPct || 0))}%`);
 check("Paper money adds up", pfs.every(p => p.equity >= 0 && Number.isFinite(p.equity)), `${pfs.length} portfolios checked`);
+const ext = readJson("data/external/last.json", null);
+for (const [k, name] of [["crypto", "Coinbase crypto agent"], ["weather", "NWS weather agent"]]) {
+  const x = ext?.[k];
+  check(`Outside data: ${name}`, ext && ago(ext.at) <= 30 && (!x?.tried || x.got > 0), ext ? `${x?.got ?? 0}/${x?.tried ?? 0} markets got an outside estimate, ${Math.round(ago(ext.at))} min ago` : "not run yet");
+}
 const problems = checks.filter(c => !c.ok);
 
 // ---- Should I trade? ----
