@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T22:45:01.817Z",
+ "updated": "2026-11-10T22:52:22.697Z",
  "goal": "IN_PROGRESS",
  "resolved": 781,
  "health": {
@@ -7,13 +7,13 @@
   "warmingUp": true,
   "checks": {
    "runsLast24h": {
-    "value": 29,
-    "target": 27,
+    "value": 30,
+    "target": 28,
     "ok": true
    },
    "newPredictionsLast24h": {
     "value": 902,
-    "target": 13,
+    "target": 14,
     "ok": true
    },
    "leakage": {
@@ -44,7 +44,7 @@
     "width": 0.0025
    },
    "backtest": {
-    "n": 1222,
+    "n": 1336,
     "brierVsMarket": -0.0001,
     "verdict": "no measurable difference",
     "picks": 0,
@@ -64,7 +64,7 @@
     "width": 0.0151
    },
    "backtest": {
-    "n": 1222,
+    "n": 1336,
     "brierVsMarket": -0.0003,
     "verdict": "no measurable difference",
     "picks": 21,
@@ -84,6 +84,26 @@
     "width": 0.0125
    },
    "backtest": null
+  },
+  "crypto_fair": {
+   "status": "INSUFFICIENT",
+   "rec": "wait: 0/20 resolved before any trend is readable",
+   "n": 0,
+   "brierVsMarket": null,
+   "picks": 0,
+   "trend": "first snapshot",
+   "snap": {
+    "n": 0,
+    "mean": null,
+    "width": null
+   },
+   "backtest": {
+    "n": 48,
+    "brierVsMarket": 0.0185,
+    "verdict": "no measurable difference",
+    "picks": 23,
+    "pnlPerContract": -0.1004
+   }
   }
  },
  "definitions": "SUCCESS = Brier better than market (95% interval < 0, n ≥ minResolved) AND simulated picks profitable after fees (95% interval > 0, ≥ minPicks). FAILURE = clearly worse than market, or no edge after retireAfter resolved. Recommendations only; nothing changes without owner approval."
