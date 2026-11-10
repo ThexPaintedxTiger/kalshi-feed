@@ -80,3 +80,11 @@
 {"ticker":"KXWTIH-26NOV1012-T85.39","result":"yes","raw":"yes","status":"finalized","settledAt":"2026-11-10T17:06:06.253899Z","closedAt":"2026-11-10T17:00:00Z","checkedAt":"2026-11-10T17:10:26.293Z"}
 {"ticker":"KXWTIH-26NOV1012-T85.99","result":"yes","raw":"yes","status":"finalized","settledAt":"2026-11-10T17:06:06.253899Z","closedAt":"2026-11-10T17:00:00Z","checkedAt":"2026-11-10T17:10:26.293Z"}
 {"ticker":"KXWTIH-26NOV1012-T86.09","result":"yes","raw":"yes","status":"finalized","settledAt":"2026-11-10T17:06:06.253899Z","closedAt":"2026-11-10T17:00:00Z","checkedAt":"2026-11-10T17:10:26.293Z"}
+{"ticker":"KXTEMPCHIHS-26NOV1012-T58.99","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T17:00:00Z","checkedAt":"2026-11-10T17:25:44.443Z"}
+{"ticker":"KXTEMPMIAH-26NOV1012-T83.99","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T17:00:00Z","checkedAt":"2026-11-10T17:25:44.443Z"}
+{"ticker":"KXTEMPMIAH-26NOV1012-T84.99","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T17:00:00Z","checkedAt":"2026-11-10T17:25:44.443Z"}
+{"ticker":"KXTEMPCHIHS-26NOV1012-T59.99","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T17:00:00Z","checkedAt":"2026-11-10T17:25:44.443Z"}
+{"ticker":"KXTEMPNYCHS-26NOV1012-T57.99","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T17:00:00Z","checkedAt":"2026-11-10T17:25:44.443Z"}
+{"ticker":"KXTEMPNYCHS-26NOV1012-T58.99","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T17:00:00Z","checkedAt":"2026-11-10T17:25:44.443Z"}
+{"ticker":"KXTEMPLAXHS-26NOV1012-T73.99","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T17:00:00Z","checkedAt":"2026-11-10T17:25:44.443Z"}
+{"ticker":"KXTEMPLAXHS-26NOV1012-T72.99","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T17:00:00Z","checkedAt":"2026-11-10T17:25:44.443Z"}
