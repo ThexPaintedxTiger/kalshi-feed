@@ -80,7 +80,11 @@ Pages can't fetch outside data inside claude.ai.
 `scan.mjs` + `agents.mjs` write `bets.json` for Agent Flow (`index.html`, main copy: https://claude.ai/artifact/HLrAvS3ABiJHXuQUUa5RRt).
 Feed: https://raw.githubusercontent.com/ThexPaintedxTiger/kalshi-feed/main/bets.json. Gemini picks keep the ≤2% stake cap.
 
+## Data merges
+`.gitattributes`: `*.jsonl` merge as a union (append-only logs never conflict); derived JSON keeps the pushed version (driver set in
+`cycle.sh`). Fixes cycles lost when two runs pushed at once (failed run 2026-11-10 17:25 UTC).
+
 ## Open items
-1. Scheduled runs never fired before 2026-11-10 (only manual runs). Check after this push; if still none, re-enable Actions schedule.
+1. The 10-minute cron started firing on 2026-11-10 at 21:46 UTC (first scheduled run). Live mode + the dev agent remain the backup.
 2. Gemini reliability (429/503 on some models): pin a working model, fail fast. Gemini is not yet in the scored pipeline.
 3. `scan.mjs` still reads ~19k events (100 pages); could reuse `predict.mjs`'s market list.

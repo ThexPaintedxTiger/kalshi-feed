@@ -92,9 +92,9 @@ Claude subagents are not used in the pipeline (cost and non-repeatable answers);
 
 ## Why this shape
 - **Plain scripts + JSONL in git**: free, auditable, append-only by convention, history in git. No database server.
-- **No RAG / vector DB yet**: there are no research documents to search. Add semantic search only when written
-  research notes exist and keyword search (`grep`) stops being enough.
-- **No MCP servers / agent frameworks**: the pipeline is four deterministic steps; nothing needs tool routing.
+- **No RAG / vector DB**: knowledge is numeric and keyed by series (`memory.mjs`); exact lookup beats embeddings here. Agent notes from
+  the board's Claude team are kept in its database. Revisit semantic search if free-text research notes pile up.
+- **MCP only at the edges**: a read-only MCP server exposes the agent's data to Claude; the pipeline itself stays deterministic scripts.
 - **Code baselines before AI**: if the market price can't be beaten by simple rules, an LLM has to prove it can,
   on the same markets, before it costs anything.
 
