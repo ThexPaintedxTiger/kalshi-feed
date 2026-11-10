@@ -1,0 +1,2364 @@
+{
+ "updated": "2026-11-10T17:09:13.836Z",
+ "start": 10,
+ "goal": 1000,
+ "safety": {
+  "maxFracPerBet": 0.05,
+  "maxOpenExposure": 0.25,
+  "brakes": [
+   [
+    0.2,
+    0.5
+   ],
+   [
+    0.4,
+    0.25
+   ]
+  ],
+  "lowWater": 5
+ },
+ "learning": {
+  "probe": 0.01,
+  "minTrack": 30,
+  "kelly": 0.25,
+  "probeMinDollars": 0.25
+ },
+ "note": "SIMULATION ONLY — paper money, nothing is traded. Replay = past settled markets (supporting evidence; the neural net uses out-of-sample predictions only). Forward = live predictions (the record that counts). Fills assume the quoted price; real fills on thin markets can be worse.",
+ "replay": {
+  "rows": 736,
+  "from": "2026-11-08T12:30:00.000Z",
+  "to": "2026-11-10T14:47:48.000Z",
+  "portfolios": [
+   {
+    "id": "cash",
+    "name": "Hold cash (control)",
+    "predictor": null,
+    "sizing": null,
+    "equity": 10,
+    "cash": 10,
+    "openPositions": 0,
+    "returnPct": 0,
+    "bets": 0,
+    "shadowBets": 0,
+    "settled": 0,
+    "wins": 0,
+    "pnl": 0,
+    "fees": 0,
+    "maxDrawdownPct": 0,
+    "lowest": 10,
+    "avgBetPct": 0,
+    "maxBetPct": 0,
+    "worstLossPct": 0,
+    "betsPerDay": 0,
+    "trustNow": null,
+    "busted": null,
+    "reachedGoal": null,
+    "curve": [
+     [
+      1794141000000,
+      10
+     ]
+    ],
+    "recent": [],
+    "monteCarlo": null
+   },
+   {
+    "id": "coin",
+    "name": "Coin flip, 2% bets (fee-drag control)",
+    "predictor": "coin",
+    "sizing": "fixed",
+    "equity": 10.9185,
+    "cash": 10.9185,
+    "openPositions": 0,
+    "returnPct": 9.185,
+    "bets": 118,
+    "shadowBets": 0,
+    "settled": 118,
+    "wins": 63,
+    "pnl": 0.9185,
+    "fees": 1.35,
+    "maxDrawdownPct": 27.0132,
+    "lowest": 9.7047,
+    "avgBetPct": 1.6137,
+    "maxBetPct": 1.9802,
+    "worstLossPct": -1.9758,
+    "betsPerDay": 56.3059,
+    "trustNow": null,
+    "busted": null,
+    "reachedGoal": null,
+    "curve": [
+     [
+      1794141000000,
+      10
+     ],
+     [
+      1794144692055,
+      9.8876
+     ],
+     [
+      1794146562111,
+      9.7047
+     ],
+     [
+      1794146582112,
+      9.7747
+     ],
+     [
+      1794146582118,
+      10.0299
+     ],
+     [
+      1794146592107,
+      10.2554
+     ],
+     [
+      1794146592130,
+      10.0698
+     ],
+     [
+      1794148312056,
+      14.213
+     ],
+     [
+      1794148832056,
+      14.0165
+     ],
+     [
+      1794150152110,
+      14.1029
+     ],
+     [
+      1794150172163,
+      14.2559
+     ],
+     [
+      1794150187075,
+      14.0739
+     ],
+     [
+      1794150187077,
+      13.8867
+     ],
+     [
+      1794150632051,
+      13.7119
+     ],
+     [
+      1794150637051,
+      14.1663
+     ],
+     [
+      1794151907103,
+      14.2123
+     ],
+     [
+      1794152472055,
+      14.2431
+     ],
+     [
+      1794154272052,
+      14.2507
+     ],
+     [
+      1794154272054,
+      14.0743
+     ],
+     [
+      1794154272056,
+      14.3194
+     ],
+     [
+      1794155207051,
+      14.0604
+     ],
+     [
+      1794157347107,
+      14.2303
+     ],
+     [
+      1794159102106,
+      14.1699
+     ],
+     [
+      1794159642060,
+      14.9349
+     ],
+     [
+      1794159712057,
+      14.8215
+     ],
+     [
+      1794160942109,
+      14.5641
+     ],
+     [
+      1794160942119,
+      14.2995
+     ],
+     [
+      1794161442051,
+      14.0363
+     ],
+     [
+      1794161447057,
+      14.2431
+     ],
+     [
+      1794161447060,
+      14.6778
+     ],
+     [
+      1794162642056,
+      14.5832
+     ],
+     [
+      1794162697107,
+      14.324
+     ],
+     [
+      1794163247052,
+      14.059
+     ],
+     [
+      1794164557111,
+      13.7854
+     ],
+     [
+      1794164562109,
+      13.9526
+     ],
+     [
+      1794164577163,
+      14.0488
+     ],
+     [
+      1794165047106,
+      14.1148
+     ],
+     [
+      1794165047109,
+      13.8574
+     ],
+     [
+      1794165052055,
+      13.8835
+     ],
+     [
+      1794166312107,
+      13.8138
+     ],
+     [
+      1794166867102,
+      13.5462
+     ],
+     [
+      1794168122113,
+      13.6716
+     ],
+     [
+      1794168152110,
+      13.8564
+     ],
+     [
+      1794168172118,
+      13.5967
+     ],
+     [
+      1794168667057,
+      13.3258
+     ],
+     [
+      1794168667059,
+      13.7406
+     ],
+     [
+      1794168667061,
+      13.947
+     ],
+     [
+      1794168732114,
+      14.1822
+     ],
+     [
+      1794170442062,
+      14.1467
+     ],
+     [
+      1794171757363,
+      13.8911
+     ],
+     [
+      1794171757368,
+      14.1771
+     ],
+     [
+      1794171772117,
+      13.9203
+     ],
+     [
+      1794171772123,
+      13.6619
+     ],
+     [
+      1794171787125,
+      13.5244
+     ],
+     [
+      1794171797117,
+      13.2594
+     ],
+     [
+      1794172237063,
+      13.0078
+     ],
+     [
+      1794172242105,
+      13.1674
+     ],
+     [
+      1794172242107,
+      13.1752
+     ],
+     [
+      1794174037061,
+      13.4612
+     ],
+     [
+      1794175832218,
+      13.2052
+     ],
+     [
+      1794175837052,
+      13.216
+     ],
+     [
+      1794175842053,
+      13.4138
+     ],
+     [
+      1794182532113,
+      13.0044
+     ],
+     [
+      1794182532120,
+      12.762
+     ],
+     [
+      1794182552114,
+      12.5124
+     ],
+     [
+      1794182562121,
+      12.2702
+     ],
+     [
+      1794182562178,
+      12.5303
+     ],
+     [
+      1794182572114,
+      12.5813
+     ],
+     [
+      1794182677054,
+      12.3353
+     ],
+     [
+      1794184282107,
+      12.0171
+     ],
+     [
+      1794184282108,
+      11.7651
+     ],
+     [
+      1794184837057,
+      11.5233
+     ],
+     [
+      1794186302061,
+      11.7345
+     ],
+     [
+      1794186637054,
+      11.7395
+     ],
+     [
+      1794186637057,
+      11.7935
+     ],
+     [
+      1794186637059,
+      11.8151
+     ],
+     [
+      1794187902106,
+      11.4719
+     ],
+     [
+      1794187902108,
+      11.6015
+     ],
+     [
+      1794188447054,
+      11.6447
+     ],
+     [
+      1794189742166,
+      11.7387
+     ],
+     [
+      1794189757112,
+      11.6382
+     ],
+     [
+      1794189767109,
+      11.5326
+     ],
+     [
+      1794189767151,
+      11.6376
+     ],
+     [
+      1794189877059,
+      11.7447
+     ],
+     [
+      1794189882057,
+      11.6376
+     ],
+     [
+      1794190162053,
+      11.5326
+     ],
+     [
+      1794190247052,
+      11.6316
+     ],
+     [
+      1794190247055,
+      11.4228
+     ],
+     [
+      1794190247057,
+      11.8008
+     ],
+     [
+      1794191492056,
+      11.6696
+     ],
+     [
+      1794191492057,
+      11.5632
+     ],
+     [
+      1794193322115,
+      11.637
+     ],
+     [
+      1794193342063,
+      11.533
+     ],
+     [
+      1794193352148,
+      11.6474
+     ],
+     [
+      1794193352158,
+      11.5412
+     ],
+     [
+      1794193357115,
+      11.5804
+     ],
+     [
+      1794193477056,
+      11.6578
+     ],
+     [
+      1794193477060,
+      11.7352
+     ],
+     [
+      1794193767053,
+      11.6323
+     ],
+     [
+      1794193832055,
+      11.6515
+     ],
+     [
+      1794193832057,
+      11.6893
+     ],
+     [
+      1794193837054,
+      11.5828
+     ],
+     [
+      1794195077053,
+      11.3683
+     ],
+     [
+      1794195077055,
+      11.2639
+     ],
+     [
+      1794195647055,
+      11.1619
+     ],
+     [
+      1794196937124,
+      11.0607
+     ],
+     [
+      1794196947140,
+      11.1678
+     ],
+     [
+      1794196947143,
+      11.0643
+     ],
+     [
+      1794197077056,
+      11.1399
+     ],
+     [
+      1794197367107,
+      11.2173
+     ],
+     [
+      1794197367109,
+      11.2965
+     ],
+     [
+      1794197447056,
+      11.382
+     ],
+     [
+      1794197447058,
+      11.2766
+     ],
+     [
+      1794197447060,
+      11.1765
+     ],
+     [
+      1794197502058,
+      11.0757
+     ],
+     [
+      1794199227056,
+      10.9707
+     ],
+     [
+      1794201027055,
+      11.0006
+     ],
+     [
+      1794201027057,
+      10.9005
+     ],
+     [
+      1794201027058,
+      10.9185
+     ]
+    ],
+    "recent": [
+     {
+      "ts": "2026-11-09T03:30:00.000Z",
+      "ticker": "KXBTC-26NOV0823-B75050",
+      "title": "Bitcoin price range on Nov 8, 2026? — $75,000 to 75,099.99",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.23,
+      "contracts": 0.45,
+      "fee": 0.01,
+      "stake": 0.1135,
+      "bankroll": 11.4828,
+      "betPct": 0.9884,
+      "evPerDollar": -0.1522,
+      "pnl": -0.1135,
+      "won": false
+     },
+     {
+      "ts": "2026-11-09T03:30:00.000Z",
+      "ticker": "KXBTCD-26NOV0823-T74999.99",
+      "title": "Bitcoin price on Nov 8, 2026? — $75,000 or above",
+      "cat": "Crypto",
+      "side": "no",
+      "price": 0.49,
+      "contracts": 0.21,
+      "fee": 0.01,
+      "stake": 0.1129,
+      "bankroll": 11.4928,
+      "betPct": 0.9824,
+      "evPerDollar": -0.051,
+      "pnl": 0.0971,
+      "won": true
+     },
+     {
+      "ts": "2026-11-09T03:30:00.000Z",
+      "ticker": "KXETHD-26NOV0823-T2144.99",
+      "title": "Ethereum price at Nov 8, 2026 at 11pm EST? — $2,145 or above",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.44,
+      "contracts": 0.23,
+      "fee": 0.01,
+      "stake": 0.1112,
+      "bankroll": 11.5028,
+      "betPct": 0.9667,
+      "evPerDollar": -0.125,
+      "pnl": -0.1112,
+      "won": false
+     },
+     {
+      "ts": "2026-11-09T03:30:00.000Z",
+      "ticker": "KXGOLDH-26NOV0823-T4117.99",
+      "title": "Will the gold close price be above 4117.99 USD/ounce on November 08, 2026 at 11:00 PM ET? — Above $4117.99",
+      "cat": "Commodities",
+      "side": "no",
+      "price": 0.57,
+      "contracts": 0.18,
+      "fee": 0.01,
+      "stake": 0.1126,
+      "bankroll": 11.5128,
+      "betPct": 0.978,
+      "evPerDollar": -0.0614,
+      "pnl": 0.0674,
+      "won": true
+     },
+     {
+      "ts": "2026-11-09T03:30:00.000Z",
+      "ticker": "KXSILVERH-26NOV0823-T52.949",
+      "title": "Will the silver close price be above 52.949 USD/ounce on November 08, 2026 at 11:00 PM ET? — Above $52.949",
+      "cat": "Commodities",
+      "side": "yes",
+      "price": 0.56,
+      "contracts": 0.18,
+      "fee": 0.01,
+      "stake": 0.1108,
+      "bankroll": 11.5228,
+      "betPct": 0.9616,
+      "evPerDollar": -0.0536,
+      "pnl": 0.0692,
+      "won": true
+     },
+     {
+      "ts": "2026-11-09T03:30:00.000Z",
+      "ticker": "KXSOLD-26NOV0823-T87.7499",
+      "title": "SOL price on Nov 8, 2026? — $87.75 or above",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.48,
+      "contracts": 0.21,
+      "fee": 0.01,
+      "stake": 0.1108,
+      "bankroll": 11.5328,
+      "betPct": 0.9607,
+      "evPerDollar": -0.1042,
+      "pnl": -0.1108,
+      "won": false
+     },
+     {
+      "ts": "2026-11-09T03:30:00.000Z",
+      "ticker": "KXTEMPCHIHS-26NOV0823-T46.99",
+      "title": "Will the temp in Chicago Metro Area be above 46.99° on Nov 8, 2026 at 11pm EST? — 47° or above",
+      "cat": "Climate and Weather",
+      "side": "no",
+      "price": 0.77,
+      "contracts": 0.13,
+      "fee": 0.01,
+      "stake": 0.1101,
+      "bankroll": 11.5428,
+      "betPct": 0.9538,
+      "evPerDollar": -0.0649,
+      "pnl": -0.1101,
+      "won": false
+     },
+     {
+      "ts": "2026-11-09T03:30:00.000Z",
+      "ticker": "KXTEMPLAXHS-26NOV0823-T72.99",
+      "title": "Will the temp in Coastal Los Angeles be above 72.99° on Nov 8, 2026 at 11pm EST? — 73° or above",
+      "cat": "Climate and Weather",
+      "side": "no",
+      "price": 0.85,
+      "contracts": 0.12,
+      "fee": 0.01,
+      "stake": 0.112,
+      "bankroll": 11.5528,
+      "betPct": 0.9695,
+      "evPerDollar": -0.0471,
+      "pnl": 0.008,
+      "won": true
+     },
+     {
+      "ts": "2026-11-09T03:30:00.000Z",
+      "ticker": "KXTEMPMIAH-26NOV0823-T75.99",
+      "title": "Will the temp in Miami be above 75.99° on Nov 8, 2026 at 11pm EST? — 76° or above",
+      "cat": "Climate and Weather",
+      "side": "no",
+      "price": 0.77,
+      "contracts": 0.13,
+      "fee": 0.01,
+      "stake": 0.1101,
+      "bankroll": 11.5628,
+      "betPct": 0.9522,
+      "evPerDollar": -0.0584,
+      "pnl": 0.0199,
+      "won": true
+     },
+     {
+      "ts": "2026-11-09T03:30:00.000Z",
+      "ticker": "KXTEMPNYCHS-26NOV0823-T49.99",
+      "title": "Will the temp in New York City be above 49.99° on Nov 8, 2026 at 11pm EST? — 50° or above",
+      "cat": "Climate and Weather",
+      "side": "yes",
+      "price": 0.5,
+      "contracts": 0.21,
+      "fee": 0.01,
+      "stake": 0.115,
+      "bankroll": 11.5728,
+      "betPct": 0.9937,
+      "evPerDollar": -0.12,
+      "pnl": -0.115,
+      "won": false
+     },
+     {
+      "ts": "2026-11-09T03:30:00.000Z",
+      "ticker": "KXWTIH-26NOV0823-T90.99",
+      "title": "Will the WTI Oil close price be above 90.99 USD/barrel on November 08, 2026 at 11:00 PM ET? — Above $90.99",
+      "cat": "Commodities",
+      "side": "no",
+      "price": 0.58,
+      "contracts": 0.18,
+      "fee": 0.01,
+      "stake": 0.1144,
+      "bankroll": 11.5828,
+      "betPct": 0.9877,
+      "evPerDollar": -0.069,
+      "pnl": 0.0656,
+      "won": true
+     },
+     {
+      "ts": "2026-11-09T02:30:00.000Z",
+      "ticker": "KXBTC-26NOV0822-B75350",
+      "title": "Bitcoin price range on Nov 8, 2026? — $75,300 to 75,399.99",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.18,
+      "contracts": 0.59,
+      "fee": 0.01,
+      "stake": 0.1162,
+      "bankroll": 11.6708,
+      "betPct": 0.9956,
+      "evPerDollar": -0.1667,
+      "pnl": -0.1162,
+      "won": false
+     },
+     {
+      "ts": "2026-11-09T02:30:00.000Z",
+      "ticker": "KXBTCD-26NOV0822-T75399.99",
+      "title": "Bitcoin price on Nov 8, 2026? — $75,400 or above",
+      "cat": "Crypto",
+      "side": "no",
+      "price": 0.48,
+      "contracts": 0.22,
+      "fee": 0.01,
+      "stake": 0.1156,
+      "bankroll": 11.6808,
+      "betPct": 0.9897,
+      "evPerDollar": -0.0521,
+      "pnl": 0.1044,
+      "won": true
+     },
+     {
+      "ts": "2026-11-09T02:30:00.000Z",
+      "ticker": "KXETHD-26NOV0822-T2149.99",
+      "title": "Ethereum price at Nov 8, 2026 at 10pm EST? — $2,150 or above",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.65,
+      "contracts": 0.16,
+      "fee": 0.01,
+      "stake": 0.114,
+      "bankroll": 11.6908,
+      "betPct": 0.9751,
+      "evPerDollar": -0.0692,
+      "pnl": -0.114,
+      "won": false
+     },
+     {
+      "ts": "2026-11-09T02:30:00.000Z",
+      "ticker": "KXGOLDH-26NOV0822-T4129.99",
+      "title": "Will the gold close price be above 4129.99 USD/ounce on November 08, 2026 at 10:00 PM ET? — Above $4129.99",
+      "cat": "Commodities",
+      "side": "no",
+      "price": 0.57,
+      "contracts": 0.18,
+      "fee": 0.01,
+      "stake": 0.1126,
+      "bankroll": 11.7008,
+      "betPct": 0.9623,
+      "evPerDollar": -0.0789,
+      "pnl": 0.0674,
+      "won": true
+     }
+    ],
+    "monteCarlo": {
+     "paths": 4000,
+     "conservativeShift": 0.0039,
+     "observedMeanReturn": 0.0014,
+     "growthPerBet": -0.0031,
+     "betsFor100x": null,
+     "daysFor100x": null,
+     "pBelowLowWater": 1,
+     "byHorizon": [
+      {
+       "bets": 250,
+       "pReachGoal": 0,
+       "medianEquity": 4.4147
+      },
+      {
+       "bets": 1000,
+       "pReachGoal": 0,
+       "medianEquity": 0.4985
+      },
+      {
+       "bets": 3000,
+       "pReachGoal": 0,
+       "medianEquity": 0.4957
+      }
+     ]
+    }
+   },
+   {
+    "id": "nn-learn",
+    "name": "Neural net, learned bet size",
+    "predictor": "nn",
+    "sizing": "learn",
+    "equity": 8.2097,
+    "cash": 8.2097,
+    "openPositions": 0,
+    "returnPct": -17.903,
+    "bets": 101,
+    "shadowBets": 40,
+    "settled": 101,
+    "wins": 51,
+    "pnl": -1.7903,
+    "fees": 1.04,
+    "maxDrawdownPct": 38.381,
+    "lowest": 7.2316,
+    "avgBetPct": 2.0117,
+    "maxBetPct": 2.5938,
+    "worstLossPct": -2.5938,
+    "betsPerDay": 48.194,
+    "trustNow": {
+     "trust": 0,
+     "why": "edge not proven yet (return per $ 0.0165, conservative -0.0908)"
+    },
+    "busted": null,
+    "reachedGoal": null,
+    "curve": [
+     [
+      1794141000000,
+      10
+     ],
+     [
+      1794200567111,
+      10.2348
+     ],
+     [
+      1794200582140,
+      10.3123
+     ],
+     [
+      1794204127114,
+      10.4791
+     ],
+     [
+      1794204147116,
+      10.7545
+     ],
+     [
+      1794204162143,
+      10.9435
+     ],
+     [
+      1794205882056,
+      11.2655
+     ],
+     [
+      1794207742110,
+      11.4723
+     ],
+     [
+      1794207742115,
+      11.568
+     ],
+     [
+      1794207757115,
+      11.736
+     ],
+     [
+      1794207767085,
+      11.5014
+     ],
+     [
+      1794207767088,
+      11.269
+     ],
+     [
+      1794211347112,
+      10.995
+     ],
+     [
+      1794211367138,
+      11.1928
+     ],
+     [
+      1794213092051,
+      10.9248
+     ],
+     [
+      1794214957112,
+      10.6896
+     ],
+     [
+      1794214957117,
+      10.7853
+     ],
+     [
+      1794214977113,
+      10.5516
+     ],
+     [
+      1794214987131,
+      10.3184
+     ],
+     [
+      1794218527109,
+      10.4383
+     ],
+     [
+      1794218547117,
+      10.6146
+     ],
+     [
+      1794218557130,
+      10.3806
+     ],
+     [
+      1794218557133,
+      10.4282
+     ],
+     [
+      1794222147113,
+      10.7362
+     ],
+     [
+      1794222162113,
+      10.5016
+     ],
+     [
+      1794222172120,
+      10.7366
+     ],
+     [
+      1794222172123,
+      10.7975
+     ],
+     [
+      1794225742112,
+      10.8923
+     ],
+     [
+      1794225742117,
+      10.9698
+     ],
+     [
+      1794225757110,
+      11.2558
+     ],
+     [
+      1794225772129,
+      11.4536
+     ],
+     [
+      1794225772131,
+      11.2212
+     ],
+     [
+      1794227492053,
+      10.9034
+     ],
+     [
+      1794227492055,
+      10.6757
+     ],
+     [
+      1794229342110,
+      10.7747
+     ],
+     [
+      1794229342115,
+      10.5401
+     ],
+     [
+      1794229362116,
+      10.8939
+     ],
+     [
+      1794229362122,
+      10.9803
+     ],
+     [
+      1794229372080,
+      10.7471
+     ],
+     [
+      1794229372083,
+      10.7975
+     ],
+     [
+      1794229552054,
+      10.5625
+     ],
+     [
+      1794229552056,
+      10.3303
+     ],
+     [
+      1794231092057,
+      10.0089
+     ],
+     [
+      1794232907113,
+      9.7743
+     ],
+     [
+      1794232932064,
+      9.5391
+     ],
+     [
+      1794232947083,
+      9.7459
+     ],
+     [
+      1794233102056,
+      9.9907
+     ],
+     [
+      1794233102060,
+      10.1975
+     ],
+     [
+      1794233107055,
+      9.9635
+     ],
+     [
+      1794233507059,
+      10.041
+     ],
+     [
+      1794234667050,
+      10.1067
+     ],
+     [
+      1794235242052,
+      10.1757
+     ],
+     [
+      1794236542113,
+      9.942
+     ],
+     [
+      1794236562115,
+      9.708
+     ],
+     [
+      1794236572154,
+      9.4734
+     ],
+     [
+      1794240112109,
+      9.1882
+     ],
+     [
+      1794240132117,
+      8.9581
+     ],
+     [
+      1794240147103,
+      8.7235
+     ],
+     [
+      1794241862102,
+      8.4213
+     ],
+     [
+      1794242472052,
+      8.1863
+     ],
+     [
+      1794243717112,
+      8.0763
+     ],
+     [
+      1794243747111,
+      7.965
+     ],
+     [
+      1794244312095,
+      7.851
+     ],
+     [
+      1794245477055,
+      7.7382
+     ],
+     [
+      1794245482057,
+      7.6294
+     ],
+     [
+      1794245482059,
+      7.5206
+     ],
+     [
+      1794246047105,
+      7.4084
+     ],
+     [
+      1794310256252,
+      7.4444
+     ],
+     [
+      1794312116264,
+      7.334
+     ],
+     [
+      1794312706227,
+      7.4138
+     ],
+     [
+      1794313846254,
+      7.2316
+     ],
+     [
+      1794315721262,
+      7.2988
+     ],
+     [
+      1794315731279,
+      7.4284
+     ],
+     [
+      1794315911260,
+      7.5292
+     ],
+     [
+      1794316306266,
+      7.7061
+     ],
+     [
+      1794316331261,
+      7.5927
+     ],
+     [
+      1794316341261,
+      7.6687
+     ],
+     [
+      1794317451254,
+      7.4771
+     ],
+     [
+      1794317971223,
+      7.555
+     ],
+     [
+      1794318616200,
+      8.201
+     ],
+     [
+      1794319361321,
+      8.0876
+     ],
+     [
+      1794319371295,
+      7.9749
+     ],
+     [
+      1794319371298,
+      7.8618
+     ],
+     [
+      1794319376317,
+      7.7497
+     ],
+     [
+      1794319536207,
+      7.6397
+     ],
+     [
+      1794319541258,
+      7.5284
+     ],
+     [
+      1794320771204,
+      7.7053
+     ],
+     [
+      1794321101201,
+      7.4913
+     ],
+     [
+      1794321401256,
+      7.5525
+     ],
+     [
+      1794321506211,
+      7.7605
+     ],
+     [
+      1794321631206,
+      7.6474
+     ],
+     [
+      1794322546252,
+      7.5334
+     ],
+     [
+      1794322906263,
+      7.6094
+     ],
+     [
+      1794322921416,
+      7.7469
+     ],
+     [
+      1794322936278,
+      7.8456
+     ],
+     [
+      1794322941295,
+      7.9464
+     ],
+     [
+      1794322951213,
+      8.0637
+     ],
+     [
+      1794323156253,
+      8.1603
+     ],
+     [
+      1794323501260,
+      8.0469
+     ],
+     [
+      1794323516316,
+      8.1665
+     ],
+     [
+      1794324656255,
+      8.3231
+     ],
+     [
+      1794324656258,
+      8.2097
+     ]
+    ],
+    "recent": [
+     {
+      "ts": "2026-11-10T14:30:00.000Z",
+      "ticker": "KXBTCD-26NOV1010-T73699.99",
+      "title": "Bitcoin price on Nov 10, 2026? — $73,700 or above",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.52,
+      "contracts": 0.21,
+      "fee": 0.01,
+      "stake": 0.1192,
+      "bankroll": 7.6153,
+      "betPct": 1.5653,
+      "evPerDollar": 0.1479,
+      "pnl": 0.0908,
+      "won": true
+     },
+     {
+      "ts": "2026-11-10T14:30:00.000Z",
+      "ticker": "KXETHD-26NOV1010-T2064.99",
+      "title": "Ethereum price at Nov 10, 2026 at 10am EST? — $2,065 or above",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.45,
+      "contracts": 0.25,
+      "fee": 0.01,
+      "stake": 0.1225,
+      "bankroll": 7.6253,
+      "betPct": 1.6065,
+      "evPerDollar": 0.1698,
+      "pnl": 0.1275,
+      "won": true
+     },
+     {
+      "ts": "2026-11-10T14:30:00.000Z",
+      "ticker": "KXHYPED-26NOV1010-T72.7499",
+      "title": "HYPE price on Nov 10, 2026? — $72.75 or above",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.48,
+      "contracts": 0.23,
+      "fee": 0.01,
+      "stake": 0.1204,
+      "bankroll": 7.6353,
+      "betPct": 1.5769,
+      "evPerDollar": 0.0729,
+      "pnl": 0.1096,
+      "won": true
+     },
+     {
+      "ts": "2026-11-10T14:30:00.000Z",
+      "ticker": "KXINXU-26NOV10H1000-T7504.9999",
+      "title": "Will the S&P 500 be above 7504.9999 on Nov 10, 2026 at 10am EST? — 7,505 or above",
+      "cat": "Financials",
+      "side": "yes",
+      "price": 0.49,
+      "contracts": 0.23,
+      "fee": 0.01,
+      "stake": 0.1227,
+      "bankroll": 7.6453,
+      "betPct": 1.6049,
+      "evPerDollar": 0.1527,
+      "pnl": 0.1073,
+      "won": true
+     },
+     {
+      "ts": "2026-11-10T14:30:00.000Z",
+      "ticker": "KXNASDAQ100U-26NOV10H1000-T27649.99",
+      "title": "Will the Nasdaq-100 be above 27649.99 at the end of Nov 10, 2026 at 10am EST? — 27,650 or above",
+      "cat": "Financials",
+      "side": "yes",
+      "price": 0.53,
+      "contracts": 0.21,
+      "fee": 0.01,
+      "stake": 0.1213,
+      "bankroll": 7.6553,
+      "betPct": 1.5845,
+      "evPerDollar": 0.1406,
+      "pnl": 0.0887,
+      "won": true
+     },
+     {
+      "ts": "2026-11-10T14:30:00.000Z",
+      "ticker": "KXSOLD-26NOV1010-T83.4999",
+      "title": "SOL price on Nov 10, 2026? — $83.5 or above",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.6,
+      "contracts": 0.19,
+      "fee": 0.01,
+      "stake": 0.124,
+      "bankroll": 7.6653,
+      "betPct": 1.6177,
+      "evPerDollar": 0.0505,
+      "pnl": 0.066,
+      "won": true
+     },
+     {
+      "ts": "2026-11-10T14:30:00.000Z",
+      "ticker": "KXSOLE-26NOV1010-B83.625",
+      "title": "SOL price on Nov 10, 2026? — $83.5 to 83.7499",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.21,
+      "contracts": 0.54,
+      "fee": 0.01,
+      "stake": 0.1234,
+      "bankroll": 7.6753,
+      "betPct": 1.6078,
+      "evPerDollar": 0.0957,
+      "pnl": -0.1234,
+      "won": false
+     },
+     {
+      "ts": "2026-11-10T14:30:00.000Z",
+      "ticker": "KXWTIH-26NOV1010-T84.09",
+      "title": "Will the WTI Oil close price be above 84.09 USD/barrel on November 10, 2026 at 10:00 AM ET? — Above $84.09",
+      "cat": "Commodities",
+      "side": "yes",
+      "price": 0.54,
+      "contracts": 0.21,
+      "fee": 0.01,
+      "stake": 0.1234,
+      "bankroll": 7.6853,
+      "betPct": 1.6057,
+      "evPerDollar": 0.0643,
+      "pnl": 0.0866,
+      "won": true
+     },
+     {
+      "ts": "2026-11-10T14:30:00.000Z",
+      "ticker": "KXXRP-26NOV1010-B1.0499500",
+      "title": "Ripple price at Nov 10, 2026 at 10am EST? — $1.04 to 1.0599",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.63,
+      "contracts": 0.18,
+      "fee": 0.01,
+      "stake": 0.1234,
+      "bankroll": 7.6953,
+      "betPct": 1.6036,
+      "evPerDollar": 0.0368,
+      "pnl": -0.1234,
+      "won": false
+     },
+     {
+      "ts": "2026-11-10T14:30:00.000Z",
+      "ticker": "KXXRPD-26NOV1010-T1.0599",
+      "title": "Ripple price at Nov 10, 2026 at 10am EST? — $1.05991 or above",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.42,
+      "contracts": 0.27,
+      "fee": 0.01,
+      "stake": 0.1234,
+      "bankroll": 7.7053,
+      "betPct": 1.6015,
+      "evPerDollar": 0.1545,
+      "pnl": 0.1466,
+      "won": true
+     },
+     {
+      "ts": "2026-11-10T13:30:00.000Z",
+      "ticker": "KXBTC-26NOV1009-B74250",
+      "title": "Bitcoin price range on Nov 10, 2026? — $74,200 to 74,299.99",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.13,
+      "contracts": 0.87,
+      "fee": 0.01,
+      "stake": 0.1231,
+      "bankroll": 7.5987,
+      "betPct": 1.62,
+      "evPerDollar": 0.1923,
+      "pnl": -0.1231,
+      "won": false
+     },
+     {
+      "ts": "2026-11-10T13:30:00.000Z",
+      "ticker": "KXBTCD-26NOV1009-T74299.99",
+      "title": "Bitcoin price on Nov 10, 2026? — $74,300 or above",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.49,
+      "contracts": 0.23,
+      "fee": 0.01,
+      "stake": 0.1227,
+      "bankroll": 7.6087,
+      "betPct": 1.6126,
+      "evPerDollar": 0.1361,
+      "pnl": -0.1227,
+      "won": false
+     },
+     {
+      "ts": "2026-11-10T13:30:00.000Z",
+      "ticker": "KXDOGED-26NOV1009-T0.0699999",
+      "title": "Dogecoin price on Nov 10, 2026? — $0.07 or above",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.15,
+      "contracts": 0.76,
+      "fee": 0.01,
+      "stake": 0.124,
+      "bankroll": 7.6187,
+      "betPct": 1.6276,
+      "evPerDollar": 0.1887,
+      "pnl": -0.124,
+      "won": false
+     },
+     {
+      "ts": "2026-11-10T13:30:00.000Z",
+      "ticker": "KXETHD-26NOV1009-T2094.99",
+      "title": "Ethereum price at Nov 10, 2026 at 9am EST? — $2,095 or above",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.54,
+      "contracts": 0.21,
+      "fee": 0.01,
+      "stake": 0.1234,
+      "bankroll": 7.6287,
+      "betPct": 1.6176,
+      "evPerDollar": 0.1348,
+      "pnl": -0.1234,
+      "won": false
+     },
+     {
+      "ts": "2026-11-10T13:30:00.000Z",
+      "ticker": "KXGOLDH-26NOV1009-T4071.99",
+      "title": "Will the gold close price be above 4071.99 USD/ounce on November 10, 2026 at 9:00 AM ET? — Above $4071.99",
+      "cat": "Commodities",
+      "side": "yes",
+      "price": 0.53,
+      "contracts": 0.21,
+      "fee": 0.01,
+      "stake": 0.1213,
+      "bankroll": 7.6387,
+      "betPct": 1.588,
+      "evPerDollar": 0.0858,
+      "pnl": -0.1213,
+      "won": false
+     }
+    ],
+    "monteCarlo": {
+     "paths": 4000,
+     "conservativeShift": 0.002,
+     "observedMeanReturn": -0.0015,
+     "growthPerBet": -0.0038,
+     "betsFor100x": null,
+     "daysFor100x": null,
+     "pBelowLowWater": 1,
+     "byHorizon": [
+      {
+       "bets": 250,
+       "pReachGoal": 0,
+       "medianEquity": 3.89
+      },
+      {
+       "bets": 1000,
+       "pReachGoal": 0,
+       "medianEquity": 0.496
+      },
+      {
+       "bets": 3000,
+       "pReachGoal": 0,
+       "medianEquity": 0.4954
+      }
+     ]
+    }
+   },
+   {
+    "id": "nn-2",
+    "name": "Neural net, flat 2% bets",
+    "predictor": "nn",
+    "sizing": "fixed",
+    "equity": 8.526,
+    "cash": 8.526,
+    "openPositions": 0,
+    "returnPct": -14.74,
+    "bets": 59,
+    "shadowBets": 0,
+    "settled": 59,
+    "wins": 31,
+    "pnl": -1.474,
+    "fees": 0.62,
+    "maxDrawdownPct": 25.2859,
+    "lowest": 8.526,
+    "avgBetPct": 1.9486,
+    "maxBetPct": 1.9845,
+    "worstLossPct": -1.9845,
+    "betsPerDay": 28.153,
+    "trustNow": null,
+    "busted": null,
+    "reachedGoal": null,
+    "curve": [
+     [
+      1794141000000,
+      10
+     ],
+     [
+      1794200567111,
+      10.1828
+     ],
+     [
+      1794200582140,
+      10.2453
+     ],
+     [
+      1794204127114,
+      10.3745
+     ],
+     [
+      1794204147116,
+      10.5959
+     ],
+     [
+      1794204162143,
+      10.7489
+     ],
+     [
+      1794205882056,
+      11.0089
+     ],
+     [
+      1794207742110,
+      11.1875
+     ],
+     [
+      1794207742115,
+      11.2687
+     ],
+     [
+      1794207757115,
+      11.4115
+     ],
+     [
+      1794207767085,
+      11.2137
+     ],
+     [
+      1794207767088,
+      11.0145
+     ],
+     [
+      1794211347112,
+      10.772
+     ],
+     [
+      1794211367138,
+      10.9468
+     ],
+     [
+      1794213092051,
+      10.7128
+     ],
+     [
+      1794214957112,
+      10.5112
+     ],
+     [
+      1794214957117,
+      10.5953
+     ],
+     [
+      1794214977113,
+      10.3903
+     ],
+     [
+      1794214987131,
+      10.1889
+     ],
+     [
+      1794218527109,
+      10.2801
+     ],
+     [
+      1794218547117,
+      10.422
+     ],
+     [
+      1794218557130,
+      10.233
+     ],
+     [
+      1794218557133,
+      10.2721
+     ],
+     [
+      1794222147113,
+      10.5201
+     ],
+     [
+      1794222162113,
+      10.3315
+     ],
+     [
+      1794222172120,
+      10.5215
+     ],
+     [
+      1794222172123,
+      10.5719
+     ],
+     [
+      1794225742112,
+      10.6359
+     ],
+     [
+      1794225742117,
+      10.7009
+     ],
+     [
+      1794225757110,
+      10.9374
+     ],
+     [
+      1794225772129,
+      11.103
+     ],
+     [
+      1794225772131,
+      10.9121
+     ],
+     [
+      1794227492053,
+      10.6351
+     ],
+     [
+      1794227492055,
+      10.4488
+     ],
+     [
+      1794229342110,
+      10.5358
+     ],
+     [
+      1794229342115,
+      10.3357
+     ],
+     [
+      1794229362116,
+      10.6529
+     ],
+     [
+      1794229362122,
+      10.7258
+     ],
+     [
+      1794229372080,
+      10.5244
+     ],
+     [
+      1794229372083,
+      10.5676
+     ],
+     [
+      1794229552054,
+      10.3655
+     ],
+     [
+      1794229552056,
+      10.1657
+     ],
+     [
+      1794231092057,
+      9.871
+     ],
+     [
+      1794232907113,
+      9.6824
+     ],
+     [
+      1794232932064,
+      9.4976
+     ],
+     [
+      1794232947083,
+      9.6621
+     ],
+     [
+      1794233102056,
+      9.861
+     ],
+     [
+      1794233102060,
+      10.0255
+     ],
+     [
+      1794233107055,
+      9.8383
+     ],
+     [
+      1794233507059,
+      9.9008
+     ],
+     [
+      1794234667050,
+      9.9462
+     ],
+     [
+      1794235242052,
+      10.0014
+     ],
+     [
+      1794236542113,
+      9.819
+     ],
+     [
+      1794236562115,
+      9.637
+     ],
+     [
+      1794236572154,
+      9.453
+     ],
+     [
+      1794240112109,
+      9.2266
+     ],
+     [
+      1794240132117,
+      9.0496
+     ],
+     [
+      1794240147103,
+      8.8762
+     ],
+     [
+      1794241862102,
+      8.6999
+     ],
+     [
+      1794242472052,
+      8.526
+     ]
+    ],
+    "recent": [
+     {
+      "ts": "2026-11-09T15:30:00.000Z",
+      "ticker": "KXBTCD-26NOV0911-T74999.99",
+      "title": "Bitcoin price on Nov 9, 2026? — $75,000 or above",
+      "cat": "Crypto",
+      "side": "no",
+      "price": 0.51,
+      "contracts": 0.34,
+      "fee": 0.01,
+      "stake": 0.1834,
+      "bankroll": 9.413,
+      "betPct": 1.9484,
+      "evPerDollar": 0.0731,
+      "pnl": -0.1834,
+      "won": false
+     },
+     {
+      "ts": "2026-11-09T15:30:00.000Z",
+      "ticker": "KXETHD-26NOV0911-T2129.99",
+      "title": "Ethereum price at Nov 9, 2026 at 11am EST? — $2,130 or above",
+      "cat": "Crypto",
+      "side": "no",
+      "price": 0.59,
+      "contracts": 0.3,
+      "fee": 0.01,
+      "stake": 0.187,
+      "bankroll": 9.423,
+      "betPct": 1.9845,
+      "evPerDollar": 0.0397,
+      "pnl": -0.187,
+      "won": false
+     },
+     {
+      "ts": "2026-11-09T15:30:00.000Z",
+      "ticker": "KXSOLD-26NOV0911-T87.2499",
+      "title": "SOL price on Nov 9, 2026? — $87.25 or above",
+      "cat": "Crypto",
+      "side": "no",
+      "price": 0.49,
+      "contracts": 0.36,
+      "fee": 0.01,
+      "stake": 0.1864,
+      "bankroll": 9.433,
+      "betPct": 1.976,
+      "evPerDollar": 0.0478,
+      "pnl": -0.1864,
+      "won": false
+     },
+     {
+      "ts": "2026-11-09T15:30:00.000Z",
+      "ticker": "KXXRP-26NOV0911-B1.1099500",
+      "title": "Ripple price at Nov 9, 2026 at 11am EST? — $1.1 to 1.1199",
+      "cat": "Crypto",
+      "side": "no",
+      "price": 0.47,
+      "contracts": 0.37,
+      "fee": 0.01,
+      "stake": 0.1839,
+      "bankroll": 9.443,
+      "betPct": 1.9475,
+      "evPerDollar": 0.0677,
+      "pnl": -0.1839,
+      "won": false
+     },
+     {
+      "ts": "2026-11-09T15:30:00.000Z",
+      "ticker": "KXXRPD-26NOV0911-T1.0999",
+      "title": "Ripple price at Nov 9, 2026 at 11am EST? — $1.09991 or above",
+      "cat": "Crypto",
+      "side": "no",
+      "price": 0.43,
+      "contracts": 0.41,
+      "fee": 0.01,
+      "stake": 0.1863,
+      "bankroll": 9.453,
+      "betPct": 1.9708,
+      "evPerDollar": 0.0805,
+      "pnl": -0.1863,
+      "won": false
+     },
+     {
+      "ts": "2026-11-09T14:30:00.000Z",
+      "ticker": "KXBTCD-26NOV0910-T74499.99",
+      "title": "Bitcoin price on Nov 9, 2026? — $74,500 or above",
+      "cat": "Crypto",
+      "side": "no",
+      "price": 0.46,
+      "contracts": 0.4,
+      "fee": 0.01,
+      "stake": 0.194,
+      "bankroll": 9.8808,
+      "betPct": 1.9634,
+      "evPerDollar": 0.0804,
+      "pnl": -0.194,
+      "won": false
+     },
+     {
+      "ts": "2026-11-09T14:30:00.000Z",
+      "ticker": "KXETHD-26NOV0910-T2119.99",
+      "title": "Ethereum price at Nov 9, 2026 at 10am EST? — $2,120 or above",
+      "cat": "Crypto",
+      "side": "no",
+      "price": 0.52,
+      "contracts": 0.35,
+      "fee": 0.01,
+      "stake": 0.192,
+      "bankroll": 9.8908,
+      "betPct": 1.9412,
+      "evPerDollar": 0.0598,
+      "pnl": -0.192,
+      "won": false
+     },
+     {
+      "ts": "2026-11-09T14:30:00.000Z",
+      "ticker": "KXSOLD-26NOV0910-T86.9999",
+      "title": "SOL price on Nov 9, 2026? — $87 or above",
+      "cat": "Crypto",
+      "side": "no",
+      "price": 0.57,
+      "contracts": 0.32,
+      "fee": 0.01,
+      "stake": 0.1924,
+      "bankroll": 9.9008,
+      "betPct": 1.9433,
+      "evPerDollar": 0.0453,
+      "pnl": -0.1924,
+      "won": false
+     },
+     {
+      "ts": "2026-11-09T13:30:00.000Z",
+      "ticker": "KXBTCD-26NOV0909-T74699.99",
+      "title": "Bitcoin price on Nov 9, 2026? — $74,700 or above",
+      "cat": "Crypto",
+      "side": "no",
+      "price": 0.53,
+      "contracts": 0.35,
+      "fee": 0.01,
+      "stake": 0.1955,
+      "bankroll": 10.0857,
+      "betPct": 1.9384,
+      "evPerDollar": 0.1428,
+      "pnl": 0.1545,
+      "won": true
+     },
+     {
+      "ts": "2026-11-09T13:30:00.000Z",
+      "ticker": "KXDOGED-26NOV0909-T0.0699999",
+      "title": "Dogecoin price on Nov 9, 2026? — $0.07 or above",
+      "cat": "Crypto",
+      "side": "no",
+      "price": 0.71,
+      "contracts": 0.26,
+      "fee": 0.01,
+      "stake": 0.1946,
+      "bankroll": 10.0957,
+      "betPct": 1.9276,
+      "evPerDollar": 0.057,
+      "pnl": 0.0654,
+      "won": true
+     },
+     {
+      "ts": "2026-11-09T13:30:00.000Z",
+      "ticker": "KXETH-26NOV0909-B2117",
+      "title": "Ethereum price at Nov 9, 2026 at 9am EST? — $2,115 to 2,119.99",
+      "cat": "Crypto",
+      "side": "no",
+      "price": 0.75,
+      "contracts": 0.25,
+      "fee": 0.01,
+      "stake": 0.1975,
+      "bankroll": 10.1057,
+      "betPct": 1.9543,
+      "evPerDollar": 0.058,
+      "pnl": 0.0525,
+      "won": true
+     },
+     {
+      "ts": "2026-11-09T13:30:00.000Z",
+      "ticker": "KXETHD-26NOV0909-T2119.99",
+      "title": "Ethereum price at Nov 9, 2026 at 9am EST? — $2,120 or above",
+      "cat": "Crypto",
+      "side": "no",
+      "price": 0.56,
+      "contracts": 0.33,
+      "fee": 0.01,
+      "stake": 0.1948,
+      "bankroll": 10.1157,
+      "betPct": 1.9257,
+      "evPerDollar": 0.1291,
+      "pnl": -0.1948,
+      "won": false
+     },
+     {
+      "ts": "2026-11-09T13:30:00.000Z",
+      "ticker": "KXGOLDH-26NOV0909-T4125.99",
+      "title": "Will the gold close price be above 4125.99 USD/ounce on November 09, 2026 at 9:00 AM ET? — Above $4125.99",
+      "cat": "Commodities",
+      "side": "no",
+      "price": 0.53,
+      "contracts": 0.35,
+      "fee": 0.01,
+      "stake": 0.1955,
+      "bankroll": 10.1257,
+      "betPct": 1.9307,
+      "evPerDollar": 0.0426,
+      "pnl": 0.1545,
+      "won": true
+     },
+     {
+      "ts": "2026-11-09T13:30:00.000Z",
+      "ticker": "KXSILVERH-26NOV0909-T52.749",
+      "title": "Will the silver close price be above 52.749 USD/ounce on November 09, 2026 at 9:00 AM ET? — Above $52.749",
+      "cat": "Commodities",
+      "side": "no",
+      "price": 0.52,
+      "contracts": 0.36,
+      "fee": 0.01,
+      "stake": 0.1972,
+      "bankroll": 10.1357,
+      "betPct": 1.9456,
+      "evPerDollar": 0.054,
+      "pnl": -0.1972,
+      "won": false
+     },
+     {
+      "ts": "2026-11-09T13:30:00.000Z",
+      "ticker": "KXSOLD-26NOV0909-T86.4999",
+      "title": "SOL price on Nov 9, 2026? — $86.5 or above",
+      "cat": "Crypto",
+      "side": "no",
+      "price": 0.46,
+      "contracts": 0.41,
+      "fee": 0.01,
+      "stake": 0.1986,
+      "bankroll": 10.1457,
+      "betPct": 1.9575,
+      "evPerDollar": 0.1522,
+      "pnl": -0.1986,
+      "won": false
+     }
+    ],
+    "monteCarlo": {
+     "paths": 4000,
+     "conservativeShift": 0.0022,
+     "observedMeanReturn": -0.0024,
+     "growthPerBet": -0.0048,
+     "betsFor100x": null,
+     "daysFor100x": null,
+     "pBelowLowWater": 1,
+     "byHorizon": [
+      {
+       "bets": 250,
+       "pReachGoal": 0,
+       "medianEquity": 2.9921
+      },
+      {
+       "bets": 1000,
+       "pReachGoal": 0,
+       "medianEquity": 0.4955
+      },
+      {
+       "bets": 3000,
+       "pReachGoal": 0,
+       "medianEquity": 0.4955
+      }
+     ]
+    }
+   },
+   {
+    "id": "longshot-learn",
+    "name": "Longshot bias, learned bet size",
+    "predictor": "longshot",
+    "sizing": "learn",
+    "equity": 10,
+    "cash": 10,
+    "openPositions": 0,
+    "returnPct": 0,
+    "bets": 0,
+    "shadowBets": 0,
+    "settled": 0,
+    "wins": 0,
+    "pnl": 0,
+    "fees": 0,
+    "maxDrawdownPct": 0,
+    "lowest": 10,
+    "avgBetPct": 0,
+    "maxBetPct": 0,
+    "worstLossPct": 0,
+    "betsPerDay": 0,
+    "trustNow": {
+     "trust": 0,
+     "why": "learning: 0/30 settled bets"
+    },
+    "busted": null,
+    "reachedGoal": null,
+    "curve": [
+     [
+      1794141000000,
+      10
+     ]
+    ],
+    "recent": [],
+    "monteCarlo": null
+   },
+   {
+    "id": "memory-learn",
+    "name": "Series memory, learned bet size",
+    "predictor": "memory",
+    "sizing": "learn",
+    "equity": 10,
+    "cash": 10,
+    "openPositions": 0,
+    "returnPct": 0,
+    "bets": 0,
+    "shadowBets": 0,
+    "settled": 0,
+    "wins": 0,
+    "pnl": 0,
+    "fees": 0,
+    "maxDrawdownPct": 0,
+    "lowest": 10,
+    "avgBetPct": 0,
+    "maxBetPct": 0,
+    "worstLossPct": 0,
+    "betsPerDay": 0,
+    "trustNow": {
+     "trust": 0,
+     "why": "learning: 0/30 settled bets"
+    },
+    "busted": null,
+    "reachedGoal": null,
+    "curve": [
+     [
+      1794141000000,
+      10
+     ]
+    ],
+    "recent": [],
+    "monteCarlo": null
+   }
+  ]
+ },
+ "forward": {
+  "rows": 0,
+  "settled": 0,
+  "portfolios": [
+   {
+    "id": "cash",
+    "name": "Hold cash (control)",
+    "predictor": null,
+    "sizing": null,
+    "equity": 10,
+    "cash": 10,
+    "openPositions": 0,
+    "returnPct": 0,
+    "bets": 0,
+    "shadowBets": 0,
+    "settled": 0,
+    "wins": 0,
+    "pnl": 0,
+    "fees": 0,
+    "maxDrawdownPct": 0,
+    "lowest": 10,
+    "avgBetPct": 0,
+    "maxBetPct": 0,
+    "worstLossPct": 0,
+    "betsPerDay": null,
+    "trustNow": null,
+    "busted": null,
+    "reachedGoal": null,
+    "curve": [
+     [
+      1794330554238,
+      10
+     ]
+    ],
+    "recent": [],
+    "monteCarlo": null
+   },
+   {
+    "id": "coin",
+    "name": "Coin flip, 2% bets (fee-drag control)",
+    "predictor": "coin",
+    "sizing": "fixed",
+    "equity": 10,
+    "cash": 10,
+    "openPositions": 0,
+    "returnPct": 0,
+    "bets": 0,
+    "shadowBets": 0,
+    "settled": 0,
+    "wins": 0,
+    "pnl": 0,
+    "fees": 0,
+    "maxDrawdownPct": 0,
+    "lowest": 10,
+    "avgBetPct": 0,
+    "maxBetPct": 0,
+    "worstLossPct": 0,
+    "betsPerDay": null,
+    "trustNow": null,
+    "busted": null,
+    "reachedGoal": null,
+    "curve": [
+     [
+      1794330554238,
+      10
+     ]
+    ],
+    "recent": [],
+    "monteCarlo": null
+   },
+   {
+    "id": "nn-learn",
+    "name": "Neural net, learned bet size",
+    "predictor": "nn",
+    "sizing": "learn",
+    "equity": 10,
+    "cash": 10,
+    "openPositions": 0,
+    "returnPct": 0,
+    "bets": 0,
+    "shadowBets": 0,
+    "settled": 0,
+    "wins": 0,
+    "pnl": 0,
+    "fees": 0,
+    "maxDrawdownPct": 0,
+    "lowest": 10,
+    "avgBetPct": 0,
+    "maxBetPct": 0,
+    "worstLossPct": 0,
+    "betsPerDay": null,
+    "trustNow": {
+     "trust": 0,
+     "why": "learning: 0/30 settled bets"
+    },
+    "busted": null,
+    "reachedGoal": null,
+    "curve": [
+     [
+      1794330554238,
+      10
+     ]
+    ],
+    "recent": [],
+    "monteCarlo": null
+   },
+   {
+    "id": "nn-2",
+    "name": "Neural net, flat 2% bets",
+    "predictor": "nn",
+    "sizing": "fixed",
+    "equity": 10,
+    "cash": 10,
+    "openPositions": 0,
+    "returnPct": 0,
+    "bets": 0,
+    "shadowBets": 0,
+    "settled": 0,
+    "wins": 0,
+    "pnl": 0,
+    "fees": 0,
+    "maxDrawdownPct": 0,
+    "lowest": 10,
+    "avgBetPct": 0,
+    "maxBetPct": 0,
+    "worstLossPct": 0,
+    "betsPerDay": null,
+    "trustNow": null,
+    "busted": null,
+    "reachedGoal": null,
+    "curve": [
+     [
+      1794330554238,
+      10
+     ]
+    ],
+    "recent": [],
+    "monteCarlo": null
+   },
+   {
+    "id": "longshot-learn",
+    "name": "Longshot bias, learned bet size",
+    "predictor": "longshot",
+    "sizing": "learn",
+    "equity": 10,
+    "cash": 10,
+    "openPositions": 0,
+    "returnPct": 0,
+    "bets": 0,
+    "shadowBets": 0,
+    "settled": 0,
+    "wins": 0,
+    "pnl": 0,
+    "fees": 0,
+    "maxDrawdownPct": 0,
+    "lowest": 10,
+    "avgBetPct": 0,
+    "maxBetPct": 0,
+    "worstLossPct": 0,
+    "betsPerDay": null,
+    "trustNow": {
+     "trust": 0,
+     "why": "learning: 0/30 settled bets"
+    },
+    "busted": null,
+    "reachedGoal": null,
+    "curve": [
+     [
+      1794330554238,
+      10
+     ]
+    ],
+    "recent": [],
+    "monteCarlo": null
+   },
+   {
+    "id": "memory-learn",
+    "name": "Series memory, learned bet size",
+    "predictor": "memory",
+    "sizing": "learn",
+    "equity": 10,
+    "cash": 10,
+    "openPositions": 0,
+    "returnPct": 0,
+    "bets": 0,
+    "shadowBets": 0,
+    "settled": 0,
+    "wins": 0,
+    "pnl": 0,
+    "fees": 0,
+    "maxDrawdownPct": 0,
+    "lowest": 10,
+    "avgBetPct": 0,
+    "maxBetPct": 0,
+    "worstLossPct": 0,
+    "betsPerDay": null,
+    "trustNow": {
+     "trust": 0,
+     "why": "learning: 0/30 settled bets"
+    },
+    "busted": null,
+    "reachedGoal": null,
+    "curve": [
+     [
+      1794330554238,
+      10
+     ]
+    ],
+    "recent": [],
+    "monteCarlo": null
+   }
+  ]
+ }
+}

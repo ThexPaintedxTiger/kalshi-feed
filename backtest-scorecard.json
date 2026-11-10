@@ -1,0 +1,350 @@
+{
+ "updated": "2026-11-10T17:08:40.997Z",
+ "note": "BACKTEST on already-settled markets (prices from Kalshi candles 30 min before resolution). Supports, never replaces, the live record. Simulation only. Brier/log loss: lower is better. brierVsMarket < 0 means better than the market price. Intervals are 95%, counted per event. No edge is claimed below 100 resolved predictions.",
+ "predictions": 736,
+ "resolved": 736,
+ "excludedLeakage": 0,
+ "events": 736,
+ "predictors": {
+  "market": {
+   "n": 736,
+   "brier": {
+    "mean": 0.19,
+    "lo": 0.1771,
+    "hi": 0.2029,
+    "events": 736
+   },
+   "logLoss": {
+    "mean": 0.555,
+    "lo": 0.5221,
+    "hi": 0.5879,
+    "events": 736
+   },
+   "brierVsMarket": {
+    "mean": 0,
+    "lo": 0,
+    "hi": 0,
+    "events": 736
+   },
+   "verdict": "baseline",
+   "picks": {
+    "n": 0,
+    "wins": 0,
+    "pnlPerContract": {
+     "mean": null,
+     "lo": null,
+     "hi": null,
+     "events": 0
+    },
+    "totalPnl": 0,
+    "profitable": false
+   },
+   "calibration": [
+    {
+     "bin": "0-10%",
+     "n": 66,
+     "avgP": 0.0508,
+     "hitRate": 0.0455
+    },
+    {
+     "bin": "10-20%",
+     "n": 62,
+     "avgP": 0.1545,
+     "hitRate": 0.1613
+    },
+    {
+     "bin": "20-30%",
+     "n": 69,
+     "avgP": 0.248,
+     "hitRate": 0.2174
+    },
+    {
+     "bin": "30-40%",
+     "n": 78,
+     "avgP": 0.3445,
+     "hitRate": 0.3462
+    },
+    {
+     "bin": "40-50%",
+     "n": 146,
+     "avgP": 0.4539,
+     "hitRate": 0.4315
+    },
+    {
+     "bin": "50-60%",
+     "n": 154,
+     "avgP": 0.5416,
+     "hitRate": 0.5
+    },
+    {
+     "bin": "60-70%",
+     "n": 44,
+     "avgP": 0.6477,
+     "hitRate": 0.5455
+    },
+    {
+     "bin": "70-80%",
+     "n": 27,
+     "avgP": 0.7519,
+     "hitRate": 0.6667
+    },
+    {
+     "bin": "80-90%",
+     "n": 26,
+     "avgP": 0.8498,
+     "hitRate": 0.8846
+    },
+    {
+     "bin": "90-100%",
+     "n": 64,
+     "avgP": 0.9444,
+     "hitRate": 0.9219
+    }
+   ]
+  },
+  "longshot": {
+   "n": 736,
+   "brier": {
+    "mean": 0.1904,
+    "lo": 0.1768,
+    "hi": 0.2039,
+    "events": 736
+   },
+   "logLoss": {
+    "mean": 0.5566,
+    "lo": 0.5209,
+    "hi": 0.5922,
+    "events": 736
+   },
+   "brierVsMarket": {
+    "mean": 0.0004,
+    "lo": -0.0004,
+    "hi": 0.0011,
+    "events": 736
+   },
+   "verdict": "no measurable difference",
+   "picks": {
+    "n": 0,
+    "wins": 0,
+    "pnlPerContract": {
+     "mean": null,
+     "lo": null,
+     "hi": null,
+     "events": 0
+    },
+    "totalPnl": 0,
+    "profitable": false
+   },
+   "calibration": [
+    {
+     "bin": "0-10%",
+     "n": 75,
+     "avgP": 0.0454,
+     "hitRate": 0.0667
+    },
+    {
+     "bin": "10-20%",
+     "n": 70,
+     "avgP": 0.1524,
+     "hitRate": 0.1714
+    },
+    {
+     "bin": "20-30%",
+     "n": 70,
+     "avgP": 0.2533,
+     "hitRate": 0.2429
+    },
+    {
+     "bin": "30-40%",
+     "n": 73,
+     "avgP": 0.3518,
+     "hitRate": 0.3562
+    },
+    {
+     "bin": "40-50%",
+     "n": 133,
+     "avgP": 0.4549,
+     "hitRate": 0.4361
+    },
+    {
+     "bin": "50-60%",
+     "n": 149,
+     "avgP": 0.5437,
+     "hitRate": 0.4966
+    },
+    {
+     "bin": "60-70%",
+     "n": 47,
+     "avgP": 0.6534,
+     "hitRate": 0.5319
+    },
+    {
+     "bin": "70-80%",
+     "n": 22,
+     "avgP": 0.754,
+     "hitRate": 0.7273
+    },
+    {
+     "bin": "80-90%",
+     "n": 27,
+     "avgP": 0.8452,
+     "hitRate": 0.8519
+    },
+    {
+     "bin": "90-100%",
+     "n": 70,
+     "avgP": 0.9532,
+     "hitRate": 0.9
+    }
+   ]
+  },
+  "memory": {
+   "n": 736,
+   "brier": {
+    "mean": 0.19,
+    "lo": 0.1771,
+    "hi": 0.2029,
+    "events": 736
+   },
+   "logLoss": {
+    "mean": 0.555,
+    "lo": 0.5221,
+    "hi": 0.5879,
+    "events": 736
+   },
+   "brierVsMarket": {
+    "mean": 0,
+    "lo": 0,
+    "hi": 0,
+    "events": 736
+   },
+   "verdict": "same as market (not active yet)",
+   "picks": {
+    "n": 0,
+    "wins": 0,
+    "pnlPerContract": {
+     "mean": null,
+     "lo": null,
+     "hi": null,
+     "events": 0
+    },
+    "totalPnl": 0,
+    "profitable": false
+   },
+   "calibration": [
+    {
+     "bin": "0-10%",
+     "n": 66,
+     "avgP": 0.0508,
+     "hitRate": 0.0455
+    },
+    {
+     "bin": "10-20%",
+     "n": 62,
+     "avgP": 0.1545,
+     "hitRate": 0.1613
+    },
+    {
+     "bin": "20-30%",
+     "n": 69,
+     "avgP": 0.248,
+     "hitRate": 0.2174
+    },
+    {
+     "bin": "30-40%",
+     "n": 78,
+     "avgP": 0.3445,
+     "hitRate": 0.3462
+    },
+    {
+     "bin": "40-50%",
+     "n": 146,
+     "avgP": 0.4539,
+     "hitRate": 0.4315
+    },
+    {
+     "bin": "50-60%",
+     "n": 154,
+     "avgP": 0.5416,
+     "hitRate": 0.5
+    },
+    {
+     "bin": "60-70%",
+     "n": 44,
+     "avgP": 0.6477,
+     "hitRate": 0.5455
+    },
+    {
+     "bin": "70-80%",
+     "n": 27,
+     "avgP": 0.7519,
+     "hitRate": 0.6667
+    },
+    {
+     "bin": "80-90%",
+     "n": 26,
+     "avgP": 0.8498,
+     "hitRate": 0.8846
+    },
+    {
+     "bin": "90-100%",
+     "n": 64,
+     "avgP": 0.9444,
+     "hitRate": 0.9219
+    }
+   ]
+  }
+ },
+ "byCategory": {
+  "Mentions": {
+   "n": 4,
+   "brierMarket": 0.0379
+  },
+  "Crypto": {
+   "n": 350,
+   "brierMarket": 0.2093
+  },
+  "Commodities": {
+   "n": 105,
+   "brierMarket": 0.252
+  },
+  "Climate and Weather": {
+   "n": 176,
+   "brierMarket": 0.1663
+  },
+  "Financials": {
+   "n": 20,
+   "brierMarket": 0.233
+  },
+  "Politics": {
+   "n": 11,
+   "brierMarket": 0.075
+  },
+  "Economics": {
+   "n": 57,
+   "brierMarket": 0.0907
+  },
+  "Entertainment": {
+   "n": 3,
+   "brierMarket": 0.0069
+  },
+  "Science and Technology": {
+   "n": 9,
+   "brierMarket": 0.0017
+  },
+  "Elections": {
+   "n": 1,
+   "brierMarket": 0.0042
+  }
+ },
+ "window": {
+  "from": "2026-11-08T15:54:21.789Z",
+  "to": "2026-11-10T15:54:21.789Z"
+ },
+ "sampleCheck": {
+  "yesRate": 0.4334,
+  "avgPrice": 0.4591,
+  "gap": -0.0257,
+  "warning": null
+ }
+}

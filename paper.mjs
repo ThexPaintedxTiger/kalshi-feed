@@ -114,6 +114,10 @@ const thin = (a, n) => a.length <= n ? a : a.filter((_, i) => i % Math.ceil(a.le
 // Reports the chance of reaching $1,000 within N bets, the chance of ever falling below the low-water mark, and the pace.
 export function monteCarlo(returns, o = P.monteCarlo, betsPerDay = null) {
   if (returns.length < 20) return null;
+  // Conservative: shift every past result down by the uncertainty of their average (1 standard error), so a lucky
+  // streak can't pass for an edge. A strategy has to have earned a real, measurable edge to show a path to $1,000.
+  const m0 = mean(returns), se = Math.sqrt(mean(returns.map(x => (x - m0) ** 2)) / (returns.length - 1));
+  returns = returns.map(x => x - se);
   const rand = rng(o.seed), horizons = o.horizons || [o.maxBets], H = Math.max(...horizons);
   const hitAt = [], lowHit = [], finals = Object.fromEntries(horizons.map(h => [h, []]));
   for (let p = 0; p < o.paths; p++) {
@@ -130,7 +134,7 @@ export function monteCarlo(returns, o = P.monteCarlo, betsPerDay = null) {
   const g = mean(returns.map(r => Math.log(Math.max(1e-9, 1 + r))));
   const med = a => a.length ? [...a].sort((x, y) => x - y)[Math.floor(a.length / 2)] : null;
   const betsFor100x = g > 0 ? Math.ceil(Math.log(P.goal / P.start) / g) : null;
-  return { paths: o.paths, growthPerBet: r4(g), betsFor100x, daysFor100x: betsFor100x && betsPerDay ? Math.ceil(betsFor100x / betsPerDay) : null,
+  return { paths: o.paths, conservativeShift: r4(se), observedMeanReturn: r4(m0), growthPerBet: r4(g), betsFor100x, daysFor100x: betsFor100x && betsPerDay ? Math.ceil(betsFor100x / betsPerDay) : null,
     pBelowLowWater: r4(mean(lowHit.map(Number))),
     byHorizon: horizons.map(h => ({ bets: h, pReachGoal: r4(mean(hitAt.map(x => (x && x <= h ? 1 : 0)))), medianEquity: r4(med(finals[h])) })) };
 }
