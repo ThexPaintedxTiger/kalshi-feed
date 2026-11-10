@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-10T21:54:44.514Z",
- "samples": 1584,
+ "updated": "2026-11-10T22:04:44.180Z",
+ "samples": 1597,
  "note": "Derived summary (rebuilt each run). bias = average (outcome − market price); > 0 means YES was underpriced in this series.",
  "series": {
   "KXAAAGASD": {
@@ -819,13 +819,13 @@
   },
   "KXDOTA2GAME": {
    "cat": "Sports",
-   "n": 6,
+   "n": 8,
    "yesRate": 0.5,
-   "avgPrice": 0.5083,
-   "bias": -0.0083,
-   "brierMarket": 0.1238,
-   "last": "2026-11-10T19:15:41.206Z",
-   "live": 6,
+   "avgPrice": 0.505,
+   "bias": -0.005,
+   "brierMarket": 0.243,
+   "last": "2026-11-10T20:00:00.000Z",
+   "live": 8,
    "backtest": 0
   },
   "KXDOTA2MAP": {
@@ -837,6 +837,17 @@
    "brierMarket": 0.2868,
    "last": "2026-11-10T20:32:46.252Z",
    "live": 9,
+   "backtest": 0
+  },
+  "KXDOTA2TOTALMAPS": {
+   "cat": "Sports",
+   "n": 1,
+   "yesRate": 1,
+   "avgPrice": 0.385,
+   "bias": 0.615,
+   "brierMarket": 0.3782,
+   "last": "2026-11-10T21:58:06.204Z",
+   "live": 1,
    "backtest": 0
   },
   "KXEARNINGSMENTIONASTS": {
@@ -1642,16 +1653,49 @@
    "live": 0,
    "backtest": 1
   },
-  "KXUST2AD": {
+  "KXUST10AD": {
    "cat": "Financials",
    "n": 1,
    "yesRate": 1,
-   "avgPrice": 0.94,
-   "bias": 0.06,
-   "brierMarket": 0.0036,
-   "last": "2026-11-09T23:02:52.051Z",
-   "live": 0,
+   "avgPrice": 0.97,
+   "bias": 0.03,
+   "brierMarket": 0.0009,
+   "last": "2026-11-10T20:30:00.000Z",
+   "live": 1,
+   "backtest": 0
+  },
+  "KXUST2AD": {
+   "cat": "Financials",
+   "n": 2,
+   "yesRate": 0.5,
+   "avgPrice": 0.9125,
+   "bias": -0.4125,
+   "brierMarket": 0.3934,
+   "last": "2026-11-10T20:30:00.000Z",
+   "live": 1,
    "backtest": 1
+  },
+  "KXUST5AD": {
+   "cat": "Financials",
+   "n": 2,
+   "yesRate": 1,
+   "avgPrice": 0.92,
+   "bias": 0.08,
+   "brierMarket": 0.0089,
+   "last": "2026-11-10T20:30:00.000Z",
+   "live": 2,
+   "backtest": 0
+  },
+  "KXUST7AD": {
+   "cat": "Financials",
+   "n": 6,
+   "yesRate": 0.5,
+   "avgPrice": 0.56,
+   "bias": -0.06,
+   "brierMarket": 0.0532,
+   "last": "2026-11-10T20:30:00.000Z",
+   "live": 6,
+   "backtest": 0
   },
   "KXVALORANTGAME": {
    "cat": "Sports",

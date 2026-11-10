@@ -4,3 +4,4 @@
 {"ts":"2026-11-10T18:01:24.457Z","n":944,"bestEpoch":7,"valLoss":0.4857,"marketValLoss":0.49,"oosN":755,"oosBrierNN":0.1849,"oosBrierMarket":0.1808,"oosDiff":0.0042,"verdict":"worse than market (out-of-sample)"}
 {"ts":"2026-11-10T18:06:43.090Z","n":1040,"bestEpoch":6,"valLoss":0.5008,"marketValLoss":0.5058,"oosN":832,"oosBrierNN":0.1805,"oosBrierMarket":0.1819,"oosDiff":-0.0014,"verdict":"no measurable difference"}
 {"ts":"2026-11-10T20:57:03.016Z","n":1255,"bestEpoch":13,"valLoss":0.5057,"marketValLoss":0.5061,"oosN":1004,"oosBrierNN":0.1799,"oosBrierMarket":0.1797,"oosDiff":0.0002,"verdict":"no measurable difference"}
+{"ts":"2026-11-10T22:06:38.781Z","n":1425,"bestEpoch":1,"valLoss":0.4993,"marketValLoss":0.4989,"oosN":1140,"oosBrierNN":0.182,"oosBrierMarket":0.1819,"oosDiff":0,"verdict":"no measurable difference"}

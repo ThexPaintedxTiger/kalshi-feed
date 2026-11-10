@@ -1,135 +1,80 @@
 {
- "updated": "2026-11-10T21:55:38.374Z",
+ "updated": "2026-11-10T22:06:40.600Z",
  "trade": {
   "answer": "No — don't trade real money yet",
   "tone": "bad",
-  "why": "Nothing has proven an edge after fees. Live: 512 markets resolved (193 events); a verdict needs 100+ and the 95% range must exclude zero. Network on unseen past markets: no measurable difference.",
+  "why": "Nothing has proven an edge after fees. Live: 525 markets resolved (199 events); a verdict needs 100+ and the 95% range must exclude zero. Network on unseen past markets: no measurable difference.",
   "next": "Let it keep collecting. The answer changes automatically when a strategy reaches SUCCESS on the live record."
  },
  "learning": [
-  "Live record: 512 of 853 predictions resolved so far (193 separate events).",
-  "longshot: failure retire — no measurable edge after 512 resolved — recommend retiring this hypothesis",
-  "memory: off track — not beating the market so far (+0.0033) — wait for 0 more resolved before judging",
-  "nn: on track — leaning better than the market (-0.0053) — wait for 0 more resolved",
-  "Neural network: tested on 1004 past markets it never saw → no measurable difference (Brier 0.1799 vs market 0.1797).",
-  "Training history: 6 runs; data grew 736 → 1255 markets; gap vs market 0.0014 → 0.0002 (below 0 = better than market).",
-  "Backtest: 1101 past markets scored."
+  "Live record: 525 of 864 predictions resolved so far (199 separate events).",
+  "longshot: failure retire — no measurable edge after 525 resolved — recommend retiring this hypothesis",
+  "memory: off track — not beating the market so far (+0.0031) — wait for 0 more resolved before judging",
+  "nn: on track — leaning better than the market (-0.0044) — wait for 0 more resolved",
+  "Neural network: tested on 1140 past markets it never saw → no measurable difference (Brier 0.182 vs market 0.1819).",
+  "Training history: 7 runs; data grew 736 → 1425 markets; gap vs market 0.0014 → 0 (below 0 = better than market).",
+  "Backtest: 1222 past markets scored."
  ],
  "watchlist": [
   {
-   "title": "Tarun Karra wins",
+   "title": "Guilherme Barbieri Renner wins",
    "cat": "Sports",
-   "resolvesAt": "2026-11-10T22:00:00.000Z",
+   "resolvesAt": "2026-11-10T22:30:00.000Z",
    "predictor": "memory",
    "status": "OFF_TRACK",
    "side": "yes",
-   "price": 0.11,
-   "ev": 0.0883,
-   "url": "https://kalshi.com/markets/kxitfmatch"
-  },
-  {
-   "title": "Isaac Forde wins",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "predictor": "memory",
-   "status": "OFF_TRACK",
-   "side": "yes",
-   "price": 0.12,
-   "ev": 0.0833,
-   "url": "https://kalshi.com/markets/kxitfmatch"
-  },
-  {
-   "title": "Agassi Rusher wins",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "predictor": "memory",
-   "status": "OFF_TRACK",
-   "side": "yes",
-   "price": 0.27,
+   "price": 0.79,
    "ev": 0.0683,
    "url": "https://kalshi.com/markets/kxitfmatch"
   },
   {
-   "title": "Jonah Braswell wins",
+   "title": "Mateus Alves wins",
    "cat": "Sports",
-   "resolvesAt": "2026-11-10T22:00:00.000Z",
+   "resolvesAt": "2026-11-10T22:30:00.000Z",
    "predictor": "memory",
    "status": "OFF_TRACK",
    "side": "yes",
-   "price": 0.9,
-   "ev": 0.08,
+   "price": 0.86,
+   "ev": 0.0783,
    "url": "https://kalshi.com/markets/kxitfmatch"
   },
   {
-   "title": "Matthias Uwe Kask wins",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T22:00:00.000Z",
+   "title": "HYPE price on Nov 10, 2026? — $73 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-10T23:00:00.000Z",
    "predictor": "memory",
    "status": "OFF_TRACK",
-   "side": "no",
-   "price": 0.45,
-   "ev": 0.0341,
-   "url": "https://kalshi.com/markets/kxitfmatch"
-  },
-  {
-   "title": "Matthew Michibata wins",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "predictor": "memory",
-   "status": "OFF_TRACK",
-   "side": "no",
-   "price": 0.77,
-   "ev": 0.0341,
-   "url": "https://kalshi.com/markets/kxitfmatch"
-  },
-  {
-   "title": "Volodymyr Gurenko wins",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "predictor": "memory",
-   "status": "OFF_TRACK",
-   "side": "no",
-   "price": 0.26,
-   "ev": 0.0291,
-   "url": "https://kalshi.com/markets/kxitfmatch"
-  },
-  {
-   "title": "Tiago Silva wins",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "predictor": "memory",
-   "status": "OFF_TRACK",
-   "side": "no",
-   "price": 0.56,
-   "ev": 0.0341,
-   "url": "https://kalshi.com/markets/kxitfmatch"
+   "side": "yes",
+   "price": 0.3,
+   "ev": 0.0295,
+   "url": "https://kalshi.com/markets/kxhyped"
   }
  ],
  "checks": [
   {
    "name": "Pipeline ran recently",
    "ok": true,
-   "detail": "last cloud run 1 min ago"
+   "detail": "last cloud run 2 min ago"
   },
   {
    "name": "Runs on schedule (every 10 min)",
    "ok": false,
-   "detail": "8 cloud runs in the last 3 h (expect ~18)"
+   "detail": "9 cloud runs in the last 3 h (expect ~18)"
   },
   {
    "name": "New predictions are being logged",
    "ok": true,
-   "detail": "23 logged in the last hour"
+   "detail": "30 logged in the last hour"
   },
   {
    "name": "Outcomes are being collected",
    "ok": true,
-   "detail": "344/362 predictions due >2 h ago have an official result"
+   "detail": "396/414 predictions due >2 h ago have an official result"
   },
   {
    "name": "Scorecard matches the logs",
    "ok": true,
-   "detail": "scorecard counts 853, log has 853"
+   "detail": "scorecard counts 864, log has 864"
   },
   {
    "name": "No prediction logged after its market resolved",
@@ -144,17 +89,17 @@
   {
    "name": "Backtest sample unbiased",
    "ok": true,
-   "detail": "YES 0.4532 vs price 0.4684"
+   "detail": "YES 0.4656 vs price 0.4722"
   },
   {
    "name": "Network trained in the last 2 h",
    "ok": true,
-   "detail": "trained 59 min ago on 1255 markets"
+   "detail": "trained 0 min ago on 1425 markets"
   },
   {
    "name": "Bet-size safety held (≤5% per bet)",
    "ok": true,
-   "detail": "largest bet 2.7932%"
+   "detail": "largest bet 2.866%"
   },
   {
    "name": "Paper money adds up",
@@ -165,6 +110,6 @@
  "problems": 1,
  "needs": [
   "Scheduled runs aren't firing. In the repo: Actions → Kalshi feed → ⋯ → Disable workflow, then Enable workflow. Until then data only updates when a run is started by hand.",
-  "Decision: longshot — no measurable edge after 512 resolved — recommend retiring this hypothesis"
+  "Decision: longshot — no measurable edge after 525 resolved — recommend retiring this hypothesis"
  ]
 }

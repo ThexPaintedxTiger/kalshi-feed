@@ -510,3 +510,16 @@
 {"ticker":"KXUCLWTOTAL-26NOV10HACCFC-2","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-10T19:56:36.214112Z","closedAt":"2026-11-10T19:52:35Z","checkedAt":"2026-11-10T21:54:44.083Z"}
 {"ticker":"KXUCLWTOTAL-26NOV10HACCFC-6","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-10T19:56:36.209115Z","closedAt":"2026-11-10T19:52:35Z","checkedAt":"2026-11-10T21:54:44.083Z"}
 {"ticker":"KXUCLWSPREAD-26NOV10RMAPAR-PAR2","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-10T19:52:31.211869Z","closedAt":"2026-11-10T19:51:01Z","checkedAt":"2026-11-10T21:54:44.083Z"}
+{"ticker":"KXUST7AD-26NOV10-T4.86","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T20:30:00Z","checkedAt":"2026-11-10T22:04:43.726Z"}
+{"ticker":"KXUST7AD-26NOV10-T4.84","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T20:30:00Z","checkedAt":"2026-11-10T22:04:43.726Z"}
+{"ticker":"KXUST5AD-26NOV10-T4.78","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T20:30:00Z","checkedAt":"2026-11-10T22:04:43.726Z"}
+{"ticker":"KXUST5AD-26NOV10-T4.76","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T20:30:00Z","checkedAt":"2026-11-10T22:04:43.726Z"}
+{"ticker":"KXDOTA2GAME-26NOV101100PRANFRO-PRAN","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T22:00:13Z","checkedAt":"2026-11-10T22:04:43.726Z"}
+{"ticker":"KXDOTA2GAME-26NOV101100PRANFRO-FRO","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T22:00:13Z","checkedAt":"2026-11-10T22:04:43.726Z"}
+{"ticker":"KXUST7AD-26NOV10-T4.90","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T20:30:00Z","checkedAt":"2026-11-10T22:04:43.726Z"}
+{"ticker":"KXDOTA2TOTALMAPS-26NOV101100PRANFRO-3","result":"yes","raw":"yes","status":"finalized","settledAt":"2026-11-10T21:58:06.204764Z","closedAt":"2026-11-10T21:55:05Z","checkedAt":"2026-11-10T22:04:43.726Z"}
+{"ticker":"KXUST7AD-26NOV10-T4.88","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T20:30:00Z","checkedAt":"2026-11-10T22:04:43.726Z"}
+{"ticker":"KXUST2AD-26NOV10-T4.73","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T20:30:00Z","checkedAt":"2026-11-10T22:04:43.726Z"}
+{"ticker":"KXUST10AD-26NOV10-T4.94","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T20:30:00Z","checkedAt":"2026-11-10T22:04:43.726Z"}
+{"ticker":"KXUST7AD-26NOV10-T4.94","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T20:30:00Z","checkedAt":"2026-11-10T22:04:43.726Z"}
+{"ticker":"KXUST7AD-26NOV10-T4.92","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T20:30:00Z","checkedAt":"2026-11-10T22:04:43.726Z"}
