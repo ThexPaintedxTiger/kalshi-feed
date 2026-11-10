@@ -70,3 +70,6 @@ export async function categories(seriesList, limit = 30) {
   writeJson("data/series.json", cats);
   return cats.map;
 }
+
+// FNV-1a hash: a fixed order that can't depend on outcomes (used to pick backtest markets within an event).
+export const hash = t => { let h = 2166136261; for (const ch of String(t)) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; };

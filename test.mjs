@@ -1,6 +1,6 @@
 // Offline checks for the math and the leakage guard. Run: node test.mjs
 import assert from "node:assert/strict";
-import { fee, ev, resolvesAt } from "./lib.mjs";
+import { fee, ev, resolvesAt, hash } from "./lib.mjs";
 import { brier, logLoss, pnl, score } from "./score.mjs";
 import { predictorStatus, health, trend, evaluate } from "./progress.mjs";
 import { makeRecall } from "./memory.mjs";
@@ -85,4 +85,5 @@ assert.equal(csv.length, 3);
 const { map } = mapColumns(csv[0]);
 assert.deepEqual(normalize(csv[1], map), { ticker: "KX-A", side: "yes", sell: false, price: 0.62, count: 3, fees: 0.05, time: null });
 assert.equal(normalize(csv[2], map).sell, true);
+assert.equal(hash("KX-A"), hash("KX-A")); assert.notEqual(hash("KX-A-YES"), hash("KX-A-NO"));  // stable, outcome-independent order
 console.log("all tests passed");

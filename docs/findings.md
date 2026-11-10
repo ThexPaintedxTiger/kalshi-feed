@@ -16,8 +16,7 @@ Dated, sourced observations. Facts here are verified unless marked *hypothesis*.
 - `/series/{series}/markets/{ticker}/candlesticks?start_ts&end_ts&period_interval=1|60` returns `yes_bid`/`yes_ask` OHLC per period: historical
   quotes at any past minute. `/historical/markets` and `/markets/trades` also exist (not used yet).
 - Candle yield: only ~25% of liquid settled markets have a two-sided quote within 10¢ spread an hour before close; many open less than an hour before close.
-- First backtest (302 past markets, 1 per event, prices 60 min before resolution, Nov 10 09:27–15:27 UTC): market Brier 0.178;
-  longshot +0.0003 vs market (95% range −0.0011…+0.0017): **no measurable difference**. One day of data, US daytime only; not a conclusion.
+- ~~First backtest (302 markets)~~ **Retracted**: its sample was biased by outcome-dependent selection (see lessons.md). Rebuilt in config v3.
 
 ## Hypotheses to test (not yet evidence)
 - *Series memory*: a series' past gap between outcome and price persists. Predictor `memory` (minN 10, shrink 20). Needs history to activate.

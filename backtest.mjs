@@ -2,7 +2,7 @@
 // price history. For each settled market it takes the bid/ask from 1-minute candles ending `leadMinutes` before the
 // market resolved, runs the same predictors as the live pipeline, and stores the result next to the official outcome.
 // Kept separate from the live record (data/backtest/, backtest-scorecard.json): a backtest supports, never replaces, live evidence.
-import { config, kalshi, sleep, series, r4, readJson, writeJson, readJsonl, appendJsonl, categories } from "./lib.mjs";
+import { config, kalshi, sleep, series, r4, readJson, writeJson, appendJsonl, categories, hash } from "./lib.mjs";
 import { estimate } from "./predictors.mjs";
 import { loadSamples, makeRecall, backtestRows } from "./memory.mjs";
 import { score } from "./score.mjs";
@@ -26,6 +26,7 @@ const recall = makeRecall(loadSamples());
 const rows = []; let calls = 0, listed = 0, rejected = {};
 const skip = why => { rejected[why] = (rejected[why] || 0) + 1; };
 
+
 // Price snapshot at time T from 1-minute candles: last candle that ended at or before T with both bid and ask.
 async function snapshot(m, T) {
   const t = Math.floor(T / 1000);
@@ -43,15 +44,15 @@ for (const [a, b, dir] of slices) {
     ms.push(...(j.markets || [])); cursor = j.cursor; pages++; await sleep(250);
   } while (cursor && pages < 30);
   listed += ms.length;
-  // Same spirit as live: liquid, settled yes/no, at most B.perEvent per event (most traded first; prices unknown until fetched).
+  // Pick markets WITHOUT using anything that depends on the outcome: liquidity is judged per event (largest market),
+  // and the market tried first within an event is chosen by a fixed hash of its ticker (not by its own final volume,
+  // which grows on the eventual winner and leaked the result in the first version).
   const byEvent = {};
-  for (const m of ms) {
-    if (done.has(m.ticker) || (m.result !== "yes" && m.result !== "no") || +(m.volume_fp || 0) < (B.minVolume ?? S.minVolume)) continue;
-    (byEvent[m.event_ticker] ||= []).push(m);
-  }
+  for (const m of ms) if (m.result === "yes" || m.result === "no") (byEvent[m.event_ticker] ||= []).push(m);
   let complete = true;
   for (const group of Object.values(byEvent)) {
-    group.sort((x, y) => +y.volume_fp - +x.volume_fp);
+    if (group.some(m => done.has(m.ticker)) || Math.max(...group.map(m => +(m.volume_fp || 0))) < (B.minVolume ?? S.minVolume)) continue;
+    group.sort((x, y) => hash(x.ticker) - hash(y.ticker));
     let kept = 0;
     for (const m of group.slice(0, B.perEvent * 3)) {
       if (kept >= B.perEvent) break;
@@ -91,6 +92,11 @@ const all = backtestRows();
 const sc = score(all, all.map(r => ({ ticker: r.ticker, result: r.y ? "yes" : "no", settledAt: r.settledAt, closedAt: r.resolvesAt })));
 sc.note = "BACKTEST on already-settled markets (prices from Kalshi candles " + B.leadMinutes + " min before resolution). Supports, never replaces, the live record. " + sc.note;
 sc.window = { from: new Date(state.oldest).toISOString(), to: new Date(state.newest).toISOString() };
+// Sample check: in an unbiased sample, YES wins about as often as prices implied. A large gap means the selection leaked outcomes.
+const yes = all.reduce((t, r) => t + r.y, 0) / (all.length || 1), price = all.reduce((t, r) => t + r.mid, 0) / (all.length || 1);
+sc.sampleCheck = { yesRate: r4(yes), avgPrice: r4(price), gap: r4(yes - price),
+  warning: all.length >= 200 && Math.abs(yes - price) > 0.05 ? "YES rate differs from average price by more than 5 points: check the sample for selection bias before trusting results" : null };
 writeJson("backtest-scorecard.json", sc);
+if (sc.sampleCheck.warning) console.log("WARNING:", sc.sampleCheck.warning, JSON.stringify(sc.sampleCheck));
 console.log(`backtest: listed ${listed} settled, added ${rows.length} (candle calls ${calls}), total ${all.length}; skipped ${JSON.stringify(rejected)}; ` +
   Object.entries(sc.predictors).map(([k, v]) => `${k} brier ${v.brier.mean} vs mkt ${v.brierVsMarket.mean} (${v.verdict})`).join("; "));
