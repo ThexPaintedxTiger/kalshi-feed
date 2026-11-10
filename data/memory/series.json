@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-10T16:33:37.900Z",
- "samples": 301,
+ "updated": "2026-11-10T16:38:57.585Z",
+ "samples": 302,
  "note": "Derived summary (rebuilt each run). bias = average (outcome − market price); > 0 means YES was underpriced in this series.",
  "series": {
   "KXAIRFARECPI": {
@@ -313,14 +313,14 @@
   },
   "KXITFMATCH": {
    "cat": "Sports",
-   "n": 55,
-   "yesRate": 0.6182,
-   "avgPrice": 0.4875,
-   "bias": 0.1306,
-   "brierMarket": 0.1737,
-   "last": "2026-11-10T15:13:56.204Z",
+   "n": 56,
+   "yesRate": 0.625,
+   "avgPrice": 0.4848,
+   "bias": 0.1402,
+   "brierMarket": 0.1785,
+   "last": "2026-11-10T15:38:46.203Z",
    "live": 0,
-   "backtest": 55
+   "backtest": 56
   },
   "KXITFWDOUBLES": {
    "cat": "Sports",
