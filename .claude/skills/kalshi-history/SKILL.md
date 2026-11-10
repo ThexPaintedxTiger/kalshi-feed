@@ -28,6 +28,15 @@ The `memory` predictor uses the same lookup, but only with markets settled befor
 3. If columns aren't recognized, it prints the header; add the names to `ALIASES` in `import-trades.mjs`. Sells are not scored yet.
 Never ask for Kalshi login details or API keys.
 
+## Neural network and paper portfolios
+```bash
+FORCE=1 node nn.mjs     # retrain now (hourly in the Action): walk-forward test, holdout curve, final model
+node paper.mjs          # rebuild all $10 portfolios + Monte Carlo odds of reaching $1,000
+```
+Read `data/nn/model.json → oos.verdict` before saying the network is better than the market; anything else is not evidence.
+Portfolio results are paper money: report them with the number of settled bets, and say "noise" below ~100.
+To add a strategy: add an entry to `config.json → paper.portfolios` (predictor, sizing kelly|fixed, kelly, minEdge, maxFrac).
+
 ## MCP server (read-only)
 ```bash
 npm --prefix mcp install     # once

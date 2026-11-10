@@ -8,7 +8,7 @@
 :root{
   --bg:#14151a; --panel:#191a20; --card:#22242c; --line:#353844; --line-soft:#262832; --dot:#2b2e38;
   --fg:#e6e7eb; --muted:#9a9daa; --faint:#6f7280;
-  --accent:#ff6d5a; --info:#7dd3fc; --good:#4ade80; --bad:#f87171; --warn:#fbbf24; --violet:#a78bfa;
+  --accent:#ff6d5a; --info:#7dd3fc; --good:#4ade80; --bad:#f87171; --warn:#fbbf24; --violet:#a78bfa; --pink:#f472b6; --teal:#2dd4bf;
   --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
   color-scheme:dark;
 }
@@ -45,7 +45,7 @@ h2{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute
 .sim{border:1px dashed var(--warn);color:var(--warn);border-radius:10px;padding:8px 12px;font-size:13px}
 /* Flow canvas */
 .canvas-scroll{overflow-x:auto;border-radius:12px;border:1px solid var(--line-soft)}
-.canvas{position:relative;width:1920px;height:520px;background-color:var(--bg);background-image:radial-gradient(var(--dot) 1px,transparent 1px);background-size:22px 22px}
+.canvas{position:relative;width:1920px;height:620px;background-color:var(--bg);background-image:radial-gradient(var(--dot) 1px,transparent 1px);background-size:22px 22px}
 .canvas svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .edge{fill:none;stroke:var(--faint);stroke-width:2.5}
 .edge.live{stroke:var(--info);stroke-dasharray:6 5;animation:dash .8s linear infinite}
@@ -116,7 +116,7 @@ input[type=search]{font:inherit;color:inherit;background:var(--card);border:1px 
     <button id="refresh" type="button">Refresh</button>
   </div>
   <nav class="wrap" aria-label="Views">
-    <a href="#agent">Agent</a><a href="#trades">Trades</a><a href="#data">Data</a><a href="#skills">Skills</a>
+    <a href="#agent">Agent</a><a href="#nn">Neural net</a><a href="#pnl">Profit &amp; loss</a><a href="#trades">Trades</a><a href="#data">Data</a><a href="#skills">Skills</a>
   </nav>
 </header>
 
@@ -136,6 +136,36 @@ input[type=search]{font:inherit;color:inherit;background:var(--card);border:1px 
     <div class="grid2">
       <div class="panel"><h2>Predictions logged per run</h2><div id="spark"></div></div>
       <div class="panel"><h2>Pipeline health</h2><ul class="checks" id="health"></ul></div>
+    </div>
+  </section>
+
+  <section id="v-nn" data-view hidden>
+    <div class="kpis" id="nnKpis"></div>
+    <div style="height:16px"></div>
+    <div class="panel"><h2>The network (drawn from its trained weights)</h2>
+      <p class="small muted" style="margin-top:0">Each line is a weight: <span class="c-good">green</span> pushes up, <span class="c-bad">red</span> pushes down, brighter = stronger. The output is a correction added to the market price, so an untrained network equals the market.</p>
+      <div class="canvas-scroll"><div id="nnNet"></div></div></div>
+    <div style="height:16px"></div>
+    <div class="grid2">
+      <div class="panel"><h2>Training curve (latest run)</h2><div id="nnCurve"></div></div>
+      <div class="panel"><h2>What the network relies on</h2><div class="bars" id="nnImp"></div></div>
+    </div>
+    <div style="height:16px"></div>
+    <div class="panel"><h2>Training history (each hourly run)</h2><div class="tscroll" id="nnLog"></div>
+      <p class="small muted">How it learns: every hour it retrains on all settled markets so far. The honest score is the walk-forward test: train on older markets, predict newer ones it has never seen, repeat. Only that score counts.</p></div>
+  </section>
+
+  <section id="v-pnl" data-view hidden>
+    <p class="sim">Simulation only. $10 of paper money per portfolio, real Kalshi prices and fees, nothing is traded. Replay uses past settled markets; Forward uses live predictions and is the record that counts.</p>
+    <div style="height:12px"></div>
+    <div class="chips" id="modeChips"></div>
+    <div class="panel"><h2>Equity: $10 → $1,000? (log scale)</h2><div id="eqChart"></div><div class="chips" id="eqLegend" style="margin-top:8px"></div></div>
+    <div style="height:16px"></div>
+    <div class="panel"><h2>Portfolios</h2><div class="tscroll" id="pfTable"></div></div>
+    <div style="height:16px"></div>
+    <div class="grid2">
+      <div class="panel"><h2>How do you get $10 to $1,000?</h2><div id="howTo"></div></div>
+      <div class="panel"><h2>Recent paper bets</h2><div class="chips" id="pfChips"></div><div class="tscroll" id="pfBets"></div></div>
     </div>
   </section>
 
@@ -237,18 +267,22 @@ function nodes() {
       what: "Checks the math (fees, expected value, Brier, log loss), the leakage guard and every goal status. A failure stops the run so bad numbers never get logged.", cost: "Free", skill: "kalshi-run-cycle" },
     { id: "discover", x: 480, y: 200, c: "var(--info)", ic: "🔎", nm: "Discover markets", sub: "predict.mjs · Kalshi API", stat: last.scanned ? `${last.scanned.toLocaleString()} scanned · ${last.candidates} short` : "waiting for first run", s: last.logged ? "done" : "wait",
       what: `Reads open Kalshi markets (public data) and keeps those resolving in ${D.config.scan.minLeadMinutes} min–${D.config.scan.horizonHours} h with bid > 0, spread ≤ ${cents(D.config.scan.maxSpread)} and volume ≥ ${D.config.scan.minVolume}. Logs up to ${D.config.scan.maxNewPerRun} new markets per run, rotating across categories.`, cost: "Free · ~50 API requests per run", skill: "kalshi-run-cycle" },
-    { id: "market", x: 750, y: 40, c: "var(--muted)", ic: "⚖️", nm: "Market baseline", sub: "predictor · market", stat: "P = mid price · the bar to beat", s: "done", tag: "baseline",
+    { id: "market", x: 750, y: 30, c: "var(--muted)", ic: "⚖️", nm: "Market baseline", sub: "predictor · market", stat: "P = mid price · the bar to beat", s: "done", tag: "baseline",
       what: D.config.predictors.market.hypothesis + " Every other predictor is scored against it on the same markets. It can never show a profitable pick, by design.", cost: "Free", skill: "kalshi-check-progress" },
-    { id: "longshot", x: 750, y: 150, c: "var(--accent)", ic: "🎯", nm: "Longshot bias", sub: `predictor · slope ${D.config.predictors.longshot?.slope}`, stat: `${label(pr.longshot?.status)} · ${pr.longshot?.n || 0}/${G.minResolved}`, s: "run", tag: "hypothesis",
+    { id: "longshot", x: 750, y: 135, c: "var(--accent)", ic: "🎯", nm: "Longshot bias", sub: `predictor · slope ${D.config.predictors.longshot?.slope}`, stat: `${label(pr.longshot?.status)} · ${pr.longshot?.n || 0}/${G.minResolved}`, s: "run", tag: "hypothesis",
       what: (D.config.predictors.longshot?.hypothesis || "") + " Status: " + (pr.longshot?.rec || ""), cost: "Free", skill: "kalshi-add-predictor (to add more ideas)" },
-    { id: "gemini", x: 750, y: 370, c: "var(--violet)", ic: "🤖", nm: "Gemini analysts", sub: "agents.mjs · hourly", stat: `${D.gemini.picks.length} picks · not scored yet`, s: "idle", dim: true, tag: "dashboard only",
+    { id: "gemini", x: 750, y: 450, c: "var(--violet)", ic: "🤖", nm: "Gemini analysts", sub: "agents.mjs · hourly", stat: `${D.gemini.picks.length} picks · not scored yet`, s: "idle", dim: true, tag: "dashboard only",
       what: "Three AI analysts (momentum, base rate, rules) rate the dashboard's top markets once an hour in one free Gemini call. Their picks are not part of the scored pipeline yet; they must beat the code predictors before they cost anything.", cost: "Free Gemini tier (1 call/hour)", skill: "kalshi-add-predictor (to score it)" },
-    { id: "memoryP", x: 750, y: 260, c: "var(--good)", ic: "🧠", nm: "Series memory", sub: `predictor · min ${D.config.predictors.memory?.minN} past`, stat: `${label(pr.memory?.status)} · ${pr.memory?.n || 0}/${G.minResolved}`, s: "run", tag: "hypothesis",
+    { id: "memoryP", x: 750, y: 240, c: "var(--good)", ic: "🧠", nm: "Series memory", sub: `predictor · min ${D.config.predictors.memory?.minN} past`, stat: `${label(pr.memory?.status)} · ${pr.memory?.n || 0}/${G.minResolved}`, s: "run", tag: "hypothesis",
       what: (D.config.predictors.memory?.hypothesis || "") + " It only uses markets that settled before the moment of prediction. Status: " + (pr.memory?.rec || ""), cost: "Free", skill: "kalshi-add-predictor" },
-    { id: "memstore", x: 480, y: 400, c: "var(--good)", ic: "🗂", nm: "Memory", sub: "memory.mjs → data/memory/", stat: `${D.memory?.samples || 0} settled · ${D.memory?.series || 0} series`, s: D.memory?.samples ? "done" : "wait",
+    { id: "memstore", x: 480, y: 500, c: "var(--good)", ic: "🗂", nm: "Memory", sub: "memory.mjs → data/memory/", stat: `${D.memory?.samples || 0} settled · ${D.memory?.series || 0} series`, s: D.memory?.samples ? "done" : "wait",
       what: "What the agent knows about each Kalshi series: how many settled markets it has seen, how often YES won, the average price and the price-vs-outcome gap. Built from live outcomes and the backtest. Retrieval is a direct lookup by series (no vector database needed at this size). Claude can query it through the MCP tool recall_series.", cost: "Free · rebuilt each run", skill: "kalshi-history" },
-    { id: "backtest", x: 1010, y: 400, c: "var(--violet)", ic: "⏪", nm: "Backtest agent", sub: "backtest.mjs · hourly", stat: `${D.backtest?.resolved || 0} past markets scored`, s: D.backtest?.resolved ? "done" : "wait", tag: "dev agent",
+    { id: "backtest", x: 1010, y: 500, c: "var(--violet)", ic: "⏪", nm: "Backtest agent", sub: "backtest.mjs · hourly", stat: `${D.backtest?.resolved || 0} past markets scored`, s: D.backtest?.resolved ? "done" : "wait", tag: "dev agent",
       what: `Rebuilds predictions for markets that already settled: takes the bid/ask from Kalshi's 1-minute price history ${D.config.backtest?.leadMinutes} min before resolution, runs the same predictors, and scores them against the official result. Kept separate from the live record: it supports, never replaces, live evidence.`, cost: `Free · ≤${D.config.backtest?.maxCandleCalls} API calls per hour`, skill: "kalshi-history" },
+    { id: "nnP", x: 750, y: 345, c: "var(--pink)", ic: "🕸", nm: "Neural network", sub: `predictor · ${(D.nn?.architecture || []).join("→") || "not trained"}`, stat: D.nn?.oos ? `out-of-sample: ${label(D.nn.oos.verdict)}` : (D.nn?.status || "waiting for data"), s: D.nn?.model ? "run" : "wait", tag: "learns hourly",
+      what: "A small neural network that learns corrections to the market price from settled markets (price, spread, time of day, category, series memory). It retrains every hour; only its walk-forward score on markets it never saw counts. Open the Neural net tab for the network, training curve and history.", cost: "Free · trains in seconds", skill: "kalshi-history" },
+    { id: "paper", x: 1490, y: 400, c: "var(--teal)", ic: "💵", nm: "Paper portfolios", sub: "paper.mjs · $10 each", stat: (() => { const f = D.paper?.replay?.portfolios || []; const b = f.filter(p => p.predictor).sort((a, b) => b.equity - a.equity)[0]; return b ? `best replay: $${b.equity}` : "waiting"; })(), s: D.paper ? "done" : "wait",
+      what: "Several $10 paper portfolios, each a different strategy (controls, neural net at different bet sizes, longshot, memory), trading the predictions with real prices and fees. A Monte Carlo estimates each one's chance of reaching $1,000. Open the Profit & loss tab.", cost: "Free", skill: "kalshi-check-progress" },
     { id: "mcp", x: 1730, y: 400, c: "var(--info)", ic: "🔌", nm: "MCP server", sub: "mcp/server.mjs · read-only", stat: `${(D.mcpTools || []).length} tools for Claude`, s: "done",
       what: "Lets Claude (Desktop or Code) answer questions from the agent's real files: status, scorecards, predictions, series memory, skills. Read-only: it never writes, never calls Kalshi, never trades, and never exposes your private trade report.", cost: "Free · runs locally", skill: "kalshi-history" },
     { id: "log", x: 1010, y: 200, c: "var(--warn)", ic: "📒", nm: "Prediction log", sub: "data/predictions/*.jsonl", stat: `${D.totals.predictions.toLocaleString()} predictions`, s: "done",
@@ -263,7 +297,8 @@ function nodes() {
 }
 const EDGES = [["sched", "tests", "live"], ["tests", "discover", "live"], ["discover", "market", "live"], ["discover", "longshot", "live"], ["discover", "gemini", "dim"],
   ["market", "log", "live"], ["longshot", "log", "live"], ["memoryP", "log", "live"], ["log", "resolve", "live"], ["resolve", "score", "live"], ["score", "progress", "live"],
-  ["discover", "memoryP", "live"], ["memstore", "memoryP", "live"], ["backtest", "score", "live"], ["resolve", "memstore", "under"], ["backtest", "memstore", "under"], ["progress", "mcp", "down"]];
+  ["discover", "memoryP", "live"], ["memstore", "memoryP", "live"], ["backtest", "score", "live"], ["resolve", "memstore", "under"], ["backtest", "memstore", "under"], ["progress", "mcp", "down"],
+  ["discover", "nnP", "live"], ["nnP", "log", "live"], ["memstore", "nnP", "live"], ["log", "paper", "live"], ["backtest", "paper", "live"]];
 
 function renderAgent() {
   const N = nodes(), byId = Object.fromEntries(N.map(n => [n.id, n])), W = 200, H = 86;
@@ -379,7 +414,96 @@ function renderHistory() {
     : `<div class="empty">Memory fills as markets settle.</div>`;
   $("#mcp").innerHTML = (D.mcpTools || []).map(t => `<span class="chip">${esc(t)}</span>`).join("");
 }
-function render() { if (!D) return; renderKpis(); renderAgent(); renderGoals(); renderTrades(); renderData(); renderSkills(); renderHistory(); paintPills(); }
+// ---------- Neural net ----------
+function renderNN() {
+  const n = D.nn;
+  if (!n || !n.model) { $("#nnKpis").innerHTML = ""; ["#nnNet", "#nnCurve", "#nnImp", "#nnLog"].forEach(s => $(s).innerHTML = `<div class="empty">${esc(n?.status || "The network hasn't trained yet. It needs settled markets; training runs hourly.")}</div>`); return; }
+  const o = n.oos || {};
+  $("#nnKpis").innerHTML = [[n.n, "settled markets trained on"], [o.n ?? 0, "tested on unseen markets"], [`${o.brierNN} / ${o.brierMarket}`, "Brier: network / market (lower wins)"],
+    [`<span class="pill ${/beats/.test(o.verdict) ? "c-good" : /worse/.test(o.verdict) ? "c-bad" : "c-muted"}">${esc(o.verdict)}</span>`, "out-of-sample verdict"], [when(n.trained), "last trained"]]
+    .map(([v, l]) => `<div class="kpi"><b style="font-size:${String(v).length > 12 ? 15 : 24}px">${v}</b><span>${l}</span></div>`).join("");
+  // Network diagram
+  const sizes = n.architecture, W = n.model.W, colW = 260, top = 24, rowH = 30, Hh = Math.max(...sizes) * rowH + top * 2, Wd = 220 + colW * (sizes.length - 1) + 80;
+  const ys = sizes.map(k => Array.from({ length: k }, (_, i) => top + (Hh - top * 2 - (k - 1) * rowH) / 2 + i * rowH));
+  const xs = sizes.map((_, l) => 200 + l * colW);
+  const maxW = Math.max(...W.flat(2).map(Math.abs)) || 1;
+  let lines = "";
+  W.forEach((L, l) => L.forEach((row, i) => row.forEach((w, j) => {
+    const a = Math.abs(w) / maxW; if (a < 0.04) return;
+    lines += `<line x1="${xs[l]}" y1="${ys[l][j]}" x2="${xs[l + 1]}" y2="${ys[l + 1][i]}" stroke="${w > 0 ? "var(--good)" : "var(--bad)"}" stroke-opacity="${(0.08 + a * 0.85).toFixed(2)}" stroke-width="${(0.5 + a * 2.5).toFixed(2)}"/>`;
+  })));
+  const names = ["inputs", ...sizes.slice(1, -1).map((k, i) => `hidden ${i + 1} (${k})`), "correction"];
+  const dots = sizes.map((k, l) => ys[l].map((y, i) => `<circle cx="${xs[l]}" cy="${y}" r="7" fill="var(--card)" stroke="${l === 0 ? "var(--info)" : l === sizes.length - 1 ? "var(--accent)" : "var(--pink)"}" stroke-width="2"/>` +
+    (l === 0 ? `<text x="${xs[l] - 14}" y="${y + 4}" fill="var(--muted)" font-size="11" text-anchor="end">${esc(n.features[i])}</text>` : "")).join("")).join("");
+  const heads = names.map((t, l) => `<text x="${xs[l]}" y="14" fill="var(--muted)" font-size="11" text-anchor="middle">${t}</text>`).join("");
+  $("#nnNet").innerHTML = `<svg viewBox="0 0 ${Wd} ${Hh}" width="${Wd}" height="${Hh}" role="img" aria-label="Neural network diagram">${lines}${dots}${heads}
+    <text x="${xs.at(-1) + 14}" y="${ys.at(-1)[0] + 4}" fill="var(--fg)" font-size="12">+ market price → P(YES)</text></svg>`;
+  // Training curve
+  const c = n.holdout?.curve || [], cw = 600, ch = 200, pad = 34;
+  if (c.length) {
+    const vals = c.flatMap(p => [p.train, p.val]).concat([n.holdout.marketValLoss]).filter(v => v != null), lo = Math.min(...vals), hi = Math.max(...vals), span = hi - lo || 1;
+    const X = e => pad + (e - 1) / Math.max(1, c.at(-1).epoch - 1) * (cw - pad - 8), Y = v => 8 + (1 - (v - lo) / span) * (ch - 30);
+    const line = k => c.filter(p => p[k] != null).map((p, i) => `${i ? "L" : "M"}${X(p.epoch).toFixed(1)},${Y(p[k]).toFixed(1)}`).join("");
+    $("#nnCurve").innerHTML = `<svg viewBox="0 0 ${cw} ${ch}" style="width:100%;height:auto" role="img" aria-label="Training and validation loss per epoch">
+      <line x1="${pad}" x2="${cw - 8}" y1="${Y(n.holdout.marketValLoss)}" y2="${Y(n.holdout.marketValLoss)}" stroke="var(--warn)" stroke-dasharray="5 4"/>
+      <line x1="${X(n.holdout.bestEpoch)}" x2="${X(n.holdout.bestEpoch)}" y1="8" y2="${ch - 22}" stroke="var(--line)" stroke-dasharray="3 4"/>
+      <path d="${line("train")}" fill="none" stroke="var(--violet)" stroke-width="2"/><path d="${line("val")}" fill="none" stroke="var(--pink)" stroke-width="2"/>
+      <text x="${pad}" y="${ch - 6}" fill="var(--muted)" font-size="11">epoch 1</text><text x="${cw - 8}" y="${ch - 6}" fill="var(--muted)" font-size="11" text-anchor="end">epoch ${c.at(-1).epoch}</text>
+      <text x="${pad - 4}" y="${Y(hi) + 4}" fill="var(--muted)" font-size="10" text-anchor="end">${hi.toFixed(3)}</text><text x="${pad - 4}" y="${Y(lo) + 4}" fill="var(--muted)" font-size="10" text-anchor="end">${lo.toFixed(3)}</text></svg>
+      <p class="small muted"><span style="color:var(--violet)">■</span> training loss · <span style="color:var(--pink)">■</span> validation loss · <span style="color:var(--warn)">- -</span> market on the same validation markets · best epoch ${n.holdout.bestEpoch}. Lower is better. This validation set also picks the epoch, so it flatters the network; the walk-forward verdict above doesn't.</p>`;
+  }
+  const imp = n.importance || [], mx = Math.max(...imp.map(i => i.weight), 0.001);
+  $("#nnImp").innerHTML = imp.map(i => `<div class="barrow"><span class="small">${esc(i.feature)}</span><div class="track"><i style="width:${i.weight / mx * 100}%;background:var(--pink)"></i></div><span class="small muted" style="text-align:right">${(i.weight * 100).toFixed(1)}%</span></div>`).join("");
+  const L = (n.log || []).slice().reverse();
+  $("#nnLog").innerHTML = L.length ? `<table><thead><tr><th>Trained</th><th class="n">Markets</th><th class="n">Tested unseen</th><th class="n">Brier net</th><th class="n">Brier market</th><th class="n">Difference</th><th>Verdict</th></tr></thead><tbody>${
+    L.map(r => `<tr><td>${when(r.ts)}</td><td class="n">${r.n}</td><td class="n">${r.oosN}</td><td class="n">${r.oosBrierNN}</td><td class="n">${r.oosBrierMarket}</td><td class="n ${r.oosDiff < 0 ? "c-good" : r.oosDiff > 0 ? "c-bad" : ""}">${sgn(r.oosDiff)}</td><td>${esc(r.verdict)}</td></tr>`).join("")}</tbody></table>` : `<div class="empty">No training runs yet.</div>`;
+}
+
+// ---------- Profit & loss ----------
+let pnlMode = "replay", pfSel = null;
+const PF_COLORS = ["var(--muted)", "var(--faint)", "var(--pink)", "var(--accent)", "var(--warn)", "var(--info)", "var(--good)", "var(--violet)", "var(--teal)"];
+function renderPnL() {
+  const P = D.paper;
+  if (!P) { $("#eqChart").innerHTML = `<div class="empty">Paper trading starts after the first run.</div>`; return; }
+  const M = P[pnlMode], pfs = M.portfolios, col = i => PF_COLORS[i % PF_COLORS.length];
+  $("#modeChips").innerHTML = [["replay", `Replay: ${P.replay.rows} past markets`], ["forward", `Forward: ${P.forward.settled}/${P.forward.rows} live settled`]]
+    .map(([k, t]) => `<button type="button" class="chip" aria-pressed="${k === pnlMode}" data-m="${k}">${esc(t)}</button>`).join("");
+  $("#modeChips").querySelectorAll(".chip").forEach(b => b.onclick = () => { pnlMode = b.dataset.m; renderPnL(); });
+  // Equity chart, log scale
+  const w = 900, h = 300, pl = 54, pr = 12, pt = 10, pb = 26, pts = pfs.flatMap(p => p.curve);
+  if (pts.length > pfs.length) {
+    const t0 = Math.min(...pts.map(p => p[0])), t1 = Math.max(...pts.map(p => p[0]).filter(Number.isFinite), t0 + 1);
+    const lo = Math.log10(0.5), hi = Math.log10(Math.max(P.goal * 1.2, ...pts.map(p => p[1])));
+    const X = t => pl + (Math.min(t, t1) - t0) / (t1 - t0) * (w - pl - pr), Y = v => pt + (1 - (Math.log10(Math.max(0.5, v)) - lo) / (hi - lo)) * (h - pt - pb);
+    const ticks = [0.5, 1, 10, 100, 1000].map(v => `<line x1="${pl}" x2="${w - pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="${v === 10 ? "var(--line)" : v === 1000 ? "var(--good)" : "var(--line-soft)"}" ${v === 1000 || v === 10 ? 'stroke-dasharray="5 4"' : ""}/><text x="${pl - 6}" y="${Y(v) + 4}" fill="var(--muted)" font-size="11" text-anchor="end">$${v}</text>`).join("");
+    const lines = pfs.map((p, i) => { const c = p.curve.filter(q => Number.isFinite(q[0])); return c.length > 1 ? `<path d="${c.map((q, k) => `${k ? "L" : "M"}${X(q[0]).toFixed(1)},${Y(q[1]).toFixed(1)}`).join("")}" fill="none" stroke="${col(i)}" stroke-width="${p.id === pfSel ? 3 : 1.8}"><title>${esc(p.name)}: $${p.equity}</title></path>` : ""; }).join("");
+    $("#eqChart").innerHTML = `<svg viewBox="0 0 ${w} ${h}" style="width:100%;height:auto" role="img" aria-label="Portfolio equity over time">${ticks}${lines}
+      <text x="${w - pr}" y="${Y(1000) - 6}" fill="var(--good)" font-size="11" text-anchor="end">goal $1,000</text>
+      <text x="${pl}" y="${h - 6}" fill="var(--muted)" font-size="11">${esc(when(new Date(t0).toISOString()))}</text><text x="${w - pr}" y="${h - 6}" fill="var(--muted)" font-size="11" text-anchor="end">${esc(when(new Date(t1).toISOString()))}</text></svg>`;
+  } else $("#eqChart").innerHTML = `<div class="empty">${pnlMode === "forward" ? "No live predictions have settled under the current strategy yet. Forward results appear as markets resolve." : "No replay data yet."}</div>`;
+  $("#eqLegend").innerHTML = pfs.map((p, i) => `<span class="small" style="display:inline-flex;align-items:center;gap:6px"><i style="width:12px;height:3px;background:${col(i)};display:inline-block"></i>${esc(p.name)}</span>`).join("");
+  const pct2 = v => v == null ? "–" : (v * 100).toFixed(v < 0.01 && v > 0 ? 2 : 1) + "%";
+  $("#pfTable").innerHTML = `<table><thead><tr><th>Strategy</th><th class="n">Now</th><th class="n">Return</th><th class="n">Bets</th><th class="n">Won</th><th class="n">Fees</th><th class="n">Max drop</th><th>Status</th><th class="n">Chance of $1,000</th><th class="n">Chance of bust</th><th class="n">Bets for 100×</th></tr></thead><tbody>${
+    pfs.map((p, i) => { const mc = p.monteCarlo; const st = p.reachedGoal ? `<span class="pill c-good">reached $1,000</span>` : p.busted ? `<span class="pill c-bad">busted</span>` : p.predictor ? `<span class="pill c-info">active</span>` : `<span class="pill c-muted">control</span>`;
+      return `<tr><td><i style="width:10px;height:10px;border-radius:50%;background:${col(i)};display:inline-block;margin-right:6px"></i>${esc(p.name)}</td><td class="n">$${p.equity.toFixed(2)}</td><td class="n ${p.returnPct > 0 ? "c-good" : p.returnPct < 0 ? "c-bad" : ""}">${p.returnPct > 0 ? "+" : ""}${p.returnPct.toFixed(1)}%</td><td class="n">${p.bets}</td><td class="n">${p.settled ? `${p.wins}/${p.settled}` : "–"}</td><td class="n">$${p.fees.toFixed(2)}</td><td class="n">${p.maxDrawdownPct.toFixed(0)}%</td><td>${st}</td><td class="n">${mc ? pct2(mc.pReachGoal) : "–"}</td><td class="n">${mc ? pct2(mc.pBust) : "–"}</td><td class="n">${mc ? (mc.betsFor100x ?? "never (no growth)") : "–"}</td></tr>`; }).join("")}</tbody></table>
+    <p class="small muted">"Chance of $1,000" and "bust": ${pfs.find(p => p.monteCarlo)?.monteCarlo.paths.toLocaleString() || "4,000"} simulated futures built by drawing this strategy's past bet results at random (needs 20+ settled bets). "Bets for 100×" = how many bets its average growth per bet would need. Small samples make these numbers very uncertain.</p>`;
+  const best = pfs.filter(p => p.monteCarlo).sort((a, b) => b.monteCarlo.pReachGoal - a.monteCarlo.pReachGoal)[0];
+  $("#howTo").innerHTML = `<p style="margin-top:0">$10 → $1,000 is 100× growth. That takes a real edge after fees, repeated many times, with bets sized so a losing streak can't wipe you out.</p>
+    <ul class="small" style="padding-left:18px;display:grid;gap:6px;margin:0">
+      <li><b>No edge = slow loss.</b> The coin-flip control shows the fee drag: each bet pays the spread and a fee, so random betting shrinks the bankroll.</li>
+      <li><b>Bet size decides survival.</b> Kelly sizing bets a share of the bankroll proportional to the edge. Full Kelly grows fastest <i>if the edge is real</i> but swings hard; quarter Kelly is slower and much safer. Overestimating the edge with full Kelly is the usual way to bust.</li>
+      <li><b>The math:</b> with average growth g per bet, reaching 100× takes about 4.6 ÷ g bets. At +1% per bet that's ~460 bets; at 0% or below, never.</li>
+      <li><b>Right now:</b> ${best ? `the best simulated chance is ${esc(best.name)} at ${pct2(best.monteCarlo.pReachGoal)} (bust ${pct2(best.monteCarlo.pBust)}).` : "not enough settled bets to simulate yet."} Treat any number from under ~100 settled bets as noise.</li></ul>`;
+  const withBets = pfs.filter(p => p.bets);
+  if (!pfSel || !withBets.some(p => p.id === pfSel)) pfSel = withBets[0]?.id || null;
+  $("#pfChips").innerHTML = withBets.map(p => `<button type="button" class="chip" aria-pressed="${p.id === pfSel}" data-p="${esc(p.id)}">${esc(p.name.split(",")[0])}${p.name.includes(",") ? "," + esc(p.name.split(",")[1]) : ""}</button>`).join("");
+  $("#pfChips").querySelectorAll(".chip").forEach(b => b.onclick = () => { pfSel = b.dataset.p; renderPnL(); });
+  const sel = pfs.find(p => p.id === pfSel);
+  $("#pfBets").innerHTML = sel?.recent?.length ? `<table><thead><tr><th>When</th><th>Market</th><th>Side</th><th class="n">Price</th><th class="n">Contracts</th><th class="n">P&amp;L</th></tr></thead><tbody>${
+    sel.recent.map(b => `<tr><td>${when(b.ts)}</td><td class="t">${esc(b.title)}<div class="small muted">${esc(b.cat)}</div></td><td>${b.side.toUpperCase()}</td><td class="n">${cents(b.price)}</td><td class="n">${b.contracts}</td><td class="n ${b.pnl > 0 ? "c-good" : b.pnl < 0 ? "c-bad" : ""}">${b.pnl == null ? "open" : money(b.pnl)}</td></tr>`).join("")}</tbody></table>` : `<div class="empty">No bets in this mode yet.</div>`;
+}
+
+function render() { if (!D) return; renderNN(); renderPnL(); renderKpis(); renderAgent(); renderGoals(); renderTrades(); renderData(); renderSkills(); renderHistory(); paintPills(); }
 function paintPills() {
   const g = D.progress.goal || "IN_PROGRESS", h = D.progress.health;
   $("#goalPill").className = "pill " + statusTone(g); $("#goalPill").textContent = "goal: " + label(g);

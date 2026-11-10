@@ -28,10 +28,16 @@ jobs:
         run: node backtest.mjs
         continue-on-error: true
         timeout-minutes: 5
+      - name: Train neural network (hourly)
+        run: node nn.mjs
+        continue-on-error: true
+        timeout-minutes: 5
       - name: Update scorecard
         run: node score.mjs
       - name: Progress vs goals
         run: node progress.mjs
+      - name: Paper portfolios ($10 each, simulation)
+        run: node paper.mjs
       - name: Dashboard feed
         run: node scan.mjs
         continue-on-error: true

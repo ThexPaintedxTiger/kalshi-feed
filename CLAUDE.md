@@ -42,8 +42,10 @@ and count something as an improvement only when the scorecard shows it.
 - Git is the history.
 
 ## Pipeline (GitHub Actions, every 10 min, `.github/workflows/feed.yml`)
-`test.mjs` → `resolve.mjs` → `memory.mjs` → `predict.mjs` → `backtest.mjs` (hourly) → `score.mjs` → `progress.mjs` → `scan.mjs` + `agents.mjs` (Agent Flow feed, unchanged) → `dashboard.mjs`.
-Predictors live in `predictors.mjs` (shared by live and backtest).
+`test.mjs` → `resolve.mjs` → `memory.mjs` → `predict.mjs` → `backtest.mjs` (hourly) → `nn.mjs` (hourly training) → `score.mjs` → `progress.mjs` → `paper.mjs` → `scan.mjs` + `agents.mjs` (Agent Flow feed, unchanged) → `dashboard.mjs`.
+Predictors live in `predictors.mjs` (shared by live and backtest). **Sports are excluded** (owner's choice, `config.json → scan.excludeCategories`).
+Neural network: `nnlib.mjs` (plain JS MLP, residual on the market price) + `nn.mjs` (training loop; honest score = walk-forward on unseen markets).
+Paper trading: `paper.mjs` runs several $10 portfolios (replay on past markets with out-of-sample NN only, and forward on live predictions) plus a Monte Carlo of reaching $1,000. Simulation only.
 Details in `docs/architecture.md`.
 
 ## Kalshi API facts (verified 2026-11-10)

@@ -33,6 +33,19 @@ Order in the Action: test → resolve → memory → predict → backtest (hourl
 - **memory predictor**: price + (n/(n+shrink)) × the series' past (outcome − price) gap; inactive below `minN` settled samples.
 - **import-trades.mjs**: owner's CSV export → `private/my-trades-report.json` (git-ignored). Column names matched by aliases.
 
+## Neural network and paper trading (config v4)
+- **nnlib.mjs**: MLP 16 inputs → 16 → 8 → 1 (tanh), P(YES) = sigmoid(logit(price) + output). Output layer starts at 0, so untrained = market.
+  Adam, L2 1e-3, mini-batch 32, early stopping. Inputs: price (logit), spread, distance from 50¢, hour of day, category, series memory as of the
+  prediction time. Volume is NOT an input: backtest rows only know final volume, which includes trades after the prediction.
+- **nn.mjs** (hourly): dataset = backtest rows + resolved live predictions (non-excluded categories). (1) walk-forward: 5 time blocks, train on
+  earlier blocks, predict the next unseen block → `data/nn/oos.json` and the honest verdict; (2) holdout curve (early-stopping set — optimistic);
+  (3) final model on all data → `data/nn/model.json` (used live by the `nn` predictor). History in `data/nn/train-log.jsonl`.
+- **paper.mjs**: portfolios in `config.json → paper.portfolios` (controls: hold cash, coin flip; neural net at ¼, ½ and full Kelly; longshot 5%;
+  memory ¼ Kelly). Buy at ask / 1−bid, per-order fee rounded up, cash locked until settlement, ≤$250 and ≤1,000 contracts per bet, bust below $0.50.
+  Replay never lets the network trade a market it trained on. Monte Carlo: 4,000 bootstrap paths of each strategy's per-bet returns.
+- **Backtest v4**: snapshot 30 min before resolution (hourly markets open only ~1 h before close); one batch candle call prices every market
+  in an event; the market nearest 50¢ at the snapshot is kept (same rule as live, no outcome leakage). Sports excluded.
+
 ## MCP server (read-only)
 `mcp/server.mjs` (official MCP SDK, stdio). Tools: `get_status`, `get_scorecard` (live|backtest), `search_predictions`, `recall_series`, `list_skills`.
 - Claude Code: `npm --prefix mcp install`, then it's picked up from `.mcp.json` (approve the project server once).

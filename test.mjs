@@ -1,11 +1,13 @@
 // Offline checks for the math and the leakage guard. Run: node test.mjs
 import assert from "node:assert/strict";
-import { fee, ev, resolvesAt, hash } from "./lib.mjs";
+import { fee, ev, resolvesAt, hash, r4 } from "./lib.mjs";
 import { brier, logLoss, pnl, score } from "./score.mjs";
 import { predictorStatus, health, trend, evaluate } from "./progress.mjs";
 import { makeRecall } from "./memory.mjs";
 import { PRED, estimate } from "./predictors.mjs";
 import { parseCsv, mapColumns, normalize } from "./import-trades.mjs";
+import { init, rng, backprop, predict, train, logLoss as nnLoss } from "./nnlib.mjs";
+import { orderFee, kellyFraction, simulate, monteCarlo } from "./paper.mjs";
 
 // Fees: Kalshi taker fee rounds up to the cent.
 assert.equal(fee(0.5), 0.02);          // 0.07 × .5 × .5 = 1.75¢ → 2¢
@@ -86,4 +88,36 @@ const { map } = mapColumns(csv[0]);
 assert.deepEqual(normalize(csv[1], map), { ticker: "KX-A", side: "yes", sell: false, price: 0.62, count: 3, fees: 0.05, time: null });
 assert.equal(normalize(csv[2], map).sell, true);
 assert.equal(hash("KX-A"), hash("KX-A")); assert.notEqual(hash("KX-A-YES"), hash("KX-A-NO"));  // stable, outcome-independent order
+
+// Neural network: gradients match a numerical check; untrained = market; learns a planted signal on unseen data.
+{
+  const m = init([4, 5, 3, 1], rng(1)); m.W[2] = [[0.3, -0.2, 0.5]];
+  const d = { x: [0.2, -0.4, 0.9, 0.1], mid: 0.4, y: 1 }, g = { W: m.W.map(L => L.map(r => r.map(() => 0))), b: m.b.map(r => r.map(() => 0)) };
+  backprop(m, d, g);
+  for (const [l, i, j] of [[0, 1, 2], [1, 2, 4], [2, 0, 1]]) {
+    const w = m.W[l][i][j], e = 1e-6;
+    m.W[l][i][j] = w + e; const a = nnLoss(predict(m, d.x, d.mid), d.y); m.W[l][i][j] = w - e; const b = nnLoss(predict(m, d.x, d.mid), d.y); m.W[l][i][j] = w;
+    assert.ok(Math.abs((a - b) / (2 * e) - g.W[l][i][j]) < 1e-6, "gradient mismatch");
+  }
+  assert.equal(predict(init([4, 5, 1], rng(2)), d.x, 0.37).toFixed(6), "0.370000");
+  const R = rng(3), data = Array.from({ length: 1200 }, () => { const x = [R() * 2 - 1, R() * 2 - 1, R() * 2 - 1], mid = 0.2 + 0.6 * R();
+    const p = 1 / (1 + Math.exp(-(Math.log(mid / (1 - mid)) + 1.2 * x[0]))); return { x, mid, y: R() < p ? 1 : 0 }; });
+  const fit = train(data.slice(0, 900), { valFrac: 0.2, hidden: [8, 4] }), test = data.slice(900);
+  const nnL = test.reduce((s2, d2) => s2 + nnLoss(predict(fit.model, d2.x, d2.mid), d2.y), 0), mkL = test.reduce((s2, d2) => s2 + nnLoss(d2.mid, d2.y), 0);
+  assert.ok(nnL < mkL, "network should beat the market on a planted signal (unseen test data)");
+}
+// Paper trading: fees per order, Kelly sizing, cash never negative, settlement P&L.
+assert.equal(orderFee(0.5, 1), 0.02); assert.equal(orderFee(0.5, 10), 0.18);    // 0.07×10×.25 = 0.175 → 0.18
+assert.equal(r4(kellyFraction(0.6, 0.5)), 0.2); assert.equal(kellyFraction(0.4, 0.5), 0);
+{
+  const rows = [{ ts: "2026-01-01T00:00:00Z", ticker: "A", mid: 0.5, ask: 0.5, bid: 0.48, est: { x: 0.7 }, y: 1, settledAt: "2026-01-01T01:00:00Z" },
+                { ts: "2026-01-01T02:00:00Z", ticker: "B", mid: 0.5, ask: 0.5, bid: 0.48, est: { x: 0.7 }, y: 0, settledAt: "2026-01-01T03:00:00Z" }];
+  const r = simulate({ id: "t", predictor: "x", sizing: "fixed", frac: 0.5 }, rows);
+  assert.equal(r.bets, 2); assert.equal(r.wins, 1); assert.ok(r.cash >= 0);
+  assert.equal(r.equity, r4(10 + r.pnl));                                        // money is conserved
+  assert.equal(simulate({ id: "c", predictor: null }, rows).equity, 10);          // control never trades
+  assert.equal(monteCarlo([0.1, -0.05]), null);                                   // too few bets to simulate
+  const mc = monteCarlo(Array(50).fill(0).map((_, i) => (i % 2 ? 0.2 : -0.1)));
+  assert.ok(mc.pReachGoal > 0.5 && mc.growthPerBet > 0);
+}
 console.log("all tests passed");

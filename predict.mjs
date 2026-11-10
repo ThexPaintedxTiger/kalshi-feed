@@ -42,7 +42,8 @@ pool.sort((a, b) => +(b.m.volume_24h_fp || 0) - +(a.m.volume_24h_fp || 0));
 const cats = { map: await categories([...pool.map(c => series(c.m)), ...logged.map(p => p.series)]) };
 // Take markets round-robin across categories (most active first within each) so one category can't fill the run.
 const byCat = {};
-for (const c of pool) (byCat[cats.map[series(c.m)] || "?"] ||= []).push(c);
+const excluded = new Set(S.excludeCategories || []);
+for (const c of pool) { const cat = cats.map[series(c.m)] || "?"; if (!excluded.has(cat)) (byCat[cat] ||= []).push(c); }
 const chosen = [];
 for (let i = 0; chosen.length < S.maxNewPerRun && Object.values(byCat).some(a => a.length > i); i++)
   for (const a of Object.values(byCat)) if (a[i] && chosen.length < S.maxNewPerRun) chosen.push(a[i]);
@@ -50,7 +51,7 @@ for (let i = 0; chosen.length < S.maxNewPerRun && Object.values(byCat).some(a =>
 // 5. Predictors (predictors.mjs; hypotheses in config.json, versioned by "cfg"). Memory only uses markets settled before now.
 const recall = makeRecall(loadSamples());
 const rows = chosen.map(({ m, ask, bid, mid, res, lead }) => {
-  const { est, picks } = estimate({ mid, ask, bid, series: series(m), at: now }, { recall });
+  const { est, picks } = estimate({ mid, ask, bid, series: series(m), at: now, cat: cats.map[series(m)] || "", resolvesAt: res }, { recall });
   return {
     ts: runId, run: sha, cfg: config.version,
     ticker: m.ticker, event: m.event_ticker, series: series(m), cat: cats.map[series(m)] || "",

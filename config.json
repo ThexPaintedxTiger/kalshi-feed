@@ -1,5 +1,5 @@
 {
- "version": 3,
+ "version": 4,
  "scan": {
   "windowDays": 16,
   "horizonHours": 6,
@@ -9,7 +9,10 @@
   "minMid": 0.03,
   "maxMid": 0.97,
   "perEvent": 2,
-  "maxNewPerRun": 80
+  "maxNewPerRun": 80,
+  "excludeCategories": [
+   "Sports"
+  ]
  },
  "predictors": {
   "market": {
@@ -26,6 +29,10 @@
    "minN": 10,
    "shrink": 20,
    "hypothesis": "Series memory: a series' own past gap between outcome and price persists, so shifting the price by that gap (shrunk when history is short) beats the price."
+  },
+  "nn": {
+   "on": true,
+   "hypothesis": "A small neural network trained on settled markets (price, spread, time of day, category, series memory) can correct the market price. Starts equal to the market; judged only on data it never trained on."
   }
  },
  "picks": {
@@ -52,12 +59,101 @@
  "backtest": {
   "everyMinutes": 60,
   "days": 14,
-  "leadMinutes": 60,
+  "leadMinutes": 30,
   "sliceHours": 6,
-  "maxPerRun": 150,
+  "maxPerRun": 250,
   "maxCandleCalls": 300,
   "settleDelayHours": 1,
   "perEvent": 1,
-  "minVolume": 500
+  "minVolume": 500,
+  "excludeCategories": [
+   "Sports"
+  ]
+ },
+ "nn": {
+  "everyMinutes": 60,
+  "minSamples": 80,
+  "hidden": [
+   16,
+   8
+  ],
+  "lr": 0.01,
+  "l2": 0.001,
+  "batch": 32,
+  "maxEpochs": 300,
+  "patience": 25,
+  "valFrac": 0.25,
+  "folds": 5,
+  "seed": 7
+ },
+ "paper": {
+  "start": 10,
+  "goal": 1000,
+  "bustBelow": 0.5,
+  "maxContracts": 1000,
+  "maxDollarsPerBet": 250,
+  "monteCarlo": {
+   "paths": 4000,
+   "maxBets": 3000,
+   "seed": 11
+  },
+  "portfolios": [
+   {
+    "id": "cash",
+    "name": "Hold cash (control)",
+    "predictor": null
+   },
+   {
+    "id": "coin",
+    "name": "Coin flip, 5% per bet (fee-drag control)",
+    "predictor": "coin",
+    "sizing": "fixed",
+    "frac": 0.05
+   },
+   {
+    "id": "nn-quarter",
+    "name": "Neural net, quarter Kelly",
+    "predictor": "nn",
+    "sizing": "kelly",
+    "kelly": 0.25,
+    "minEdge": 0.03,
+    "maxFrac": 0.1
+   },
+   {
+    "id": "nn-half",
+    "name": "Neural net, half Kelly",
+    "predictor": "nn",
+    "sizing": "kelly",
+    "kelly": 0.5,
+    "minEdge": 0.02,
+    "maxFrac": 0.25
+   },
+   {
+    "id": "nn-moonshot",
+    "name": "Neural net moonshot, full Kelly (10→1000 attempt)",
+    "predictor": "nn",
+    "sizing": "kelly",
+    "kelly": 1,
+    "minEdge": 0.02,
+    "maxFrac": 0.5
+   },
+   {
+    "id": "longshot-5",
+    "name": "Longshot bias, 5% per bet",
+    "predictor": "longshot",
+    "sizing": "fixed",
+    "frac": 0.05,
+    "minEdge": 0.02
+   },
+   {
+    "id": "memory-quarter",
+    "name": "Series memory, quarter Kelly",
+    "predictor": "memory",
+    "sizing": "kelly",
+    "kelly": 0.25,
+    "minEdge": 0.03,
+    "maxFrac": 0.1
+   }
+  ]
  }
 }

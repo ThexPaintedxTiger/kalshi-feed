@@ -55,5 +55,10 @@ writeJson("dashboard.json", {
   memory: (() => { const m = readJson("data/memory/series.json", { series: {} }); return { samples: m.samples || 0, series: Object.keys(m.series).length,
     top: Object.entries(m.series).sort((a, b) => b[1].n - a[1].n).slice(0, 12).map(([k, v]) => ({ series: k, ...v })) }; })(),
   mcpTools: ["get_status", "get_scorecard", "search_predictions", "recall_series", "list_skills"],
+  nn: (() => { const m = readJson("data/nn/model.json", null); if (!m) return null;
+    const c = m.holdout?.curve || [], step = Math.ceil(c.length / 120) || 1;
+    return { ...m, holdout: m.holdout && { ...m.holdout, curve: c.filter((_, i) => i % step === 0 || i === c.length - 1) },
+      log: readJsonl("data/nn/train-log.jsonl").slice(-48) }; })(),
+  paper: readJson("data/paper/portfolios.json", null),
 });
 console.log(`dashboard.json: ${preds.length} predictions, ${trades.length} simulated trades, ${skills.length} skills`);
