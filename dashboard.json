@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-10T16:47:58.266Z",
+ "generated": "2026-11-10T16:50:03.125Z",
  "config": {
   "version": 3,
   "scan": {
@@ -60,7 +60,7 @@
   }
  },
  "progress": {
-  "updated": "2026-11-10T16:47:58.216Z",
+  "updated": "2026-11-10T16:48:41.871Z",
   "goal": "IN_PROGRESS",
   "resolved": 0,
   "health": {
@@ -68,12 +68,12 @@
    "warmingUp": true,
    "checks": {
     "runsLast24h": {
-     "value": 7,
+     "value": 8,
      "target": 2,
      "ok": true
     },
     "newPredictionsLast24h": {
-     "value": 690,
+     "value": 703,
      "target": 1,
      "ok": true
     },
@@ -137,25 +137,25 @@
  },
  "scorecard": {
   "resolved": 0,
-  "predictions": 690,
+  "predictions": 703,
   "excludedLeakage": 0,
   "events": 0,
   "predictors": {},
   "byCategory": {}
  },
  "totals": {
-  "predictions": 690,
+  "predictions": 703,
   "outcomes": 0,
-  "trades": 20,
-  "runs": 7
+  "trades": 22,
+  "runs": 8
  },
  "categories": {
   "Sports": {
-   "logged": 406,
+   "logged": 412,
    "resolved": 0
   },
   "Commodities": {
-   "logged": 83,
+   "logged": 86,
    "resolved": 0
   },
   "Politics": {
@@ -163,7 +163,7 @@
    "resolved": 0
   },
   "Financials": {
-   "logged": 90,
+   "logged": 94,
    "resolved": 0
   },
   "Economics": {
@@ -228,9 +228,237 @@
    "scanned": 45328,
    "candidates": 546,
    "logged": 50
+  },
+  {
+   "ts": "2026-11-10T16:48:25.777Z",
+   "run": "aa6187e",
+   "scanned": 45325,
+   "candidates": 544,
+   "logged": 13
   }
  ],
  "predictions": [
+  {
+   "ts": "2026-11-10T16:48:25.777Z",
+   "ticker": "KXLIGAPROMATCH-26NOV101200POBSMY-SMY",
+   "title": "Smyshnikov Maksim wins",
+   "cat": "Sports",
+   "resolvesAt": "2026-11-10T20:00:00.000Z",
+   "ask": 0.43,
+   "bid": 0.42,
+   "mid": 0.425,
+   "est": {
+    "market": 0.425,
+    "longshot": 0.4176,
+    "memory": 0.425
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxligapromatch"
+  },
+  {
+   "ts": "2026-11-10T16:48:25.777Z",
+   "ticker": "KXESOCCERGAME-26NOV101142BONYHOLI-TIE",
+   "title": "Game ends in a tie — Tie",
+   "cat": "Sports",
+   "resolvesAt": "2026-11-10T19:42:00.000Z",
+   "ask": 0.28,
+   "bid": 0.26,
+   "mid": 0.27,
+   "est": {
+    "market": 0.27,
+    "longshot": 0.2508,
+    "memory": 0.2112
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxesoccergame"
+  },
+  {
+   "ts": "2026-11-10T16:48:25.777Z",
+   "ticker": "KXEBASKETBALLGAME-26NOV101212ZACHJASO-ZACH",
+   "title": "Dallas Mavericks (Zach) wins",
+   "cat": "Sports",
+   "resolvesAt": "2026-11-10T20:12:00.000Z",
+   "ask": 0.69,
+   "bid": 0.6,
+   "mid": 0.645,
+   "est": {
+    "market": 0.645,
+    "longshot": 0.6586,
+    "memory": 0.6698
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxebasketballgame"
+  },
+  {
+   "ts": "2026-11-10T16:48:25.777Z",
+   "ticker": "KXNASDAQ100U-26NOV10H1600-T27609.99",
+   "title": "Will the Nasdaq-100 be above 27609.99 at the end of Nov 10, 2026 at 4pm EST? — 27,610 or above",
+   "cat": "Financials",
+   "resolvesAt": "2026-11-10T21:00:00.000Z",
+   "ask": 0.46,
+   "bid": 0.41,
+   "mid": 0.435,
+   "est": {
+    "market": 0.435,
+    "longshot": 0.4286,
+    "memory": 0.435
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxnasdaq100u"
+  },
+  {
+   "ts": "2026-11-10T16:48:25.777Z",
+   "ticker": "KXNCAAWBSPREAD-26NOV10BELLBGSU-BGSU13",
+   "title": "Bowling Green wins by over 12.5 points",
+   "cat": "Sports",
+   "resolvesAt": "2026-11-10T19:00:00.000Z",
+   "ask": 0.99,
+   "bid": 0.9,
+   "mid": 0.945,
+   "est": {
+    "market": 0.945,
+    "longshot": 0.958,
+    "memory": 0.945
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxncaawbspread"
+  },
+  {
+   "ts": "2026-11-10T16:48:25.777Z",
+   "ticker": "KXCOPPERD-26NOV1017-T6.24",
+   "title": "Will the copper close price be above 6.24 USD/Lbs on November 10, 2026 at 5:00 PM EST? — Above $6.24",
+   "cat": "Commodities",
+   "resolvesAt": "2026-11-10T22:00:00.000Z",
+   "ask": 0.99,
+   "bid": 0.95,
+   "mid": 0.97,
+   "est": {
+    "market": 0.97,
+    "longshot": 0.9786,
+    "memory": 0.97
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxcopperd"
+  },
+  {
+   "ts": "2026-11-10T16:48:25.777Z",
+   "ticker": "KXINXU-26NOV10H1600-T7534.9999",
+   "title": "Will the S&P 500 be above 7534.9999 on Nov 10, 2026 at 4pm EST? — 7,535 or above",
+   "cat": "Financials",
+   "resolvesAt": "2026-11-10T21:00:00.000Z",
+   "ask": 0.08,
+   "bid": 0.04,
+   "mid": 0.06,
+   "est": {
+    "market": 0.06,
+    "longshot": 0.0462,
+    "memory": 0.06
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxinxu"
+  },
+  {
+   "ts": "2026-11-10T16:48:25.777Z",
+   "ticker": "KXESOCCERGAME-26NOV101141OLIVMIA-OLIV",
+   "title": "Paris Saint-Germain (Olive) wins",
+   "cat": "Sports",
+   "resolvesAt": "2026-11-10T19:41:00.000Z",
+   "ask": 0.06,
+   "bid": 0.05,
+   "mid": 0.055,
+   "est": {
+    "market": 0.055,
+    "longshot": 0.042,
+    "memory": 0.01
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxesoccergame"
+  },
+  {
+   "ts": "2026-11-10T16:48:25.777Z",
+   "ticker": "KXNATGASD-26NOV1017-T3.440",
+   "title": "Will the natural gas close price be above 3.440 USD/MMBtu on November 10, 2026 at 5:00 PM EST? — Above $3.440",
+   "cat": "Commodities",
+   "resolvesAt": "2026-11-10T22:00:00.000Z",
+   "ask": 0.39,
+   "bid": 0.37,
+   "mid": 0.38,
+   "est": {
+    "market": 0.38,
+    "longshot": 0.3685,
+    "memory": 0.38
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxnatgasd"
+  },
+  {
+   "ts": "2026-11-10T16:48:25.777Z",
+   "ticker": "KXINXU-26NOV10H1600-T7434.9999",
+   "title": "Will the S&P 500 be above 7434.9999 on Nov 10, 2026 at 4pm EST? — 7,435 or above",
+   "cat": "Financials",
+   "resolvesAt": "2026-11-10T21:00:00.000Z",
+   "ask": 0.93,
+   "bid": 0.88,
+   "mid": 0.905,
+   "est": {
+    "market": 0.905,
+    "longshot": 0.9227,
+    "memory": 0.905
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxinxu"
+  },
+  {
+   "ts": "2026-11-10T16:48:25.777Z",
+   "ticker": "KXFIBACHAMPSPREAD-26NOV101100TRASAB-TRA3",
+   "title": "Trabzonspor Basketbol wins by over 2.5 points",
+   "cat": "Sports",
+   "resolvesAt": "2026-11-10T19:00:00.000Z",
+   "ask": 0.26,
+   "bid": 0.2,
+   "mid": 0.23,
+   "est": {
+    "market": 0.23,
+    "longshot": 0.2093,
+    "memory": 0.23
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxfibachampspread"
+  },
+  {
+   "ts": "2026-11-10T16:48:25.777Z",
+   "ticker": "KXNATGASD-26NOV1017-T3.445",
+   "title": "Will the natural gas close price be above 3.445 USD/MMBtu on November 10, 2026 at 5:00 PM EST? — Above $3.445",
+   "cat": "Commodities",
+   "resolvesAt": "2026-11-10T22:00:00.000Z",
+   "ask": 0.37,
+   "bid": 0.33,
+   "mid": 0.35,
+   "est": {
+    "market": 0.35,
+    "longshot": 0.3361,
+    "memory": 0.35
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxnatgasd"
+  },
+  {
+   "ts": "2026-11-10T16:48:25.777Z",
+   "ticker": "KXNASDAQ100U-26NOV10H1600-T27559.99",
+   "title": "Will the Nasdaq-100 be above 27559.99 at the end of Nov 10, 2026 at 4pm EST? — 27,560 or above",
+   "cat": "Financials",
+   "resolvesAt": "2026-11-10T21:00:00.000Z",
+   "ask": 0.56,
+   "bid": 0.51,
+   "mid": 0.535,
+   "est": {
+    "market": 0.535,
+    "longshot": 0.5385,
+    "memory": 0.535
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxnasdaq100u"
+  },
   {
    "ts": "2026-11-10T16:47:36.738Z",
    "ticker": "KXFIBACHAMPSPREAD-26NOV101100TRASAB-SAB11",
@@ -2552,217 +2780,37 @@
    },
    "outcome": "open",
    "url": "https://kalshi.com/markets/kxcs2map"
-  },
-  {
-   "ts": "2026-11-10T16:17:46.139Z",
-   "ticker": "KXCS2MAP-26NOV101300G1NIC-1-NIC",
-   "title": "Nice Try wins map 1",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T21:00:00.000Z",
-   "ask": 0.43,
-   "bid": 0.37,
-   "mid": 0.4,
-   "est": {
-    "market": 0.4,
-    "longshot": 0.3903
-   },
-   "outcome": "open",
-   "url": "https://kalshi.com/markets/kxcs2map"
-  },
-  {
-   "ts": "2026-11-10T16:17:46.139Z",
-   "ticker": "KXFIBACHAMPTOTAL-26NOV101400ALBABIL-170",
-   "title": "Over 169.5 points scored",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "ask": 0.66,
-   "bid": 0.62,
-   "mid": 0.64,
-   "est": {
-    "market": 0.64,
-    "longshot": 0.6531
-   },
-   "outcome": "open",
-   "url": "https://kalshi.com/markets/kxfibachamptotal"
-  },
-  {
-   "ts": "2026-11-10T16:17:46.139Z",
-   "ticker": "KXITFMATCH-26NOV10SICRUS-SIC",
-   "title": "Tom Sickenberger wins",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "ask": 0.76,
-   "bid": 0.75,
-   "mid": 0.755,
-   "est": {
-    "market": 0.755,
-    "longshot": 0.7752
-   },
-   "outcome": "open",
-   "url": "https://kalshi.com/markets/kxitfmatch"
-  },
-  {
-   "ts": "2026-11-10T16:17:46.139Z",
-   "ticker": "KXEUROCUPGAME-26NOV101200WRONEP-WRO",
-   "title": "Slask Wroclaw wins",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T20:00:00.000Z",
-   "ask": 0.28,
-   "bid": 0.26,
-   "mid": 0.27,
-   "est": {
-    "market": 0.27,
-    "longshot": 0.2508
-   },
-   "outcome": "open",
-   "url": "https://kalshi.com/markets/kxeurocupgame"
-  },
-  {
-   "ts": "2026-11-10T16:17:46.139Z",
-   "ticker": "KXEUROCUPTOTAL-26NOV101400TOFATR-170",
-   "title": "Over 169.5 points scored",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "ask": 0.6,
-   "bid": 0.57,
-   "mid": 0.585,
-   "est": {
-    "market": 0.585,
-    "longshot": 0.5933
-   },
-   "outcome": "open",
-   "url": "https://kalshi.com/markets/kxeurocuptotal"
-  },
-  {
-   "ts": "2026-11-10T16:17:46.139Z",
-   "ticker": "KXITFWMATCH-26NOV10REAALL-REA",
-   "title": "Adriana Reami wins",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "ask": 0.81,
-   "bid": 0.77,
-   "mid": 0.79,
-   "est": {
-    "market": 0.79,
-    "longshot": 0.8111
-   },
-   "outcome": "open",
-   "url": "https://kalshi.com/markets/kxitfwmatch"
-  },
-  {
-   "ts": "2026-11-10T16:17:46.139Z",
-   "ticker": "KXSESBLGAME-26NOV101304UPPNOR-UPP",
-   "title": "Uppsala Basket wins",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T21:04:00.000Z",
-   "ask": 0.06,
-   "bid": 0.05,
-   "mid": 0.055,
-   "est": {
-    "market": 0.055,
-    "longshot": 0.042
-   },
-   "outcome": "open",
-   "url": "https://kalshi.com/markets/kxsesblgame"
-  },
-  {
-   "ts": "2026-11-10T16:17:46.139Z",
-   "ticker": "KXEUROCUPGAME-26NOV101200PAOBBO-BBO",
-   "title": "Balkan Botevgrad wins",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T20:00:00.000Z",
-   "ask": 0.14,
-   "bid": 0.12,
-   "mid": 0.13,
-   "est": {
-    "market": 0.13,
-    "longshot": 0.11
-   },
-   "outcome": "open",
-   "url": "https://kalshi.com/markets/kxeurocupgame"
-  },
-  {
-   "ts": "2026-11-10T16:17:46.139Z",
-   "ticker": "KXCS2GAME-26NOV101300MINLEO-LEO",
-   "title": "Leo Team wins",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "ask": 0.52,
-   "bid": 0.49,
-   "mid": 0.505,
-   "est": {
-    "market": 0.505,
-    "longshot": 0.5055
-   },
-   "outcome": "open",
-   "url": "https://kalshi.com/markets/kxcs2game"
-  },
-  {
-   "ts": "2026-11-10T16:17:46.139Z",
-   "ticker": "KXCS2MAP-26NOV101400REDAISG-1-ISG",
-   "title": "Isurus wins map 1",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "ask": 0.56,
-   "bid": 0.53,
-   "mid": 0.545,
-   "est": {
-    "market": 0.545,
-    "longshot": 0.5495
-   },
-   "outcome": "open",
-   "url": "https://kalshi.com/markets/kxcs2map"
-  },
-  {
-   "ts": "2026-11-10T16:17:46.139Z",
-   "ticker": "KXWTACHALLENGERMATCH-26NOV10ANDMAS-MAS",
-   "title": "Rebeka Masarova wins",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T19:10:00.000Z",
-   "ask": 0.26,
-   "bid": 0.25,
-   "mid": 0.255,
-   "est": {
-    "market": 0.255,
-    "longshot": 0.2352
-   },
-   "outcome": "open",
-   "url": "https://kalshi.com/markets/kxwtachallengermatch"
-  },
-  {
-   "ts": "2026-11-10T16:17:46.139Z",
-   "ticker": "KXCS2MAP-26NOV101400REDAISG-2-ISG",
-   "title": "Isurus wins map 2",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T22:00:00.000Z",
-   "ask": 0.57,
-   "bid": 0.54,
-   "mid": 0.555,
-   "est": {
-    "market": 0.555,
-    "longshot": 0.5604
-   },
-   "outcome": "open",
-   "url": "https://kalshi.com/markets/kxcs2map"
-  },
-  {
-   "ts": "2026-11-10T16:17:46.139Z",
-   "ticker": "KXATPCHALLENGERMATCH-26NOV10BARTAR-TAR",
-   "title": "Oliver Tarvet wins",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T20:20:00.000Z",
-   "ask": 0.81,
-   "bid": 0.8,
-   "mid": 0.805,
-   "est": {
-    "market": 0.805,
-    "longshot": 0.8263
-   },
-   "outcome": "open",
-   "url": "https://kalshi.com/markets/kxatpchallengermatch"
   }
  ],
  "trades": [
+  {
+   "ts": "2026-11-10T16:48:25.777Z",
+   "predictor": "memory",
+   "ticker": "KXESOCCERGAME-26NOV101142BONYHOLI-TIE",
+   "title": "Game ends in a tie — Tie",
+   "cat": "Sports",
+   "side": "no",
+   "cost": 0.74,
+   "ev": 0.0288,
+   "fee": 0.02,
+   "resolvesAt": "2026-11-10T19:42:00.000Z",
+   "outcome": "open",
+   "pnl": null
+  },
+  {
+   "ts": "2026-11-10T16:48:25.777Z",
+   "predictor": "memory",
+   "ticker": "KXESOCCERGAME-26NOV101141OLIVMIA-OLIV",
+   "title": "Paris Saint-Germain (Olive) wins",
+   "cat": "Sports",
+   "side": "no",
+   "cost": 0.95,
+   "ev": 0.03,
+   "fee": 0.01,
+   "resolvesAt": "2026-11-10T19:41:00.000Z",
+   "outcome": "open",
+   "pnl": null
+  },
   {
    "ts": "2026-11-10T16:47:36.738Z",
    "predictor": "memory",
@@ -3045,16 +3093,16 @@
   }
  ],
  "gemini": {
-  "updated": "2026-11-10T16:40:45.973Z",
+  "updated": "2026-11-10T16:50:03.083Z",
   "agents": [
    "momentum",
    "baseRate",
    "rules"
   ],
   "picks": [],
-  "feedUpdated": "2026-11-10T16:39:57.262Z",
+  "feedUpdated": "2026-11-10T16:49:16.347Z",
   "liquid": 400,
-  "events": 19303
+  "events": 19300
  },
  "skills": [
   {
