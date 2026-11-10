@@ -1,1 +1,2 @@
 {"ts":"2026-11-10T17:08:53.996Z","n":736,"bestEpoch":4,"valLoss":0.5569,"marketValLoss":0.5637,"oosN":588,"oosBrierNN":0.1924,"oosBrierMarket":0.1909,"oosDiff":0.0014,"verdict":"no measurable difference"}
+{"ts":"2026-11-10T17:50:21.741Z","n":942,"bestEpoch":1,"valLoss":0.4904,"marketValLoss":0.4888,"oosN":753,"oosBrierNN":0.1929,"oosBrierMarket":0.1804,"oosDiff":0.0125,"verdict":"worse than market (out-of-sample)"}
