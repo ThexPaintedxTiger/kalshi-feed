@@ -3,6 +3,9 @@
 // BEFORE the market resolves. Rows are never edited afterwards. Simulation only: nothing is traded.
 import { config, kalshi, sleep, resolvesAt, series, r4, readJsonl, appendJsonl, predictionFiles, categories } from "./lib.mjs";
 import { estimate } from "./predictors.mjs";
+import * as crypto from "./external/crypto.mjs";
+import * as weather from "./external/weather.mjs";
+import { writeJson } from "./lib.mjs";
 import { loadSamples, makeRecall } from "./memory.mjs";
 
 const S = config.scan, now = Date.now(), nowS = Math.floor(now / 1000);
@@ -61,15 +64,25 @@ try {
     }
   }
 } catch (e) { console.log("price-move lookup failed:", e.message); }
+// Outside data (not from Kalshi): Coinbase prices for crypto markets, NWS observations + forecasts for temperature markets.
+const ext = {}, extStat = { crypto: { tried: 0, got: 0 }, weather: { tried: 0, got: 0 } };
+for (const { m } of chosen) {
+  const s = series(m), kind = crypto.product(s) ? "crypto" : weather.covers(s) ? "weather" : null;
+  if (!kind) continue;
+  extStat[kind].tried++;
+  try { const e = await (kind === "crypto" ? crypto : weather).estimate(m, now, s); if (e) { ext[m.ticker] = { [kind]: e }; extStat[kind].got++; } }
+  catch (e) { console.log(`${kind} agent failed on ${m.ticker}: ${e.message}`); }
+}
+writeJson("data/external/last.json", { at: new Date(now).toISOString(), ...extStat });
 const rows = chosen.map(({ m, ask, bid, mid, res, lead }) => {
   const chg30 = m.ticker in move ? r4(mid - move[m.ticker]) : null;
-  const { est, picks } = estimate({ mid, ask, bid, series: series(m), at: now, cat: cats.map[series(m)] || "", resolvesAt: res, chg30 }, { recall });
+  const { est, picks } = estimate({ mid, ask, bid, series: series(m), at: now, cat: cats.map[series(m)] || "", resolvesAt: res, chg30, ext: ext[m.ticker] }, { recall });
   return {
     ts: runId, run: sha, cfg: config.version,
     ticker: m.ticker, event: m.event_ticker, series: series(m), cat: cats.map[series(m)] || "",
     title: m.title + (m.yes_sub_title && !String(m.title).includes(m.yes_sub_title) ? " — " + m.yes_sub_title : ""),
     rules: String(m.rules_primary || "").slice(0, 300),
-    resolvesAt: res, leadMin: Math.round(lead / 6e4), chg30,
+    resolvesAt: res, leadMin: Math.round(lead / 6e4), chg30, ...(ext[m.ticker] ? { ext: ext[m.ticker] } : {}),
     ask, bid, mid: r4(mid), spread: r4(ask - bid), askSize: +(m.yes_ask_size_fp || 0), bidSize: +(m.yes_bid_size_fp || 0),
     vol: Math.round(+(m.volume_fp || 0)), v24: Math.round(+(m.volume_24h_fp || 0)), oi: Math.round(+(m.open_interest_fp || 0)),
     est, picks,

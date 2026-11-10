@@ -61,6 +61,7 @@ writeJson("dashboard.json", {
       log: readJsonl("data/nn/train-log.jsonl").slice(-48) }; })(),
   paper: readJson("data/paper/portfolios.json", null),
   status: readJson("status.json", null),
+  external: readJson("data/external/last.json", null),
   briefings: readJsonl("data/briefing.jsonl").slice(-6).reverse(),
   focus: readJson("data/focus.json", null),
 });

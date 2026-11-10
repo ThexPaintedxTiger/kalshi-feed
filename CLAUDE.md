@@ -27,7 +27,7 @@ and count something as an improvement only when the scorecard shows it.
 ## Skills (`.claude/skills/`, reviewed in `docs/skills.md`)
 `kalshi-run-cycle` (run now) · `kalshi-check-progress` (judge results) · `kalshi-add-predictor` (new hypothesis) ·
 `save-as-skill` (convention) · `kalshi-ops-status` (errors, deploy status, when to get a human) ·
-`kalshi-history` (backtest, memory, own trades, MCP). MCP server: `mcp/server.mjs` (read-only, `.mcp.json`; `npm --prefix mcp install` once). When you write a script you'll reuse: test it, then save it with `save-as-skill`.
+`kalshi-history` (backtest, memory, own trades, MCP) · `kalshi-outside-data` (Coinbase crypto + NWS weather agents, adding sources). MCP server: `mcp/server.mjs` (read-only, `.mcp.json`; `npm --prefix mcp install` once). When you write a script you'll reuse: test it, then save it with `save-as-skill`.
 
 ## Storage
 - Predictions: `data/predictions/YYYY-MM.jsonl` (append-only, one row per market, logged before it resolves).

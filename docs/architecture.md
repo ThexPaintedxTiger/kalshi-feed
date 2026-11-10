@@ -73,6 +73,16 @@ Claude subagents are not used in the pipeline (cost and non-repeatable answers);
 - `paper.mjs → disagreementReview()`: on settled network bets (each one a disagreement with the market), how often the network was
   closer to the outcome, first half vs second half.
 
+## Outside-data agents (config v6)
+- `external/crypto.mjs`: Coinbase 1-minute candles (last 2 h) → spot S and per-minute volatility σ; P(YES) = Φ(ln(S/K)/(σ√τ)) for
+  `greater`, 1 − that for `less`, difference for `between` (Kalshi's `strike_type`, `floor_strike`, `cap_strike`). Approximation: Kalshi
+  settles on CF Benchmarks' index. HYPE excluded (Coinbase's HYPE is a different asset). Mismatch guard skips near-certain answers on
+  uncertain markets with far strikes. Backtest uses historical candles at the snapshot time.
+- `external/weather.mjs`: NWS latest observation at the nearest station + the hourly forecast's change to the target hour; normal error
+  σ = 1°F + 0.3°F/h (2°F + 0.15°F/h without an observation), max 5°F. Kalshi settles on Synoptic Data. Live only.
+- Predictors `crypto_fair`, `weather_nws` (scored only on their markets); rows keep the evidence in `ext`; network inputs
+  "outside estimate − price" and "has outside data"; paper strategies with learned bet size; watchdog checks freshness.
+
 ## MCP server (read-only)
 `mcp/server.mjs` (official MCP SDK, stdio). Tools: `get_status`, `get_scorecard` (live|backtest), `search_predictions`, `recall_series`, `list_skills`.
 - Claude Code: `npm --prefix mcp install`, then it's picked up from `.mcp.json` (approve the project server once).
