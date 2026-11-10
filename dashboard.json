@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-10T21:25:52.986Z",
+ "generated": "2026-11-10T21:35:19.300Z",
  "config": {
   "version": 5,
   "scan": {
@@ -158,20 +158,20 @@
   }
  },
  "progress": {
-  "updated": "2026-11-10T21:25:18.496Z",
+  "updated": "2026-11-10T21:35:18.827Z",
   "goal": "IN_PROGRESS",
-  "resolved": 483,
+  "resolved": 488,
   "health": {
    "ok": false,
    "warmingUp": true,
    "checks": {
     "runsLast24h": {
-     "value": 20,
+     "value": 21,
      "target": 22,
      "ok": false
     },
     "newPredictionsLast24h": {
-     "value": 849,
+     "value": 853,
      "target": 11,
      "ok": true
     },
@@ -192,15 +192,15 @@
   "predictors": {
    "longshot": {
     "status": "FAILURE_RETIRE",
-    "rec": "no measurable edge after 483 resolved — recommend retiring this hypothesis",
-    "n": 483,
-    "brierVsMarket": 0.0006,
+    "rec": "no measurable edge after 488 resolved — recommend retiring this hypothesis",
+    "n": 488,
+    "brierVsMarket": 0.0005,
     "picks": 0,
     "trend": "first snapshot",
     "snap": {
-     "n": 483,
-     "mean": 0.0006,
-     "width": 0.0033
+     "n": 488,
+     "mean": 0.0005,
+     "width": 0.0032
     },
     "backtest": {
      "n": 1101,
@@ -248,30 +248,30 @@
   "definitions": "SUCCESS = Brier better than market (95% interval < 0, n ≥ minResolved) AND simulated picks profitable after fees (95% interval > 0, ≥ minPicks). FAILURE = clearly worse than market, or no edge after retireAfter resolved. Recommendations only; nothing changes without owner approval."
  },
  "scorecard": {
-  "resolved": 483,
-  "predictions": 849,
+  "resolved": 488,
+  "predictions": 853,
   "excludedLeakage": 0,
-  "events": 183,
+  "events": 186,
   "predictors": {
    "market": {
-    "n": 483,
+    "n": 488,
     "brier": {
-     "mean": 0.189,
-     "lo": 0.1632,
-     "hi": 0.2148,
-     "events": 183
+     "mean": 0.1885,
+     "lo": 0.1631,
+     "hi": 0.214,
+     "events": 186
     },
     "logLoss": {
-     "mean": 0.5611,
-     "lo": 0.4933,
-     "hi": 0.629,
-     "events": 183
+     "mean": 0.5601,
+     "lo": 0.4932,
+     "hi": 0.627,
+     "events": 186
     },
     "brierVsMarket": {
      "mean": 0,
      "lo": 0,
      "hi": 0,
-     "events": 183
+     "events": 186
     },
     "verdict": "baseline",
     "picks": {
@@ -295,9 +295,9 @@
      },
      {
       "bin": "10-20%",
-      "n": 53,
-      "avgP": 0.1398,
-      "hitRate": 0.2075
+      "n": 54,
+      "avgP": 0.1406,
+      "hitRate": 0.2037
      },
      {
       "bin": "20-30%",
@@ -313,15 +313,15 @@
      },
      {
       "bin": "40-50%",
-      "n": 65,
-      "avgP": 0.4505,
-      "hitRate": 0.4615
+      "n": 66,
+      "avgP": 0.4508,
+      "hitRate": 0.4545
      },
      {
       "bin": "50-60%",
-      "n": 69,
-      "avgP": 0.5396,
-      "hitRate": 0.6812
+      "n": 71,
+      "avgP": 0.5392,
+      "hitRate": 0.6901
      },
      {
       "bin": "60-70%",
@@ -337,9 +337,9 @@
      },
      {
       "bin": "80-90%",
-      "n": 30,
-      "avgP": 0.8552,
-      "hitRate": 0.8667
+      "n": 31,
+      "avgP": 0.854,
+      "hitRate": 0.871
      },
      {
       "bin": "90-100%",
@@ -350,24 +350,24 @@
     ]
    },
    "longshot": {
-    "n": 483,
+    "n": 488,
     "brier": {
-     "mean": 0.1896,
-     "lo": 0.1623,
-     "hi": 0.2168,
-     "events": 183
+     "mean": 0.189,
+     "lo": 0.1622,
+     "hi": 0.2159,
+     "events": 186
     },
     "logLoss": {
-     "mean": 0.565,
-     "lo": 0.4908,
-     "hi": 0.6393,
-     "events": 183
+     "mean": 0.5637,
+     "lo": 0.4906,
+     "hi": 0.6369,
+     "events": 186
     },
     "brierVsMarket": {
-     "mean": 0.0006,
+     "mean": 0.0005,
      "lo": -0.0011,
-     "hi": 0.0022,
-     "events": 183
+     "hi": 0.0021,
+     "events": 186
     },
     "verdict": "no measurable difference",
     "picks": {
@@ -391,9 +391,9 @@
      },
      {
       "bin": "10-20%",
-      "n": 49,
-      "avgP": 0.1339,
-      "hitRate": 0.2449
+      "n": 50,
+      "avgP": 0.1345,
+      "hitRate": 0.24
      },
      {
       "bin": "20-30%",
@@ -409,15 +409,15 @@
      },
      {
       "bin": "40-50%",
-      "n": 58,
-      "avgP": 0.452,
-      "hitRate": 0.431
+      "n": 59,
+      "avgP": 0.4522,
+      "hitRate": 0.4237
      },
      {
       "bin": "50-60%",
-      "n": 65,
-      "avgP": 0.5398,
-      "hitRate": 0.6615
+      "n": 67,
+      "avgP": 0.5394,
+      "hitRate": 0.6716
      },
      {
       "bin": "60-70%",
@@ -433,9 +433,9 @@
      },
      {
       "bin": "80-90%",
-      "n": 31,
-      "avgP": 0.854,
-      "hitRate": 0.7742
+      "n": 32,
+      "avgP": 0.8536,
+      "hitRate": 0.7813
      },
      {
       "bin": "90-100%",
@@ -640,8 +640,8 @@
   },
   "byCategory": {
    "Sports": {
-    "n": 267,
-    "brierMarket": 0.1872
+    "n": 272,
+    "brierMarket": 0.1864
    },
    "Politics": {
     "n": 3,
@@ -670,18 +670,18 @@
   }
  },
  "totals": {
-  "predictions": 849,
-  "outcomes": 483,
+  "predictions": 853,
+  "outcomes": 488,
   "trades": 75,
-  "runs": 20
+  "runs": 21
  },
  "categories": {
   "Sports": {
    "logged": 412,
-   "resolved": 267
+   "resolved": 272
   },
   "Commodities": {
-   "logged": 117,
+   "logged": 119,
    "resolved": 26
   },
   "Politics": {
@@ -697,11 +697,11 @@
    "resolved": 0
   },
   "Crypto": {
-   "logged": 147,
+   "logged": 148,
    "resolved": 91
   },
   "Climate and Weather": {
-   "logged": 34,
+   "logged": 35,
    "resolved": 20
   }
  },
@@ -845,9 +845,88 @@
    "scanned": 46490,
    "candidates": 931,
    "logged": 7
+  },
+  {
+   "ts": "2026-11-10T21:35:01.341Z",
+   "run": "048b1ff",
+   "scanned": 46407,
+   "candidates": 1199,
+   "logged": 4
   }
  ],
  "predictions": [
+  {
+   "ts": "2026-11-10T21:35:01.341Z",
+   "ticker": "KXWTIH-26NOV1017-T85.89",
+   "title": "Will the WTI Oil close price be above 85.89 USD/barrel on November 10, 2026 at 5:00 PM ET? — Above $85.89",
+   "cat": "Commodities",
+   "resolvesAt": "2026-11-10T22:00:00.000Z",
+   "ask": 0.47,
+   "bid": 0.41,
+   "mid": 0.44,
+   "est": {
+    "market": 0.44,
+    "longshot": 0.4341,
+    "memory": 0.4262,
+    "nn": 0.4215
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxwtih"
+  },
+  {
+   "ts": "2026-11-10T21:35:01.341Z",
+   "ticker": "KXBNB-26NOV1017-B677",
+   "title": "BNB price on Nov 10, 2026? — $675 to 679.99",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-10T22:00:00.000Z",
+   "ask": 0.94,
+   "bid": 0.89,
+   "mid": 0.915,
+   "est": {
+    "market": 0.915,
+    "longshot": 0.9318,
+    "memory": 0.915,
+    "nn": 0.9089
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxbnb"
+  },
+  {
+   "ts": "2026-11-10T21:35:01.341Z",
+   "ticker": "KXTEMPLAXHS-26NOV1017-T81.99",
+   "title": "Will the temp in Coastal Los Angeles be above 81.99° on Nov 10, 2026 at 5pm EST? — 82° or above",
+   "cat": "Climate and Weather",
+   "resolvesAt": "2026-11-10T22:00:00.000Z",
+   "ask": 0.29,
+   "bid": 0.25,
+   "mid": 0.27,
+   "est": {
+    "market": 0.27,
+    "longshot": 0.2508,
+    "memory": 0.2654,
+    "nn": 0.2554
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxtemplaxhs"
+  },
+  {
+   "ts": "2026-11-10T21:35:01.341Z",
+   "ticker": "KXWTIH-26NOV1017-T86.09",
+   "title": "Will the WTI Oil close price be above 86.09 USD/barrel on November 10, 2026 at 5:00 PM ET? — Above $86.09",
+   "cat": "Commodities",
+   "resolvesAt": "2026-11-10T22:00:00.000Z",
+   "ask": 0.09,
+   "bid": 0.06,
+   "mid": 0.075,
+   "est": {
+    "market": 0.075,
+    "longshot": 0.0593,
+    "memory": 0.0612,
+    "nn": 0.0699
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxwtih"
+  },
   {
    "ts": "2026-11-10T21:25:01.641Z",
    "ticker": "KXWTIH-26NOV1017-T85.79",
@@ -3475,74 +3554,6 @@
    },
    "outcome": "awaiting",
    "url": "https://kalshi.com/markets/kxinxu"
-  },
-  {
-   "ts": "2026-11-10T16:48:25.777Z",
-   "ticker": "KXLIGAPROMATCH-26NOV101200POBSMY-SMY",
-   "title": "Smyshnikov Maksim wins",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T20:00:00.000Z",
-   "ask": 0.43,
-   "bid": 0.42,
-   "mid": 0.425,
-   "est": {
-    "market": 0.425,
-    "longshot": 0.4176,
-    "memory": 0.425
-   },
-   "outcome": "no",
-   "url": "https://kalshi.com/markets/kxligapromatch"
-  },
-  {
-   "ts": "2026-11-10T16:48:25.777Z",
-   "ticker": "KXESOCCERGAME-26NOV101142BONYHOLI-TIE",
-   "title": "Game ends in a tie — Tie",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T19:42:00.000Z",
-   "ask": 0.28,
-   "bid": 0.26,
-   "mid": 0.27,
-   "est": {
-    "market": 0.27,
-    "longshot": 0.2508,
-    "memory": 0.2112
-   },
-   "outcome": "yes",
-   "url": "https://kalshi.com/markets/kxesoccergame"
-  },
-  {
-   "ts": "2026-11-10T16:48:25.777Z",
-   "ticker": "KXEBASKETBALLGAME-26NOV101212ZACHJASO-ZACH",
-   "title": "Dallas Mavericks (Zach) wins",
-   "cat": "Sports",
-   "resolvesAt": "2026-11-10T20:12:00.000Z",
-   "ask": 0.69,
-   "bid": 0.6,
-   "mid": 0.645,
-   "est": {
-    "market": 0.645,
-    "longshot": 0.6586,
-    "memory": 0.6698
-   },
-   "outcome": "yes",
-   "url": "https://kalshi.com/markets/kxebasketballgame"
-  },
-  {
-   "ts": "2026-11-10T16:48:25.777Z",
-   "ticker": "KXNASDAQ100U-26NOV10H1600-T27609.99",
-   "title": "Will the Nasdaq-100 be above 27609.99 at the end of Nov 10, 2026 at 4pm EST? — 27,610 or above",
-   "cat": "Financials",
-   "resolvesAt": "2026-11-10T21:00:00.000Z",
-   "ask": 0.46,
-   "bid": 0.41,
-   "mid": 0.435,
-   "est": {
-    "market": 0.435,
-    "longshot": 0.4286,
-    "memory": 0.435
-   },
-   "outcome": "yes",
-   "url": "https://kalshi.com/markets/kxnasdaq100u"
   }
  ],
  "trades": [
@@ -4963,7 +4974,7 @@
   }
  },
  "memory": {
-  "samples": 1555,
+  "samples": 1560,
   "series": 159,
   "top": [
    {
@@ -5747,7 +5758,7 @@
   ]
  },
  "paper": {
-  "updated": "2026-11-10T21:25:18.540Z",
+  "updated": "2026-11-10T21:35:18.874Z",
   "start": 10,
   "goal": 1000,
   "safety": {
@@ -8575,7 +8586,7 @@
    ]
   },
   "forward": {
-   "rows": 146,
+   "rows": 150,
    "settled": 100,
    "portfolios": [
     {
@@ -8657,7 +8668,7 @@
      "avgBetPct": 1.9176,
      "maxBetPct": 1.9798,
      "worstLossPct": -1.9708,
-     "betsPerDay": 130.0966,
+     "betsPerDay": 125.1819,
      "trustNow": null,
      "busted": null,
      "reachedGoal": null,
@@ -9199,7 +9210,7 @@
      "avgBetPct": 2.3631,
      "maxBetPct": 2.502,
      "worstLossPct": -2.502,
-     "betsPerDay": 62.2201,
+     "betsPerDay": 59.8696,
      "trustNow": {
       "trust": 0,
       "why": "learning: 11/30 settled bets"
@@ -9719,7 +9730,7 @@
      "avgBetPct": 1.9538,
      "maxBetPct": 1.9788,
      "worstLossPct": -1.9659,
-     "betsPerDay": 73.5329,
+     "betsPerDay": 70.755,
      "trustNow": null,
      "busted": null,
      "reachedGoal": null,
@@ -10348,7 +10359,7 @@
      "avgBetPct": 2.2866,
      "maxBetPct": 2.7431,
      "worstLossPct": -2.7431,
-     "betsPerDay": 96.1584,
+     "betsPerDay": 92.5257,
      "trustNow": {
       "trust": 0,
       "why": "learning: 13/30 settled bets"
@@ -10932,16 +10943,16 @@
   }
  },
  "status": {
-  "updated": "2026-11-10T21:25:52.950Z",
+  "updated": "2026-11-10T21:35:19.262Z",
   "trade": {
    "answer": "No — don't trade real money yet",
    "tone": "bad",
-   "why": "Nothing has proven an edge after fees. Live: 483 markets resolved (183 events); a verdict needs 100+ and the 95% range must exclude zero. Network on unseen past markets: no measurable difference.",
+   "why": "Nothing has proven an edge after fees. Live: 488 markets resolved (186 events); a verdict needs 100+ and the 95% range must exclude zero. Network on unseen past markets: no measurable difference.",
    "next": "Let it keep collecting. The answer changes automatically when a strategy reaches SUCCESS on the live record."
   },
   "learning": [
-   "Live record: 483 of 849 predictions resolved so far (183 separate events).",
-   "longshot: failure retire — no measurable edge after 483 resolved — recommend retiring this hypothesis",
+   "Live record: 488 of 853 predictions resolved so far (186 separate events).",
+   "longshot: failure retire — no measurable edge after 488 resolved — recommend retiring this hypothesis",
    "memory: off track — not beating the market so far (+0.0033) — wait for 0 more resolved before judging",
    "nn: on track — leaning better than the market (-0.0062) — wait for 0 more resolved",
    "Neural network: tested on 1004 past markets it never saw → no measurable difference (Brier 0.1799 vs market 0.1797).",
@@ -11042,27 +11053,27 @@
    {
     "name": "Pipeline ran recently",
     "ok": true,
-    "detail": "last cloud run 1 min ago"
+    "detail": "last cloud run 0 min ago"
    },
    {
     "name": "Runs on schedule (every 10 min)",
     "ok": false,
-    "detail": "4 cloud runs in the last 3 h (expect ~18)"
+    "detail": "5 cloud runs in the last 3 h (expect ~18)"
    },
    {
     "name": "New predictions are being logged",
     "ok": true,
-    "detail": "23 logged in the last hour"
+    "detail": "27 logged in the last hour"
    },
    {
     "name": "Outcomes are being collected",
     "ok": true,
-    "detail": "319/327 predictions due >2 h ago have an official result"
+    "detail": "331/349 predictions due >2 h ago have an official result"
    },
    {
     "name": "Scorecard matches the logs",
     "ok": true,
-    "detail": "scorecard counts 849, log has 849"
+    "detail": "scorecard counts 853, log has 853"
    },
    {
     "name": "No prediction logged after its market resolved",
@@ -11082,7 +11093,7 @@
    {
     "name": "Network trained in the last 2 h",
     "ok": true,
-    "detail": "trained 29 min ago on 1255 markets"
+    "detail": "trained 38 min ago on 1255 markets"
    },
    {
     "name": "Bet-size safety held (≤5% per bet)",
@@ -11098,7 +11109,7 @@
   "problems": 1,
   "needs": [
    "Scheduled runs aren't firing. In the repo: Actions → Kalshi feed → ⋯ → Disable workflow, then Enable workflow. Until then data only updates when a run is started by hand.",
-   "Decision: longshot — no measurable edge after 483 resolved — recommend retiring this hypothesis"
+   "Decision: longshot — no measurable edge after 488 resolved — recommend retiring this hypothesis"
   ]
  },
  "briefings": [
@@ -11127,7 +11138,7 @@
   }
  ],
  "focus": {
-  "updated": "2026-11-10T21:25:52.729Z",
+  "updated": "2026-11-10T21:35:18.999Z",
   "markets": [
    {
     "ticker": "KXHYPED-26NOV1017-T71.9999",
@@ -11148,50 +11159,10 @@
       "cost": 0.25
      }
     },
-    "price": 0.855,
-    "chg30m": 0.33,
-    "chg3h": 0.65,
+    "price": 0.975,
+    "chg30m": 0.14,
+    "chg3h": 0.72,
     "series": [
-     [
-      1794335160000,
-      0.205,
-      0
-     ],
-     [
-      1794335220000,
-      0.2,
-      0
-     ],
-     [
-      1794335340000,
-      0.23,
-      0
-     ],
-     [
-      1794335400000,
-      0.215,
-      0
-     ],
-     [
-      1794335520000,
-      0.225,
-      0
-     ],
-     [
-      1794335580000,
-      0.28,
-      0
-     ],
-     [
-      1794335640000,
-      0.265,
-      0
-     ],
-     [
-      1794335700000,
-      0.255,
-      0
-     ],
      [
       1794335760000,
       0.255,
@@ -12026,6 +11997,46 @@
       1794345900000,
       0.855,
       0
+     ],
+     [
+      1794345960000,
+      0.885,
+      0
+     ],
+     [
+      1794346020000,
+      0.91,
+      0
+     ],
+     [
+      1794346080000,
+      0.93,
+      0
+     ],
+     [
+      1794346140000,
+      0.95,
+      0
+     ],
+     [
+      1794346200000,
+      0.965,
+      1.01
+     ],
+     [
+      1794346260000,
+      0.965,
+      0
+     ],
+     [
+      1794346320000,
+      0.97,
+      0
+     ],
+     [
+      1794346440000,
+      0.975,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxhyped"
@@ -12049,9 +12060,9 @@
       "cost": 0.13
      }
     },
-    "price": 0.095,
-    "chg30m": null,
-    "chg3h": -0.155,
+    "price": 0.13,
+    "chg30m": -0.12,
+    "chg3h": -0.12,
     "series": [
      [
       1794344520000,
@@ -12172,6 +12183,56 @@
       1794345900000,
       0.095,
       513.67
+     ],
+     [
+      1794345960000,
+      0.11,
+      40.77
+     ],
+     [
+      1794346020000,
+      0.115,
+      13.53
+     ],
+     [
+      1794346080000,
+      0.11,
+      0
+     ],
+     [
+      1794346140000,
+      0.115,
+      44.15
+     ],
+     [
+      1794346200000,
+      0.115,
+      0
+     ],
+     [
+      1794346260000,
+      0.1,
+      2
+     ],
+     [
+      1794346320000,
+      0.09,
+      0
+     ],
+     [
+      1794346380000,
+      0.1,
+      15.69
+     ],
+     [
+      1794346440000,
+      0.115,
+      0
+     ],
+     [
+      1794346500000,
+      0.13,
+      99.32
      ]
     ],
     "url": "https://kalshi.com/markets/kxtempchihs"
@@ -12193,16 +12254,6 @@
     "chg30m": 0,
     "chg3h": 0.025,
     "series": [
-     [
-      1794335400000,
-      0.97,
-      0
-     ],
-     [
-      1794335460000,
-      0.97,
-      0
-     ],
      [
       1794336000000,
       0.97,
@@ -12294,45 +12345,10 @@
      "nn": 0.0659
     },
     "picks": {},
-    "price": 0.79,
-    "chg30m": 0.035,
-    "chg3h": 0.675,
+    "price": 0.9,
+    "chg30m": 0.185,
+    "chg3h": 0.755,
     "series": [
-     [
-      1794335160000,
-      0.115,
-      0
-     ],
-     [
-      1794335220000,
-      0.115,
-      0
-     ],
-     [
-      1794335280000,
-      0.11,
-      0
-     ],
-     [
-      1794335340000,
-      0.12,
-      0
-     ],
-     [
-      1794335520000,
-      0.12,
-      0
-     ],
-     [
-      1794335580000,
-      0.16,
-      0
-     ],
-     [
-      1794335640000,
-      0.15,
-      0
-     ],
      [
       1794335760000,
       0.145,
@@ -13147,6 +13163,56 @@
       1794345900000,
       0.79,
       0
+     ],
+     [
+      1794345960000,
+      0.815,
+      0
+     ],
+     [
+      1794346020000,
+      0.845,
+      0
+     ],
+     [
+      1794346080000,
+      0.865,
+      0
+     ],
+     [
+      1794346140000,
+      0.875,
+      0
+     ],
+     [
+      1794346200000,
+      0.89,
+      4
+     ],
+     [
+      1794346260000,
+      0.895,
+      0
+     ],
+     [
+      1794346320000,
+      0.9,
+      0
+     ],
+     [
+      1794346380000,
+      0.9,
+      0
+     ],
+     [
+      1794346440000,
+      0.875,
+      0
+     ],
+     [
+      1794346500000,
+      0.9,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxhype"
@@ -13168,16 +13234,6 @@
     "chg30m": 0,
     "chg3h": 0.02,
     "series": [
-     [
-      1794335460000,
-      0.975,
-      0
-     ],
-     [
-      1794335520000,
-      0.975,
-      0
-     ],
      [
       1794336420000,
       0.975,
@@ -13357,6 +13413,21 @@
       1794343920000,
       0.995,
       0
+     ],
+     [
+      1794345960000,
+      0.995,
+      0
+     ],
+     [
+      1794346020000,
+      0.995,
+      0
+     ],
+     [
+      1794346200000,
+      0.995,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxsilverd"
@@ -13374,9 +13445,9 @@
      "nn": 0.0934
     },
     "picks": {},
-    "price": 0.135,
-    "chg30m": null,
-    "chg3h": -0.165,
+    "price": 0.12,
+    "chg30m": 0.03,
+    "chg3h": -0.18,
     "series": [
      [
       1794344520000,
@@ -13497,6 +13568,56 @@
       1794345900000,
       0.135,
       99.11
+     ],
+     [
+      1794345960000,
+      0.13,
+      68.1
+     ],
+     [
+      1794346020000,
+      0.125,
+      57.17
+     ],
+     [
+      1794346080000,
+      0.125,
+      104
+     ],
+     [
+      1794346140000,
+      0.11,
+      468.18
+     ],
+     [
+      1794346200000,
+      0.11,
+      62.66
+     ],
+     [
+      1794346260000,
+      0.115,
+      99.96
+     ],
+     [
+      1794346320000,
+      0.115,
+      177.17
+     ],
+     [
+      1794346380000,
+      0.115,
+      71.15
+     ],
+     [
+      1794346440000,
+      0.105,
+      234.93
+     ],
+     [
+      1794346500000,
+      0.12,
+      122.19
      ]
     ],
     "url": "https://kalshi.com/markets/kxtempmiah"
@@ -13514,9 +13635,9 @@
      "nn": 0.0981
     },
     "picks": {},
-    "price": 0.29,
-    "chg30m": null,
-    "chg3h": -0.095,
+    "price": 0.125,
+    "chg30m": -0.33,
+    "chg3h": -0.26,
     "series": [
      [
       1794344520000,
@@ -13637,6 +13758,56 @@
       1794345900000,
       0.29,
       444.94
+     ],
+     [
+      1794345960000,
+      0.18,
+      209.22
+     ],
+     [
+      1794346020000,
+      0.16,
+      9.02
+     ],
+     [
+      1794346080000,
+      0.14,
+      14.93
+     ],
+     [
+      1794346140000,
+      0.16,
+      253.44
+     ],
+     [
+      1794346200000,
+      0.11,
+      16.37
+     ],
+     [
+      1794346260000,
+      0.075,
+      69.33
+     ],
+     [
+      1794346320000,
+      0.08,
+      288.12
+     ],
+     [
+      1794346380000,
+      0.12,
+      56.19
+     ],
+     [
+      1794346440000,
+      0.125,
+      209
+     ],
+     [
+      1794346500000,
+      0.125,
+      92.53
      ]
     ],
     "url": "https://kalshi.com/markets/kxtempnychs"
@@ -13654,9 +13825,9 @@
      "nn": 0.1501
     },
     "picks": {},
-    "price": 0.37,
-    "chg30m": null,
-    "chg3h": -0.035,
+    "price": 0.23,
+    "chg30m": 0.135,
+    "chg3h": -0.175,
     "series": [
      [
       1794344340000,
@@ -13792,6 +13963,56 @@
       1794345900000,
       0.37,
       0.01
+     ],
+     [
+      1794345960000,
+      0.325,
+      0
+     ],
+     [
+      1794346020000,
+      0.365,
+      0
+     ],
+     [
+      1794346080000,
+      0.325,
+      11
+     ],
+     [
+      1794346140000,
+      0.325,
+      22.78
+     ],
+     [
+      1794346200000,
+      0.27,
+      0
+     ],
+     [
+      1794346260000,
+      0.2,
+      63
+     ],
+     [
+      1794346320000,
+      0.225,
+      0
+     ],
+     [
+      1794346380000,
+      0.195,
+      0
+     ],
+     [
+      1794346440000,
+      0.205,
+      175.1
+     ],
+     [
+      1794346500000,
+      0.23,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxwtih"
@@ -13810,7 +14031,7 @@
     },
     "picks": {},
     "price": 0.895,
-    "chg30m": null,
+    "chg30m": 0.33,
     "chg3h": 0.515,
     "series": [
      [
@@ -13932,9 +14153,764 @@
       1794345900000,
       0.895,
       0
+     ],
+     [
+      1794345960000,
+      0.895,
+      0
+     ],
+     [
+      1794346020000,
+      0.895,
+      0
+     ],
+     [
+      1794346080000,
+      0.895,
+      0
+     ],
+     [
+      1794346140000,
+      0.895,
+      0
+     ],
+     [
+      1794346200000,
+      0.875,
+      71
+     ],
+     [
+      1794346260000,
+      0.86,
+      53
+     ],
+     [
+      1794346320000,
+      0.855,
+      15
+     ],
+     [
+      1794346380000,
+      0.865,
+      1.12
+     ],
+     [
+      1794346440000,
+      0.885,
+      0
+     ],
+     [
+      1794346500000,
+      0.895,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxtemplaxhs"
+   },
+   {
+    "ticker": "KXBNB-26NOV1017-B677",
+    "title": "BNB price on Nov 10, 2026? — $675 to 679.99",
+    "cat": "Crypto",
+    "resolvesAt": "2026-11-10T22:00:00.000Z",
+    "loggedPrice": 0.915,
+    "est": {
+     "market": 0.915,
+     "longshot": 0.9318,
+     "memory": 0.915,
+     "nn": 0.9089
+    },
+    "picks": {},
+    "price": 0.885,
+    "chg30m": 0.2,
+    "chg3h": 0.58,
+    "series": [
+     [
+      1794335760000,
+      0.305,
+      0
+     ],
+     [
+      1794335820000,
+      0.355,
+      0
+     ],
+     [
+      1794335880000,
+      0.355,
+      0
+     ],
+     [
+      1794335940000,
+      0.355,
+      0
+     ],
+     [
+      1794336000000,
+      0.35,
+      0
+     ],
+     [
+      1794336180000,
+      0.345,
+      0
+     ],
+     [
+      1794336240000,
+      0.345,
+      0
+     ],
+     [
+      1794336300000,
+      0.365,
+      0
+     ],
+     [
+      1794336420000,
+      0.35,
+      0
+     ],
+     [
+      1794336480000,
+      0.355,
+      0
+     ],
+     [
+      1794336540000,
+      0.315,
+      0
+     ],
+     [
+      1794336600000,
+      0.315,
+      0
+     ],
+     [
+      1794336660000,
+      0.315,
+      0
+     ],
+     [
+      1794336720000,
+      0.295,
+      0
+     ],
+     [
+      1794336780000,
+      0.325,
+      0
+     ],
+     [
+      1794336840000,
+      0.35,
+      0
+     ],
+     [
+      1794336960000,
+      0.355,
+      0
+     ],
+     [
+      1794337080000,
+      0.355,
+      0
+     ],
+     [
+      1794337260000,
+      0.345,
+      0
+     ],
+     [
+      1794337320000,
+      0.34,
+      0
+     ],
+     [
+      1794337440000,
+      0.32,
+      0
+     ],
+     [
+      1794337500000,
+      0.315,
+      0
+     ],
+     [
+      1794337560000,
+      0.295,
+      0
+     ],
+     [
+      1794337620000,
+      0.255,
+      0
+     ],
+     [
+      1794337680000,
+      0.295,
+      0
+     ],
+     [
+      1794337800000,
+      0.3,
+      0
+     ],
+     [
+      1794337860000,
+      0.31,
+      0
+     ],
+     [
+      1794337920000,
+      0.29,
+      0
+     ],
+     [
+      1794337980000,
+      0.28,
+      0
+     ],
+     [
+      1794338040000,
+      0.265,
+      0
+     ],
+     [
+      1794338100000,
+      0.255,
+      0
+     ],
+     [
+      1794338280000,
+      0.275,
+      0
+     ],
+     [
+      1794338340000,
+      0.275,
+      0
+     ],
+     [
+      1794338460000,
+      0.29,
+      0
+     ],
+     [
+      1794338520000,
+      0.255,
+      0
+     ],
+     [
+      1794338580000,
+      0.235,
+      0
+     ],
+     [
+      1794338640000,
+      0.245,
+      0
+     ],
+     [
+      1794338700000,
+      0.255,
+      0
+     ],
+     [
+      1794338760000,
+      0.25,
+      0
+     ],
+     [
+      1794338820000,
+      0.24,
+      0
+     ],
+     [
+      1794338880000,
+      0.265,
+      0
+     ],
+     [
+      1794338940000,
+      0.26,
+      0
+     ],
+     [
+      1794339000000,
+      0.26,
+      0
+     ],
+     [
+      1794339060000,
+      0.275,
+      0
+     ],
+     [
+      1794339180000,
+      0.32,
+      0
+     ],
+     [
+      1794339240000,
+      0.33,
+      0
+     ],
+     [
+      1794339360000,
+      0.28,
+      0
+     ],
+     [
+      1794339420000,
+      0.265,
+      0
+     ],
+     [
+      1794339480000,
+      0.245,
+      0
+     ],
+     [
+      1794339600000,
+      0.25,
+      0
+     ],
+     [
+      1794339720000,
+      0.255,
+      0
+     ],
+     [
+      1794339840000,
+      0.27,
+      0
+     ],
+     [
+      1794339960000,
+      0.275,
+      0
+     ],
+     [
+      1794340020000,
+      0.315,
+      0
+     ],
+     [
+      1794340080000,
+      0.35,
+      0
+     ],
+     [
+      1794340140000,
+      0.365,
+      0
+     ],
+     [
+      1794340200000,
+      0.39,
+      0
+     ],
+     [
+      1794340260000,
+      0.405,
+      0
+     ],
+     [
+      1794340320000,
+      0.415,
+      0
+     ],
+     [
+      1794340380000,
+      0.445,
+      0
+     ],
+     [
+      1794340440000,
+      0.445,
+      0
+     ],
+     [
+      1794340500000,
+      0.41,
+      0
+     ],
+     [
+      1794340560000,
+      0.405,
+      0
+     ],
+     [
+      1794340620000,
+      0.365,
+      0
+     ],
+     [
+      1794340680000,
+      0.38,
+      0
+     ],
+     [
+      1794340740000,
+      0.395,
+      22.88
+     ],
+     [
+      1794340860000,
+      0.355,
+      0
+     ],
+     [
+      1794340920000,
+      0.275,
+      0
+     ],
+     [
+      1794340980000,
+      0.27,
+      0
+     ],
+     [
+      1794341040000,
+      0.245,
+      0
+     ],
+     [
+      1794341100000,
+      0.235,
+      0
+     ],
+     [
+      1794341160000,
+      0.245,
+      0
+     ],
+     [
+      1794341220000,
+      0.285,
+      0
+     ],
+     [
+      1794341280000,
+      0.3,
+      0
+     ],
+     [
+      1794341340000,
+      0.325,
+      0
+     ],
+     [
+      1794341400000,
+      0.305,
+      0
+     ],
+     [
+      1794341460000,
+      0.36,
+      0
+     ],
+     [
+      1794341520000,
+      0.345,
+      0
+     ],
+     [
+      1794341580000,
+      0.35,
+      0
+     ],
+     [
+      1794341640000,
+      0.355,
+      0
+     ],
+     [
+      1794341700000,
+      0.415,
+      0
+     ],
+     [
+      1794341760000,
+      0.455,
+      0
+     ],
+     [
+      1794341820000,
+      0.405,
+      0
+     ],
+     [
+      1794341880000,
+      0.485,
+      0
+     ],
+     [
+      1794341940000,
+      0.485,
+      0
+     ],
+     [
+      1794342000000,
+      0.495,
+      0
+     ],
+     [
+      1794342060000,
+      0.53,
+      0
+     ],
+     [
+      1794342120000,
+      0.52,
+      0
+     ],
+     [
+      1794342180000,
+      0.515,
+      0
+     ],
+     [
+      1794342240000,
+      0.51,
+      0
+     ],
+     [
+      1794342300000,
+      0.515,
+      0
+     ],
+     [
+      1794342360000,
+      0.525,
+      0
+     ],
+     [
+      1794342420000,
+      0.515,
+      0
+     ],
+     [
+      1794342480000,
+      0.505,
+      0
+     ],
+     [
+      1794342540000,
+      0.52,
+      0
+     ],
+     [
+      1794342600000,
+      0.505,
+      0
+     ],
+     [
+      1794342660000,
+      0.48,
+      0
+     ],
+     [
+      1794342720000,
+      0.465,
+      0
+     ],
+     [
+      1794342780000,
+      0.455,
+      0
+     ],
+     [
+      1794342840000,
+      0.445,
+      0
+     ],
+     [
+      1794342900000,
+      0.435,
+      0
+     ],
+     [
+      1794342960000,
+      0.43,
+      0
+     ],
+     [
+      1794343020000,
+      0.44,
+      0
+     ],
+     [
+      1794343080000,
+      0.43,
+      0
+     ],
+     [
+      1794343140000,
+      0.42,
+      0
+     ],
+     [
+      1794343200000,
+      0.425,
+      0
+     ],
+     [
+      1794343260000,
+      0.425,
+      0
+     ],
+     [
+      1794343320000,
+      0.425,
+      0
+     ],
+     [
+      1794343380000,
+      0.42,
+      0
+     ],
+     [
+      1794343440000,
+      0.405,
+      0
+     ],
+     [
+      1794343500000,
+      0.41,
+      0
+     ],
+     [
+      1794343560000,
+      0.42,
+      0
+     ],
+     [
+      1794343620000,
+      0.435,
+      0
+     ],
+     [
+      1794343680000,
+      0.48,
+      0
+     ],
+     [
+      1794343740000,
+      0.515,
+      0
+     ],
+     [
+      1794343800000,
+      0.535,
+      0
+     ],
+     [
+      1794344460000,
+      0.59,
+      2
+     ],
+     [
+      1794344520000,
+      0.635,
+      0
+     ],
+     [
+      1794344580000,
+      0.615,
+      1
+     ],
+     [
+      1794344640000,
+      0.615,
+      0
+     ],
+     [
+      1794344700000,
+      0.685,
+      0
+     ],
+     [
+      1794344820000,
+      0.725,
+      1
+     ],
+     [
+      1794344880000,
+      0.735,
+      0
+     ],
+     [
+      1794344940000,
+      0.715,
+      0
+     ],
+     [
+      1794345000000,
+      0.72,
+      0
+     ],
+     [
+      1794345060000,
+      0.735,
+      0
+     ],
+     [
+      1794345180000,
+      0.735,
+      0
+     ],
+     [
+      1794345240000,
+      0.78,
+      4
+     ],
+     [
+      1794345300000,
+      0.785,
+      0
+     ],
+     [
+      1794345420000,
+      0.785,
+      0
+     ],
+     [
+      1794345480000,
+      0.81,
+      2
+     ],
+     [
+      1794345600000,
+      0.815,
+      0
+     ],
+     [
+      1794345660000,
+      0.815,
+      0
+     ],
+     [
+      1794345900000,
+      0.855,
+      1
+     ],
+     [
+      1794346140000,
+      0.855,
+      0
+     ],
+     [
+      1794346260000,
+      0.885,
+      2
+     ],
+     [
+      1794346380000,
+      0.885,
+      0
+     ]
+    ],
+    "url": "https://kalshi.com/markets/kxbnb"
    },
    {
     "ticker": "KXBIGGESTQUAKE-10NOV26-5.8",
@@ -13950,14 +14926,9 @@
     },
     "picks": {},
     "price": 0.11,
-    "chg30m": 0,
-    "chg3h": -0.075,
+    "chg30m": 0.01,
+    "chg3h": -0.065,
     "series": [
-     [
-      1794335460000,
-      0.185,
-      0
-     ],
      [
       1794335820000,
       0.175,
@@ -14327,6 +15298,16 @@
       1794345840000,
       0.11,
       0
+     ],
+     [
+      1794346260000,
+      0.11,
+      3.92
+     ],
+     [
+      1794346320000,
+      0.11,
+      0.78
      ]
     ],
     "url": "https://kalshi.com/markets/kxbiggestquake"
