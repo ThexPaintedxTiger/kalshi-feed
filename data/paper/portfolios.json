@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T21:15:17.935Z",
+ "updated": "2026-11-10T21:25:18.540Z",
  "start": 10,
  "goal": 1000,
  "safety": {
@@ -2827,7 +2827,7 @@
   ]
  },
  "forward": {
-  "rows": 139,
+  "rows": 146,
   "settled": 100,
   "portfolios": [
    {
@@ -2909,7 +2909,7 @@
     "avgBetPct": 1.9176,
     "maxBetPct": 1.9798,
     "worstLossPct": -1.9708,
-    "betsPerDay": 135.4185,
+    "betsPerDay": 130.0966,
     "trustNow": null,
     "busted": null,
     "reachedGoal": null,
@@ -3451,7 +3451,7 @@
     "avgBetPct": 2.3631,
     "maxBetPct": 2.502,
     "worstLossPct": -2.502,
-    "betsPerDay": 64.7654,
+    "betsPerDay": 62.2201,
     "trustNow": {
      "trust": 0,
      "why": "learning: 11/30 settled bets"
@@ -3971,7 +3971,7 @@
     "avgBetPct": 1.9538,
     "maxBetPct": 1.9788,
     "worstLossPct": -1.9659,
-    "betsPerDay": 76.5409,
+    "betsPerDay": 73.5329,
     "trustNow": null,
     "busted": null,
     "reachedGoal": null,
@@ -4585,22 +4585,22 @@
     "name": "Series memory, learned bet size",
     "predictor": "memory",
     "sizing": "learn",
-    "equity": 7.9133,
-    "cash": 7.4593,
-    "openPositions": 3,
-    "returnPct": -20.867,
-    "bets": 16,
+    "equity": 7.9033,
+    "cash": 7.3353,
+    "openPositions": 4,
+    "returnPct": -20.967,
+    "bets": 17,
     "shadowBets": 0,
     "settled": 13,
     "wins": 3,
     "pnl": -2.0467,
-    "fees": 0.2,
+    "fees": 0.21,
     "maxDrawdownPct": 20.787,
     "lowest": 7.9213,
-    "avgBetPct": 2.3315,
+    "avgBetPct": 2.2866,
     "maxBetPct": 2.7431,
     "worstLossPct": -2.7431,
-    "betsPerDay": 94.2041,
+    "betsPerDay": 96.1584,
     "trustNow": {
      "trust": 0,
      "why": "learning: 13/30 settled bets"
@@ -4666,6 +4666,22 @@
      ]
     ],
     "recent": [
+     {
+      "ts": "2026-11-10T21:25:01.641Z",
+      "ticker": "KXTEMPCHIHS-26NOV1017-T63.99",
+      "title": "Will the temp in Chicago Metro Area be above 63.99° on Nov 10, 2026 at 5pm EST? — 64° or above",
+      "cat": "Climate and Weather",
+      "side": "yes",
+      "price": 0.05,
+      "contracts": 2.28,
+      "fee": 0.01,
+      "stake": 0.124,
+      "bankroll": 7.9133,
+      "betPct": 1.567,
+      "evPerDollar": 1.476,
+      "pnl": null,
+      "won": null
+     },
      {
       "ts": "2026-11-10T21:15:01.352Z",
       "ticker": "KXTEMPCHIHS-26NOV1017-T61.99",
@@ -4900,23 +4916,6 @@
       "pnl": -0.248,
       "won": false,
       "settledAt": "2026-11-10T19:11:16.210Z"
-     },
-     {
-      "ts": "2026-11-10T17:10:26.839Z",
-      "ticker": "KXGOLDH-26NOV1013-T4019.99",
-      "title": "Will the gold close price be above 4019.99 USD/ounce on November 10, 2026 at 1:00 PM ET? — Above $4019.99",
-      "cat": "Commodities",
-      "side": "no",
-      "price": 0.4,
-      "contracts": 0.58,
-      "fee": 0.01,
-      "stake": 0.242,
-      "bankroll": 9.99,
-      "betPct": 2.4224,
-      "evPerDollar": 0.249,
-      "pnl": 0.338,
-      "won": true,
-      "settledAt": "2026-11-10T18:05:41.259Z"
      }
     ],
     "stats": {

@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T21:15:18.272Z",
+ "updated": "2026-11-10T21:25:52.950Z",
  "trade": {
   "answer": "No — don't trade real money yet",
   "tone": "bad",
@@ -7,7 +7,7 @@
   "next": "Let it keep collecting. The answer changes automatically when a strategy reaches SUCCESS on the live record."
  },
  "learning": [
-  "Live record: 483 of 842 predictions resolved so far (183 separate events).",
+  "Live record: 483 of 849 predictions resolved so far (183 separate events).",
   "longshot: failure retire — no measurable edge after 483 resolved — recommend retiring this hypothesis",
   "memory: off track — not beating the market so far (+0.0033) — wait for 0 more resolved before judging",
   "nn: on track — leaning better than the market (-0.0062) — wait for 0 more resolved",
@@ -109,27 +109,27 @@
   {
    "name": "Pipeline ran recently",
    "ok": true,
-   "detail": "last cloud run 0 min ago"
+   "detail": "last cloud run 1 min ago"
   },
   {
    "name": "Runs on schedule (every 10 min)",
    "ok": false,
-   "detail": "3 cloud runs in the last 3 h (expect ~18)"
+   "detail": "4 cloud runs in the last 3 h (expect ~18)"
   },
   {
    "name": "New predictions are being logged",
    "ok": true,
-   "detail": "16 logged in the last hour"
+   "detail": "23 logged in the last hour"
   },
   {
    "name": "Outcomes are being collected",
    "ok": true,
-   "detail": "317/325 predictions due >2 h ago have an official result"
+   "detail": "319/327 predictions due >2 h ago have an official result"
   },
   {
    "name": "Scorecard matches the logs",
    "ok": true,
-   "detail": "scorecard counts 842, log has 842"
+   "detail": "scorecard counts 849, log has 849"
   },
   {
    "name": "No prediction logged after its market resolved",
@@ -149,7 +149,7 @@
   {
    "name": "Network trained in the last 2 h",
    "ok": true,
-   "detail": "trained 18 min ago on 1255 markets"
+   "detail": "trained 29 min ago on 1255 markets"
   },
   {
    "name": "Bet-size safety held (≤5% per bet)",
