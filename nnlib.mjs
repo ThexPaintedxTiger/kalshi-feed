@@ -101,3 +101,16 @@ export function train(data, o = {}) {
   return va.length ? { model: best.model, bestEpoch: best.epoch, curve, valLoss: best.loss, n: { train: tr.length, val: va.length } }
     : { model: m, bestEpoch: opt.epochs, curve, n: { train: tr.length, val: 0 } };
 }
+
+// Learning evidence from a walk-forward run (unseen markets only).
+// rows: [{p, mid, y, title?, ticker?}]. Returns calibration buckets and the worst misses by log loss.
+export function learningEvidence(rows, bins = 10, topMisses = 10) {
+  const b = Array.from({ length: bins }, (_, i) => ({ lo: i / bins, hi: (i + 1) / bins, n: 0, p: 0, y: 0 }));
+  for (const r of rows) { const k = Math.min(bins - 1, Math.floor(r.p * bins)); b[k].n++; b[k].p += r.p; b[k].y += r.y; }
+  const r4 = x => Math.round(x * 1e4) / 1e4;
+  return {
+    calibration: b.filter(x => x.n).map(x => ({ bucket: `${Math.round(x.lo * 100)}-${Math.round(x.hi * 100)}%`, n: x.n, avgP: r4(x.p / x.n), yesRate: r4(x.y / x.n) })),
+    misses: rows.map(r => ({ ...r, loss: logLoss(r.p, r.y) })).sort((a, z) => z.loss - a.loss).slice(0, topMisses)
+      .map(r => ({ title: r.title || r.ticker || "", net: r4(r.p), market: r4(r.mid), outcome: r.y ? "yes" : "no", loss: r4(r.loss), marketLoss: r4(logLoss(r.mid, r.y)) })),
+  };
+}

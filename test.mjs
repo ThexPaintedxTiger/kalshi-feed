@@ -7,7 +7,8 @@ import { makeRecall } from "./memory.mjs";
 import { PRED, estimate } from "./predictors.mjs";
 import { parseCsv, mapColumns, normalize } from "./import-trades.mjs";
 import { init, rng, backprop, predict, train, logLoss as nnLoss } from "./nnlib.mjs";
-import { orderFee, kellyFraction, simulate, monteCarlo, tradeStats } from "./paper.mjs";
+import { orderFee, kellyFraction, simulate, monteCarlo, tradeStats, disagreementReview } from "./paper.mjs";
+import { learningEvidence } from "./nnlib.mjs";
 
 // Fees: Kalshi taker fee rounds up to the cent.
 assert.equal(fee(0.5), 0.02);          // 0.07 × .5 × .5 = 1.75¢ → 2¢
@@ -139,5 +140,18 @@ assert.equal(r4(kellyFraction(0.6, 0.5)), 0.2); assert.equal(kellyFraction(0.4, 
   assert.equal(st.profitFactor, 3.5); assert.equal(st.net, 2.5); assert.equal(st.winRate, 0.75);
   assert.deepEqual(st.streak, { kind: "win", n: 2 }); assert.equal(st.daily.length, 3); assert.equal(st.daily[0].pnl, 1);
   assert.equal(st.drawdown[2][1], r4(-1 / 12 * 100)); assert.equal(st.worst, -1); assert.equal(st.best, 2);
+}
+// Learning evidence: calibration buckets and worst misses.
+{
+  const ev2 = learningEvidence([{ p: 0.9, mid: 0.6, y: 0, title: "A" }, { p: 0.15, mid: 0.2, y: 0, title: "B" }, { p: 0.12, mid: 0.2, y: 1, title: "C" }]);
+  assert.equal(ev2.misses[0].title, "A");                                   // confident and wrong = worst miss
+  assert.deepEqual(ev2.calibration.map(c => c.bucket), ["10-20%", "90-100%"]);
+  assert.equal(ev2.calibration[0].n, 2); assert.equal(ev2.calibration[0].yesRate, 0.5);
+}
+// Loss review: who was closer to the outcome, network or market.
+{
+  const B = (side, p, mid, won) => ({ side, p, mid, won, pnl: won ? 0.4 : -0.5 });
+  const rv = disagreementReview([B("yes", 0.7, 0.5, true), B("yes", 0.7, 0.5, false), B("no", 0.2, 0.4, true), B("no", 0.3, 0.45, false)]);
+  assert.equal(rv.n, 4); assert.equal(rv.netCloser, 0.5); assert.equal(rv.losses, 2);
 }
 console.log("all tests passed");

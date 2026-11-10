@@ -48,6 +48,7 @@ const learning = [
   ...preds2.map(([k, p]) => `${k}: ${p.status.replace(/_/g, " ").toLowerCase()} — ${p.rec}`),
   nn.oos ? `Neural network: tested on ${nn.oos.n} past markets it never saw → ${nn.oos.verdict} (Brier ${nn.oos.brierNN} vs market ${nn.oos.brierMarket}).` : "Neural network: not trained yet.",
   firstLog && lastLog && trainLog.length > 1 ? `Training history: ${trainLog.length} runs; data grew ${firstLog.n} → ${lastLog.n} markets; gap vs market ${firstLog.oosDiff} → ${lastLog.oosDiff} (below 0 = better than market).` : "Training history: first run, no trend yet.",
+  nn.oos?.folds?.length ? `Network learning check: gap vs market by amount of training data ${nn.oos.folds.map(f => `${f.trainN}→${f.gap >= 0 ? "+" : ""}${f.gap}`).join(", ")} (shrinking = learning; ~0 = copying the market).` : "Network learning check: not available yet.",
   `Backtest: ${backtestRows().length} past markets scored.`,
 ];
 

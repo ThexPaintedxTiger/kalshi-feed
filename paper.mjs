@@ -79,7 +79,7 @@ export function simulate(pf, rows) {
     const bank = equity(), { frac, trust, pause } = sizeFor(d, bank); lastTrust = trust;
     if (pause) {                                                                 // proven loser: record what it WOULD do, at probe size, no money
       const C = r4((LEARN.probeMinDollars || 0.25) / d.c), win = row.y == null ? null : (d.side === "yes" ? row.y === 1 : row.y === 0);
-      const bet = { ts: row.ts, ticker: row.ticker, title: row.title, cat: row.cat, side: d.side, price: d.c, contracts: C, fee: orderFee(d.c, C), shadow: true,
+      const bet = { ts: row.ts, ticker: row.ticker, title: row.title, cat: row.cat, side: d.side, price: d.c, p: r4(d.q != null && d.side === "no" ? 1 - d.q : d.q), mid: row.mid, contracts: C, fee: orderFee(d.c, C), shadow: true,
         stake: r4(C * d.c + orderFee(d.c, C)), bankroll: r4(bank), betPct: 0, evPerDollar: r4(d.evPerDollar), pnl: null, won: null };
       bets.push(bet); open.push({ settle: win == null ? Infinity : Date.parse(row.settledAt || row.resolvesAt), win, C, c: d.c, fee: bet.fee, bet, shadow: true });
       continue;
@@ -92,7 +92,7 @@ export function simulate(pf, rows) {
     if (C * d.c < 0.1) continue;                                                 // too small to place
     const fee = orderFee(d.c, C); cash -= C * d.c + fee;
     const win = row.y == null ? null : (d.side === "yes" ? row.y === 1 : row.y === 0);
-    const bet = { ts: row.ts, ticker: row.ticker, title: row.title, cat: row.cat, side: d.side, price: d.c, contracts: C, fee,
+    const bet = { ts: row.ts, ticker: row.ticker, title: row.title, cat: row.cat, side: d.side, price: d.c, p: r4(d.q != null && d.side === "no" ? 1 - d.q : d.q), mid: row.mid, contracts: C, fee,
       stake: r4(C * d.c + fee), bankroll: r4(bank), betPct: r4((C * d.c + fee) / bank * 100), evPerDollar: r4(d.evPerDollar), pnl: null, won: null };
     bets.push(bet);
     open.push({ settle: win == null ? Infinity : Date.parse(row.settledAt || row.resolvesAt), win, C, c: d.c, fee, bet });
@@ -107,8 +107,20 @@ export function simulate(pf, rows) {
     worstLossPct: r4(Math.min(0, ...done.map(b => b.pnl / b.bankroll * 100))),
     betsPerDay: span > 0 ? r4(real.length / span) : null, trustNow: pf.sizing === "learn" ? trustFrom(bets.filter(b => b.pnl != null)) : null,
     busted, reachedGoal: reachedAt, returns: done.map(b => b.pnl / b.bankroll), curve: thin(curve, 200), recent: bets.slice(-15).reverse(),
-    stats: tradeStats(done, curve), closed: done.slice().sort((a, b) => b.settledAt.localeCompare(a.settledAt)).slice(0, 10) };
+    stats: tradeStats(done, curve), review: pf.predictor && pf.predictor !== "coin" ? disagreementReview(done) : null, closed: done.slice().sort((a, b) => b.settledAt.localeCompare(a.settledAt)).slice(0, 10) };
 }
+// Loss review: on each settled bet the strategy disagreed with the market price. Who was closer to the real outcome?
+// If the predictor is learning from its misses, the share where it was closer should rise over time (first half vs second half).
+export function disagreementReview(done) {
+  const rows = done.filter(b => b.p != null && b.mid != null && b.won != null).map(b => {
+    const y = b.side === "yes" ? (b.won ? 1 : 0) : (b.won ? 0 : 1);
+    return { closer: Math.abs(b.p - y) < Math.abs(b.mid - y), lost: b.pnl < 0 };
+  });
+  const share = a => a.length ? r4(a.filter(r => r.closer).length / a.length) : null, h = Math.floor(rows.length / 2);
+  return { n: rows.length, netCloser: share(rows), losses: rows.filter(r => r.lost).length,
+    firstHalf: share(rows.slice(0, h)), secondHalf: share(rows.slice(h)) };
+}
+
 // Trading statistics for the dashboard's Trading tab (settled paper bets only).
 export function tradeStats(done, curve = []) {
   const p = done.map(b => b.pnl), wins = p.filter(x => x > 0), losses = p.filter(x => x < 0);
