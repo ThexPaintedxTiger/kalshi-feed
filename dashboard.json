@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-10T22:35:02.199Z",
+ "generated": "2026-11-10T22:45:02.656Z",
  "config": {
   "version": 5,
   "scan": {
@@ -158,15 +158,15 @@
   }
  },
  "progress": {
-  "updated": "2026-11-10T22:35:01.308Z",
+  "updated": "2026-11-10T22:45:01.817Z",
   "goal": "IN_PROGRESS",
-  "resolved": 769,
+  "resolved": 781,
   "health": {
    "ok": true,
    "warmingUp": true,
    "checks": {
     "runsLast24h": {
-     "value": 28,
+     "value": 29,
      "target": 27,
      "ok": true
     },
@@ -192,15 +192,15 @@
   "predictors": {
    "longshot": {
     "status": "FAILURE_RETIRE",
-    "rec": "no measurable edge after 769 resolved — recommend retiring this hypothesis",
-    "n": 769,
-    "brierVsMarket": 0.0006,
+    "rec": "no measurable edge after 781 resolved — recommend retiring this hypothesis",
+    "n": 781,
+    "brierVsMarket": 0.0005,
     "picks": 0,
     "trend": "first snapshot",
     "snap": {
-     "n": 769,
-     "mean": 0.0006,
-     "width": 0.0026
+     "n": 781,
+     "mean": 0.0005,
+     "width": 0.0025
     },
     "backtest": {
      "n": 1222,
@@ -212,15 +212,15 @@
    },
    "memory": {
     "status": "OFF_TRACK",
-    "rec": "not beating the market so far (+0.0043) — wait for 0 more resolved before judging",
-    "n": 262,
-    "brierVsMarket": 0.0043,
-    "picks": 48,
+    "rec": "not beating the market so far (+0.0035) — wait for 0 more resolved before judging",
+    "n": 272,
+    "brierVsMarket": 0.0035,
+    "picks": 50,
     "trend": "first snapshot",
     "snap": {
-     "n": 262,
-     "mean": 0.0043,
-     "width": 0.0158
+     "n": 272,
+     "mean": 0.0035,
+     "width": 0.0151
     },
     "backtest": {
      "n": 1222,
@@ -248,30 +248,30 @@
   "definitions": "SUCCESS = Brier better than market (95% interval < 0, n ≥ minResolved) AND simulated picks profitable after fees (95% interval > 0, ≥ minPicks). FAILURE = clearly worse than market, or no edge after retireAfter resolved. Recommendations only; nothing changes without owner approval."
  },
  "scorecard": {
-  "resolved": 769,
+  "resolved": 781,
   "predictions": 902,
   "excludedLeakage": 0,
-  "events": 267,
+  "events": 273,
   "predictors": {
    "market": {
-    "n": 769,
+    "n": 781,
     "brier": {
-     "mean": 0.1816,
-     "lo": 0.1602,
-     "hi": 0.203,
-     "events": 267
+     "mean": 0.1801,
+     "lo": 0.1591,
+     "hi": 0.2012,
+     "events": 273
     },
     "logLoss": {
-     "mean": 0.5413,
-     "lo": 0.4847,
-     "hi": 0.598,
-     "events": 267
+     "mean": 0.5381,
+     "lo": 0.4825,
+     "hi": 0.5937,
+     "events": 273
     },
     "brierVsMarket": {
      "mean": 0,
      "lo": 0,
      "hi": 0,
-     "events": 267
+     "events": 273
     },
     "verdict": "baseline",
     "picks": {
@@ -295,15 +295,15 @@
      },
      {
       "bin": "10-20%",
-      "n": 89,
-      "avgP": 0.1382,
-      "hitRate": 0.1461
+      "n": 91,
+      "avgP": 0.1392,
+      "hitRate": 0.1429
      },
      {
       "bin": "20-30%",
-      "n": 67,
-      "avgP": 0.2459,
-      "hitRate": 0.2687
+      "n": 69,
+      "avgP": 0.2447,
+      "hitRate": 0.2609
      },
      {
       "bin": "30-40%",
@@ -313,33 +313,33 @@
      },
      {
       "bin": "40-50%",
-      "n": 99,
-      "avgP": 0.4483,
-      "hitRate": 0.4848
+      "n": 102,
+      "avgP": 0.4495,
+      "hitRate": 0.4804
      },
      {
       "bin": "50-60%",
-      "n": 95,
-      "avgP": 0.5443,
-      "hitRate": 0.6737
+      "n": 97,
+      "avgP": 0.5447,
+      "hitRate": 0.6804
      },
      {
       "bin": "60-70%",
-      "n": 65,
-      "avgP": 0.6406,
-      "hitRate": 0.7231
+      "n": 66,
+      "avgP": 0.6405,
+      "hitRate": 0.7273
      },
      {
       "bin": "70-80%",
-      "n": 56,
-      "avgP": 0.7526,
-      "hitRate": 0.7679
+      "n": 57,
+      "avgP": 0.753,
+      "hitRate": 0.7719
      },
      {
       "bin": "80-90%",
-      "n": 53,
-      "avgP": 0.8541,
-      "hitRate": 0.8302
+      "n": 54,
+      "avgP": 0.8539,
+      "hitRate": 0.8333
      },
      {
       "bin": "90-100%",
@@ -350,24 +350,24 @@
     ]
    },
    "longshot": {
-    "n": 769,
+    "n": 781,
     "brier": {
-     "mean": 0.1822,
-     "lo": 0.1597,
-     "hi": 0.2047,
-     "events": 267
+     "mean": 0.1806,
+     "lo": 0.1585,
+     "hi": 0.2028,
+     "events": 273
     },
     "logLoss": {
-     "mean": 0.5449,
-     "lo": 0.483,
-     "hi": 0.6067,
-     "events": 267
+     "mean": 0.5412,
+     "lo": 0.4805,
+     "hi": 0.6018,
+     "events": 273
     },
     "brierVsMarket": {
-     "mean": 0.0006,
-     "lo": -0.0007,
-     "hi": 0.0019,
-     "events": 267
+     "mean": 0.0005,
+     "lo": -0.0008,
+     "hi": 0.0017,
+     "events": 273
     },
     "verdict": "no measurable difference",
     "picks": {
@@ -391,9 +391,9 @@
      },
      {
       "bin": "10-20%",
-      "n": 81,
-      "avgP": 0.1367,
-      "hitRate": 0.2099
+      "n": 85,
+      "avgP": 0.1384,
+      "hitRate": 0.2
      },
      {
       "bin": "20-30%",
@@ -409,33 +409,33 @@
      },
      {
       "bin": "40-50%",
-      "n": 88,
-      "avgP": 0.4494,
-      "hitRate": 0.4659
+      "n": 91,
+      "avgP": 0.4506,
+      "hitRate": 0.4615
      },
      {
       "bin": "50-60%",
-      "n": 91,
+      "n": 92,
       "avgP": 0.5462,
-      "hitRate": 0.6593
+      "hitRate": 0.663
      },
      {
       "bin": "60-70%",
-      "n": 58,
-      "avgP": 0.6403,
-      "hitRate": 0.7414
+      "n": 60,
+      "avgP": 0.6397,
+      "hitRate": 0.75
      },
      {
       "bin": "70-80%",
-      "n": 53,
-      "avgP": 0.7489,
-      "hitRate": 0.7547
+      "n": 54,
+      "avgP": 0.7498,
+      "hitRate": 0.7593
      },
      {
       "bin": "80-90%",
-      "n": 56,
-      "avgP": 0.8515,
-      "hitRate": 0.8393
+      "n": 57,
+      "avgP": 0.8517,
+      "hitRate": 0.8421
      },
      {
       "bin": "90-100%",
@@ -446,36 +446,36 @@
     ]
    },
    "memory": {
-    "n": 262,
+    "n": 272,
     "brier": {
-     "mean": 0.1891,
-     "lo": 0.1491,
-     "hi": 0.2291,
-     "events": 101
+     "mean": 0.1841,
+     "lo": 0.1456,
+     "hi": 0.2226,
+     "events": 106
     },
     "logLoss": {
-     "mean": 0.5691,
-     "lo": 0.4488,
-     "hi": 0.6895,
-     "events": 101
+     "mean": 0.5563,
+     "lo": 0.4408,
+     "hi": 0.6719,
+     "events": 106
     },
     "brierVsMarket": {
-     "mean": 0.0043,
-     "lo": -0.0036,
-     "hi": 0.0122,
-     "events": 101
+     "mean": 0.0035,
+     "lo": -0.004,
+     "hi": 0.0111,
+     "events": 106
     },
     "verdict": "no measurable difference",
     "picks": {
-     "n": 48,
-     "wins": 21,
+     "n": 50,
+     "wins": 23,
      "pnlPerContract": {
-      "mean": -0.039,
-      "lo": -0.1997,
-      "hi": 0.1217,
-      "events": 25
+      "mean": -0.0242,
+      "lo": -0.1742,
+      "hi": 0.1257,
+      "events": 27
      },
-     "totalPnl": -3.95,
+     "totalPnl": -3.63,
      "profitable": false
     },
     "calibration": [
@@ -487,15 +487,15 @@
      },
      {
       "bin": "10-20%",
-      "n": 29,
-      "avgP": 0.1447,
-      "hitRate": 0.2069
+      "n": 31,
+      "avgP": 0.1472,
+      "hitRate": 0.1935
      },
      {
       "bin": "20-30%",
-      "n": 24,
-      "avgP": 0.2501,
-      "hitRate": 0.4167
+      "n": 26,
+      "avgP": 0.2466,
+      "hitRate": 0.3846
      },
      {
       "bin": "30-40%",
@@ -505,21 +505,21 @@
      },
      {
       "bin": "40-50%",
-      "n": 33,
-      "avgP": 0.4464,
-      "hitRate": 0.6667
+      "n": 35,
+      "avgP": 0.4491,
+      "hitRate": 0.6571
      },
      {
       "bin": "50-60%",
-      "n": 25,
-      "avgP": 0.5442,
-      "hitRate": 0.76
+      "n": 26,
+      "avgP": 0.5462,
+      "hitRate": 0.7692
      },
      {
       "bin": "60-70%",
-      "n": 19,
-      "avgP": 0.6365,
-      "hitRate": 0.8421
+      "n": 20,
+      "avgP": 0.6362,
+      "hitRate": 0.85
      },
      {
       "bin": "70-80%",
@@ -529,15 +529,15 @@
      },
      {
       "bin": "80-90%",
-      "n": 24,
-      "avgP": 0.8573,
-      "hitRate": 0.7917
+      "n": 25,
+      "avgP": 0.8581,
+      "hitRate": 0.8
      },
      {
       "bin": "90-100%",
-      "n": 37,
-      "avgP": 0.9459,
-      "hitRate": 0.973
+      "n": 38,
+      "avgP": 0.946,
+      "hitRate": 0.9737
      }
     ]
    },
@@ -640,8 +640,8 @@
   },
   "byCategory": {
    "Sports": {
-    "n": 352,
-    "brierMarket": 0.1917
+    "n": 364,
+    "brierMarket": 0.1894
    },
    "Politics": {
     "n": 3,
@@ -671,14 +671,14 @@
  },
  "totals": {
   "predictions": 902,
-  "outcomes": 769,
+  "outcomes": 781,
   "trades": 89,
-  "runs": 28
+  "runs": 29
  },
  "categories": {
   "Sports": {
    "logged": 412,
-   "resolved": 388
+   "resolved": 400
   },
   "Commodities": {
    "logged": 119,
@@ -901,6 +901,13 @@
    "scanned": 48381,
    "candidates": 1807,
    "logged": 10
+  },
+  {
+   "ts": "2026-11-10T22:44:44.598Z",
+   "run": "38cc82c",
+   "scanned": 48521,
+   "candidates": 1794,
+   "logged": 0
   }
  ],
  "predictions": [
@@ -4723,8 +4730,8 @@
    "ev": 0.0783,
    "fee": 0.01,
    "resolvesAt": "2026-11-10T22:30:00.000Z",
-   "outcome": "awaiting",
-   "pnl": null
+   "outcome": "yes",
+   "pnl": 0.13
   },
   {
    "ts": "2026-11-10T16:38:57.636Z",
@@ -4821,8 +4828,8 @@
    "ev": 0.0683,
    "fee": 0.02,
    "resolvesAt": "2026-11-10T22:30:00.000Z",
-   "outcome": "awaiting",
-   "pnl": null
+   "outcome": "yes",
+   "pnl": 0.19
   },
   {
    "ts": "2026-11-10T16:38:57.636Z",
@@ -5201,7 +5208,7 @@
   }
  },
  "memory": {
-  "samples": 1961,
+  "samples": 1973,
   "series": 172,
   "top": [
    {
@@ -5315,13 +5322,13 @@
    {
     "series": "KXITFMATCH",
     "cat": "Sports",
-    "n": 61,
-    "yesRate": 0.5082,
-    "avgPrice": 0.5023,
-    "bias": 0.0059,
-    "brierMarket": 0.1581,
-    "last": "2026-11-10T21:19:16.206Z",
-    "live": 61,
+    "n": 63,
+    "yesRate": 0.5238,
+    "avgPrice": 0.5121,
+    "bias": 0.0117,
+    "brierMarket": 0.1543,
+    "last": "2026-11-10T21:29:06.204Z",
+    "live": 63,
     "backtest": 0
    },
    {
@@ -5937,7 +5944,7 @@
   ]
  },
  "paper": {
-  "updated": "2026-11-10T22:35:01.367Z",
+  "updated": "2026-11-10T22:45:01.877Z",
   "start": 10,
   "goal": 1000,
   "safety": {
@@ -6023,6 +6030,7 @@
        ]
       ]
      },
+     "review": null,
      "closed": [],
      "monteCarlo": null
     },
@@ -6368,6 +6376,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.3,
+       "p": 0.71,
+       "mid": 0.71,
        "contracts": 0.56,
        "fee": 0.01,
        "stake": 0.178,
@@ -6385,6 +6395,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.52,
+       "p": 0.485,
+       "mid": 0.485,
        "contracts": 0.32,
        "fee": 0.01,
        "stake": 0.1764,
@@ -6402,6 +6414,8 @@
        "cat": "Climate and Weather",
        "side": "no",
        "price": 0.89,
+       "p": 0.155,
+       "mid": 0.155,
        "contracts": 0.18,
        "fee": 0.01,
        "stake": 0.1702,
@@ -6419,6 +6433,8 @@
        "cat": "Climate and Weather",
        "side": "no",
        "price": 0.33,
+       "p": 0.695,
+       "mid": 0.695,
        "contracts": 0.51,
        "fee": 0.01,
        "stake": 0.1783,
@@ -6436,6 +6452,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.89,
+       "p": 0.87,
+       "mid": 0.87,
        "contracts": 0.18,
        "fee": 0.01,
        "stake": 0.1702,
@@ -6453,6 +6471,8 @@
        "cat": "Climate and Weather",
        "side": "no",
        "price": 0.87,
+       "p": 0.145,
+       "mid": 0.145,
        "contracts": 0.19,
        "fee": 0.01,
        "stake": 0.1753,
@@ -6470,6 +6490,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.93,
+       "p": 0.9,
+       "mid": 0.9,
        "contracts": 0.18,
        "fee": 0.01,
        "stake": 0.1774,
@@ -6487,6 +6509,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.78,
+       "p": 0.235,
+       "mid": 0.235,
        "contracts": 0.2,
        "fee": 0.01,
        "stake": 0.166,
@@ -6504,6 +6528,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.68,
+       "p": 0.635,
+       "mid": 0.635,
        "contracts": 0.26,
        "fee": 0.01,
        "stake": 0.1868,
@@ -6521,6 +6547,8 @@
        "cat": "Climate and Weather",
        "side": "no",
        "price": 0.54,
+       "p": 0.505,
+       "mid": 0.505,
        "contracts": 0.32,
        "fee": 0.01,
        "stake": 0.1828,
@@ -6538,6 +6566,8 @@
        "cat": "Climate and Weather",
        "side": "no",
        "price": 0.29,
+       "p": 0.74,
+       "mid": 0.74,
        "contracts": 0.61,
        "fee": 0.01,
        "stake": 0.1869,
@@ -6555,6 +6585,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.89,
+       "p": 0.85,
+       "mid": 0.85,
        "contracts": 0.19,
        "fee": 0.01,
        "stake": 0.1791,
@@ -6572,6 +6604,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.14,
+       "p": 0.12,
+       "mid": 0.12,
        "contracts": 1.19,
        "fee": 0.02,
        "stake": 0.1866,
@@ -6589,6 +6623,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.04,
+       "p": 0.97,
+       "mid": 0.97,
        "contracts": 4.2,
        "fee": 0.02,
        "stake": 0.188,
@@ -6606,6 +6642,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.56,
+       "p": 0.455,
+       "mid": 0.455,
        "contracts": 0.26,
        "fee": 0.01,
        "stake": 0.1556,
@@ -6961,6 +6999,7 @@
        ]
       ]
      },
+     "review": null,
      "closed": [
       {
        "ts": "2026-11-07T11:29:00.000Z",
@@ -6969,6 +7008,8 @@
        "cat": "Economics",
        "side": "no",
        "price": 0.59,
+       "p": 0.45,
+       "mid": 0.45,
        "contracts": 0.33,
        "fee": 0.01,
        "stake": 0.2047,
@@ -6986,6 +7027,8 @@
        "cat": "Climate and Weather",
        "side": "no",
        "price": 0.33,
+       "p": 0.695,
+       "mid": 0.695,
        "contracts": 0.51,
        "fee": 0.01,
        "stake": 0.1783,
@@ -7003,6 +7046,8 @@
        "cat": "Climate and Weather",
        "side": "no",
        "price": 0.89,
+       "p": 0.155,
+       "mid": 0.155,
        "contracts": 0.18,
        "fee": 0.01,
        "stake": 0.1702,
@@ -7020,6 +7065,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.89,
+       "p": 0.87,
+       "mid": 0.87,
        "contracts": 0.18,
        "fee": 0.01,
        "stake": 0.1702,
@@ -7037,6 +7084,8 @@
        "cat": "Climate and Weather",
        "side": "no",
        "price": 0.87,
+       "p": 0.145,
+       "mid": 0.145,
        "contracts": 0.19,
        "fee": 0.01,
        "stake": 0.1753,
@@ -7054,6 +7103,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.93,
+       "p": 0.9,
+       "mid": 0.9,
        "contracts": 0.18,
        "fee": 0.01,
        "stake": 0.1774,
@@ -7071,6 +7122,8 @@
        "cat": "Climate and Weather",
        "side": "no",
        "price": 0.29,
+       "p": 0.74,
+       "mid": 0.74,
        "contracts": 0.61,
        "fee": 0.01,
        "stake": 0.1869,
@@ -7088,6 +7141,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.89,
+       "p": 0.85,
+       "mid": 0.85,
        "contracts": 0.19,
        "fee": 0.01,
        "stake": 0.1791,
@@ -7105,6 +7160,8 @@
        "cat": "Climate and Weather",
        "side": "no",
        "price": 0.54,
+       "p": 0.505,
+       "mid": 0.505,
        "contracts": 0.32,
        "fee": 0.01,
        "stake": 0.1828,
@@ -7122,6 +7179,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.3,
+       "p": 0.71,
+       "mid": 0.71,
        "contracts": 0.56,
        "fee": 0.01,
        "stake": 0.178,
@@ -7265,6 +7324,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.42,
+       "p": 0.5168,
+       "mid": 0.585,
        "contracts": 0.56,
        "fee": 0.01,
        "stake": 0.2452,
@@ -7282,6 +7343,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.47,
+       "p": 0.4018,
+       "mid": 0.54,
        "contracts": 0.5,
        "fee": 0.01,
        "stake": 0.245,
@@ -7299,6 +7362,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.6,
+       "p": 0.2317,
+       "mid": 0.425,
        "contracts": 0.39,
        "fee": 0.01,
        "stake": 0.244,
@@ -7316,6 +7381,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.29,
+       "p": 0.1462,
+       "mid": 0.73,
        "contracts": 0.78,
        "fee": 0.02,
        "stake": 0.2462,
@@ -7333,6 +7400,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.6,
+       "p": 0.3269,
+       "mid": 0.405,
        "contracts": 0.39,
        "fee": 0.01,
        "stake": 0.244,
@@ -7350,6 +7419,8 @@
        "cat": "Commodities",
        "side": "yes",
        "price": 0.59,
+       "p": 0.6475,
+       "mid": 0.555,
        "contracts": 0.39,
        "fee": 0.01,
        "stake": 0.2401,
@@ -7367,6 +7438,8 @@
        "cat": "Financials",
        "side": "yes",
        "price": 0.56,
+       "p": 0.6778,
+       "mid": 0.53,
        "contracts": 0.42,
        "fee": 0.01,
        "stake": 0.2452,
@@ -7384,6 +7457,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.65,
+       "p": 0.3069,
+       "mid": 0.365,
        "contracts": 0.36,
        "fee": 0.01,
        "stake": 0.244,
@@ -7401,6 +7476,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.35,
+       "p": 0.4314,
+       "mid": 0.325,
        "contracts": 0.65,
        "fee": 0.02,
        "stake": 0.2475,
@@ -7418,6 +7495,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.15,
+       "p": 0.3114,
+       "mid": 0.145,
        "contracts": 1.52,
        "fee": 0.02,
        "stake": 0.248,
@@ -7435,6 +7514,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.16,
+       "p": 0.687,
+       "mid": 0.86,
        "contracts": 1.42,
        "fee": 0.02,
        "stake": 0.2472,
@@ -7452,6 +7533,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.1,
+       "p": 0.7269,
+       "mid": 0.91,
        "contracts": 2.28,
        "fee": 0.02,
        "stake": 0.248,
@@ -7469,6 +7552,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.87,
+       "p": 0.0959,
+       "mid": 0.135,
        "contracts": 0.27,
        "fee": 0.01,
        "stake": 0.2449,
@@ -7486,6 +7571,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.54,
+       "p": 0.6021,
+       "mid": 0.515,
        "contracts": 0.43,
        "fee": 0.01,
        "stake": 0.2422,
@@ -7503,6 +7590,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.3,
+       "p": 0.5571,
+       "mid": 0.72,
        "contracts": 0.76,
        "fee": 0.02,
        "stake": 0.248,
@@ -7614,6 +7703,13 @@
        ]
       ]
      },
+     "review": {
+      "n": 16,
+      "netCloser": 0.1875,
+      "losses": 13,
+      "firstHalf": 0.25,
+      "secondHalf": 0.125
+     },
      "closed": [
       {
        "ts": "2026-11-10T18:30:00.000Z",
@@ -7622,6 +7718,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.29,
+       "p": 0.1462,
+       "mid": 0.73,
        "contracts": 0.78,
        "fee": 0.02,
        "stake": 0.2462,
@@ -7639,6 +7737,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.35,
+       "p": 0.4314,
+       "mid": 0.325,
        "contracts": 0.65,
        "fee": 0.02,
        "stake": 0.2475,
@@ -7656,6 +7756,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.6,
+       "p": 0.2317,
+       "mid": 0.425,
        "contracts": 0.39,
        "fee": 0.01,
        "stake": 0.244,
@@ -7673,6 +7775,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.42,
+       "p": 0.5168,
+       "mid": 0.585,
        "contracts": 0.56,
        "fee": 0.01,
        "stake": 0.2452,
@@ -7690,6 +7794,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.47,
+       "p": 0.4018,
+       "mid": 0.54,
        "contracts": 0.5,
        "fee": 0.01,
        "stake": 0.245,
@@ -7707,6 +7813,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.15,
+       "p": 0.3114,
+       "mid": 0.145,
        "contracts": 1.52,
        "fee": 0.02,
        "stake": 0.248,
@@ -7724,6 +7832,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.16,
+       "p": 0.687,
+       "mid": 0.86,
        "contracts": 1.42,
        "fee": 0.02,
        "stake": 0.2472,
@@ -7741,6 +7851,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.1,
+       "p": 0.7269,
+       "mid": 0.91,
        "contracts": 2.28,
        "fee": 0.02,
        "stake": 0.248,
@@ -7758,6 +7870,8 @@
        "cat": "Commodities",
        "side": "yes",
        "price": 0.59,
+       "p": 0.6475,
+       "mid": 0.555,
        "contracts": 0.39,
        "fee": 0.01,
        "stake": 0.2401,
@@ -7775,6 +7889,8 @@
        "cat": "Financials",
        "side": "yes",
        "price": 0.56,
+       "p": 0.6778,
+       "mid": 0.53,
        "contracts": 0.42,
        "fee": 0.01,
        "stake": 0.2452,
@@ -7894,6 +8010,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.42,
+       "p": 0.5168,
+       "mid": 0.585,
        "contracts": 0.39,
        "fee": 0.01,
        "stake": 0.1738,
@@ -7911,6 +8029,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.47,
+       "p": 0.4018,
+       "mid": 0.54,
        "contracts": 0.35,
        "fee": 0.01,
        "stake": 0.1745,
@@ -7928,6 +8048,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.6,
+       "p": 0.2317,
+       "mid": 0.425,
        "contracts": 0.27,
        "fee": 0.01,
        "stake": 0.172,
@@ -7945,6 +8067,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.29,
+       "p": 0.1462,
+       "mid": 0.73,
        "contracts": 0.57,
        "fee": 0.01,
        "stake": 0.1753,
@@ -7962,6 +8086,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.84,
+       "p": 0.1161,
+       "mid": 0.17,
        "contracts": 0.21,
        "fee": 0.01,
        "stake": 0.1864,
@@ -7979,6 +8105,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.6,
+       "p": 0.3269,
+       "mid": 0.405,
        "contracts": 0.3,
        "fee": 0.01,
        "stake": 0.19,
@@ -7996,6 +8124,8 @@
        "cat": "Commodities",
        "side": "yes",
        "price": 0.59,
+       "p": 0.6475,
+       "mid": 0.555,
        "contracts": 0.3,
        "fee": 0.01,
        "stake": 0.187,
@@ -8013,6 +8143,8 @@
        "cat": "Financials",
        "side": "yes",
        "price": 0.56,
+       "p": 0.6778,
+       "mid": 0.53,
        "contracts": 0.32,
        "fee": 0.01,
        "stake": 0.1892,
@@ -8030,6 +8162,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.65,
+       "p": 0.3069,
+       "mid": 0.365,
        "contracts": 0.28,
        "fee": 0.01,
        "stake": 0.192,
@@ -8047,6 +8181,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.35,
+       "p": 0.4314,
+       "mid": 0.325,
        "contracts": 0.52,
        "fee": 0.01,
        "stake": 0.192,
@@ -8064,6 +8200,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.15,
+       "p": 0.3114,
+       "mid": 0.145,
        "contracts": 1.15,
        "fee": 0.02,
        "stake": 0.1925,
@@ -8081,6 +8219,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.16,
+       "p": 0.687,
+       "mid": 0.86,
        "contracts": 1.08,
        "fee": 0.02,
        "stake": 0.1928,
@@ -8098,6 +8238,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.1,
+       "p": 0.7269,
+       "mid": 0.91,
        "contracts": 1.73,
        "fee": 0.02,
        "stake": 0.193,
@@ -8115,6 +8257,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.87,
+       "p": 0.0959,
+       "mid": 0.135,
        "contracts": 0.21,
        "fee": 0.01,
        "stake": 0.1927,
@@ -8132,6 +8276,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.54,
+       "p": 0.6021,
+       "mid": 0.515,
        "contracts": 0.34,
        "fee": 0.01,
        "stake": 0.1936,
@@ -8247,6 +8393,13 @@
        ]
       ]
      },
+     "review": {
+      "n": 17,
+      "netCloser": 0.2353,
+      "losses": 13,
+      "firstHalf": 0.25,
+      "secondHalf": 0.2222
+     },
      "closed": [
       {
        "ts": "2026-11-10T18:30:00.000Z",
@@ -8255,6 +8408,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.29,
+       "p": 0.1462,
+       "mid": 0.73,
        "contracts": 0.57,
        "fee": 0.01,
        "stake": 0.1753,
@@ -8272,6 +8427,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.35,
+       "p": 0.4314,
+       "mid": 0.325,
        "contracts": 0.52,
        "fee": 0.01,
        "stake": 0.192,
@@ -8289,6 +8446,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.6,
+       "p": 0.2317,
+       "mid": 0.425,
        "contracts": 0.27,
        "fee": 0.01,
        "stake": 0.172,
@@ -8306,6 +8465,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.42,
+       "p": 0.5168,
+       "mid": 0.585,
        "contracts": 0.39,
        "fee": 0.01,
        "stake": 0.1738,
@@ -8323,6 +8484,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.47,
+       "p": 0.4018,
+       "mid": 0.54,
        "contracts": 0.35,
        "fee": 0.01,
        "stake": 0.1745,
@@ -8340,6 +8503,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.15,
+       "p": 0.3114,
+       "mid": 0.145,
        "contracts": 1.15,
        "fee": 0.02,
        "stake": 0.1925,
@@ -8357,6 +8522,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.16,
+       "p": 0.687,
+       "mid": 0.86,
        "contracts": 1.08,
        "fee": 0.02,
        "stake": 0.1928,
@@ -8374,6 +8541,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.1,
+       "p": 0.7269,
+       "mid": 0.91,
        "contracts": 1.73,
        "fee": 0.02,
        "stake": 0.193,
@@ -8391,6 +8560,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.84,
+       "p": 0.1161,
+       "mid": 0.17,
        "contracts": 0.21,
        "fee": 0.01,
        "stake": 0.1864,
@@ -8408,6 +8579,8 @@
        "cat": "Commodities",
        "side": "yes",
        "price": 0.59,
+       "p": 0.6475,
+       "mid": 0.555,
        "contracts": 0.3,
        "fee": 0.01,
        "stake": 0.187,
@@ -8479,6 +8652,13 @@
         0
        ]
       ]
+     },
+     "review": {
+      "n": 0,
+      "netCloser": null,
+      "losses": 0,
+      "firstHalf": null,
+      "secondHalf": null
      },
      "closed": [],
      "monteCarlo": null
@@ -8608,6 +8788,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.76,
+       "p": 0.1983,
+       "mid": 0.26,
        "contracts": 0.3,
        "fee": 0.01,
        "stake": 0.238,
@@ -8625,6 +8807,8 @@
        "cat": "Commodities",
        "side": "no",
        "price": 0.58,
+       "p": 0.322,
+       "mid": 0.45,
        "contracts": 0.4,
        "fee": 0.01,
        "stake": 0.242,
@@ -8642,6 +8826,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.4,
+       "p": 0.4545,
+       "mid": 0.39,
        "contracts": 0.58,
        "fee": 0.01,
        "stake": 0.242,
@@ -8659,6 +8845,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.73,
+       "p": 0.2283,
+       "mid": 0.29,
        "contracts": 0.32,
        "fee": 0.01,
        "stake": 0.2436,
@@ -8676,6 +8864,8 @@
        "cat": "Commodities",
        "side": "no",
        "price": 0.48,
+       "p": 0.417,
+       "mid": 0.545,
        "contracts": 0.49,
        "fee": 0.01,
        "stake": 0.2452,
@@ -8693,6 +8883,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.37,
+       "p": 0.4245,
+       "mid": 0.36,
        "contracts": 0.61,
        "fee": 0.01,
        "stake": 0.2357,
@@ -8710,6 +8902,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.43,
+       "p": 0.5034,
+       "mid": 0.405,
        "contracts": 0.54,
        "fee": 0.01,
        "stake": 0.2422,
@@ -8727,6 +8921,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.78,
+       "p": 0.1732,
+       "mid": 0.235,
        "contracts": 0.3,
        "fee": 0.01,
        "stake": 0.244,
@@ -8744,6 +8940,8 @@
        "cat": "Commodities",
        "side": "no",
        "price": 0.61,
+       "p": 0.257,
+       "mid": 0.415,
        "contracts": 0.38,
        "fee": 0.01,
        "stake": 0.2418,
@@ -8761,6 +8959,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.74,
+       "p": 0.2103,
+       "mid": 0.285,
        "contracts": 0.31,
        "fee": 0.01,
        "stake": 0.2394,
@@ -8778,6 +8978,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.88,
+       "p": 0.9832,
+       "mid": 0.875,
        "contracts": 0.26,
        "fee": 0.01,
        "stake": 0.2388,
@@ -8795,6 +8997,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.78,
+       "p": 0.1732,
+       "mid": 0.235,
        "contracts": 0.3,
        "fee": 0.01,
        "stake": 0.244,
@@ -8812,6 +9016,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.6,
+       "p": 0.3548,
+       "mid": 0.405,
        "contracts": 0.39,
        "fee": 0.01,
        "stake": 0.244,
@@ -8829,6 +9035,8 @@
        "cat": "Commodities",
        "side": "no",
        "price": 0.48,
+       "p": 0.3848,
+       "mid": 0.555,
        "contracts": 0.49,
        "fee": 0.01,
        "stake": 0.2452,
@@ -8846,6 +9054,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.77,
+       "p": 0.1851,
+       "mid": 0.235,
        "contracts": 0.3,
        "fee": 0.01,
        "stake": 0.241,
@@ -8977,6 +9187,13 @@
        ]
       ]
      },
+     "review": {
+      "n": 21,
+      "netCloser": 0.7619,
+      "losses": 5,
+      "firstHalf": 0.7,
+      "secondHalf": 0.8182
+     },
      "closed": [
       {
        "ts": "2026-11-10T19:30:00.000Z",
@@ -8985,6 +9202,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.43,
+       "p": 0.5034,
+       "mid": 0.405,
        "contracts": 0.54,
        "fee": 0.01,
        "stake": 0.2422,
@@ -9002,6 +9221,8 @@
        "cat": "Commodities",
        "side": "no",
        "price": 0.58,
+       "p": 0.322,
+       "mid": 0.45,
        "contracts": 0.4,
        "fee": 0.01,
        "stake": 0.242,
@@ -9019,6 +9240,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.4,
+       "p": 0.4545,
+       "mid": 0.39,
        "contracts": 0.58,
        "fee": 0.01,
        "stake": 0.242,
@@ -9036,6 +9259,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.76,
+       "p": 0.1983,
+       "mid": 0.26,
        "contracts": 0.3,
        "fee": 0.01,
        "stake": 0.238,
@@ -9053,6 +9278,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.88,
+       "p": 0.9832,
+       "mid": 0.875,
        "contracts": 0.26,
        "fee": 0.01,
        "stake": 0.2388,
@@ -9070,6 +9297,8 @@
        "cat": "Commodities",
        "side": "no",
        "price": 0.48,
+       "p": 0.417,
+       "mid": 0.545,
        "contracts": 0.49,
        "fee": 0.01,
        "stake": 0.2452,
@@ -9087,6 +9316,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.37,
+       "p": 0.4245,
+       "mid": 0.36,
        "contracts": 0.61,
        "fee": 0.01,
        "stake": 0.2357,
@@ -9104,6 +9335,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.73,
+       "p": 0.2283,
+       "mid": 0.29,
        "contracts": 0.32,
        "fee": 0.01,
        "stake": 0.2436,
@@ -9121,6 +9354,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.77,
+       "p": 0.8632,
+       "mid": 0.755,
        "contracts": 0.3,
        "fee": 0.01,
        "stake": 0.241,
@@ -9138,6 +9373,8 @@
        "cat": "Commodities",
        "side": "no",
        "price": 0.61,
+       "p": 0.257,
+       "mid": 0.415,
        "contracts": 0.38,
        "fee": 0.01,
        "stake": 0.2418,
@@ -9238,6 +9475,7 @@
        ]
       ]
      },
+     "review": null,
      "closed": [],
      "monteCarlo": null
     },
@@ -9347,6 +9585,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.3,
+       "p": 0.285,
+       "mid": 0.285,
        "contracts": 0.64,
        "fee": 0.01,
        "stake": 0.202,
@@ -9363,6 +9603,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.5,
+       "p": 0.535,
+       "mid": 0.535,
        "contracts": 0.38,
        "fee": 0.01,
        "stake": 0.2,
@@ -9379,6 +9621,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.18,
+       "p": 0.825,
+       "mid": 0.825,
        "contracts": 1,
        "fee": 0.02,
        "stake": 0.2,
@@ -9395,6 +9639,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.71,
+       "p": 0.305,
+       "mid": 0.305,
        "contracts": 0.27,
        "fee": 0.01,
        "stake": 0.2017,
@@ -9411,6 +9657,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.77,
+       "p": 0.245,
+       "mid": 0.245,
        "contracts": 0.25,
        "fee": 0.01,
        "stake": 0.2025,
@@ -9427,6 +9675,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.32,
+       "p": 0.3,
+       "mid": 0.3,
        "contracts": 0.6,
        "fee": 0.01,
        "stake": 0.202,
@@ -9443,6 +9693,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.3,
+       "p": 0.295,
+       "mid": 0.295,
        "contracts": 0.64,
        "fee": 0.01,
        "stake": 0.202,
@@ -9459,6 +9711,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.49,
+       "p": 0.515,
+       "mid": 0.515,
        "contracts": 0.39,
        "fee": 0.01,
        "stake": 0.2011,
@@ -9475,6 +9729,8 @@
        "cat": "Climate and Weather",
        "side": "no",
        "price": 0.94,
+       "p": 0.1,
+       "mid": 0.1,
        "contracts": 0.19,
        "fee": 0.01,
        "stake": 0.1886,
@@ -9492,6 +9748,8 @@
        "cat": "Commodities",
        "side": "no",
        "price": 0.22,
+       "p": 0.8,
+       "mid": 0.8,
        "contracts": 0.82,
        "fee": 0.01,
        "stake": 0.1904,
@@ -9509,6 +9767,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.04,
+       "p": 0.035,
+       "mid": 0.035,
        "contracts": 4.41,
        "fee": 0.02,
        "stake": 0.1964,
@@ -9525,6 +9785,8 @@
        "cat": "Commodities",
        "side": "yes",
        "price": 0.9,
+       "p": 0.885,
+       "mid": 0.885,
        "contracts": 0.2,
        "fee": 0.01,
        "stake": 0.19,
@@ -9542,6 +9804,8 @@
        "cat": "Commodities",
        "side": "no",
        "price": 0.42,
+       "p": 0.6,
+       "mid": 0.6,
        "contracts": 0.43,
        "fee": 0.01,
        "stake": 0.1906,
@@ -9559,6 +9823,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.09,
+       "p": 0.065,
+       "mid": 0.065,
        "contracts": 1.91,
        "fee": 0.02,
        "stake": 0.1919,
@@ -9575,6 +9841,8 @@
        "cat": "Commodities",
        "side": "yes",
        "price": 0.48,
+       "p": 0.46,
+       "mid": 0.46,
        "contracts": 0.38,
        "fee": 0.01,
        "stake": 0.1924,
@@ -9690,6 +9958,7 @@
        ]
       ]
      },
+     "review": null,
      "closed": [
       {
        "ts": "2026-11-10T17:10:26.839Z",
@@ -9698,6 +9967,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.96,
+       "p": 0.09,
+       "mid": 0.09,
        "contracts": 0.19,
        "fee": 0.01,
        "stake": 0.1924,
@@ -9715,6 +9986,8 @@
        "cat": "Commodities",
        "side": "yes",
        "price": 0.98,
+       "p": 0.96,
+       "mid": 0.96,
        "contracts": 0.19,
        "fee": 0.01,
        "stake": 0.1962,
@@ -9732,6 +10005,8 @@
        "cat": "Commodities",
        "side": "yes",
        "price": 0.98,
+       "p": 0.965,
+       "mid": 0.965,
        "contracts": 0.19,
        "fee": 0.01,
        "stake": 0.1962,
@@ -9749,6 +10024,8 @@
        "cat": "Commodities",
        "side": "yes",
        "price": 0.48,
+       "p": 0.46,
+       "mid": 0.46,
        "contracts": 0.38,
        "fee": 0.01,
        "stake": 0.1924,
@@ -9766,6 +10043,8 @@
        "cat": "Commodities",
        "side": "no",
        "price": 0.42,
+       "p": 0.6,
+       "mid": 0.6,
        "contracts": 0.43,
        "fee": 0.01,
        "stake": 0.1906,
@@ -9783,6 +10062,8 @@
        "cat": "Commodities",
        "side": "yes",
        "price": 0.9,
+       "p": 0.885,
+       "mid": 0.885,
        "contracts": 0.2,
        "fee": 0.01,
        "stake": 0.19,
@@ -9800,6 +10081,8 @@
        "cat": "Commodities",
        "side": "no",
        "price": 0.22,
+       "p": 0.8,
+       "mid": 0.8,
        "contracts": 0.82,
        "fee": 0.01,
        "stake": 0.1904,
@@ -9817,6 +10100,8 @@
        "cat": "Climate and Weather",
        "side": "no",
        "price": 0.94,
+       "p": 0.1,
+       "mid": 0.1,
        "contracts": 0.19,
        "fee": 0.01,
        "stake": 0.1886,
@@ -9834,6 +10119,8 @@
        "cat": "Financials",
        "side": "yes",
        "price": 0.39,
+       "p": 0.365,
+       "mid": 0.365,
        "contracts": 0.47,
        "fee": 0.01,
        "stake": 0.1933,
@@ -9851,6 +10138,8 @@
        "cat": "Climate and Weather",
        "side": "no",
        "price": 0.16,
+       "p": 0.86,
+       "mid": 0.86,
        "contracts": 1.09,
        "fee": 0.02,
        "stake": 0.1944,
@@ -9949,6 +10238,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.48,
+       "p": 0.5221,
+       "mid": 0.46,
        "contracts": 0.29,
        "fee": 0.01,
        "stake": 0.1492,
@@ -9966,6 +10257,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.23,
+       "p": 0.2977,
+       "mid": 0.225,
        "contracts": 0.99,
        "fee": 0.02,
        "stake": 0.2477,
@@ -9983,6 +10276,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.69,
+       "p": 0.7339,
+       "mid": 0.665,
        "contracts": 0.34,
        "fee": 0.01,
        "stake": 0.2446,
@@ -10000,6 +10295,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.31,
+       "p": 0.3633,
+       "mid": 0.295,
        "contracts": 0.73,
        "fee": 0.02,
        "stake": 0.2463,
@@ -10017,6 +10314,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.7,
+       "p": 0.7554,
+       "mid": 0.685,
        "contracts": 0.33,
        "fee": 0.01,
        "stake": 0.241,
@@ -10034,6 +10333,8 @@
        "cat": "Financials",
        "side": "yes",
        "price": 0.58,
+       "p": 0.6247,
+       "mid": 0.555,
        "contracts": 0.4,
        "fee": 0.01,
        "stake": 0.242,
@@ -10051,6 +10352,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.66,
+       "p": 0.7047,
+       "mid": 0.64,
        "contracts": 0.35,
        "fee": 0.01,
        "stake": 0.241,
@@ -10068,6 +10371,8 @@
        "cat": "Financials",
        "side": "yes",
        "price": 0.54,
+       "p": 0.5908,
+       "mid": 0.515,
        "contracts": 0.43,
        "fee": 0.01,
        "stake": 0.2422,
@@ -10085,6 +10390,8 @@
        "cat": "Financials",
        "side": "yes",
        "price": 0.49,
+       "p": 0.5418,
+       "mid": 0.465,
        "contracts": 0.48,
        "fee": 0.01,
        "stake": 0.2452,
@@ -10102,6 +10409,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.5,
+       "p": 0.577,
+       "mid": 0.495,
        "contracts": 0.47,
        "fee": 0.01,
        "stake": 0.245,
@@ -10119,6 +10428,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.61,
+       "p": 0.6799,
+       "mid": 0.605,
        "contracts": 0.38,
        "fee": 0.01,
        "stake": 0.2418,
@@ -10210,6 +10521,13 @@
        ]
       ]
      },
+     "review": {
+      "n": 11,
+      "netCloser": 0.6364,
+      "losses": 4,
+      "firstHalf": 0.6,
+      "secondHalf": 0.6667
+     },
      "closed": [
       {
        "ts": "2026-11-10T17:10:26.839Z",
@@ -10218,6 +10536,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.7,
+       "p": 0.7554,
+       "mid": 0.685,
        "contracts": 0.33,
        "fee": 0.01,
        "stake": 0.241,
@@ -10235,6 +10555,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.61,
+       "p": 0.6799,
+       "mid": 0.605,
        "contracts": 0.38,
        "fee": 0.01,
        "stake": 0.2418,
@@ -10252,6 +10574,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.5,
+       "p": 0.577,
+       "mid": 0.495,
        "contracts": 0.47,
        "fee": 0.01,
        "stake": 0.245,
@@ -10269,6 +10593,8 @@
        "cat": "Financials",
        "side": "yes",
        "price": 0.58,
+       "p": 0.6247,
+       "mid": 0.555,
        "contracts": 0.4,
        "fee": 0.01,
        "stake": 0.242,
@@ -10286,6 +10612,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.69,
+       "p": 0.7339,
+       "mid": 0.665,
        "contracts": 0.34,
        "fee": 0.01,
        "stake": 0.2446,
@@ -10303,6 +10631,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.23,
+       "p": 0.2977,
+       "mid": 0.225,
        "contracts": 0.99,
        "fee": 0.02,
        "stake": 0.2477,
@@ -10320,6 +10650,8 @@
        "cat": "Financials",
        "side": "yes",
        "price": 0.49,
+       "p": 0.5418,
+       "mid": 0.465,
        "contracts": 0.48,
        "fee": 0.01,
        "stake": 0.2452,
@@ -10337,6 +10669,8 @@
        "cat": "Financials",
        "side": "yes",
        "price": 0.54,
+       "p": 0.5908,
+       "mid": 0.515,
        "contracts": 0.43,
        "fee": 0.01,
        "stake": 0.2422,
@@ -10354,6 +10688,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.48,
+       "p": 0.5221,
+       "mid": 0.46,
        "contracts": 0.29,
        "fee": 0.01,
        "stake": 0.1492,
@@ -10371,6 +10707,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.66,
+       "p": 0.7047,
+       "mid": 0.64,
        "contracts": 0.35,
        "fee": 0.01,
        "stake": 0.241,
@@ -10474,6 +10812,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.42,
+       "p": 0.4966,
+       "mid": 0.415,
        "contracts": 0.44,
        "fee": 0.01,
        "stake": 0.1948,
@@ -10491,6 +10831,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.64,
+       "p": 0.6987,
+       "mid": 0.635,
        "contracts": 0.29,
        "fee": 0.01,
        "stake": 0.1956,
@@ -10508,6 +10850,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.48,
+       "p": 0.5221,
+       "mid": 0.46,
        "contracts": 0.38,
        "fee": 0.01,
        "stake": 0.1924,
@@ -10525,6 +10869,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.23,
+       "p": 0.2977,
+       "mid": 0.225,
        "contracts": 0.78,
        "fee": 0.01,
        "stake": 0.1894,
@@ -10542,6 +10888,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.69,
+       "p": 0.7339,
+       "mid": 0.665,
        "contracts": 0.27,
        "fee": 0.01,
        "stake": 0.1963,
@@ -10559,6 +10907,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.31,
+       "p": 0.3633,
+       "mid": 0.295,
        "contracts": 0.6,
        "fee": 0.01,
        "stake": 0.196,
@@ -10576,6 +10926,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.7,
+       "p": 0.7554,
+       "mid": 0.685,
        "contracts": 0.26,
        "fee": 0.01,
        "stake": 0.192,
@@ -10593,6 +10945,8 @@
        "cat": "Financials",
        "side": "yes",
        "price": 0.58,
+       "p": 0.6247,
+       "mid": 0.555,
        "contracts": 0.32,
        "fee": 0.01,
        "stake": 0.1956,
@@ -10610,6 +10964,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.66,
+       "p": 0.7047,
+       "mid": 0.64,
        "contracts": 0.28,
        "fee": 0.01,
        "stake": 0.1948,
@@ -10627,6 +10983,8 @@
        "cat": "Financials",
        "side": "yes",
        "price": 0.54,
+       "p": 0.5908,
+       "mid": 0.515,
        "contracts": 0.34,
        "fee": 0.01,
        "stake": 0.1936,
@@ -10644,6 +11002,8 @@
        "cat": "Financials",
        "side": "yes",
        "price": 0.49,
+       "p": 0.5418,
+       "mid": 0.465,
        "contracts": 0.38,
        "fee": 0.01,
        "stake": 0.1962,
@@ -10661,6 +11021,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.5,
+       "p": 0.577,
+       "mid": 0.495,
        "contracts": 0.37,
        "fee": 0.01,
        "stake": 0.195,
@@ -10678,6 +11040,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.61,
+       "p": 0.6799,
+       "mid": 0.605,
        "contracts": 0.3,
        "fee": 0.01,
        "stake": 0.193,
@@ -10777,6 +11141,13 @@
        ]
       ]
      },
+     "review": {
+      "n": 13,
+      "netCloser": 0.6923,
+      "losses": 4,
+      "firstHalf": 0.5,
+      "secondHalf": 0.8571
+     },
      "closed": [
       {
        "ts": "2026-11-10T17:10:26.839Z",
@@ -10785,6 +11156,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.7,
+       "p": 0.7554,
+       "mid": 0.685,
        "contracts": 0.26,
        "fee": 0.01,
        "stake": 0.192,
@@ -10802,6 +11175,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.61,
+       "p": 0.6799,
+       "mid": 0.605,
        "contracts": 0.3,
        "fee": 0.01,
        "stake": 0.193,
@@ -10819,6 +11194,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.5,
+       "p": 0.577,
+       "mid": 0.495,
        "contracts": 0.37,
        "fee": 0.01,
        "stake": 0.195,
@@ -10836,6 +11213,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.42,
+       "p": 0.4966,
+       "mid": 0.415,
        "contracts": 0.44,
        "fee": 0.01,
        "stake": 0.1948,
@@ -10853,6 +11232,8 @@
        "cat": "Financials",
        "side": "yes",
        "price": 0.58,
+       "p": 0.6247,
+       "mid": 0.555,
        "contracts": 0.32,
        "fee": 0.01,
        "stake": 0.1956,
@@ -10870,6 +11251,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.69,
+       "p": 0.7339,
+       "mid": 0.665,
        "contracts": 0.27,
        "fee": 0.01,
        "stake": 0.1963,
@@ -10887,6 +11270,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.23,
+       "p": 0.2977,
+       "mid": 0.225,
        "contracts": 0.78,
        "fee": 0.01,
        "stake": 0.1894,
@@ -10904,6 +11289,8 @@
        "cat": "Financials",
        "side": "yes",
        "price": 0.49,
+       "p": 0.5418,
+       "mid": 0.465,
        "contracts": 0.38,
        "fee": 0.01,
        "stake": 0.1962,
@@ -10921,6 +11308,8 @@
        "cat": "Financials",
        "side": "yes",
        "price": 0.54,
+       "p": 0.5908,
+       "mid": 0.515,
        "contracts": 0.34,
        "fee": 0.01,
        "stake": 0.1936,
@@ -10938,6 +11327,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.48,
+       "p": 0.5221,
+       "mid": 0.46,
        "contracts": 0.38,
        "fee": 0.01,
        "stake": 0.1924,
@@ -11009,6 +11400,13 @@
         0
        ]
       ]
+     },
+     "review": {
+      "n": 0,
+      "netCloser": null,
+      "losses": 0,
+      "firstHalf": null,
+      "secondHalf": null
      },
      "closed": [],
      "monteCarlo": null
@@ -11122,6 +11520,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.92,
+       "p": 0.977,
+       "mid": 0.915,
        "contracts": 0.23,
        "fee": 0.01,
        "stake": 0.2216,
@@ -11138,6 +11538,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.05,
+       "p": 0.1212,
+       "mid": 0.03,
        "contracts": 4.56,
        "fee": 0.02,
        "stake": 0.248,
@@ -11154,6 +11556,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.78,
+       "p": 0.837,
+       "mid": 0.775,
        "contracts": 0.3,
        "fee": 0.01,
        "stake": 0.244,
@@ -11170,6 +11574,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.82,
+       "p": 0.8918,
+       "mid": 0.815,
        "contracts": 0.28,
        "fee": 0.01,
        "stake": 0.2396,
@@ -11186,6 +11592,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.18,
+       "p": 0.2368,
+       "mid": 0.16,
        "contracts": 1.26,
        "fee": 0.02,
        "stake": 0.2468,
@@ -11202,6 +11610,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.1,
+       "p": 0.1612,
+       "mid": 0.07,
        "contracts": 2.28,
        "fee": 0.02,
        "stake": 0.248,
@@ -11218,6 +11628,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.79,
+       "p": 0.847,
+       "mid": 0.785,
        "contracts": 0.29,
        "fee": 0.01,
        "stake": 0.2391,
@@ -11234,6 +11646,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.15,
+       "p": 0.207,
+       "mid": 0.145,
        "contracts": 1.52,
        "fee": 0.02,
        "stake": 0.248,
@@ -11250,6 +11664,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.3,
+       "p": 0.3495,
+       "mid": 0.285,
        "contracts": 0.76,
        "fee": 0.02,
        "stake": 0.248,
@@ -11266,6 +11682,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.05,
+       "p": 0.1338,
+       "mid": 0.035,
        "contracts": 2.28,
        "fee": 0.01,
        "stake": 0.124,
@@ -11283,6 +11701,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.81,
+       "p": 0.8838,
+       "mid": 0.785,
        "contracts": 0.14,
        "fee": 0.01,
        "stake": 0.1234,
@@ -11300,6 +11720,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.13,
+       "p": 0.2038,
+       "mid": 0.105,
        "contracts": 0.87,
        "fee": 0.01,
        "stake": 0.1231,
@@ -11317,6 +11739,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.61,
+       "p": 0.343,
+       "mid": 0.4,
        "contracts": 0.36,
        "fee": 0.01,
        "stake": 0.2296,
@@ -11334,6 +11758,8 @@
        "cat": "Commodities",
        "side": "no",
        "price": 0.46,
+       "p": 0.3998,
+       "mid": 0.57,
        "contracts": 0.51,
        "fee": 0.01,
        "stake": 0.2446,
@@ -11351,6 +11777,8 @@
        "cat": "Commodities",
        "side": "no",
        "price": 0.78,
+       "p": 0.0698,
+       "mid": 0.24,
        "contracts": 0.3,
        "fee": 0.01,
        "stake": 0.244,
@@ -11466,6 +11894,13 @@
        ]
       ]
      },
+     "review": {
+      "n": 17,
+      "netCloser": 0.2941,
+      "losses": 12,
+      "firstHalf": 0.375,
+      "secondHalf": 0.2222
+     },
      "closed": [
       {
        "ts": "2026-11-10T17:10:26.839Z",
@@ -11474,6 +11909,8 @@
        "cat": "Crypto",
        "side": "yes",
        "price": 0.25,
+       "p": 0.3051,
+       "mid": 0.245,
        "contracts": 0.91,
        "fee": 0.02,
        "stake": 0.2475,
@@ -11491,6 +11928,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.13,
+       "p": 0.2038,
+       "mid": 0.105,
        "contracts": 0.87,
        "fee": 0.01,
        "stake": 0.1231,
@@ -11508,6 +11947,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.81,
+       "p": 0.8838,
+       "mid": 0.785,
        "contracts": 0.14,
        "fee": 0.01,
        "stake": 0.1234,
@@ -11525,6 +11966,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.05,
+       "p": 0.1338,
+       "mid": 0.035,
        "contracts": 2.28,
        "fee": 0.01,
        "stake": 0.124,
@@ -11542,6 +11985,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.81,
+       "p": 0.8562,
+       "mid": 0.775,
        "contracts": 0.29,
        "fee": 0.01,
        "stake": 0.2449,
@@ -11559,6 +12004,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.08,
+       "p": 0.1462,
+       "mid": 0.065,
        "contracts": 2.85,
        "fee": 0.02,
        "stake": 0.248,
@@ -11576,6 +12023,8 @@
        "cat": "Climate and Weather",
        "side": "yes",
        "price": 0.92,
+       "p": 0.99,
+       "mid": 0.91,
        "contracts": 0.15,
        "fee": 0.01,
        "stake": 0.148,
@@ -11593,6 +12042,8 @@
        "cat": "Commodities",
        "side": "no",
        "price": 0.78,
+       "p": 0.0698,
+       "mid": 0.24,
        "contracts": 0.3,
        "fee": 0.01,
        "stake": 0.244,
@@ -11610,6 +12061,8 @@
        "cat": "Commodities",
        "side": "no",
        "price": 0.46,
+       "p": 0.3998,
+       "mid": 0.57,
        "contracts": 0.51,
        "fee": 0.01,
        "stake": 0.2446,
@@ -11627,6 +12080,8 @@
        "cat": "Crypto",
        "side": "no",
        "price": 0.61,
+       "p": 0.343,
+       "mid": 0.4,
        "contracts": 0.36,
        "fee": 0.01,
        "stake": 0.2296,
@@ -11644,20 +12099,21 @@
   }
  },
  "status": {
-  "updated": "2026-11-10T22:35:02.154Z",
+  "updated": "2026-11-10T22:45:02.609Z",
   "trade": {
    "answer": "No — don't trade real money yet",
    "tone": "bad",
-   "why": "Nothing has proven an edge after fees. Live: 769 markets resolved (267 events); a verdict needs 100+ and the 95% range must exclude zero. Network on unseen past markets: no measurable difference.",
+   "why": "Nothing has proven an edge after fees. Live: 781 markets resolved (273 events); a verdict needs 100+ and the 95% range must exclude zero. Network on unseen past markets: no measurable difference.",
    "next": "Let it keep collecting. The answer changes automatically when a strategy reaches SUCCESS on the live record."
   },
   "learning": [
-   "Live record: 769 of 902 predictions resolved so far (267 separate events).",
-   "longshot: failure retire — no measurable edge after 769 resolved — recommend retiring this hypothesis",
-   "memory: off track — not beating the market so far (+0.0043) — wait for 0 more resolved before judging",
+   "Live record: 781 of 902 predictions resolved so far (273 separate events).",
+   "longshot: failure retire — no measurable edge after 781 resolved — recommend retiring this hypothesis",
+   "memory: off track — not beating the market so far (+0.0035) — wait for 0 more resolved before judging",
    "nn: on track — leaning better than the market (-0.0019) — wait for 0 more resolved",
    "Neural network: tested on 1140 past markets it never saw → no measurable difference (Brier 0.182 vs market 0.1819).",
    "Training history: 7 runs; data grew 736 → 1425 markets; gap vs market 0.0014 → 0 (below 0 = better than market).",
+   "Network learning check: not available yet.",
    "Backtest: 1222 past markets scored."
   ],
   "watchlist": [
@@ -11759,7 +12215,7 @@
    {
     "name": "Runs on schedule (every 10 min)",
     "ok": true,
-    "detail": "12 cloud runs in the last 3 h (expect ~18)"
+    "detail": "13 cloud runs in the last 3 h (expect ~18)"
    },
    {
     "name": "New predictions are being logged",
@@ -11769,7 +12225,7 @@
    {
     "name": "Outcomes are being collected",
     "ok": true,
-    "detail": "423/443 predictions due >2 h ago have an official result"
+    "detail": "431/449 predictions due >2 h ago have an official result"
    },
    {
     "name": "Scorecard matches the logs",
@@ -11794,7 +12250,7 @@
    {
     "name": "Network trained in the last 2 h",
     "ok": true,
-    "detail": "trained 28 min ago on 1425 markets"
+    "detail": "trained 38 min ago on 1425 markets"
    },
    {
     "name": "Bet-size safety held (≤5% per bet)",
@@ -11809,7 +12265,7 @@
   ],
   "problems": 0,
   "needs": [
-   "Decision: longshot — no measurable edge after 769 resolved — recommend retiring this hypothesis"
+   "Decision: longshot — no measurable edge after 781 resolved — recommend retiring this hypothesis"
   ]
  },
  "briefings": [
@@ -11850,7 +12306,7 @@
   }
  ],
  "focus": {
-  "updated": "2026-11-10T22:35:01.891Z",
+  "updated": "2026-11-10T22:45:02.395Z",
   "markets": [
    {
     "ticker": "KXHYPED-26NOV1018-T72.9999",
@@ -11871,9 +12327,9 @@
       "cost": 0.3
      }
     },
-    "price": 0.025,
-    "chg30m": -0.26,
-    "chg3h": -0.22,
+    "price": 0.005,
+    "chg30m": -0.305,
+    "chg3h": -0.24,
     "series": [
      [
       1794348060000,
@@ -12048,6 +12504,56 @@
      [
       1794350100000,
       0.025,
+      0
+     ],
+     [
+      1794350160000,
+      0.02,
+      20
+     ],
+     [
+      1794350220000,
+      0.01,
+      0
+     ],
+     [
+      1794350280000,
+      0.01,
+      0
+     ],
+     [
+      1794350340000,
+      0.01,
+      0
+     ],
+     [
+      1794350400000,
+      0.015,
+      1
+     ],
+     [
+      1794350460000,
+      0.015,
+      0
+     ],
+     [
+      1794350520000,
+      0.01,
+      0
+     ],
+     [
+      1794350580000,
+      0.01,
+      0
+     ],
+     [
+      1794350640000,
+      0.01,
+      0
+     ],
+     [
+      1794350700000,
+      0.005,
       0
      ]
     ],
@@ -12250,6 +12756,56 @@
       1794350100000,
       0.005,
       877.66
+     ],
+     [
+      1794350160000,
+      0.005,
+      197.11
+     ],
+     [
+      1794350220000,
+      0.005,
+      293.51
+     ],
+     [
+      1794350280000,
+      0.005,
+      467.59
+     ],
+     [
+      1794350340000,
+      0.005,
+      0
+     ],
+     [
+      1794350400000,
+      0.015,
+      3399.63
+     ],
+     [
+      1794350460000,
+      0.025,
+      614.21
+     ],
+     [
+      1794350520000,
+      0.005,
+      1380.52
+     ],
+     [
+      1794350580000,
+      0.005,
+      46.75
+     ],
+     [
+      1794350640000,
+      0.005,
+      2.52
+     ],
+     [
+      1794350700000,
+      0.005,
+      45.07
      ]
     ],
     "url": "https://kalshi.com/markets/kxbtcd"
@@ -12273,9 +12829,9 @@
       "cost": 0.1
      }
     },
-    "price": 0.425,
-    "chg30m": -0.08,
-    "chg3h": -0.08,
+    "price": 0.525,
+    "chg30m": 0.455,
+    "chg3h": 0.02,
     "series": [
      [
       1794348120000,
@@ -12431,6 +12987,56 @@
       1794350100000,
       0.425,
       20.1
+     ],
+     [
+      1794350160000,
+      0.365,
+      0
+     ],
+     [
+      1794350220000,
+      0.33,
+      4.1
+     ],
+     [
+      1794350280000,
+      0.335,
+      19.7
+     ],
+     [
+      1794350340000,
+      0.35,
+      0
+     ],
+     [
+      1794350400000,
+      0.34,
+      0
+     ],
+     [
+      1794350460000,
+      0.345,
+      47.39
+     ],
+     [
+      1794350520000,
+      0.35,
+      0
+     ],
+     [
+      1794350580000,
+      0.405,
+      1.82
+     ],
+     [
+      1794350640000,
+      0.425,
+      0
+     ],
+     [
+      1794350700000,
+      0.525,
+      263.66
      ]
     ],
     "url": "https://kalshi.com/markets/kxtempchihs"
@@ -12454,9 +13060,9 @@
       "cost": 0.79
      }
     },
-    "price": 0.22,
-    "chg30m": -0.01,
-    "chg3h": -0.015,
+    "price": 0.235,
+    "chg30m": -0.02,
+    "chg3h": 0,
     "series": [
      [
       1794348060000,
@@ -12632,6 +13238,56 @@
       1794350100000,
       0.22,
       0
+     ],
+     [
+      1794350160000,
+      0.215,
+      10
+     ],
+     [
+      1794350220000,
+      0.21,
+      0
+     ],
+     [
+      1794350280000,
+      0.21,
+      0
+     ],
+     [
+      1794350340000,
+      0.265,
+      0
+     ],
+     [
+      1794350400000,
+      0.36,
+      20
+     ],
+     [
+      1794350460000,
+      0.305,
+      22
+     ],
+     [
+      1794350520000,
+      0.26,
+      0
+     ],
+     [
+      1794350580000,
+      0.245,
+      0
+     ],
+     [
+      1794350640000,
+      0.235,
+      0
+     ],
+     [
+      1794350700000,
+      0.235,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxeth"
@@ -12649,9 +13305,9 @@
      "nn": 0.2844
     },
     "picks": {},
-    "price": 0.085,
-    "chg30m": -0.215,
-    "chg3h": -0.235,
+    "price": 0.04,
+    "chg30m": -0.32,
+    "chg3h": -0.28,
     "series": [
      [
       1794348060000,
@@ -12827,6 +13483,56 @@
       1794350100000,
       0.085,
       2
+     ],
+     [
+      1794350160000,
+      0.07,
+      0
+     ],
+     [
+      1794350220000,
+      0.06,
+      0
+     ],
+     [
+      1794350280000,
+      0.06,
+      0
+     ],
+     [
+      1794350340000,
+      0.07,
+      0
+     ],
+     [
+      1794350400000,
+      0.085,
+      0
+     ],
+     [
+      1794350460000,
+      0.075,
+      0
+     ],
+     [
+      1794350520000,
+      0.06,
+      81.25
+     ],
+     [
+      1794350580000,
+      0.05,
+      0
+     ],
+     [
+      1794350640000,
+      0.04,
+      0
+     ],
+     [
+      1794350700000,
+      0.04,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxsole"
@@ -12844,9 +13550,9 @@
      "nn": 0.2892
     },
     "picks": {},
-    "price": 0.025,
-    "chg30m": -0.28,
-    "chg3h": -0.275,
+    "price": 0.01,
+    "chg30m": -0.305,
+    "chg3h": -0.29,
     "series": [
      [
       1794348060000,
@@ -13022,6 +13728,56 @@
       1794350100000,
       0.025,
       0
+     ],
+     [
+      1794350160000,
+      0.02,
+      0
+     ],
+     [
+      1794350220000,
+      0.02,
+      0
+     ],
+     [
+      1794350280000,
+      0.015,
+      0
+     ],
+     [
+      1794350340000,
+      0.02,
+      0
+     ],
+     [
+      1794350400000,
+      0.02,
+      0
+     ],
+     [
+      1794350460000,
+      0.005,
+      0
+     ],
+     [
+      1794350520000,
+      0.01,
+      80
+     ],
+     [
+      1794350580000,
+      0.01,
+      0
+     ],
+     [
+      1794350640000,
+      0.01,
+      0
+     ],
+     [
+      1794350700000,
+      0.01,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxsold"
@@ -13039,9 +13795,9 @@
      "nn": 0.5767
     },
     "picks": {},
-    "price": 0.055,
-    "chg30m": -0.54,
-    "chg3h": -0.49,
+    "price": 0.035,
+    "chg30m": -0.545,
+    "chg3h": -0.51,
     "series": [
      [
       1794348060000,
@@ -13217,6 +13973,56 @@
       1794350100000,
       0.055,
       45.45
+     ],
+     [
+      1794350160000,
+      0.065,
+      0
+     ],
+     [
+      1794350220000,
+      0.06,
+      67.48
+     ],
+     [
+      1794350280000,
+      0.055,
+      0.99
+     ],
+     [
+      1794350340000,
+      0.06,
+      68
+     ],
+     [
+      1794350400000,
+      0.065,
+      15.63
+     ],
+     [
+      1794350460000,
+      0.075,
+      95.6
+     ],
+     [
+      1794350520000,
+      0.05,
+      177.58
+     ],
+     [
+      1794350580000,
+      0.04,
+      74
+     ],
+     [
+      1794350640000,
+      0.035,
+      45.11
+     ],
+     [
+      1794350700000,
+      0.035,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxethd"
@@ -13234,9 +14040,9 @@
      "nn": 0.2025
     },
     "picks": {},
-    "price": 0.105,
-    "chg30m": -0.11,
-    "chg3h": -0.095,
+    "price": 0.24,
+    "chg30m": 0.025,
+    "chg3h": 0.04,
     "series": [
      [
       1794348060000,
@@ -13412,6 +14218,56 @@
       1794350100000,
       0.105,
       0
+     ],
+     [
+      1794350160000,
+      0.135,
+      0
+     ],
+     [
+      1794350220000,
+      0.165,
+      3
+     ],
+     [
+      1794350280000,
+      0.2,
+      0
+     ],
+     [
+      1794350340000,
+      0.24,
+      10.91
+     ],
+     [
+      1794350400000,
+      0.305,
+      97.69
+     ],
+     [
+      1794350460000,
+      0.315,
+      63.61
+     ],
+     [
+      1794350520000,
+      0.27,
+      0
+     ],
+     [
+      1794350580000,
+      0.245,
+      924
+     ],
+     [
+      1794350640000,
+      0.195,
+      1049.12
+     ],
+     [
+      1794350700000,
+      0.24,
+      482.01
      ]
     ],
     "url": "https://kalshi.com/markets/kxbtc"
@@ -13429,9 +14285,9 @@
      "nn": 0.2546
     },
     "picks": {},
-    "price": 0.11,
-    "chg30m": -0.395,
-    "chg3h": -0.395,
+    "price": 0.185,
+    "chg30m": -0.055,
+    "chg3h": -0.32,
     "series": [
      [
       1794348120000,
@@ -13587,6 +14443,56 @@
       1794350100000,
       0.11,
       374.24
+     ],
+     [
+      1794350160000,
+      0.2,
+      441
+     ],
+     [
+      1794350220000,
+      0.195,
+      20.36
+     ],
+     [
+      1794350280000,
+      0.19,
+      7.55
+     ],
+     [
+      1794350340000,
+      0.205,
+      123.71
+     ],
+     [
+      1794350400000,
+      0.24,
+      35.75
+     ],
+     [
+      1794350460000,
+      0.365,
+      82.32
+     ],
+     [
+      1794350520000,
+      0.405,
+      1
+     ],
+     [
+      1794350580000,
+      0.215,
+      316.52
+     ],
+     [
+      1794350640000,
+      0.19,
+      70.01
+     ],
+     [
+      1794350700000,
+      0.185,
+      14.09
      ]
     ],
     "url": "https://kalshi.com/markets/kxtemplaxhs"
@@ -13604,9 +14510,9 @@
      "nn": 0.0413
     },
     "picks": {},
-    "price": 0.115,
-    "chg30m": -0.39,
-    "chg3h": -0.39,
+    "price": 0.015,
+    "chg30m": -0.025,
+    "chg3h": -0.49,
     "series": [
      [
       1794348120000,
@@ -13762,6 +14668,56 @@
       1794350100000,
       0.115,
       254.25
+     ],
+     [
+      1794350160000,
+      0.085,
+      86.69
+     ],
+     [
+      1794350220000,
+      0.065,
+      13.88
+     ],
+     [
+      1794350280000,
+      0.055,
+      119.66
+     ],
+     [
+      1794350340000,
+      0.035,
+      50.84
+     ],
+     [
+      1794350400000,
+      0.04,
+      45.73
+     ],
+     [
+      1794350460000,
+      0.035,
+      0
+     ],
+     [
+      1794350520000,
+      0.025,
+      112.21
+     ],
+     [
+      1794350580000,
+      0.02,
+      97.73
+     ],
+     [
+      1794350640000,
+      0.02,
+      37.29
+     ],
+     [
+      1794350700000,
+      0.015,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxtempnychs"
@@ -13779,9 +14735,9 @@
      "nn": 0.8773
     },
     "picks": {},
-    "price": 0.98,
-    "chg30m": 0.475,
-    "chg3h": 0.475,
+    "price": 0.995,
+    "chg30m": 0.12,
+    "chg3h": 0.49,
     "series": [
      [
       1794348120000,
@@ -13937,6 +14893,51 @@
       1794350100000,
       0.98,
       0
+     ],
+     [
+      1794350160000,
+      0.99,
+      60.04
+     ],
+     [
+      1794350220000,
+      0.99,
+      9.35
+     ],
+     [
+      1794350340000,
+      0.99,
+      0
+     ],
+     [
+      1794350400000,
+      0.99,
+      0
+     ],
+     [
+      1794350460000,
+      0.995,
+      0
+     ],
+     [
+      1794350520000,
+      0.99,
+      44.74
+     ],
+     [
+      1794350580000,
+      0.995,
+      0
+     ],
+     [
+      1794350640000,
+      0.995,
+      0
+     ],
+     [
+      1794350700000,
+      0.995,
+      1
      ]
     ],
     "url": "https://kalshi.com/markets/kxtempmiah"
@@ -13954,9 +14955,9 @@
      "nn": 0.7538
     },
     "picks": {},
-    "price": 0.205,
-    "chg30m": -0.265,
-    "chg3h": -0.28,
+    "price": 0.085,
+    "chg30m": -0.665,
+    "chg3h": -0.4,
     "series": [
      [
       1794348060000,
@@ -14132,6 +15133,56 @@
       1794350100000,
       0.205,
       82
+     ],
+     [
+      1794350160000,
+      0.155,
+      103.23
+     ],
+     [
+      1794350220000,
+      0.12,
+      0
+     ],
+     [
+      1794350280000,
+      0.075,
+      190.08
+     ],
+     [
+      1794350340000,
+      0.075,
+      0
+     ],
+     [
+      1794350400000,
+      0.075,
+      1
+     ],
+     [
+      1794350460000,
+      0.075,
+      0.1
+     ],
+     [
+      1794350520000,
+      0.08,
+      20
+     ],
+     [
+      1794350580000,
+      0.085,
+      0
+     ],
+     [
+      1794350640000,
+      0.075,
+      0
+     ],
+     [
+      1794350700000,
+      0.085,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxxrpd"

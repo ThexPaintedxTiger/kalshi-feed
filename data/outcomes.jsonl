@@ -767,3 +767,15 @@
 {"ticker":"KXNATGASD-26NOV1017-T3.490","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T22:00:00Z","checkedAt":"2026-11-10T22:34:43.768Z"}
 {"ticker":"KXSILVERD-26NOV1017-T50.50","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T22:00:00Z","checkedAt":"2026-11-10T22:34:43.768Z"}
 {"ticker":"KXSILVERD-26NOV1017-T52","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T22:00:00Z","checkedAt":"2026-11-10T22:34:43.768Z"}
+{"ticker":"KXDOTA2GAME-26NOV100800NEMIGAZ10-NEMIGA","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T22:39:34Z","checkedAt":"2026-11-10T22:44:44.100Z"}
+{"ticker":"KXDOTA2GAME-26NOV100800NEMIGAZ10-Z10","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T22:39:34Z","checkedAt":"2026-11-10T22:44:44.100Z"}
+{"ticker":"KXEFLTROPHYGAME-26NOV10BROMKD-MKD","result":"yes","raw":"yes","status":"finalized","settledAt":"2026-11-10T21:26:46.26725Z","closedAt":"2026-11-10T21:25:44Z","checkedAt":"2026-11-10T22:44:44.100Z"}
+{"ticker":"KXEFLTROPHYGAME-26NOV10BRAYOR-BRA","result":"yes","raw":"yes","status":"finalized","settledAt":"2026-11-10T21:24:41.204017Z","closedAt":"2026-11-10T21:23:37Z","checkedAt":"2026-11-10T22:44:44.100Z"}
+{"ticker":"KXEFLTROPHYGAME-26NOV10BROMKD-TIE","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-10T21:26:46.26725Z","closedAt":"2026-11-10T21:25:44Z","checkedAt":"2026-11-10T22:44:44.100Z"}
+{"ticker":"KXITFMATCH-26NOV10BOJREN-REN","result":"yes","raw":"yes","status":"finalized","settledAt":"2026-11-10T21:29:06.204892Z","closedAt":"2026-11-10T21:27:05Z","checkedAt":"2026-11-10T22:44:44.100Z"}
+{"ticker":"KXEUROCUPGAME-26NOV101430REVLIO-LIO","result":"yes","raw":"yes","status":"finalized","settledAt":"2026-11-10T21:23:01.256264Z","closedAt":"2026-11-10T21:20:29Z","checkedAt":"2026-11-10T22:44:44.100Z"}
+{"ticker":"KXEUROCUPGAME-26NOV101430REVLIO-REV","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-10T21:23:01.256264Z","closedAt":"2026-11-10T21:20:29Z","checkedAt":"2026-11-10T22:44:44.100Z"}
+{"ticker":"KXEFLTROPHYGAME-26NOV10BRAYOR-TIE","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-10T21:24:41.204017Z","closedAt":"2026-11-10T21:23:37Z","checkedAt":"2026-11-10T22:44:44.100Z"}
+{"ticker":"KXITFMATCH-26NOV10TOSALV-ALV","result":"yes","raw":"yes","status":"finalized","settledAt":"2026-11-10T19:49:36.203163Z","closedAt":"2026-11-10T19:47:37Z","checkedAt":"2026-11-10T22:44:44.100Z"}
+{"ticker":"KXEFLTROPHYGAME-26NOV10BROMKD-BRO","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-10T21:26:46.26725Z","closedAt":"2026-11-10T21:25:44Z","checkedAt":"2026-11-10T22:44:44.100Z"}
+{"ticker":"KXEFLTROPHYGAME-26NOV10BRAYOR-YOR","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-10T21:24:41.204017Z","closedAt":"2026-11-10T21:23:37Z","checkedAt":"2026-11-10T22:44:44.100Z"}

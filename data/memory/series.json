@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-10T22:34:44.190Z",
- "samples": 1961,
+ "updated": "2026-11-10T22:44:44.568Z",
+ "samples": 1973,
  "note": "Derived summary (rebuilt each run). bias = average (outcome − market price); > 0 means YES was underpriced in this series.",
  "series": {
   "KXAAAGASD": {
@@ -841,13 +841,13 @@
   },
   "KXDOTA2GAME": {
    "cat": "Sports",
-   "n": 8,
+   "n": 10,
    "yesRate": 0.5,
-   "avgPrice": 0.505,
-   "bias": -0.005,
-   "brierMarket": 0.243,
+   "avgPrice": 0.5045,
+   "bias": -0.0045,
+   "brierMarket": 0.2381,
    "last": "2026-11-10T20:00:00.000Z",
-   "live": 8,
+   "live": 10,
    "backtest": 0
   },
   "KXDOTA2MAP": {
@@ -929,13 +929,13 @@
   },
   "KXEFLTROPHYGAME": {
    "cat": "Sports",
-   "n": 30,
+   "n": 36,
    "yesRate": 0.3333,
    "avgPrice": 0.3333,
    "bias": 0,
-   "brierMarket": 0.1997,
-   "last": "2026-11-10T21:06:46.259Z",
-   "live": 30,
+   "brierMarket": 0.1789,
+   "last": "2026-11-10T21:26:46.267Z",
+   "live": 36,
    "backtest": 0
   },
   "KXEGGS": {
@@ -984,13 +984,13 @@
   },
   "KXEUROCUPGAME": {
    "cat": "Sports",
-   "n": 9,
-   "yesRate": 0.5556,
-   "avgPrice": 0.5017,
-   "bias": 0.0539,
-   "brierMarket": 0.1223,
-   "last": "2026-11-10T21:03:36.208Z",
-   "live": 9,
+   "n": 11,
+   "yesRate": 0.5455,
+   "avgPrice": 0.5005,
+   "bias": 0.045,
+   "brierMarket": 0.1456,
+   "last": "2026-11-10T21:23:01.256Z",
+   "live": 11,
    "backtest": 0
   },
   "KXEUROCUPSPREAD": {
@@ -1171,13 +1171,13 @@
   },
   "KXITFMATCH": {
    "cat": "Sports",
-   "n": 61,
-   "yesRate": 0.5082,
-   "avgPrice": 0.5023,
-   "bias": 0.0059,
-   "brierMarket": 0.1581,
-   "last": "2026-11-10T21:19:16.206Z",
-   "live": 61,
+   "n": 63,
+   "yesRate": 0.5238,
+   "avgPrice": 0.5121,
+   "bias": 0.0117,
+   "brierMarket": 0.1543,
+   "last": "2026-11-10T21:29:06.204Z",
+   "live": 63,
    "backtest": 0
   },
   "KXITFWDOUBLES": {
