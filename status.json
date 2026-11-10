@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T22:45:02.609Z",
+ "updated": "2026-11-10T22:58:35.285Z",
  "trade": {
   "answer": "No — don't trade real money yet",
   "tone": "bad",
@@ -11,10 +11,11 @@
   "longshot: failure retire — no measurable edge after 781 resolved — recommend retiring this hypothesis",
   "memory: off track — not beating the market so far (+0.0035) — wait for 0 more resolved before judging",
   "nn: on track — leaning better than the market (-0.0019) — wait for 0 more resolved",
-  "Neural network: tested on 1140 past markets it never saw → no measurable difference (Brier 0.182 vs market 0.1819).",
-  "Training history: 7 runs; data grew 736 → 1425 markets; gap vs market 0.0014 → 0 (below 0 = better than market).",
-  "Network learning check: not available yet.",
-  "Backtest: 1222 past markets scored."
+  "crypto_fair: insufficient — wait: 0/20 resolved before any trend is readable",
+  "Neural network: tested on 1377 past markets it never saw → no measurable difference (Brier 0.1742 vs market 0.174).",
+  "Training history: 8 runs; data grew 736 → 1722 markets; gap vs market 0.0014 → 0.0002 (below 0 = better than market).",
+  "Network learning check: gap vs market by amount of training data 345→-0.0008, 690→-0.0004, 1035→+0.0001, 1380→+0.0018 (shrinking = learning; ~0 = copying the market).",
+  "Backtest: 1335 past markets scored."
  ],
  "watchlist": [
   {
@@ -110,12 +111,12 @@
   {
    "name": "Pipeline ran recently",
    "ok": true,
-   "detail": "last cloud run 0 min ago"
+   "detail": "last cloud run 3 min ago"
   },
   {
    "name": "Runs on schedule (every 10 min)",
    "ok": true,
-   "detail": "13 cloud runs in the last 3 h (expect ~18)"
+   "detail": "14 cloud runs in the last 3 h (expect ~18)"
   },
   {
    "name": "New predictions are being logged",
@@ -145,12 +146,12 @@
   {
    "name": "Backtest sample unbiased",
    "ok": true,
-   "detail": "YES 0.4656 vs price 0.4722"
+   "detail": "YES 0.4614 vs price 0.4703"
   },
   {
    "name": "Network trained in the last 2 h",
    "ok": true,
-   "detail": "trained 38 min ago on 1425 markets"
+   "detail": "trained 1 min ago on 1722 markets"
   },
   {
    "name": "Bet-size safety held (≤5% per bet)",
@@ -160,7 +161,17 @@
   {
    "name": "Paper money adds up",
    "ok": true,
-   "detail": "12 portfolios checked"
+   "detail": "16 portfolios checked"
+  },
+  {
+   "name": "Outside data: Coinbase crypto agent",
+   "ok": true,
+   "detail": "0/0 markets got an outside estimate, 3 min ago"
+  },
+  {
+   "name": "Outside data: NWS weather agent",
+   "ok": true,
+   "detail": "0/0 markets got an outside estimate, 3 min ago"
   }
  ],
  "problems": 0,
