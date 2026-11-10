@@ -65,6 +65,14 @@ Claude subagents are not used in the pipeline (cost and non-repeatable answers);
 - `chg30` = mid now − mid ~30 min earlier (live: one batch candle call per run; backtest: earliest candle in the 30-min window before the
   snapshot). Network inputs grew to 18 ("price move 30 min", "has 30-min history"); a model trained on a different input list is never used.
 
+## Is the network learning from its losses? (Neural net tab)
+- It learns from every settled market's prediction error (log loss punishes confident wrong calls most), not from paper P&L.
+- Evidence written by `nn.mjs` each run (unseen markets only): `oos.folds` (gap vs market per walk-forward block: if learning, blocks
+  trained on more data show a smaller gap), `oos.calibration` (said vs happened), `oos.misses` (worst log-loss misses beside the
+  market's loss on the same market). Misses are never re-scored with a model trained on them (that would show memorization).
+- `paper.mjs → disagreementReview()`: on settled network bets (each one a disagreement with the market), how often the network was
+  closer to the outcome, first half vs second half.
+
 ## MCP server (read-only)
 `mcp/server.mjs` (official MCP SDK, stdio). Tools: `get_status`, `get_scorecard` (live|backtest), `search_predictions`, `recall_series`, `list_skills`.
 - Claude Code: `npm --prefix mcp install`, then it's picked up from `.mcp.json` (approve the project server once).
