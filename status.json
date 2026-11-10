@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T17:54:50.414Z",
+ "updated": "2026-11-10T18:04:50.595Z",
  "trade": {
   "answer": "No — don't trade real money yet",
   "tone": "bad",
@@ -7,7 +7,7 @@
   "next": "Let it keep collecting. The answer changes automatically when a strategy reaches SUCCESS on the live record."
  },
  "learning": [
-  "Live record: 98 of 805 predictions resolved so far (21 separate events).",
+  "Live record: 98 of 824 predictions resolved so far (21 separate events).",
   "longshot: on track — leaning better than the market (-0.0024) — wait for 2 more resolved",
   "memory: off track — not beating the market so far (0) — wait for 80 more resolved before judging",
   "Neural network: tested on 753 past markets it never saw → worse than market (out-of-sample) (Brier 0.1929 vs market 0.1804).",
@@ -16,92 +16,92 @@
  ],
  "watchlist": [
   {
-   "title": "Bitcoin price on Nov 10, 2026? — $72,800 or above",
-   "cat": "Crypto",
-   "resolvesAt": "2026-11-10T18:00:00.000Z",
-   "predictor": "nn",
-   "status": "NOT_YET_SCORED",
-   "side": "yes",
-   "price": 0.61,
-   "ev": 0.0499,
-   "url": "https://kalshi.com/markets/kxbtcd"
-  },
-  {
-   "title": "Bitcoin price on Nov 10, 2026? — $72,900 or above",
-   "cat": "Crypto",
-   "resolvesAt": "2026-11-10T18:00:00.000Z",
-   "predictor": "nn",
-   "status": "NOT_YET_SCORED",
-   "side": "yes",
-   "price": 0.5,
-   "ev": 0.057,
-   "url": "https://kalshi.com/markets/kxbtcd"
-  },
-  {
-   "title": "Will the Nasdaq-100 be above 27589.99 at the end of Nov 10, 2026 at 1pm EST? — 27,590 or above",
-   "cat": "Financials",
-   "resolvesAt": "2026-11-10T18:00:00.000Z",
-   "predictor": "nn",
-   "status": "NOT_YET_SCORED",
-   "side": "yes",
-   "price": 0.49,
-   "ev": 0.0318,
-   "url": "https://kalshi.com/markets/kxnasdaq100u"
-  },
-  {
-   "title": "Will the temp in Chicago Metro Area be above 61.99° on Nov 10, 2026 at 1pm EST? — 62° or above",
-   "cat": "Climate and Weather",
-   "resolvesAt": "2026-11-10T18:00:00.000Z",
+   "title": "rostikfacekid TEAM wins map 1",
+   "cat": "Sports",
+   "resolvesAt": "2026-11-10T18:30:00.000Z",
    "predictor": "memory",
    "status": "OFF_TRACK",
    "side": "yes",
-   "price": 0.81,
-   "ev": 0.0262,
-   "url": "https://kalshi.com/markets/kxtempchihs"
+   "price": 0.19,
+   "ev": 0.0474,
+   "url": "https://kalshi.com/markets/kxdota2map"
   },
   {
-   "title": "Will the gold close price be above 4019.99 USD/ounce on November 10, 2026 at 1:00 PM ET? — Above $4019.99",
+   "title": "iLTW TEAM wins map 1",
+   "cat": "Sports",
+   "resolvesAt": "2026-11-10T18:30:00.000Z",
+   "predictor": "memory",
+   "status": "OFF_TRACK",
+   "side": "yes",
+   "price": 0.88,
+   "ev": 0.0724,
+   "url": "https://kalshi.com/markets/kxdota2map"
+  },
+  {
+   "title": "Power Rangers wins map 2",
+   "cat": "Sports",
+   "resolvesAt": "2026-11-10T19:00:00.000Z",
+   "predictor": "memory",
+   "status": "OFF_TRACK",
+   "side": "yes",
+   "price": 0.36,
+   "ev": 0.0424,
+   "url": "https://kalshi.com/markets/kxdota2map"
+  },
+  {
+   "title": "CyberHero wins map 2",
+   "cat": "Sports",
+   "resolvesAt": "2026-11-10T19:00:00.000Z",
+   "predictor": "memory",
+   "status": "OFF_TRACK",
+   "side": "yes",
+   "price": 0.88,
+   "ev": 0.0574,
+   "url": "https://kalshi.com/markets/kxdota2map"
+  },
+  {
+   "title": "InterActive Philippines wins map 1",
+   "cat": "Sports",
+   "resolvesAt": "2026-11-10T19:00:00.000Z",
+   "predictor": "memory",
+   "status": "OFF_TRACK",
+   "side": "yes",
+   "price": 0.1,
+   "ev": 0.0724,
+   "url": "https://kalshi.com/markets/kxdota2map"
+  },
+  {
+   "title": "Bitcoin price on Nov 10, 2026? — $73,300 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-10T19:00:00.000Z",
+   "predictor": "nn",
+   "status": "NOT_YET_SCORED",
+   "side": "no",
+   "price": 0.6,
+   "ev": 0.0307,
+   "url": "https://kalshi.com/markets/kxbtcd"
+  },
+  {
+   "title": "Will the gold close price be above 4021.99 USD/ounce on November 10, 2026 at 2:00 PM ET? — Above $4021.99",
    "cat": "Commodities",
-   "resolvesAt": "2026-11-10T18:00:00.000Z",
+   "resolvesAt": "2026-11-10T19:00:00.000Z",
    "predictor": "memory",
    "status": "OFF_TRACK",
    "side": "no",
-   "price": 0.4,
-   "ev": 0.0996,
+   "price": 0.78,
+   "ev": 0.1252,
    "url": "https://kalshi.com/markets/kxgoldh"
   },
   {
-   "title": "Will the temp in Chicago Metro Area be above 62.99° on Nov 10, 2026 at 1pm EST? — 63° or above",
-   "cat": "Climate and Weather",
-   "resolvesAt": "2026-11-10T18:00:00.000Z",
+   "title": "Will the gold close price be above 4015.99 USD/ounce on November 10, 2026 at 2:00 PM ET? — Above $4015.99",
+   "cat": "Commodities",
+   "resolvesAt": "2026-11-10T19:00:00.000Z",
    "predictor": "memory",
    "status": "OFF_TRACK",
-   "side": "yes",
-   "price": 0.08,
-   "ev": 0.0562,
-   "url": "https://kalshi.com/markets/kxtempchihs"
-  },
-  {
-   "title": "Will the Nasdaq-100 be above 27579.99 at the end of Nov 10, 2026 at 1pm EST? — 27,580 or above",
-   "cat": "Financials",
-   "resolvesAt": "2026-11-10T18:00:00.000Z",
-   "predictor": "nn",
-   "status": "NOT_YET_SCORED",
-   "side": "yes",
-   "price": 0.54,
-   "ev": 0.0308,
-   "url": "https://kalshi.com/markets/kxnasdaq100u"
-  },
-  {
-   "title": "SOL price on Nov 10, 2026? — $81.75 or above",
-   "cat": "Crypto",
-   "resolvesAt": "2026-11-10T18:00:00.000Z",
-   "predictor": "nn",
-   "status": "NOT_YET_SCORED",
-   "side": "yes",
-   "price": 0.66,
-   "ev": 0.0247,
-   "url": "https://kalshi.com/markets/kxsold"
+   "side": "no",
+   "price": 0.44,
+   "ev": 0.1252,
+   "url": "https://kalshi.com/markets/kxgoldh"
   }
  ],
  "checks": [
@@ -113,12 +113,12 @@
   {
    "name": "Runs on schedule (every 10 min)",
    "ok": false,
-   "detail": "10 cloud runs in the last 3 h (expect ~18)"
+   "detail": "11 cloud runs in the last 3 h (expect ~18)"
   },
   {
    "name": "New predictions are being logged",
    "ok": true,
-   "detail": "102 logged in the last hour"
+   "detail": "121 logged in the last hour"
   },
   {
    "name": "Outcomes are being collected",
@@ -128,7 +128,7 @@
   {
    "name": "Scorecard matches the logs",
    "ok": true,
-   "detail": "scorecard counts 805, log has 805"
+   "detail": "scorecard counts 824, log has 824"
   },
   {
    "name": "No prediction logged after its market resolved",
@@ -148,7 +148,7 @@
   {
    "name": "Network trained in the last 2 h",
    "ok": true,
-   "detail": "trained 4 min ago on 942 markets"
+   "detail": "trained 14 min ago on 942 markets"
   },
   {
    "name": "Bet-size safety held (≤5% per bet)",
