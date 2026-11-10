@@ -103,6 +103,8 @@ input[type=search]{font:inherit;color:inherit;background:var(--card);border:1px 
 .skill p{margin:8px 0 0;font-size:13px}
 .skill .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);display:block;margin-top:10px}
 .sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.devagent{border-color:color-mix(in srgb,var(--teal) 45%,var(--line-soft))}
+.row2{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
 .today{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
 .today .q h2{margin-bottom:6px}
 .big{font:700 18px/1.3 var(--sans);margin:2px 0 8px}
@@ -543,7 +545,15 @@ function renderToday() {
   const tone = { good: "c-good", bad: "c-bad", warn: "c-warn" }[S.trade.tone] || "c-muted";
   const okN = S.checks.filter(c => c.ok).length;
   const wl = S.watchlist || [];
-  $("#today").innerHTML = `<div class="today">
+  const B = (D.briefings || [])[0], live = D.config.live || {};
+  $("#today").innerHTML = `<div class="panel devagent"><div class="prow"><h2 style="margin:0">Dev agent · live mode</h2>
+      <span class="small muted">${B ? `last briefing ${esc(rel(B.ts))} · checks ${esc(B.checks)}` : "no briefing yet"}</span></div>
+      <p style="margin:8px 0 4px">${B ? esc(B.summary) : "The hourly dev agent keeps live mode running, checks the pipeline, fixes clear breakage and writes a short briefing here."}</p>
+      ${B?.actions?.length ? `<p class="small muted" style="margin:0">Did: ${B.actions.map(esc).join(" · ")}</p>` : ""}
+      ${B?.needs?.length ? `<p class="small c-warn" style="margin:4px 0 0">Needs you: ${B.needs.map(esc).join(" · ")}</p>` : ""}
+      <div class="row2"><button type="button" id="runAgent" hidden>Run dev agent now</button><span class="small muted" id="runMsg">${live.triggerId ? "" : "Dev agent not set up yet."}</span></div></div>
+    <div style="height:12px"></div>
+    <div class="today">
     <div class="panel q"><h2>Should I trade?</h2><p class="big ${tone}">${esc(S.trade.answer)}</p><p class="small">${esc(S.trade.why)}</p><p class="small muted">${esc(S.trade.next)}</p></div>
     <div class="panel q"><h2>Is it learning?</h2><ul class="small tight">${S.learning.map(l => `<li>${esc(l)}</li>`).join("")}</ul></div>
     <div class="panel q"><h2>Is it running?</h2><p class="big ${S.problems ? "c-warn" : "c-good"}">${okN}/${S.checks.length} checks pass</p>
@@ -554,7 +564,37 @@ function renderToday() {
   </div>`;
 }
 
-function render() { if (!D) return; renderToday(); renderNN(); renderPnL(); renderKpis(); renderAgent(); renderGoals(); renderTrades(); renderData(); renderSkills(); renderHistory(); paintPills(); }
+// "Run dev agent now": fires the hourly dev agent's scheduled task through the viewer's Claude Code Remote connector.
+// Only in the claude.ai viewer (the GitHub Pages copy has no connector access). One call per click; never on load.
+let MCP = null;
+(async () => { try { MCP = window.claude?.use ? await window.claude.use("mcp") : null; } catch { MCP = null; } wireAgentButton(); })();
+function wireAgentButton() {
+  const btn = $("#runAgent"), msg = $("#runMsg"), id = D?.config?.live?.triggerId;
+  if (!btn || !msg) return;
+  if (!id) return;
+  if (!MCP) { btn.hidden = true; msg.textContent = "The run button works in the claude.ai version of this board."; return; }
+  btn.hidden = false;
+  btn.onclick = async () => {
+    btn.disabled = true; msg.textContent = "Starting the dev agent…";
+    try {
+      await MCP.callTool("Claude Code Remote", "fire_trigger", { trigger_id: id, text: "Run requested from the dashboard button." });
+      msg.textContent = "Started. The dev agent is checking now; this board refreshes when it finishes (usually a few minutes).";
+    } catch (e) {
+      const m = {
+        server_not_connected: "Connect “Claude Code Remote” in claude.ai Settings → Connectors, then try again.",
+        needs_reauth: "Reconnect “Claude Code Remote” in claude.ai Settings → Connectors.",
+        not_in_manifest: "This page isn't allowed to use Claude Code Remote. Allow it from the artifact's Permissions menu.",
+        approval_required: "Starting the agent needs your approval. Click again and choose Allow.",
+        blocked_by_policy: "Your organization's policy blocks starting the agent from a page.",
+        selection_required: "Choose which Claude Code Remote connector to use when claude.ai asks, then try again.",
+        tool_error: "The agent couldn't be started: " + (e.message || "the scheduled task refused the request."),
+      }[e?.code] || "Couldn't confirm the start. Wait a minute and check the briefing before clicking again.";
+      msg.textContent = m;
+    } finally { btn.disabled = false; }
+  };
+}
+
+function render() { if (!D) return; renderToday(); wireAgentButton(); renderNN(); renderPnL(); renderKpis(); renderAgent(); renderGoals(); renderTrades(); renderData(); renderSkills(); renderHistory(); paintPills(); }
 function paintPills() {
   const g = D.progress.goal || "IN_PROGRESS", h = D.progress.health;
   $("#goalPill").className = "pill " + statusTone(g); $("#goalPill").textContent = "goal: " + label(g);

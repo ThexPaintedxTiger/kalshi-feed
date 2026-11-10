@@ -40,7 +40,7 @@ for (const p of preds) { const c = (cats[p.cat || "Other"] ||= { logged: 0, reso
 
 writeJson("dashboard.json", {
   generated: new Date(now).toISOString(),
-  config: { version: config.version, scan: config.scan, predictors: config.predictors, picks: config.picks, goals: config.goals, backtest: config.backtest, paper: config.paper },
+  config: { version: config.version, scan: config.scan, predictors: config.predictors, picks: config.picks, goals: config.goals, backtest: config.backtest, paper: config.paper, live: config.live },
   progress, scorecard: { resolved: scorecard.resolved, predictions: scorecard.predictions, excludedLeakage: scorecard.excludedLeakage,
     events: scorecard.events, predictors: scorecard.predictors, byCategory: scorecard.byCategory },
   totals: { predictions: preds.length, outcomes: Object.keys(out).length, trades: trades.length, runs: runs.length },
@@ -61,5 +61,6 @@ writeJson("dashboard.json", {
       log: readJsonl("data/nn/train-log.jsonl").slice(-48) }; })(),
   paper: readJson("data/paper/portfolios.json", null),
   status: readJson("status.json", null),
+  briefings: readJsonl("data/briefing.jsonl").slice(-6).reverse(),
 });
 console.log(`dashboard.json: ${preds.length} predictions, ${trades.length} simulated trades, ${skills.length} skills`);

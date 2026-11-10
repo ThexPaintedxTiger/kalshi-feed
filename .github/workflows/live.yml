@@ -1,0 +1,27 @@
+name: Kalshi live mode
+# Runs the pipeline every 10 minutes for about an hour in one job. Started hourly by the dev agent
+# (or from the Actions tab), so data stays live even if the cron schedule in feed.yml never fires.
+on:
+  workflow_dispatch:
+    inputs:
+      cycles:
+        description: "10-minute cycles to run (6 ≈ 1 hour)"
+        default: "6"
+permissions:
+  contents: write
+concurrency:
+  group: kalshi-feed
+  cancel-in-progress: false
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 80
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Live loop
+        run: bash live.sh "${{ inputs.cycles }}"

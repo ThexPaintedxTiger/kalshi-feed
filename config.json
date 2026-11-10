@@ -166,5 +166,11 @@
    "kelly": 0.25,
    "probeMinDollars": 0.25
   }
+ },
+ "live": {
+  "artifactUrl": "https://claude.ai/artifact/YWELuS2iUX9Y62DHMX737v",
+  "triggerId": null,
+  "devSession": null,
+  "cyclesPerHour": 6
  }
 }
