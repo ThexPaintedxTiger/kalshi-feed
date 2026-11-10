@@ -60,6 +60,7 @@ Details in `docs/architecture.md`.
 
 ## Agent dashboard
 `dashboard.html` (views: Agent flow · Trades · Data · Skills) reads `dashboard.json`, which `dashboard.mjs` builds each run.
+Live page (GitHub Pages, auto-refresh 5 min, header shows freshness): https://thexpaintedxtiger.github.io/kalshi-feed/dashboard.html
 Data sources in order: raw GitHub (live, used on GitHub Pages or a local file), then a `dashboard.json` next to the page (the claude.ai copy,
 https://claude.ai/artifact/YWELuS2iUX9Y62DHMX737v, a snapshot refreshed when Claude republishes it), then paste (Ctrl+V JSON).
 Pages can't fetch outside data inside claude.ai.

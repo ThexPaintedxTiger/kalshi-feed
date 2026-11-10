@@ -226,6 +226,19 @@ const when = ts => { if (!ts) return "–"; const d = new Date(ts); return d.toL
 const rel = ts => { const m = Math.round((Date.parse(ts) - Date.now()) / 6e4), a = Math.abs(m), s = a < 60 ? a + "m" : Math.floor(a / 60) + "h " + String(a % 60).padStart(2, "0") + "m"; return m >= 0 ? "in " + s : s + " ago"; };
 const toast = t => { const el = $("#toast"); el.textContent = t; el.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => el.hidden = true, 2500); };
 
+// Freshness: how old the newest data is. The pipeline runs every 10 minutes; older than 30 min means it has stalled.
+let src = "";
+function freshness() {
+  if (!D) return;
+  const age = Math.round((Date.now() - Date.parse(D.generated)) / 6e4), el = $("#src");
+  const ageTxt = age < 1 ? "just now" : age < 90 ? `${age} min ago` : `${Math.round(age / 60)} h ago`;
+  const live = src.startsWith("live");
+  el.innerHTML = `<span class="pill ${age <= 30 ? "c-good" : age <= 120 ? "c-warn" : "c-bad"}">${age <= 30 ? "fresh" : "stale"}</span> ` +
+    `${esc(live ? "Live" : src === "snapshot" ? "Snapshot" : "Pasted")} · updated ${ageTxt}${live ? " · auto-refresh 5 min" : ""}`;
+  el.title = age > 30 ? "The pipeline hasn't produced new data for over 30 minutes. Scheduled runs may not be firing: check the repo's Actions tab." : "";
+}
+setInterval(freshness, 60e3);
+
 async function load(manual) {
   for (const [label, url] of SOURCES) {
     try {
@@ -234,7 +247,7 @@ async function load(manual) {
       D = await r.json();
     } catch { continue; }
     try { render(); } catch (e) { console.error("render failed:", e); $("#src").textContent = "Data loaded but a view failed to draw: " + e.message; return; }
-    $("#src").textContent = `Data ${label} · built ${when(D.generated)}`;
+    src = label; freshness();
     if (manual) toast("Data refreshed"); return;
   }
   $("#src").textContent = "Couldn't load data. Paste dashboard.json here (Ctrl+V).";

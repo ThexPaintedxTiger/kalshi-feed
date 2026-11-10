@@ -2,6 +2,9 @@
 
 What we changed because the data (or a mistake) taught us something. Newest first.
 
+- 2026-11-10: The coin-flip control's lucky run produced a "16.6% chance of $1,000" in the Monte Carlo. Bootstrapping a lucky sample extrapolates luck; the simulation now shifts past results down by one standard error of their mean.
+- 2026-11-10: The dashboard said "pipeline OK" while the schedule had never fired (local runs counted). The header now shows data age and turns stale after 30 minutes.
+
 - 2026-11-10: Owner clarified the goal: $10 → $1,000 over time by betting smartly, not a moonshot. Removed full/half-Kelly portfolios; added hard
   caps (5% per bet, 25% open), drawdown brakes, learned bet size and pause-on-proven-loss. Found while testing: a 1% probe on $10 is below the
   $0.10 minimum order, so a learning strategy never traded; probe floor set to $0.25. The 5% cap first ignored the fee (5.2%); it now includes it.

@@ -2,6 +2,9 @@
 
 **Read-only. Never trades. No account, no keys.**
 
+## Live dashboard
+https://thexpaintedxtiger.github.io/kalshi-feed/dashboard.html (refreshes every 5 minutes; header shows how fresh the data is).
+
 ## Research agent (v1: measurement loop)
 Every 10 minutes it logs predictions for Kalshi markets resolving within 6 hours (`predict.mjs`), checks official results
 (`resolve.mjs`) and scores each predictor against the market price (`score.mjs` → `scorecard.json`).

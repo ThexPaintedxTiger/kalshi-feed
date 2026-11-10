@@ -7,6 +7,8 @@ const fee = p => Math.ceil(0.07 * p * (1 - p) * 100 - 1e-9) / 100;
 const link = e => "https://kalshi.com/markets/" + String(e.series_ticker || e.event_ticker || "").toLowerCase();
 const days = t => (Date.parse(t) - now) / 864e5;
 const r2 = x => Math.round(x * 100) / 100;
+// Efficiency: this feed only serves the Agent Flow page; refresh it at most every 25 minutes (FORCE=1 to run anyway).
+try { const prev = JSON.parse(readFileSync("bets.json", "utf8")); if (process.env.FORCE !== "1" && now - Date.parse(prev.updated) < 25 * 6e4) { console.log("feed: updated <25 min ago — skipped"); process.exit(0); } } catch {}
 
 let events = [], cursor = "";
 for (let p = 0; p < 100; p++) {
