@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T21:35:18.874Z",
+ "updated": "2026-11-10T21:45:18.427Z",
  "start": 10,
  "goal": 1000,
  "safety": {
@@ -2828,7 +2828,7 @@
  },
  "forward": {
   "rows": 150,
-  "settled": 100,
+  "settled": 101,
   "portfolios": [
    {
     "id": "cash",

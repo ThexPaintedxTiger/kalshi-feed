@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-10T21:35:01.314Z",
- "samples": 1560,
+ "updated": "2026-11-10T21:45:00.831Z",
+ "samples": 1567,
  "note": "Derived summary (rebuilt each run). bias = average (outcome − market price); > 0 means YES was underpriced in this series.",
  "series": {
   "KXAAAGASD": {
@@ -786,13 +786,13 @@
   },
   "KXDJI": {
    "cat": "Financials",
-   "n": 1,
-   "yesRate": 0,
-   "avgPrice": 0.54,
-   "bias": -0.54,
-   "brierMarket": 0.2916,
-   "last": "2026-11-09T21:50:52.056Z",
-   "live": 0,
+   "n": 8,
+   "yesRate": 0.5,
+   "avgPrice": 0.5063,
+   "bias": -0.0062,
+   "brierMarket": 0.0933,
+   "last": "2026-11-10T20:59:00.000Z",
+   "live": 7,
    "backtest": 1
   },
   "KXDOGE": {

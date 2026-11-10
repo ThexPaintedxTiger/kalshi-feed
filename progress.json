@@ -1,14 +1,14 @@
 {
- "updated": "2026-11-10T21:35:18.827Z",
+ "updated": "2026-11-10T21:45:18.382Z",
  "goal": "IN_PROGRESS",
- "resolved": 488,
+ "resolved": 495,
  "health": {
   "ok": false,
   "warmingUp": true,
   "checks": {
    "runsLast24h": {
-    "value": 21,
-    "target": 22,
+    "value": 22,
+    "target": 23,
     "ok": false
    },
    "newPredictionsLast24h": {
@@ -33,15 +33,15 @@
  "predictors": {
   "longshot": {
    "status": "FAILURE_RETIRE",
-   "rec": "no measurable edge after 488 resolved — recommend retiring this hypothesis",
-   "n": 488,
+   "rec": "no measurable edge after 495 resolved — recommend retiring this hypothesis",
+   "n": 495,
    "brierVsMarket": 0.0005,
    "picks": 0,
    "trend": "first snapshot",
    "snap": {
-    "n": 488,
+    "n": 495,
     "mean": 0.0005,
-    "width": 0.0032
+    "width": 0.0031
    },
    "backtest": {
     "n": 1101,
@@ -54,14 +54,14 @@
   "memory": {
    "status": "OFF_TRACK",
    "rec": "not beating the market so far (+0.0033) — wait for 0 more resolved before judging",
-   "n": 192,
+   "n": 193,
    "brierVsMarket": 0.0033,
    "picks": 36,
    "trend": "first snapshot",
    "snap": {
-    "n": 192,
+    "n": 193,
     "mean": 0.0033,
-    "width": 0.0196
+    "width": 0.0193
    },
    "backtest": {
     "n": 1101,
@@ -73,15 +73,15 @@
   },
   "nn": {
    "status": "ON_TRACK",
-   "rec": "leaning better than the market (-0.0062) — wait for 0 more resolved",
-   "n": 100,
-   "brierVsMarket": -0.0062,
+   "rec": "leaning better than the market (-0.0053) — wait for 0 more resolved",
+   "n": 101,
+   "brierVsMarket": -0.0053,
    "picks": 25,
    "trend": "first snapshot",
    "snap": {
-    "n": 100,
-    "mean": -0.0062,
-    "width": 0.0171
+    "n": 101,
+    "mean": -0.0053,
+    "width": 0.0169
    },
    "backtest": null
   }

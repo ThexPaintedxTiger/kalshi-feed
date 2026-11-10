@@ -486,3 +486,10 @@
 {"ticker":"KXATPCHALLENGERMATCH-26NOV10BLATOP-BLA","result":"yes","raw":"yes","status":"finalized","settledAt":"2026-11-10T21:32:11.276474Z","closedAt":"2026-11-10T21:30:12Z","checkedAt":"2026-11-10T21:35:00.809Z"}
 {"ticker":"KXCS2GAME-26NOV101230BGRCA-RCA","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-10T18:33:21.203908Z","closedAt":"2026-11-10T18:30:24Z","checkedAt":"2026-11-10T21:35:00.809Z"}
 {"ticker":"KXCS2GAME-26NOV101230BGRCA-BG","result":"yes","raw":"yes","status":"finalized","settledAt":"2026-11-10T18:33:21.203908Z","closedAt":"2026-11-10T18:30:24Z","checkedAt":"2026-11-10T21:35:00.809Z"}
+{"ticker":"KXDJI-10NOV26-GE52000P00","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T20:59:00Z","checkedAt":"2026-11-10T21:45:00.346Z"}
+{"ticker":"KXDJI-10NOV26-GE51600P00","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T20:59:00Z","checkedAt":"2026-11-10T21:45:00.346Z"}
+{"ticker":"KXDJI-10NOV26-GE52550P00","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T20:59:00Z","checkedAt":"2026-11-10T21:45:00.346Z"}
+{"ticker":"KXDJI-10NOV26-GE52500P00","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T20:59:00Z","checkedAt":"2026-11-10T21:45:00.346Z"}
+{"ticker":"KXDJI-10NOV26-GE51400P00","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T20:59:00Z","checkedAt":"2026-11-10T21:45:00.346Z"}
+{"ticker":"KXDJI-10NOV26-GE52125P00","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T20:59:00Z","checkedAt":"2026-11-10T21:45:00.346Z"}
+{"ticker":"KXDJI-10NOV26-GE52250P00","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T20:59:00Z","checkedAt":"2026-11-10T21:45:00.346Z"}
