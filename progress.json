@@ -1,19 +1,19 @@
 {
- "updated": "2026-11-10T22:15:01.522Z",
+ "updated": "2026-11-10T22:25:02.102Z",
  "goal": "IN_PROGRESS",
- "resolved": 702,
+ "resolved": 705,
  "health": {
   "ok": true,
   "warmingUp": true,
   "checks": {
    "runsLast24h": {
-    "value": 26,
-    "target": 25,
+    "value": 27,
+    "target": 26,
     "ok": true
    },
    "newPredictionsLast24h": {
-    "value": 884,
-    "target": 12,
+    "value": 892,
+    "target": 13,
     "ok": true
    },
    "leakage": {
@@ -33,15 +33,15 @@
  "predictors": {
   "longshot": {
    "status": "FAILURE_RETIRE",
-   "rec": "no measurable edge after 702 resolved — recommend retiring this hypothesis",
-   "n": 702,
-   "brierVsMarket": 0.0005,
+   "rec": "no measurable edge after 705 resolved — recommend retiring this hypothesis",
+   "n": 705,
+   "brierVsMarket": 0.0006,
    "picks": 0,
    "trend": "first snapshot",
    "snap": {
-    "n": 702,
-    "mean": 0.0005,
-    "width": 0.0025
+    "n": 705,
+    "mean": 0.0006,
+    "width": 0.0026
    },
    "backtest": {
     "n": 1222,

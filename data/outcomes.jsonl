@@ -700,3 +700,6 @@
 {"ticker":"KXFIBACHAMPTOTAL-26NOV101400ALBABIL-170","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-10T21:05:26.20389Z","closedAt":"2026-11-10T21:01:26Z","checkedAt":"2026-11-10T22:14:43.481Z"}
 {"ticker":"KXITFMATCH-26NOV10KARECH-KAR","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-10T18:08:46.205066Z","closedAt":"2026-11-10T18:06:46Z","checkedAt":"2026-11-10T22:14:43.481Z"}
 {"ticker":"KXITFMATCH-26NOV10SICRUS-SIC","result":"yes","raw":"yes","status":"finalized","settledAt":"2026-11-10T19:19:26.209721Z","closedAt":"2026-11-10T19:17:23Z","checkedAt":"2026-11-10T22:14:43.481Z"}
+{"ticker":"KXATPCHALLENGERMATCH-26NOV10BARTAR-BAR","result":"yes","raw":"yes","status":"finalized","settledAt":"2026-11-10T22:17:11.222034Z","closedAt":"2026-11-10T22:15:09Z","checkedAt":"2026-11-10T22:24:44.222Z"}
+{"ticker":"KXATPCHALLENGERMATCH-26NOV10BARTAR-TAR","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-10T22:17:11.222034Z","closedAt":"2026-11-10T22:15:09Z","checkedAt":"2026-11-10T22:24:44.222Z"}
+{"ticker":"KXATPCHALLENGERMATCH-26NOV10GREJAC-JAC","result":"yes","raw":"yes","status":"finalized","settledAt":"2026-11-10T21:32:16.215069Z","closedAt":"2026-11-10T21:30:13Z","checkedAt":"2026-11-10T22:24:44.222Z"}

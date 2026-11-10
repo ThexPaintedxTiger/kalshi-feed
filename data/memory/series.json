@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-10T22:14:44.266Z",
- "samples": 1894,
+ "updated": "2026-11-10T22:24:44.711Z",
+ "samples": 1897,
  "note": "Derived summary (rebuilt each run). bias = average (outcome − market price); > 0 means YES was underpriced in this series.",
  "series": {
   "KXAAAGASD": {
@@ -500,13 +500,13 @@
   },
   "KXATPCHALLENGERMATCH": {
    "cat": "Sports",
-   "n": 37,
-   "yesRate": 0.4865,
-   "avgPrice": 0.5028,
-   "bias": -0.0164,
-   "brierMarket": 0.2623,
-   "last": "2026-11-10T21:32:11.276Z",
-   "live": 37,
+   "n": 40,
+   "yesRate": 0.5,
+   "avgPrice": 0.5095,
+   "bias": -0.0095,
+   "brierMarket": 0.2766,
+   "last": "2026-11-10T22:17:11.222Z",
+   "live": 40,
    "backtest": 0
   },
   "KXATPEXACTMATCH": {
