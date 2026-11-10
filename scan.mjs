@@ -9,7 +9,7 @@ const days = t => (Date.parse(t) - now) / 864e5;
 const r2 = x => Math.round(x * 100) / 100;
 
 let events = [], cursor = "";
-for (let p = 0; p < 40; p++) {
+for (let p = 0; p < 100; p++) {
   const res = await fetch(API + (cursor ? "&cursor=" + encodeURIComponent(cursor) : ""), { headers: { accept: "application/json" } });
   if (res.status === 429) { await new Promise(r => setTimeout(r, 2000)); p--; continue; }
   if (!res.ok) throw new Error("Kalshi HTTP " + res.status);
