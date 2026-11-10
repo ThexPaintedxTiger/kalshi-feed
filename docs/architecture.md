@@ -58,6 +58,13 @@ bet-size safety held, paper money adds up. Writes `status.json`: Should I trade?
 plus a paper watchlist (what the strategies would bet next; not advice). Shown at the top of the dashboard's Agent tab.
 Claude subagents are not used in the pipeline (cost and non-repeatable answers); deeper reviews run on request via the skills.
 
+## Trading tab and live focus (config v5)
+- `focus.mjs`: one batch candle call → last 3 h of 1-minute mid prices for up to 12 open, watched markets (one per event, strategies' picks
+  first) → `data/focus.json` (ticker tape, price chart). `paper.mjs → tradeStats()`: profit factor, gross profit/loss, best/worst, expected
+  payoff, recovery factor, per-bet Sharpe, daily P&L, drawdown curve, streak, last 10 closed trades per portfolio.
+- `chg30` = mid now − mid ~30 min earlier (live: one batch candle call per run; backtest: earliest candle in the 30-min window before the
+  snapshot). Network inputs grew to 18 ("price move 30 min", "has 30-min history"); a model trained on a different input list is never used.
+
 ## MCP server (read-only)
 `mcp/server.mjs` (official MCP SDK, stdio). Tools: `get_status`, `get_scorecard` (live|backtest), `search_predictions`, `recall_series`, `list_skills`.
 - Claude Code: `npm --prefix mcp install`, then it's picked up from `.mcp.json` (approve the project server once).

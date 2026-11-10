@@ -18,6 +18,7 @@ need "Progress vs goals" node progress.mjs
 need "Paper portfolios" node paper.mjs
 want "Agent Flow feed (every 25 min)" node scan.mjs
 want "Gemini picks (hourly)" timeout 360 node agents.mjs
+want "Focus markets (live prices)" node focus.mjs
 need "Watchdog" node status.mjs
 need "Dashboard data" node dashboard.mjs
 

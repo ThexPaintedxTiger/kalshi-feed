@@ -110,6 +110,22 @@ input[type=search]{font:inherit;color:inherit;background:var(--card);border:1px 
 .big{font:700 18px/1.3 var(--sans);margin:2px 0 8px}
 .tight{margin:0;padding-left:18px;display:grid;gap:4px}
 .checks2{list-style:none;padding-left:0}
+.tbar{display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap;margin-bottom:12px}
+.tstat{display:flex;gap:8px;align-items:center;margin-top:2px}.tstat b{font:600 15px var(--mono)}
+.ticker-wrap{overflow:hidden;padding:10px 0;margin-bottom:12px}
+.ticker{white-space:nowrap;overflow:hidden;padding-inline:14px}
+.tape-inner{display:inline-flex;gap:34px;animation:tape 90s linear infinite}
+.ticker:hover .tape-inner{animation-play-state:paused}
+@keyframes tape{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.tape-inner{animation:none;flex-wrap:wrap;white-space:normal}}
+.tick{font-size:12px;font-family:var(--mono)}.tick b{font-family:var(--sans);font-weight:600;color:var(--fg)}
+.tgrid8{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:12px}
+.tgrid3{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr);gap:12px;margin-bottom:12px}
+@media (max-width:1000px){.tgrid3{grid-template-columns:minmax(0,1fr)}}
+.kpi.tk{display:flex;flex-direction:column-reverse;gap:4px}.kpi.tk b{font-size:20px}
+select{font:inherit;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:5px 8px;max-width:60%}
+.closed{display:grid;gap:8px}.crow{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;border-bottom:1px solid var(--line-soft);padding-bottom:8px}
+.crow .t{min-width:0}.crow b{font-size:13px}.crow>b{white-space:nowrap}
 #toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 14px;font-size:13px}
 </style>
 
@@ -123,7 +139,7 @@ input[type=search]{font:inherit;color:inherit;background:var(--card);border:1px 
     <button id="refresh" type="button">Refresh</button>
   </div>
   <nav class="wrap" aria-label="Views">
-    <a href="#agent">Agent</a><a href="#nn">Neural net</a><a href="#pnl">Profit &amp; loss</a><a href="#trades">Trades</a><a href="#data">Data</a><a href="#skills">Skills</a>
+    <a href="#agent">Agent</a><a href="#trading">Trading</a><a href="#nn">Neural net</a><a href="#pnl">Profit &amp; loss</a><a href="#trades">Trades</a><a href="#data">Data</a><a href="#skills">Skills</a>
   </nav>
 </header>
 
@@ -146,6 +162,32 @@ input[type=search]{font:inherit;color:inherit;background:var(--card);border:1px 
       <div class="panel"><h2>Predictions logged per run</h2><div id="spark"></div></div>
       <div class="panel"><h2>Pipeline health</h2><ul class="checks" id="health"></ul></div>
     </div>
+  </section>
+
+  <section id="v-trading" data-view hidden>
+    <div class="tbar">
+      <div><span class="small muted">Paper account</span><div class="tstat"><span class="pill c-warn">simulation</span> <b id="tAcct">—</b></div></div>
+      <div><span class="small muted">Starting capital</span><div class="tstat"><b id="tStart">$10.00</b></div></div>
+      <div class="chips" id="tMode" style="margin:0"></div>
+      <div class="chips" id="tPf" style="margin:0"></div>
+    </div>
+    <div class="panel ticker-wrap"><div class="ticker" id="tTape"></div></div>
+    <div class="tgrid8" id="tK1"></div>
+    <div class="tgrid3">
+      <div class="panel"><div class="prow"><h2 style="margin:0">Price action (live, 1-minute)</h2><select id="tMkt" aria-label="Focus market"></select></div><div id="tPrice"></div></div>
+      <div class="panel"><h2>Profit curve</h2><div id="tEq"></div></div>
+      <div class="panel"><h2>Daily P&amp;L</h2><div id="tDaily"></div></div>
+    </div>
+    <div class="tgrid8" id="tK2"></div>
+    <div class="tgrid3">
+      <div class="panel"><h2>Drawdown curve</h2><div id="tDD"></div></div>
+      <div class="panel"><h2>Win / loss ratio</h2><div id="tDonut"></div></div>
+      <div class="panel"><h2>Recent closed trades</h2><div id="tClosed"></div></div>
+    </div>
+    <div class="panel" id="askPanel" hidden><h2>Ask the agent</h2>
+      <p class="small muted" style="margin-top:0">Claude answers from the numbers on this board (scorecard, paper trades, live focus markets). Each question uses Claude usage.</p>
+      <div class="row2"><input type="search" id="askQ" placeholder="e.g. Which strategy is closest to proving an edge?" aria-label="Question" style="flex:1;min-width:0;width:auto"><button type="button" id="askBtn">Ask</button></div>
+      <div id="askA" class="small" style="margin-top:10px;white-space:pre-wrap"></div></div>
   </section>
 
   <section id="v-nn" data-view hidden>
@@ -594,7 +636,130 @@ function wireAgentButton() {
   };
 }
 
-function render() { if (!D) return; renderToday(); wireAgentButton(); renderNN(); renderPnL(); renderKpis(); renderAgent(); renderGoals(); renderTrades(); renderData(); renderSkills(); renderHistory(); paintPills(); }
+// ---------- Trading: live market focus + paper account (layout after the owner's reference design) ----------
+let tMode = null, tPfId = null, tMkt = null;
+const usd = x => x == null ? "–" : (x < 0 ? "−$" : "$") + Math.abs(x).toFixed(2);
+// Generic SVG line/area chart. pts = [[x, y]]; opts: {color, fill, w, h, yFmt, zero, ref:[{y,label,color}], xFmt}
+function lineChart(pts, o = {}) {
+  const w = o.w || 520, h = o.h || 190, pl = 46, pr = 10, pt = 10, pb = 22;
+  if (pts.length < 2) return `<div class="empty">${esc(o.empty || "Not enough data yet.")}</div>`;
+  const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]).concat((o.ref || []).map(r => r.y));
+  let lo = Math.min(...ys), hi = Math.max(...ys); if (o.zero) { lo = Math.min(lo, 0); hi = Math.max(hi, 0); }
+  if (hi - lo < 1e-9) { hi += 0.5; lo -= 0.5; } const padY = (hi - lo) * 0.08; lo -= padY; hi += padY;
+  const x0 = Math.min(...xs), x1 = Math.max(...xs), X = x => pl + (x - x0) / (x1 - x0 || 1) * (w - pl - pr), Y = y => pt + (1 - (y - lo) / (hi - lo)) * (h - pt - pb);
+  const d = pts.map((p, i) => `${i ? "L" : "M"}${X(p[0]).toFixed(1)},${Y(p[1]).toFixed(1)}`).join("");
+  const base = o.zero ? Y(0) : h - pb, f = o.yFmt || (v => v.toFixed(2));
+  const grid = [hi - padY, (hi + lo) / 2, lo + padY].map(v => `<line x1="${pl}" x2="${w - pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line-soft)"/><text x="${pl - 6}" y="${Y(v) + 4}" fill="var(--muted)" font-size="12" text-anchor="end">${esc(f(v))}</text>`).join("");
+  const refs = (o.ref || []).map(r => `<line x1="${pl}" x2="${w - pr}" y1="${Y(r.y)}" y2="${Y(r.y)}" stroke="${r.color}" stroke-dasharray="4 4"/><text x="${w - pr}" y="${Y(r.y) - 4}" fill="${r.color}" font-size="12" text-anchor="end">${esc(r.label)}</text>`).join("");
+  const xf = o.xFmt || (t => new Date(t).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }));
+  return `<svg viewBox="0 0 ${w} ${h}" style="width:100%;height:auto" role="img" aria-label="${esc(o.label || "chart")}">${grid}${refs}
+    ${o.fill ? `<path d="${d}L${X(x1)},${base}L${X(x0)},${base}Z" fill="${o.color}" fill-opacity="0.12"/>` : ""}<path d="${d}" fill="none" stroke="${o.color}" stroke-width="2"/>
+    <circle cx="${X(pts.at(-1)[0])}" cy="${Y(pts.at(-1)[1])}" r="3.5" fill="${o.color}"/>
+    <text x="${pl}" y="${h - 6}" fill="var(--muted)" font-size="12">${esc(xf(x0))}</text><text x="${w - pr}" y="${h - 6}" fill="var(--muted)" font-size="12" text-anchor="end">${esc(xf(x1))}</text></svg>`;
+}
+function barChart(rows, o = {}) {
+  const w = 520, h = 190, pl = 46, pr = 10, pt = 10, pb = 22;
+  if (!rows.length) return `<div class="empty">${esc(o.empty || "No settled days yet.")}</div>`;
+  const vals = rows.map(r => r.pnl), hi = Math.max(0, ...vals), lo = Math.min(0, ...vals), span = (hi - lo) || 1;
+  const Y = v => pt + (1 - (v - lo) / span) * (h - pt - pb), bw = (w - pl - pr) / rows.length;
+  return `<svg viewBox="0 0 ${w} ${h}" style="width:100%;height:auto" role="img" aria-label="Daily profit and loss">
+    <line x1="${pl}" x2="${w - pr}" y1="${Y(0)}" y2="${Y(0)}" stroke="var(--line)"/><text x="${pl - 6}" y="${Y(0) + 4}" fill="var(--muted)" font-size="12" text-anchor="end">$0</text>
+    <text x="${pl - 6}" y="${Y(hi) + 8}" fill="var(--muted)" font-size="12" text-anchor="end">${esc(usd(hi))}</text><text x="${pl - 6}" y="${Y(lo)}" fill="var(--muted)" font-size="12" text-anchor="end">${esc(usd(lo))}</text>
+    ${rows.map((r, i) => { const y = Y(Math.max(0, r.pnl)), hh = Math.max(2, Math.abs(Y(r.pnl) - Y(0)));
+      return `<rect x="${pl + i * bw + bw * 0.2}" y="${y}" width="${Math.max(3, bw * 0.6)}" height="${hh}" rx="3" fill="${r.pnl >= 0 ? "var(--good)" : "var(--bad)"}"><title>${esc(r.date)}: ${esc(usd(r.pnl))}</title></rect>`; }).join("")}
+    <text x="${pl}" y="${h - 6}" fill="var(--muted)" font-size="12">${esc(rows[0].date)}</text><text x="${w - pr}" y="${h - 6}" fill="var(--muted)" font-size="12" text-anchor="end">${esc(rows.at(-1).date)}</text></svg>`;
+}
+function donut(win, loss) {
+  const n = win + loss; if (!n) return `<div class="empty">No settled trades yet.</div>`;
+  const r = 52, c = 2 * Math.PI * r, wp = win / n;
+  return `<svg viewBox="0 0 220 170" style="width:100%;max-width:300px;height:auto;display:block;margin:auto" role="img" aria-label="Wins ${win}, losses ${loss}">
+    <circle cx="110" cy="75" r="${r}" fill="none" stroke="var(--bad)" stroke-width="24"/>
+    <circle cx="110" cy="75" r="${r}" fill="none" stroke="var(--good)" stroke-width="24" stroke-dasharray="${(wp * c).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 110 75)"/>
+    <text x="110" y="81" fill="var(--fg)" font-size="22" font-weight="700" text-anchor="middle">${Math.round(wp * 100)}%</text>
+    <text x="110" y="162" fill="var(--muted)" font-size="12" text-anchor="middle">${win} won · ${loss} lost</text></svg>`;
+}
+const tile = (label, value, tone = "", tip = "") => `<div class="kpi tk" title="${esc(tip)}"><span>${esc(label)}</span><b class="${tone}">${value}</b></div>`;
+
+function renderTrading() {
+  const P = D.paper, F = D.focus;
+  if (!P) { $("#tK1").innerHTML = `<div class="empty">Paper trading starts after the first run.</div>`; return; }
+  const modes = [["forward", `Live forward (${P.forward.settled} settled)`], ["replay", `Replay: ${P.replay.rows} past markets`]];
+  if (!tMode) tMode = P.forward.portfolios.some(p => p.stats?.trades) ? "forward" : "replay";
+  $("#tMode").innerHTML = modes.map(([k, t]) => `<button type="button" class="chip" aria-pressed="${k === tMode}" data-m="${k}">${esc(t)}</button>`).join("");
+  $("#tMode").querySelectorAll(".chip").forEach(b => b.onclick = () => { tMode = b.dataset.m; renderTrading(); });
+  const pfs = P[tMode].portfolios.filter(p => p.predictor);
+  const real = pfs.filter(p => p.predictor !== "coin");                  // controls are selectable but never the default
+  if (!pfs.some(p => p.id === tPfId)) tPfId = ((real.length ? real : pfs).slice().sort((a, b) => b.equity - a.equity)[0] || {}).id;
+  $("#tPf").innerHTML = pfs.map(p => `<button type="button" class="chip" aria-pressed="${p.id === tPfId}" data-p="${esc(p.id)}">${esc(p.name.replace(/ \(.*\)$/, ""))}</button>`).join("");
+  $("#tPf").querySelectorAll(".chip").forEach(b => b.onclick = () => { tPfId = b.dataset.p; renderTrading(); });
+  const pf = pfs.find(p => p.id === tPfId) || P[tMode].portfolios[0], st = pf.stats || {};
+  $("#tAcct").textContent = `${pf.name} · ${tMode === "forward" ? "live" : "replay"}`; $("#tStart").textContent = usd(P.start);
+  // Ticker tape: live focus markets.
+  const fm = (F?.markets || []).filter(m => m.price != null);
+  const tape = fm.map(m => `<span class="tick"><b>${esc(m.title.length > 46 ? m.title.slice(0, 44) + "…" : m.title)}</b> ${cents(m.price)} <span class="${m.chg30m > 0 ? "c-good" : m.chg30m < 0 ? "c-bad" : "muted"}">${m.chg30m == null ? "" : (m.chg30m > 0 ? "▲" : m.chg30m < 0 ? "▼" : "•") + " " + Math.abs(Math.round(m.chg30m * 100)) + "¢ 30m"}</span></span>`).join("");
+  $("#tTape").innerHTML = tape ? `<div class="tape-inner">${tape}${tape}</div>` : `<span class="small muted">Live focus markets appear after the next pipeline cycle.</span>`;
+  const sharpe = st.perBetSharpe, pfac = st.profitFactor;
+  $("#tK1").innerHTML = [
+    tile("Equity", usd(pf.equity), pf.equity >= P.start ? "c-good" : "c-bad", "Cash plus open bets at cost"),
+    tile("Profit (last day)", usd(st.lastDay?.pnl ?? 0), (st.lastDay?.pnl || 0) >= 0 ? "c-good" : "c-bad", st.lastDay ? st.lastDay.date : ""),
+    tile("Win rate", st.winRate == null ? "–" : (st.winRate * 100).toFixed(1) + "%"),
+    tile("Max drawdown", pf.maxDrawdownPct.toFixed(1) + "%", pf.maxDrawdownPct > 20 ? "c-bad" : ""),
+    tile("Profit factor", pfac == null ? "–" : pfac.toFixed(2), pfac == null ? "" : pfac >= 1 ? "c-good" : "c-bad", "Gross profit ÷ gross loss. Above 1 makes money."),
+    tile("Sharpe (per bet)", sharpe == null ? "–" : sharpe.toFixed(2), "", "Average return per bet ÷ its standard deviation. Not annualized."),
+    tile("Total trades", String(pf.bets)), tile("Open trades", String(pf.openPositions))].join("");
+  $("#tK2").innerHTML = [
+    tile("Gross profit", usd(st.grossProfit), "c-good"), tile("Gross loss", usd(st.grossLoss), "c-bad"),
+    tile("Best trade", usd(st.best), "c-good"), tile("Worst trade", usd(st.worst), "c-bad"),
+    tile("Expected payoff", usd(st.expectedPayoff), (st.expectedPayoff || 0) >= 0 ? "c-good" : "c-bad", "Average profit per settled trade"),
+    tile("Recovery factor", st.recoveryFactor == null ? "–" : st.recoveryFactor.toFixed(2), "", "Net profit ÷ largest drop"),
+    tile("Avg daily P&L", usd(st.avgDailyPnl), (st.avgDailyPnl || 0) >= 0 ? "c-good" : "c-bad"),
+    tile("Current streak", st.streak ? `${st.streak.n} ${st.streak.kind === "win" ? "win" : "loss"}${st.streak.n > 1 ? (st.streak.kind === "win" ? "s" : "es") : ""}` : "–", st.streak?.kind === "win" ? "c-good" : st.streak ? "c-bad" : "")].join("");
+  // Price action: chosen focus market.
+  if (!fm.some(m => m.ticker === tMkt)) tMkt = fm[0]?.ticker || null;
+  $("#tMkt").innerHTML = fm.map(m => `<option value="${esc(m.ticker)}" ${m.ticker === tMkt ? "selected" : ""}>${esc(m.title.slice(0, 60))}</option>`).join("");
+  $("#tMkt").onchange = e => { tMkt = e.target.value; renderTrading(); };
+  const mk = fm.find(m => m.ticker === tMkt);
+  if (mk) {
+    const est = Object.entries(mk.est || {}).filter(([k]) => k !== "market"), refs = [{ y: mk.loggedPrice, label: `logged ${cents(mk.loggedPrice)}`, color: "var(--muted)" }];
+    const pick = Object.entries(mk.picks || {})[0];
+    if (pick) refs.push({ y: mk.est[pick[0]], label: `${pick[0]} est ${pct(mk.est[pick[0]])}`, color: "var(--warn)" });
+    $("#tPrice").innerHTML = lineChart(mk.series.map(p => [p[0], p[1]]), { color: "var(--info)", fill: true, yFmt: v => Math.round(v * 100) + "¢", ref: refs, label: "Market price, last 3 hours" }) +
+      `<p class="small muted" style="margin:6px 0 0">${esc(mk.cat)} · resolves ${esc(rel(mk.resolvesAt))} · now ${cents(mk.price)}${mk.chg3h != null ? ` (${mk.chg3h >= 0 ? "+" : ""}${Math.round(mk.chg3h * 100)}¢ in 3 h)` : ""} · estimates: ${est.map(([k, v]) => `${esc(k)} ${pct(v)}`).join(", ") || "–"} · <a href="${esc(mk.url)}" target="_blank" rel="noopener">Open in Kalshi</a></p>`;
+  } else $("#tPrice").innerHTML = `<div class="empty">No live focus market right now.</div>`;
+  $("#tEq").innerHTML = lineChart((pf.curve || []).filter(p => Number.isFinite(p[0])), { color: "var(--good)", fill: true, yFmt: v => "$" + v.toFixed(2), ref: [{ y: P.start, label: "start $" + P.start, color: "var(--line)" }], xFmt: t => new Date(t).toLocaleDateString([], { month: "short", day: "numeric" }), label: "Equity", empty: "No settled trades in this mode yet." });
+  $("#tDaily").innerHTML = barChart(st.daily || []);
+  $("#tDD").innerHTML = lineChart((st.drawdown || []).filter(p => Number.isFinite(p[0])), { color: "var(--bad)", fill: true, zero: true, yFmt: v => v.toFixed(0) + "%", xFmt: t => new Date(t).toLocaleDateString([], { month: "short", day: "numeric" }), label: "Drawdown from peak", empty: "No drawdown data yet." });
+  $("#tDonut").innerHTML = donut(st.wins || 0, st.losses || 0);
+  const cl = pf.closed || [];
+  $("#tClosed").innerHTML = cl.length ? `<div class="closed">${cl.map(b => `<div class="crow"><div class="t"><b>${esc(b.title.length > 52 ? b.title.slice(0, 50) + "…" : b.title)}</b> <span class="pill ${b.side === "yes" ? "c-good" : "c-bad"}">${esc(b.side)}</span><div class="small muted">Closed ${esc(when(b.settledAt))} · ${cents(b.price)} × ${b.contracts}</div></div><b class="${b.pnl >= 0 ? "c-good" : "c-bad"}">${b.pnl >= 0 ? "+" : ""}${esc(usd(b.pnl))}</b></div>`).join("")}</div>`
+    : `<div class="empty">No closed trades in this mode yet.</div>`;
+}
+
+// Ask the agent: Claude answers from a compact summary of this board's data (claude.ai viewer only; uses Claude usage).
+let SAMPLE = null;
+(async () => { try { SAMPLE = window.claude?.use ? await window.claude.use("sample") : null; } catch { SAMPLE = null; } const p = $("#askPanel"); if (p) p.hidden = !SAMPLE; })();
+function boardSummary() {
+  const P = D.paper || {}, pick = m => (P[m]?.portfolios || []).map(p => ({ name: p.name, equity: p.equity, bets: p.bets, settled: p.settled, status: p.trustNow?.why, stats: p.stats && { ...p.stats, daily: undefined, drawdown: undefined } }));
+  return { generated: D.generated, shouldTrade: D.status?.trade, learning: D.status?.learning, checks: D.status?.checks?.map(c => `${c.ok ? "OK" : "FAIL"} ${c.name}: ${c.detail}`),
+    liveScorecard: { resolved: D.scorecard?.resolved, predictors: Object.fromEntries(Object.entries(D.scorecard?.predictors || {}).map(([k, v]) => [k, { n: v.n, brier: v.brier?.mean, vsMarket: v.brierVsMarket, verdict: v.verdict }])) },
+    network: D.nn && { verdict: D.nn.oos?.verdict, oos: D.nn.oos, trainedOn: D.nn.n }, paperForward: pick("forward"), paperReplay: pick("replay"),
+    focusMarkets: (D.focus?.markets || []).map(m => ({ title: m.title, cat: m.cat, price: m.price, chg30m: m.chg30m, resolvesAt: m.resolvesAt, estimates: m.est, picks: m.picks })),
+    latestBriefing: (D.briefings || [])[0] };
+}
+document.addEventListener("click", async e => {
+  if (e.target?.id !== "askBtn" || !SAMPLE) return;
+  const q = $("#askQ").value.trim(), out = $("#askA"); if (!q) return;
+  const btn = e.target; btn.disabled = true; out.textContent = "Thinking…";
+  try {
+    const prompt = `You are the analyst for a Kalshi prediction-market RESEARCH agent. Everything is simulation/paper trading; never recommend real-money bets, and say plainly when evidence is insufficient (verdicts need 100+ resolved markets and a 95% range excluding zero). Answer the owner's question in plain English, under 150 words, using only this data. Quote verdicts exactly.\n\nDATA (JSON):\n${JSON.stringify(boardSummary())}\n\nQUESTION: ${q}`;
+    await SAMPLE(prompt, { modelTier: "quick", onText: ({ text }) => { out.textContent = text; } });
+  } catch (err) {
+    out.textContent = err?.code === "not_granted" ? "Asking Claude isn't allowed for this page. You can allow it from the artifact's Permissions menu." : err?.code === "rate_limited" ? "Too many questions right now. Try again in a minute." : "Couldn't get an answer. Try again shortly.";
+  } finally { btn.disabled = false; }
+});
+$("#askQ")?.addEventListener("keydown", e => { if (e.key === "Enter") $("#askBtn").click(); });
+
+function render() { if (!D) return; renderToday(); renderTrading(); wireAgentButton(); renderNN(); renderPnL(); renderKpis(); renderAgent(); renderGoals(); renderTrades(); renderData(); renderSkills(); renderHistory(); paintPills(); }
 function paintPills() {
   const g = D.progress.goal || "IN_PROGRESS", h = D.progress.health;
   $("#goalPill").className = "pill " + statusTone(g); $("#goalPill").textContent = "goal: " + label(g);

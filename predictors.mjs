@@ -4,8 +4,11 @@
 import { config, ev, r4, readJson } from "./lib.mjs";
 import { features, predict } from "./nnlib.mjs";
 
-let MODEL; // trained network (data/nn/model.json), loaded once; absent → the nn predictor returns the market price
-const model = () => (MODEL ??= readJson("data/nn/model.json", null)?.model || null);
+// Trained network (data/nn/model.json), loaded once. Safety gate: while its walk-forward test on unseen markets says
+// "worse than market", it stands down and returns the market price (no picks); it keeps retraining hourly and comes back
+// on its own once that stops being true.
+let MODEL;
+const model = () => (MODEL ??= (() => { const f = readJson("data/nn/model.json", null); return f?.model && !/^worse/.test(f.oos?.verdict || "") ? f.model : null; })() || null);
 
 const logit = p => Math.log(p / (1 - p)), sigm = x => 1 / (1 + Math.exp(-x));
 const clamp = p => Math.min(0.99, Math.max(0.01, p));
@@ -22,7 +25,7 @@ export const PRED = {
 };
 
 // nn needs c.cat and c.resolvesAt as well.
-PRED.nn = (c, ctx) => { const m = model(); return m ? predict(m, features(c, ctx?.recall), c.mid) : c.mid; };
+PRED.nn = (c, ctx) => { const m = model(), x = features(c, ctx?.recall); return m && m.W[0][0].length === x.length ? predict(m, x, c.mid) : c.mid; };
 
 export const enabled = () => Object.keys(PRED).filter(k => config.predictors[k]?.on);
 
