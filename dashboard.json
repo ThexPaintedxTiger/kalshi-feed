@@ -1,7 +1,7 @@
 {
- "generated": "2026-11-10T23:25:52.148Z",
+ "generated": "2026-11-10T23:30:34.262Z",
  "config": {
-  "version": 6,
+  "version": 7,
   "scan": {
    "windowDays": 16,
    "horizonHours": 6,
@@ -22,9 +22,10 @@
     "hypothesis": "The market mid price is the best available estimate (baseline to beat)."
    },
    "longshot": {
-    "on": true,
+    "on": false,
     "slope": 1.1,
-    "hypothesis": "Favorite-longshot bias: cheap contracts are overpriced, so true probabilities are more extreme than prices."
+    "hypothesis": "Favorite-longshot bias: cheap contracts are overpriced, so true probabilities are more extreme than prices.",
+    "retired": "2026-11-10: FAILURE_RETIRE (no measurable edge after 832 resolved; backtest 1334, no difference). Owner approved."
    },
    "memory": {
     "on": true,
@@ -121,13 +122,6 @@
      "minEdge": 0.02
     },
     {
-     "id": "longshot-learn",
-     "name": "Longshot bias, learned bet size",
-     "predictor": "longshot",
-     "sizing": "learn",
-     "minEdge": 0.02
-    },
-    {
      "id": "memory-learn",
      "name": "Series memory, learned bet size",
      "predictor": "memory",
@@ -180,7 +174,7 @@
   }
  },
  "progress": {
-  "updated": "2026-11-10T23:25:16.786Z",
+  "updated": "2026-11-10T23:30:33.600Z",
   "goal": "IN_PROGRESS",
   "resolved": 832,
   "health": {
@@ -213,8 +207,8 @@
   },
   "predictors": {
    "longshot": {
-    "status": "FAILURE_RETIRE",
-    "rec": "no measurable edge after 832 resolved — recommend retiring this hypothesis",
+    "status": "RETIRED",
+    "rec": "2026-11-10: FAILURE_RETIRE (no measurable edge after 832 resolved; backtest 1334, no difference). Owner approved.",
     "n": 832,
     "brierVsMarket": 0.0006,
     "picks": 0,
@@ -6694,7 +6688,7 @@
   ]
  },
  "paper": {
-  "updated": "2026-11-10T23:25:16.862Z",
+  "updated": "2026-11-10T23:30:33.664Z",
   "start": 10,
   "goal": 1000,
   "safety": {
@@ -9597,75 +9591,6 @@
        }
       ]
      }
-    },
-    {
-     "id": "longshot-learn",
-     "name": "Longshot bias, learned bet size",
-     "predictor": "longshot",
-     "sizing": "learn",
-     "equity": 10,
-     "cash": 10,
-     "openPositions": 0,
-     "returnPct": 0,
-     "bets": 0,
-     "shadowBets": 0,
-     "settled": 0,
-     "wins": 0,
-     "pnl": 0,
-     "fees": 0,
-     "maxDrawdownPct": 0,
-     "lowest": 10,
-     "avgBetPct": 0,
-     "maxBetPct": 0,
-     "worstLossPct": 0,
-     "betsPerDay": 0,
-     "trustNow": {
-      "trust": 0,
-      "why": "learning: 0/30 settled bets"
-     },
-     "busted": null,
-     "reachedGoal": null,
-     "curve": [
-      [
-       1794004200000,
-       10
-      ]
-     ],
-     "recent": [],
-     "stats": {
-      "trades": 0,
-      "wins": 0,
-      "losses": 0,
-      "winRate": null,
-      "grossProfit": 0,
-      "grossLoss": 0,
-      "net": 0,
-      "profitFactor": null,
-      "best": null,
-      "worst": null,
-      "expectedPayoff": null,
-      "recoveryFactor": null,
-      "perBetSharpe": null,
-      "avgDailyPnl": null,
-      "lastDay": null,
-      "streak": null,
-      "daily": [],
-      "drawdown": [
-       [
-        1794004200000,
-        0
-       ]
-      ]
-     },
-     "review": {
-      "n": 0,
-      "netCloser": null,
-      "losses": 0,
-      "firstHalf": null,
-      "secondHalf": null
-     },
-     "closed": [],
-     "monteCarlo": null
     },
     {
      "id": "memory-learn",
@@ -13309,75 +13234,6 @@
        "settledAt": "2026-11-10T18:02:01.315Z"
       }
      ],
-     "monteCarlo": null
-    },
-    {
-     "id": "longshot-learn",
-     "name": "Longshot bias, learned bet size",
-     "predictor": "longshot",
-     "sizing": "learn",
-     "equity": 10,
-     "cash": 10,
-     "openPositions": 0,
-     "returnPct": 0,
-     "bets": 0,
-     "shadowBets": 0,
-     "settled": 0,
-     "wins": 0,
-     "pnl": 0,
-     "fees": 0,
-     "maxDrawdownPct": 0,
-     "lowest": 10,
-     "avgBetPct": 0,
-     "maxBetPct": 0,
-     "worstLossPct": 0,
-     "betsPerDay": 0,
-     "trustNow": {
-      "trust": 0,
-      "why": "learning: 0/30 settled bets"
-     },
-     "busted": null,
-     "reachedGoal": null,
-     "curve": [
-      [
-       1794330626839,
-       10
-      ]
-     ],
-     "recent": [],
-     "stats": {
-      "trades": 0,
-      "wins": 0,
-      "losses": 0,
-      "winRate": null,
-      "grossProfit": 0,
-      "grossLoss": 0,
-      "net": 0,
-      "profitFactor": null,
-      "best": null,
-      "worst": null,
-      "expectedPayoff": null,
-      "recoveryFactor": null,
-      "perBetSharpe": null,
-      "avgDailyPnl": null,
-      "lastDay": null,
-      "streak": null,
-      "daily": [],
-      "drawdown": [
-       [
-        1794330626839,
-        0
-       ]
-      ]
-     },
-     "review": {
-      "n": 0,
-      "netCloser": null,
-      "losses": 0,
-      "firstHalf": null,
-      "secondHalf": null
-     },
-     "closed": [],
      "monteCarlo": null
     },
     {

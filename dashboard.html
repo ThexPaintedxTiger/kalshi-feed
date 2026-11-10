@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
-/* Layout: sticky toolbar + tabbed views (Live agents & devs · Agent · Trading · Neural net · P&L · Trades · Data · Skills); the Agent view is an Agent Flow-style node canvas. */
+/* Layout: sticky toolbar + tabbed views (Live agents & devs · Agent · Trading · Neural net · Data); the Agent view is an Agent Flow-style node canvas. */
 :root{
   --bg:#14151a; --panel:#191a20; --card:#22242c; --line:#353844; --line-soft:#262832; --dot:#2b2e38;
   --fg:#e6e7eb; --muted:#9a9daa; --faint:#6f7280;
@@ -155,7 +155,7 @@ button.primary{background:var(--accent);border-color:var(--accent);color:#fff;fo
     <button id="refresh" type="button">Refresh</button>
   </div>
   <nav class="wrap" aria-label="Views">
-    <a href="#live">Live agents &amp; devs</a><a href="#agent">Agent</a><a href="#trading">Trading</a><a href="#nn">Neural net</a><a href="#pnl">Profit &amp; loss</a><a href="#trades">Trades</a><a href="#data">Data</a><a href="#skills">Skills</a>
+    <a href="#live">Live agents &amp; devs</a><a href="#agent">Agent</a><a href="#trading">Trading</a><a href="#nn">Neural net</a><a href="#data">Data</a>
   </nav>
 </header>
 
@@ -199,6 +199,15 @@ button.primary{background:var(--accent);border-color:var(--accent);color:#fff;fo
       <div class="panel"><h2>Predictions logged per run</h2><div id="spark"></div></div>
       <div class="panel"><h2>Pipeline health</h2><ul class="checks" id="health"></ul></div>
     </div>
+    <div style="height:24px"></div>
+    <h2 style="margin:4px 0 10px">Scored trades</h2>
+    <p class="sim">Simulation only. These are paper trades for scoring. No money is placed, and nothing here is a recommendation to bet.</p>
+    <div style="height:12px"></div>
+    <div class="kpis" id="tkpis"></div>
+    <div style="height:16px"></div>
+    <div class="panel"><h2>Simulated trades (scored)</h2><div id="trades"></div></div>
+    <div style="height:16px"></div>
+    <div class="panel"><h2>Gemini picks (dashboard feed, not scored yet)</h2><div id="gemini"></div></div>
   </section>
 
   <section id="v-trading" data-view hidden>
@@ -225,6 +234,19 @@ button.primary{background:var(--accent);border-color:var(--accent);color:#fff;fo
       <p class="small muted" style="margin-top:0">Claude answers from the numbers on this board (scorecard, paper trades, live focus markets). Each question uses Claude usage.</p>
       <div class="row2"><input type="search" id="askQ" placeholder="e.g. Which strategy is closest to proving an edge?" aria-label="Question" style="flex:1;min-width:0;width:auto"><button type="button" id="askBtn">Ask</button></div>
       <div id="askA" class="small" style="margin-top:10px;white-space:pre-wrap"></div></div>
+    <div style="height:24px"></div>
+    <h2 style="margin:4px 0 10px">Profit &amp; loss · all portfolios</h2>
+    <p class="sim">Simulation only. $10 of paper money per portfolio, real Kalshi prices and fees, nothing is traded. Replay uses past settled markets; Forward uses live predictions and is the record that counts.</p>
+    <div style="height:12px"></div>
+    <div class="chips" id="modeChips"></div>
+    <div class="panel"><h2>Equity: $10 → $1,000? (log scale)</h2><div id="eqChart"></div><div class="chips" id="eqLegend" style="margin-top:8px"></div></div>
+    <div style="height:16px"></div>
+    <div class="panel"><h2>Portfolios</h2><div class="tscroll" id="pfTable"></div></div>
+    <div style="height:16px"></div>
+    <div class="grid2">
+      <div class="panel"><h2>How do you get $10 to $1,000?</h2><div id="howTo"></div></div>
+      <div class="panel"><h2>Recent paper bets</h2><div class="chips" id="pfChips"></div><div class="tscroll" id="pfBets"></div></div>
+    </div>
   </section>
 
   <section id="v-nn" data-view hidden>
@@ -245,29 +267,7 @@ button.primary{background:var(--accent);border-color:var(--accent);color:#fff;fo
       <p class="small muted">How it learns: every hour it retrains on all settled markets so far. The honest score is the walk-forward test: train on older markets, predict newer ones it has never seen, repeat. Only that score counts.</p></div>
   </section>
 
-  <section id="v-pnl" data-view hidden>
-    <p class="sim">Simulation only. $10 of paper money per portfolio, real Kalshi prices and fees, nothing is traded. Replay uses past settled markets; Forward uses live predictions and is the record that counts.</p>
-    <div style="height:12px"></div>
-    <div class="chips" id="modeChips"></div>
-    <div class="panel"><h2>Equity: $10 → $1,000? (log scale)</h2><div id="eqChart"></div><div class="chips" id="eqLegend" style="margin-top:8px"></div></div>
-    <div style="height:16px"></div>
-    <div class="panel"><h2>Portfolios</h2><div class="tscroll" id="pfTable"></div></div>
-    <div style="height:16px"></div>
-    <div class="grid2">
-      <div class="panel"><h2>How do you get $10 to $1,000?</h2><div id="howTo"></div></div>
-      <div class="panel"><h2>Recent paper bets</h2><div class="chips" id="pfChips"></div><div class="tscroll" id="pfBets"></div></div>
-    </div>
-  </section>
 
-  <section id="v-trades" data-view hidden>
-    <p class="sim">Simulation only. These are paper trades for scoring. No money is placed, and nothing here is a recommendation to bet.</p>
-    <div style="height:12px"></div>
-    <div class="kpis" id="tkpis"></div>
-    <div style="height:16px"></div>
-    <div class="panel"><h2>Simulated trades (scored)</h2><div id="trades"></div></div>
-    <div style="height:16px"></div>
-    <div class="panel"><h2>Gemini picks (dashboard feed, not scored yet)</h2><div id="gemini"></div></div>
-  </section>
 
   <section id="v-data" data-view hidden>
     <div class="grid2">
@@ -284,9 +284,8 @@ button.primary{background:var(--accent);border-color:var(--accent);color:#fff;fo
     </div>
     <div style="height:16px"></div>
     <div class="panel"><h2>Memory: what each series taught us</h2><div class="tscroll" id="mem"></div></div>
-  </section>
-
-  <section id="v-skills" data-view hidden>
+    <div style="height:24px"></div>
+    <h2 style="margin:4px 0 10px">Skills &amp; tools</h2>
     <div class="panel"><h2>Skills Claude uses for this agent</h2>
       <p class="small muted">Ask Claude in plain words, or type <code>/skill-name</code> in Claude Code. Saved in <code>.claude/skills/</code>; reviewed in <code>docs/skills.md</code>.</p>
       <div class="sg" id="skills"></div>
@@ -297,6 +296,7 @@ button.primary{background:var(--accent);border-color:var(--accent);color:#fff;fo
       <div class="chips" id="mcp"></div>
     </div>
   </section>
+
 </main>
 <div id="toast" hidden></div>
 
@@ -372,7 +372,7 @@ function nodes() {
       what: `Reads open Kalshi markets (public data) and keeps those resolving in ${D.config.scan.minLeadMinutes} min–${D.config.scan.horizonHours} h with bid > 0, spread ≤ ${cents(D.config.scan.maxSpread)} and volume ≥ ${D.config.scan.minVolume}. Logs up to ${D.config.scan.maxNewPerRun} new markets per run, rotating across categories.`, cost: "Free · ~50 API requests per run", skill: "kalshi-run-cycle" },
     { id: "market", x: 750, y: 30, c: "var(--muted)", ic: "⚖️", nm: "Market baseline", sub: "predictor · market", stat: "P = mid price · the bar to beat", s: "done", tag: "baseline",
       what: D.config.predictors.market.hypothesis + " Every other predictor is scored against it on the same markets. It can never show a profitable pick, by design.", cost: "Free", skill: "kalshi-check-progress" },
-    { id: "longshot", x: 750, y: 135, c: "var(--accent)", ic: "🎯", nm: "Longshot bias", sub: `predictor · slope ${D.config.predictors.longshot?.slope}`, stat: `${label(pr.longshot?.status)} · ${pr.longshot?.n || 0}/${G.minResolved}`, s: "run", tag: "hypothesis",
+    { id: "longshot", x: 750, y: 135, c: "var(--accent)", ic: "🎯", nm: "Longshot bias", sub: `predictor · slope ${D.config.predictors.longshot?.slope}`, stat: D.config.predictors.longshot?.on === false ? `retired · ${pr.longshot?.n || 0} scored` : `${label(pr.longshot?.status)} · ${pr.longshot?.n || 0}/${G.minResolved}`, s: D.config.predictors.longshot?.on === false ? "wait" : "run", dim: D.config.predictors.longshot?.on === false, tag: D.config.predictors.longshot?.on === false ? "retired" : "hypothesis",
       what: (D.config.predictors.longshot?.hypothesis || "") + " Status: " + (pr.longshot?.rec || ""), cost: "Free", skill: "kalshi-add-predictor (to add more ideas)" },
     { id: "gemini", x: 750, y: 450, c: "var(--violet)", ic: "🤖", nm: "Gemini analysts", sub: "agents.mjs · hourly", stat: `${D.gemini.picks.length} picks · not scored yet`, s: "idle", dim: true, tag: "dashboard only",
       what: "Three AI analysts (momentum, base rate, rules) rate the dashboard's top markets once an hour in one free Gemini call. Their picks are not part of the scored pipeline yet; they must beat the code predictors before they cost anything.", cost: "Free Gemini tier (1 call/hour)", skill: "kalshi-add-predictor (to score it)" },
@@ -385,7 +385,7 @@ function nodes() {
     { id: "nnP", x: 750, y: 345, c: "var(--pink)", ic: "🕸", nm: "Neural network", sub: `predictor · ${(D.nn?.architecture || []).join("→") || "not trained"}`, stat: D.nn?.oos ? `out-of-sample: ${label(D.nn.oos.verdict)}` : (D.nn?.status || "waiting for data"), s: D.nn?.model ? "run" : "wait", tag: "learns hourly",
       what: "A small neural network that learns corrections to the market price from settled markets (price, spread, time of day, category, series memory). It retrains every hour; only its walk-forward score on markets it never saw counts. Open the Neural net tab for the network, training curve and history.", cost: "Free · trains in seconds", skill: "kalshi-history" },
     { id: "paper", x: 1490, y: 400, c: "var(--teal)", ic: "💵", nm: "Paper portfolios", sub: "paper.mjs · $10 each", stat: (() => { const f = D.paper?.replay?.portfolios || []; const b = f.filter(p => p.predictor).sort((a, b) => b.equity - a.equity)[0]; return b ? `best replay: $${b.equity}` : "waiting"; })(), s: D.paper ? "done" : "wait",
-      what: "Several $10 paper portfolios, each a different strategy (controls, neural net at different bet sizes, longshot, memory), trading the predictions with real prices and fees. A Monte Carlo estimates each one's chance of reaching $1,000. Open the Profit & loss tab.", cost: "Free", skill: "kalshi-check-progress" },
+      what: "Several $10 paper portfolios, each a different strategy (controls, neural net at different bet sizes, memory, crypto, weather), trading the predictions with real prices and fees. A Monte Carlo estimates each one's chance of reaching $1,000. See the Trading tab.", cost: "Free", skill: "kalshi-check-progress" },
     { id: "mcp", x: 1730, y: 400, c: "var(--info)", ic: "🔌", nm: "MCP server", sub: "mcp/server.mjs · read-only", stat: `${(D.mcpTools || []).length} tools for Claude`, s: "done",
       what: "Lets Claude (Desktop or Code) answer questions from the agent's real files: status, scorecards, predictions, series memory, skills. Read-only: it never writes, never calls Kalshi, never trades, and never exposes your private trade report.", cost: "Free · runs locally", skill: "kalshi-history" },
     { id: "log", x: 1010, y: 200, c: "var(--warn)", ic: "📒", nm: "Prediction log", sub: "data/predictions/*.jsonl", stat: `${D.totals.predictions.toLocaleString()} predictions`, s: "done",
@@ -398,8 +398,8 @@ function nodes() {
       what: D.progress.definitions || "", cost: "Free", skill: "kalshi-check-progress" },
   ];
 }
-const EDGES = [["sched", "tests", "live"], ["tests", "discover", "live"], ["discover", "market", "live"], ["discover", "longshot", "live"], ["discover", "gemini", "dim"],
-  ["market", "log", "live"], ["longshot", "log", "live"], ["memoryP", "log", "live"], ["log", "resolve", "live"], ["resolve", "score", "live"], ["score", "progress", "live"],
+const EDGES = [["sched", "tests", "live"], ["tests", "discover", "live"], ["discover", "market", "live"], ["discover", "longshot", "dim"], ["discover", "gemini", "dim"],
+  ["market", "log", "live"], ["longshot", "log", "dim"], ["memoryP", "log", "live"], ["log", "resolve", "live"], ["resolve", "score", "live"], ["score", "progress", "live"],
   ["discover", "memoryP", "live"], ["memstore", "memoryP", "live"], ["backtest", "score", "live"], ["resolve", "memstore", "under"], ["backtest", "memstore", "under"], ["progress", "mcp", "down"],
   ["discover", "nnP", "live"], ["nnP", "log", "live"], ["memstore", "nnP", "live"], ["log", "paper", "live"], ["backtest", "paper", "live"]];
 
@@ -1006,7 +1006,7 @@ function paintPills() {
   $("#healthPill").className = "pill " + (bad ? "c-warn" : "c-good"); $("#healthPill").textContent = bad ? `pipeline: ${bad} issue${bad > 1 ? "s" : ""}` : "pipeline ok";
 }
 function route() {
-  const v = (location.hash || "#live").slice(1);
+  const v = ({ pnl: "trading", trades: "agent", skills: "data" })[(location.hash || "#live").slice(1)] || (location.hash || "#live").slice(1);
   document.querySelectorAll("[data-view]").forEach(s => s.hidden = s.id !== "v-" + v);
   if (!document.getElementById("v-" + v)) $("#v-live").hidden = false;
   document.querySelectorAll("nav a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === "#" + v || (!document.getElementById("v-" + v) && a.getAttribute("href") === "#live") ? "page" : "false"));

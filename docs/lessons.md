@@ -35,3 +35,10 @@ What we changed because the data (or a mistake) taught us something. Newest firs
 
 - 2026-11-10: Ranking only by volume filled 75 of 80 slots with sports. Now round-robin across categories.
 - 2026-11-10: Without a ticker and an append-only log, picks can never be scored. Log first, analyze later.
+
+- 2026-11-10 (**strategy change, owner approved**): Retired the `longshot` predictor (config v7). Evidence: 832 resolved live markets,
+  Brier vs market +0.0006 (95% interval −0.0006 … +0.0019), 0 picks; backtest 1,334 markets, −0.0002, no measurable difference.
+  Status was FAILURE_RETIRE (no edge after `retireAfter` resolved). `on: false` stops new estimates; past rows stay in the logs and its
+  final record stays in the scorecard, labelled RETIRED and excluded from the overall goal. The `longshot-learn` paper portfolio was removed.
+  Lesson: a published bias (favorite-longshot) didn't show up in short Kalshi markets at a measurable size; the price already absorbed it.
+- 2026-11-10: Dashboard trimmed from 8 tabs to 5 (Profit & loss → Trading, Trades → Agent, Skills → Data). Old links (#pnl, #trades, #skills) still work.

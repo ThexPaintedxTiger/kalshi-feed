@@ -9,7 +9,7 @@ every 10 min (GitHub Actions)
  predict.mjs   Kalshi /markets (single markets closing within 16 days, ~46 pages, ~25 s)
                → keep: resolves in 20 min–6 h, bid>0, spread ≤10¢, volume ≥50, price 3–97¢
                → skip tickers already logged; ≤2 per event (nearest 50¢); round-robin across categories; ≤80 per run
-               → predictors: market (mid price), longshot (favorite-longshot hypothesis)
+               → predictors: market (mid price), memory, nn, crypto_fair, weather_nws (longshot retired in v7)
                → EV after fees for YES at ask / NO at 1−bid; simulated pick if EV ≥ 2¢
                → append data/predictions/YYYY-MM.jsonl
  resolve.mjs   tickers past resolution → /markets?tickers= (200 per call) → append data/outcomes.jsonl
@@ -41,7 +41,7 @@ Order in the Action: test → resolve → memory → predict → backtest (hourl
   earlier blocks, predict the next unseen block → `data/nn/oos.json` and the honest verdict; (2) holdout curve (early-stopping set — optimistic);
   (3) final model on all data → `data/nn/model.json` (used live by the `nn` predictor). History in `data/nn/train-log.jsonl`.
 - **paper.mjs**: goal = grow $10 toward $1,000 over time without risking the account on one bet. Portfolios in `config.json → paper.portfolios`
-  (controls: hold cash, coin flip 2%; neural net learned-size and flat 2%; longshot learned-size; memory learned-size).
+  (controls: hold cash, coin flip 2%; neural net learned-size and flat 2%; memory, crypto and weather learned-size).
   Safety for all (`paper.safety`): ≤5% of bankroll per bet including the fee, ≤25% in open bets, halve bets after a 20% drop from peak,
   quarter after 40%. Learned sizing (`paper.learning`): probe bets (1% or $0.25) until 30 bets settle; then up to quarter Kelly × trust, where
   trust = (realized return per $ − 1 SE) ÷ predicted return per $, clipped 0…1; if even realized + 1 SE < 0, the strategy pauses and records

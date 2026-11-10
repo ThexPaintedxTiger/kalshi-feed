@@ -1,5 +1,5 @@
 {
- "version": 6,
+ "version": 7,
  "scan": {
   "windowDays": 16,
   "horizonHours": 6,
@@ -20,9 +20,10 @@
    "hypothesis": "The market mid price is the best available estimate (baseline to beat)."
   },
   "longshot": {
-   "on": true,
+   "on": false,
    "slope": 1.1,
-   "hypothesis": "Favorite-longshot bias: cheap contracts are overpriced, so true probabilities are more extreme than prices."
+   "hypothesis": "Favorite-longshot bias: cheap contracts are overpriced, so true probabilities are more extreme than prices.",
+   "retired": "2026-11-10: FAILURE_RETIRE (no measurable edge after 832 resolved; backtest 1334, no difference). Owner approved."
   },
   "memory": {
    "on": true,
@@ -136,13 +137,6 @@
     "predictor": "nn",
     "sizing": "fixed",
     "frac": 0.02,
-    "minEdge": 0.02
-   },
-   {
-    "id": "longshot-learn",
-    "name": "Longshot bias, learned bet size",
-    "predictor": "longshot",
-    "sizing": "learn",
     "minEdge": 0.02
    },
    {

@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T23:25:16.786Z",
+ "updated": "2026-11-10T23:30:33.600Z",
  "goal": "IN_PROGRESS",
  "resolved": 832,
  "health": {
@@ -32,8 +32,8 @@
  },
  "predictors": {
   "longshot": {
-   "status": "FAILURE_RETIRE",
-   "rec": "no measurable edge after 832 resolved — recommend retiring this hypothesis",
+   "status": "RETIRED",
+   "rec": "2026-11-10: FAILURE_RETIRE (no measurable edge after 832 resolved; backtest 1334, no difference). Owner approved.",
    "n": 832,
    "brierVsMarket": 0.0006,
    "picks": 0,

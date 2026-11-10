@@ -50,14 +50,15 @@ export function evaluate(sc, runs, preds, outcomes, goals, now, prevSnap, bt = n
   for (const k of names) {
     if (k === "market") continue;
     const p = sc.predictors?.[k] || { n: 0, brierVsMarket: {}, picks: { n: 0 } };
-    const s = predictorStatus(p, goals.edge), vs = p.brierVsMarket || {};
+    const off = config.predictors?.[k]?.on === false;                     // retired by the owner: keep its record, drop it from the goal
+    const s = off ? { status: "RETIRED", rec: config.predictors[k].retired || "turned off in config.json" } : predictorStatus(p, goals.edge), vs = p.brierVsMarket || {};
     const snap = { n: p.n, mean: vs.mean ?? null, width: vs.hi != null && Number.isFinite(vs.hi) ? r4(vs.hi - vs.lo) : null };
     const b = bt?.predictors?.[k];
     predictors[k] = { ...s, n: p.n, brierVsMarket: vs.mean ?? null, picks: p.picks?.n || 0, trend: trend(snap, prevSnap?.predictors?.[k]), snap,
       backtest: b ? { n: b.n, brierVsMarket: b.brierVsMarket.mean, verdict: b.verdict, picks: b.picks.n, pnlPerContract: b.picks.pnlPerContract.mean } : null };
   }
   const h = health(sc, runs, preds, outcomes, goals.health, now);
-  const st = Object.values(predictors).map(p => p.status);
+  const st = Object.values(predictors).map(p => p.status).filter(s => s !== "RETIRED");
   const goal = st.includes("SUCCESS") ? "SUCCESS"
     : st.length && st.every(s => s.startsWith("FAILURE")) ? "ALL_HYPOTHESES_FAILED — add a new predictor"
     : "IN_PROGRESS";
