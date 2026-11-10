@@ -26,10 +26,10 @@ async function models() {
     const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models?pageSize=200", { headers: { "x-goog-api-key": KEY } });
     const j = await r.json(); if (!r.ok) { console.log("ListModels:", r.status, JSON.stringify(j.error || j).slice(0, 200)); return []; }
     return (j.models || []).filter(m => (m.supportedGenerationMethods || []).includes("generateContent") && /flash/.test(m.name) && !/image|tts|live|audio|thinking|exp|preview/.test(m.name))
-      .map(m => m.name.replace("models/", "")).sort((a, b) => (/lite/.test(a) - /lite/.test(b)) || b.localeCompare(a));
+      .map(m => m.name.replace("models/", "")).sort((a, b) => (/omni/.test(a) - /omni/.test(b)) || (/lite/.test(b) - /lite/.test(a)) || b.localeCompare(a));
   } catch (e) { console.log("ListModels failed:", e.message); return []; }
 }
-const MODELS = [...new Set([...(await models()), "gemini-flash-latest", "gemini-2.5-flash", "gemini-2.5-flash-lite"])].slice(0, 5);
+const MODELS = [...new Set([...(await models()), "gemini-flash-latest", "gemini-2.5-flash", "gemini-2.5-flash-lite"])].slice(0, 8);
 console.log("Models to try:", MODELS.join(", "));
 async function ask(prompt) {
   for (const model of MODELS) for (let a = 0; a < 2; a++) {
@@ -46,7 +46,8 @@ async function ask(prompt) {
       catch { console.log(`${model}: answer wasn't JSON`); continue; }
     }
     const msg = JSON.stringify(j.error || j).slice(0, 250); console.log(`${model}: HTTP ${r.status} ${msg}`);
-    if (r.status === 429 || r.status >= 500) { const d = +(String(msg).match(/retryDelay\W+(\d+)/) || [])[1] || 20; if (d > 60) break; await new Promise(s => setTimeout(s, d * 1000)); continue; }
+    if (r.status === 429 && /exceeded your current quota/i.test(msg) && !/per ?minute/i.test(msg)) break; // no free quota on this model — next one
+    if (r.status === 429 || r.status >= 500) { const d = Math.min(30, +(String(msg).match(/retryDelay\W+(\d+)/) || [])[1] || 10); await new Promise(s => setTimeout(s, d * 1000)); continue; }
     break; // 400/403/404: try the next model
   }
   throw new Error("no model answered");
