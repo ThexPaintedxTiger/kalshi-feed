@@ -169,8 +169,9 @@
  },
  "live": {
   "artifactUrl": "https://claude.ai/artifact/YWELuS2iUX9Y62DHMX737v",
-  "triggerId": null,
-  "devSession": null,
-  "cyclesPerHour": 6
+  "triggerId": "trig_01VBpUdvVfLrxySgxCPLceHk",
+  "devSession": "session_017aScWtmMzeyXzzwrarJEyL",
+  "cyclesPerHour": 6,
+  "schedule": "hourly at :54 UTC"
  }
 }
