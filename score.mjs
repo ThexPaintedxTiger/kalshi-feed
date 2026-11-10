@@ -41,6 +41,7 @@ export function score(preds, outcomes, cfg = config) {
     for (const r of rs) { const b2 = bins[Math.min(bins.length - 1, Math.floor(r.est[k] * bins.length))]; b2.n++; b2.p += r.est[k]; b2.y += r.y; }
     let verdict = "insufficient data";
     if (k === "market") verdict = "baseline";
+    else if (rs.length && rs.every(r => r.est[k] === r.est.market)) verdict = "same as market (not active yet)";
     else if (enough && vsMarket.hi < 0) verdict = "beats market (Brier)";
     else if (enough && vsMarket.lo > 0) verdict = "worse than market (Brier)";
     else if (enough) verdict = "no measurable difference";

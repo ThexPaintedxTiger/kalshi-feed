@@ -45,7 +45,7 @@ h2{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute
 .sim{border:1px dashed var(--warn);color:var(--warn);border-radius:10px;padding:8px 12px;font-size:13px}
 /* Flow canvas */
 .canvas-scroll{overflow-x:auto;border-radius:12px;border:1px solid var(--line-soft)}
-.canvas{position:relative;width:1920px;height:440px;background-color:var(--bg);background-image:radial-gradient(var(--dot) 1px,transparent 1px);background-size:22px 22px}
+.canvas{position:relative;width:1920px;height:520px;background-color:var(--bg);background-image:radial-gradient(var(--dot) 1px,transparent 1px);background-size:22px 22px}
 .canvas svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .edge{fill:none;stroke:var(--faint);stroke-width:2.5}
 .edge.live{stroke:var(--info);stroke-dasharray:6 5;animation:dash .8s linear infinite}
@@ -131,6 +131,8 @@ input[type=search]{font:inherit;color:inherit;background:var(--card);border:1px 
       <div class="panel"><h2>Goal: beat the market</h2><div class="cards" id="predictors"></div></div>
     </div>
     <div style="height:16px"></div>
+    <div class="panel"><h2>Backtest: past settled markets (supporting evidence, not the live record)</h2><div id="bt"></div></div>
+    <div style="height:16px"></div>
     <div class="grid2">
       <div class="panel"><h2>Predictions logged per run</h2><div id="spark"></div></div>
       <div class="panel"><h2>Pipeline health</h2><ul class="checks" id="health"></ul></div>
@@ -160,12 +162,19 @@ input[type=search]{font:inherit;color:inherit;background:var(--card);border:1px 
       <div style="height:10px"></div>
       <div class="tscroll" id="preds"></div>
     </div>
+    <div style="height:16px"></div>
+    <div class="panel"><h2>Memory: what each series taught us</h2><div class="tscroll" id="mem"></div></div>
   </section>
 
   <section id="v-skills" data-view hidden>
     <div class="panel"><h2>Skills Claude uses for this agent</h2>
       <p class="small muted">Ask Claude in plain words, or type <code>/skill-name</code> in Claude Code. Saved in <code>.claude/skills/</code>; reviewed in <code>docs/skills.md</code>.</p>
       <div class="sg" id="skills"></div>
+    </div>
+    <div style="height:16px"></div>
+    <div class="panel"><h2>Tools Claude can call (MCP server, read-only)</h2>
+      <p class="small muted">Start with <code>npm --prefix mcp install</code>; Claude Code picks it up from <code>.mcp.json</code>. Setup for Claude Desktop: <code>docs/architecture.md</code>.</p>
+      <div class="chips" id="mcp"></div>
     </div>
   </section>
 </main>
@@ -192,9 +201,11 @@ async function load(manual) {
     try {
       const r = await fetch(url + (url.startsWith("http") ? "?t=" + Date.now() : ""), { cache: "no-store" });
       if (!r.ok) continue;
-      D = await r.json(); render(); $("#src").textContent = `Data ${label} · built ${when(D.generated)}`;
-      if (manual) toast("Data refreshed"); return;
-    } catch {}
+      D = await r.json();
+    } catch { continue; }
+    try { render(); } catch (e) { console.error("render failed:", e); $("#src").textContent = "Data loaded but a view failed to draw: " + e.message; return; }
+    $("#src").textContent = `Data ${label} · built ${when(D.generated)}`;
+    if (manual) toast("Data refreshed"); return;
   }
   $("#src").textContent = "Couldn't load data. Paste dashboard.json here (Ctrl+V).";
 }
@@ -226,12 +237,20 @@ function nodes() {
       what: "Checks the math (fees, expected value, Brier, log loss), the leakage guard and every goal status. A failure stops the run so bad numbers never get logged.", cost: "Free", skill: "kalshi-run-cycle" },
     { id: "discover", x: 480, y: 200, c: "var(--info)", ic: "🔎", nm: "Discover markets", sub: "predict.mjs · Kalshi API", stat: last.scanned ? `${last.scanned.toLocaleString()} scanned · ${last.candidates} short` : "waiting for first run", s: last.logged ? "done" : "wait",
       what: `Reads open Kalshi markets (public data) and keeps those resolving in ${D.config.scan.minLeadMinutes} min–${D.config.scan.horizonHours} h with bid > 0, spread ≤ ${cents(D.config.scan.maxSpread)} and volume ≥ ${D.config.scan.minVolume}. Logs up to ${D.config.scan.maxNewPerRun} new markets per run, rotating across categories.`, cost: "Free · ~50 API requests per run", skill: "kalshi-run-cycle" },
-    { id: "market", x: 750, y: 80, c: "var(--muted)", ic: "⚖️", nm: "Market baseline", sub: "predictor · market", stat: "P = mid price · the bar to beat", s: "done", tag: "baseline",
+    { id: "market", x: 750, y: 40, c: "var(--muted)", ic: "⚖️", nm: "Market baseline", sub: "predictor · market", stat: "P = mid price · the bar to beat", s: "done", tag: "baseline",
       what: D.config.predictors.market.hypothesis + " Every other predictor is scored against it on the same markets. It can never show a profitable pick, by design.", cost: "Free", skill: "kalshi-check-progress" },
-    { id: "longshot", x: 750, y: 200, c: "var(--accent)", ic: "🎯", nm: "Longshot bias", sub: `predictor · slope ${D.config.predictors.longshot?.slope}`, stat: `${label(pr.longshot?.status)} · ${pr.longshot?.n || 0}/${G.minResolved}`, s: "run", tag: "hypothesis",
+    { id: "longshot", x: 750, y: 150, c: "var(--accent)", ic: "🎯", nm: "Longshot bias", sub: `predictor · slope ${D.config.predictors.longshot?.slope}`, stat: `${label(pr.longshot?.status)} · ${pr.longshot?.n || 0}/${G.minResolved}`, s: "run", tag: "hypothesis",
       what: (D.config.predictors.longshot?.hypothesis || "") + " Status: " + (pr.longshot?.rec || ""), cost: "Free", skill: "kalshi-add-predictor (to add more ideas)" },
-    { id: "gemini", x: 750, y: 320, c: "var(--violet)", ic: "🤖", nm: "Gemini analysts", sub: "agents.mjs · hourly", stat: `${D.gemini.picks.length} picks · not scored yet`, s: "idle", dim: true, tag: "dashboard only",
+    { id: "gemini", x: 750, y: 370, c: "var(--violet)", ic: "🤖", nm: "Gemini analysts", sub: "agents.mjs · hourly", stat: `${D.gemini.picks.length} picks · not scored yet`, s: "idle", dim: true, tag: "dashboard only",
       what: "Three AI analysts (momentum, base rate, rules) rate the dashboard's top markets once an hour in one free Gemini call. Their picks are not part of the scored pipeline yet; they must beat the code predictors before they cost anything.", cost: "Free Gemini tier (1 call/hour)", skill: "kalshi-add-predictor (to score it)" },
+    { id: "memoryP", x: 750, y: 260, c: "var(--good)", ic: "🧠", nm: "Series memory", sub: `predictor · min ${D.config.predictors.memory?.minN} past`, stat: `${label(pr.memory?.status)} · ${pr.memory?.n || 0}/${G.minResolved}`, s: "run", tag: "hypothesis",
+      what: (D.config.predictors.memory?.hypothesis || "") + " It only uses markets that settled before the moment of prediction. Status: " + (pr.memory?.rec || ""), cost: "Free", skill: "kalshi-add-predictor" },
+    { id: "memstore", x: 480, y: 400, c: "var(--good)", ic: "🗂", nm: "Memory", sub: "memory.mjs → data/memory/", stat: `${D.memory?.samples || 0} settled · ${D.memory?.series || 0} series`, s: D.memory?.samples ? "done" : "wait",
+      what: "What the agent knows about each Kalshi series: how many settled markets it has seen, how often YES won, the average price and the price-vs-outcome gap. Built from live outcomes and the backtest. Retrieval is a direct lookup by series (no vector database needed at this size). Claude can query it through the MCP tool recall_series.", cost: "Free · rebuilt each run", skill: "kalshi-history" },
+    { id: "backtest", x: 1010, y: 400, c: "var(--violet)", ic: "⏪", nm: "Backtest agent", sub: "backtest.mjs · hourly", stat: `${D.backtest?.resolved || 0} past markets scored`, s: D.backtest?.resolved ? "done" : "wait", tag: "dev agent",
+      what: `Rebuilds predictions for markets that already settled: takes the bid/ask from Kalshi's 1-minute price history ${D.config.backtest?.leadMinutes} min before resolution, runs the same predictors, and scores them against the official result. Kept separate from the live record: it supports, never replaces, live evidence.`, cost: `Free · ≤${D.config.backtest?.maxCandleCalls} API calls per hour`, skill: "kalshi-history" },
+    { id: "mcp", x: 1730, y: 400, c: "var(--info)", ic: "🔌", nm: "MCP server", sub: "mcp/server.mjs · read-only", stat: `${(D.mcpTools || []).length} tools for Claude`, s: "done",
+      what: "Lets Claude (Desktop or Code) answer questions from the agent's real files: status, scorecards, predictions, series memory, skills. Read-only: it never writes, never calls Kalshi, never trades, and never exposes your private trade report.", cost: "Free · runs locally", skill: "kalshi-history" },
     { id: "log", x: 1010, y: 200, c: "var(--warn)", ic: "📒", nm: "Prediction log", sub: "data/predictions/*.jsonl", stat: `${D.totals.predictions.toLocaleString()} predictions`, s: "done",
       what: "Append-only record of every prediction, written before the market resolves: time, prices, spread, liquidity, rules, each predictor's estimate and expected value after fees. Never edited afterwards.", cost: "~700 bytes per prediction in git", skill: "kalshi-check-progress" },
     { id: "resolve", x: 1250, y: 200, c: "var(--good)", ic: "✅", nm: "Check outcomes", sub: "resolve.mjs", stat: `${D.totals.outcomes} official results`, s: D.totals.outcomes ? "done" : "wait",
@@ -243,7 +262,8 @@ function nodes() {
   ];
 }
 const EDGES = [["sched", "tests", "live"], ["tests", "discover", "live"], ["discover", "market", "live"], ["discover", "longshot", "live"], ["discover", "gemini", "dim"],
-  ["market", "log", "live"], ["longshot", "log", "live"], ["log", "resolve", "live"], ["resolve", "score", "live"], ["score", "progress", "live"]];
+  ["market", "log", "live"], ["longshot", "log", "live"], ["memoryP", "log", "live"], ["log", "resolve", "live"], ["resolve", "score", "live"], ["score", "progress", "live"],
+  ["discover", "memoryP", "live"], ["memstore", "memoryP", "live"], ["backtest", "score", "live"], ["resolve", "memstore", "under"], ["backtest", "memstore", "under"], ["progress", "mcp", "down"]];
 
 function renderAgent() {
   const N = nodes(), byId = Object.fromEntries(N.map(n => [n.id, n])), W = 200, H = 86;
@@ -258,11 +278,14 @@ function renderAgent() {
     el.onclick = el.onkeydown = e => { if (e.type === "keydown" && e.key !== "Enter" && e.key !== " ") return; e.preventDefault?.(); sel = n.id; renderAgent(); };
     cv.appendChild(el);
   }
-  const path = (a, b) => { const x1 = a.x + W, y1 = a.y + 30, x2 = b.x, y2 = b.y + 30, dx = Math.max(40, (x2 - x1) / 2); return `M${x1},${y1} C${x1 + dx},${y1} ${x2 - dx},${y2} ${x2},${y2}`; };
-  const p = byId.progress, l = byId.longshot;
-  $("#edges").innerHTML = EDGES.map(([a, b, k]) => `<path class="edge ${k}" d="${path(byId[a], byId[b])}"/>`).join("") +
-    `<path class="edge loop" d="M${p.x + W / 2},${p.y} C${p.x + W / 2},${0} ${l.x + W / 2},${0} ${l.x + W / 2 + 40},${l.y - 2}"/>` +
-    `<text class="edge-label" x="${(p.x + l.x) / 2 + 60}" y="26" text-anchor="middle">learning loop: recommendations → owner approves → predictors change</text>`;
+  const path = (a, b, k) => {
+    if (k === "under") { const x1 = a.x + W / 2, x2 = b.x + W / 2, y = Math.max(a.y, b.y) + H + 28; return `M${x1},${a.y + H} C${x1},${y} ${x2},${y} ${x2},${b.y + H}`; }
+    if (k === "down") { const x = a.x + W / 2; return `M${x},${a.y + H} L${x},${b.y}`; }
+    const x1 = a.x + W, y1 = a.y + 30, x2 = b.x, y2 = b.y + 30, dx = Math.max(40, (x2 - x1) / 2); return `M${x1},${y1} C${x1 + dx},${y1} ${x2 - dx},${y2} ${x2},${y2}`; };
+  const p = byId.progress, l = byId.market;
+  $("#edges").innerHTML = EDGES.map(([a, b, k]) => `<path class="edge ${k === "under" ? "dim" : k === "down" ? "live" : k}" d="${path(byId[a], byId[b], k)}"/>`).join("") +
+    `<path class="edge loop" d="M${p.x + W / 2},${p.y} C${p.x + W / 2},${40} ${l.x + W / 2 + 60},${40} ${l.x + W / 2 + 60},${l.y - 2}"/>` +
+    `<text class="edge-label" x="${(p.x + l.x) / 2 + 100}" y="14" text-anchor="middle">learning loop: recommendations → owner approves → predictors change</text>`;
   const n = byId[sel] || p;
   $("#detail").innerHTML = `<h2>Selected step</h2><div class="nh"><div class="ic" style="--c:${n.c}">${n.ic}</div><div class="nm" style="white-space:normal">${esc(n.nm)}</div></div>
     <p>${esc(n.what)}</p><dl><dt>File</dt><dd><code>${esc(n.sub)}</code></dd><dt>Now</dt><dd>${esc(n.stat)}</dd><dt>Cost</dt><dd>${esc(n.cost)}</dd><dt>Skill</dt><dd><code>${esc(n.skill)}</code></dd></dl>
@@ -342,7 +365,21 @@ function renderSkills() {
   }).join("") || `<div class="empty">No skills found.</div>`;
 }
 
-function render() { if (!D) return; renderKpis(); renderAgent(); renderGoals(); renderTrades(); renderData(); renderSkills(); paintPills(); }
+function renderHistory() {
+  const b = D.backtest;
+  $("#bt").innerHTML = b && b.resolved ? `<p class="small muted" style="margin-top:0">${b.resolved} past markets in ${b.events} events, ${when(b.window?.from)} – ${when(b.window?.to)}. Prices taken ${D.config.backtest?.leadMinutes ?? 60} min before resolution.</p>
+    <div class="tscroll"><table><thead><tr><th>Predictor</th><th class="n">Markets</th><th class="n">Brier</th><th class="n">vs market</th><th class="n">95% range</th><th>Verdict</th><th class="n">Picks</th><th class="n">P&amp;L / contract</th></tr></thead><tbody>${
+    Object.entries(b.predictors).map(([k, v]) => `<tr><td>${esc(k)}</td><td class="n">${v.n}</td><td class="n">${v.brier.mean}</td><td class="n">${k === "market" ? "–" : sgn(v.brierVsMarket.mean)}</td><td class="n">${k === "market" ? "–" : `${sgn(v.brierVsMarket.lo)} … ${sgn(v.brierVsMarket.hi)}`}</td><td><span class="pill ${/beats/.test(v.verdict) ? "c-good" : /worse/.test(v.verdict) ? "c-bad" : "c-muted"}">${esc(v.verdict)}</span></td><td class="n">${v.picks.n}</td><td class="n">${v.picks.n ? money(v.picks.pnlPerContract.mean) : "–"}</td></tr>`).join("")}</tbody></table></div>
+    <p class="small muted">Lower Brier is better. "vs market" below 0 means more accurate than the price. A verdict needs ${D.config.goals.edge.minResolved}+ markets and a 95% range that excludes 0.</p>`
+    : `<div class="empty">The backtest agent hasn't scored any past markets yet. It runs hourly.</div>`;
+  const m = D.memory?.top || [];
+  $("#mem").innerHTML = m.length ? `<table><thead><tr><th>Series</th><th>Category</th><th class="n">Settled seen</th><th class="n">YES won</th><th class="n">Avg price</th><th class="n">Gap (outcome − price)</th><th class="n">Market Brier</th></tr></thead><tbody>${
+    m.map(x => `<tr><td><code>${esc(x.series)}</code></td><td>${esc(x.cat)}</td><td class="n">${x.n}</td><td class="n">${pct(x.yesRate)}</td><td class="n">${pct(x.avgPrice)}</td><td class="n ${x.bias > 0.05 ? "c-good" : x.bias < -0.05 ? "c-bad" : ""}">${sgn(x.bias)}</td><td class="n">${x.brierMarket}</td></tr>`).join("")}</tbody></table>
+    <p class="small muted">Top ${m.length} of ${D.memory.series} series by sample size. Small samples are noisy; the memory predictor ignores series with fewer than ${D.config.predictors.memory?.minN} and shrinks the rest.</p>`
+    : `<div class="empty">Memory fills as markets settle.</div>`;
+  $("#mcp").innerHTML = (D.mcpTools || []).map(t => `<span class="chip">${esc(t)}</span>`).join("");
+}
+function render() { if (!D) return; renderKpis(); renderAgent(); renderGoals(); renderTrades(); renderData(); renderSkills(); renderHistory(); paintPills(); }
 function paintPills() {
   const g = D.progress.goal || "IN_PROGRESS", h = D.progress.health;
   $("#goalPill").className = "pill " + statusTone(g); $("#goalPill").textContent = "goal: " + label(g);

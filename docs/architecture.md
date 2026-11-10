@@ -19,6 +19,25 @@ every 10 min (GitHub Actions)
                daily snapshot → data/progress.jsonl (trend). Recommends only; never edits config.
  scan.mjs, agents.mjs   dashboard feed (bets.json), unchanged
  dashboard.mjs everything above → dashboard.json (~70 KB) for dashboard.html
+
+Order in the Action: test → resolve → memory → predict → backtest (hourly) → score → progress → scan/agents → dashboard.
+
+## History and memory (added 2026-11-10)
+- **backtest.mjs (dev agent)**: lists settled markets (`/markets?status=settled`), takes bid/ask from 1-minute candles
+  (`/series/{s}/markets/{t}/candlesticks`) `leadMinutes` before resolution (earliest of close and settlement), applies the same filters
+  and predictors (`predictors.mjs`), stores rows with the official result. Walks close-time slices forward to now−1 h and back to
+  `days` ago; ≤300 candle calls per hourly run. One market per event (two-sided games are near-duplicates). Never mixed into the live record.
+- **memory.mjs**: samples = live outcomes + backtest rows. `recall(series, at)` uses only markets settled before `at` (leak-safe, tested).
+  Why no RAG/vector DB: the knowledge is numeric and keyed by series; an exact lookup is cheaper and more reliable than embeddings.
+  Revisit semantic search when there are many free-text research notes.
+- **memory predictor**: price + (n/(n+shrink)) × the series' past (outcome − price) gap; inactive below `minN` settled samples.
+- **import-trades.mjs**: owner's CSV export → `private/my-trades-report.json` (git-ignored). Column names matched by aliases.
+
+## MCP server (read-only)
+`mcp/server.mjs` (official MCP SDK, stdio). Tools: `get_status`, `get_scorecard` (live|backtest), `search_predictions`, `recall_series`, `list_skills`.
+- Claude Code: `npm --prefix mcp install`, then it's picked up from `.mcp.json` (approve the project server once).
+- Claude Desktop: add to its config `{"mcpServers":{"kalshi-agent":{"command":"node","args":["<full path>/kalshi-feed/mcp/server.mjs"]}}}`.
+- Smoke test: `node mcp/test-client.mjs`. Never writes, never calls Kalshi, never reads `private/`.
 ```
 
 ## Why this shape
@@ -48,7 +67,7 @@ that affects predictions so results can be split by version.
 Node 20+. `node test.mjs && node predict.mjs && node resolve.mjs && node score.mjs`. No keys needed.
 
 ## Costs
-GitHub Actions minutes are free for public repos. Kalshi public API: ~50 requests per run. No AI calls in v1.
+GitHub Actions minutes are free for public repos. Kalshi public API: ~50 requests per run, plus ≤300 per hour for the backtest. No AI calls in the scored pipeline.
 Storage: ~700 bytes per prediction; expect a few MB per month. If it grows too large, gzip old months.
 
 ## Limitations (v1)

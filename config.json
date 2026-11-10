@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "scan": {
   "windowDays": 16,
   "horizonHours": 6,
@@ -20,6 +20,12 @@
    "on": true,
    "slope": 1.1,
    "hypothesis": "Favorite-longshot bias: cheap contracts are overpriced, so true probabilities are more extreme than prices."
+  },
+  "memory": {
+   "on": true,
+   "minN": 10,
+   "shrink": 20,
+   "hypothesis": "Series memory: a series' own past gap between outcome and price persists, so shifting the price by that gap (shrunk when history is short) beats the price."
   }
  },
  "picks": {
@@ -42,5 +48,16 @@
    "maxLeakage": 0,
    "maxBacklogHours": 24
   }
+ },
+ "backtest": {
+  "everyMinutes": 60,
+  "days": 14,
+  "leadMinutes": 60,
+  "sliceHours": 6,
+  "maxPerRun": 150,
+  "maxCandleCalls": 300,
+  "settleDelayHours": 1,
+  "perEvent": 1,
+  "minVolume": 500
  }
 }

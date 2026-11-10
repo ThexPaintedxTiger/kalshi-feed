@@ -18,10 +18,16 @@ jobs:
         with:
           node-version: 20
       - run: node test.mjs
-      - name: Research — log predictions for markets resolving within hours
-        run: node predict.mjs
       - name: Check outcomes of resolved markets
         run: node resolve.mjs
+      - name: Memory — what each series taught us so far
+        run: node memory.mjs
+      - name: Research — log predictions for markets resolving within hours
+        run: node predict.mjs
+      - name: Backtest agent — past settled markets (hourly)
+        run: node backtest.mjs
+        continue-on-error: true
+        timeout-minutes: 5
       - name: Update scorecard
         run: node score.mjs
       - name: Progress vs goals
@@ -42,6 +48,6 @@ jobs:
         run: |
           git config user.name "kalshi-feed-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add bets.json history.json data scorecard.json progress.json dashboard.json
+          git add bets.json history.json data scorecard.json backtest-scorecard.json progress.json dashboard.json
           git commit -m "Update Kalshi feed" || exit 0
           for i in 1 2 3; do git pull --rebase -q && git push && exit 0; sleep 5; done; exit 1

@@ -11,6 +11,15 @@ Dated, sourced observations. Facts here are verified unless marked *hypothesis*.
 - Settled markets return `result: "yes"|"no"` and `settlement_ts`; a 200-ticker batch lookup works.
 - Old pipeline: of the top 150 dashboard markets only 11 closed within 24 h; picks had no ticker and were overwritten hourly, so nothing could be scored.
 
+## 2026-11-10 — History endpoints and first backtest
+- `/markets?status=settled&min_close_ts&max_close_ts` lists settled markets with `result`; ~50k settled single markets closed in a 6 h window (most illiquid).
+- `/series/{series}/markets/{ticker}/candlesticks?start_ts&end_ts&period_interval=1|60` returns `yes_bid`/`yes_ask` OHLC per period: historical
+  quotes at any past minute. `/historical/markets` and `/markets/trades` also exist (not used yet).
+- Candle yield: only ~25% of liquid settled markets have a two-sided quote within 10¢ spread an hour before close; many open less than an hour before close.
+- First backtest (302 past markets, 1 per event, prices 60 min before resolution, Nov 10 09:27–15:27 UTC): market Brier 0.178;
+  longshot +0.0003 vs market (95% range −0.0011…+0.0017): **no measurable difference**. One day of data, US daytime only; not a conclusion.
+
 ## Hypotheses to test (not yet evidence)
+- *Series memory*: a series' past gap between outcome and price persists. Predictor `memory` (minN 10, shrink 20). Needs history to activate.
 - *Favorite-longshot bias*: cheap contracts win less often than their price implies. Predictor `longshot` (slope 1.1).
   Published research on Kalshi reports this bias; our own data will confirm or reject it for short markets.

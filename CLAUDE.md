@@ -26,11 +26,15 @@ and count something as an improvement only when the scorecard shows it.
 
 ## Skills (`.claude/skills/`, reviewed in `docs/skills.md`)
 `kalshi-run-cycle` (run now) · `kalshi-check-progress` (judge results) · `kalshi-add-predictor` (new hypothesis) ·
-`save-as-skill` (convention) · `kalshi-ops-status` (errors, deploy status, when to get a human). When you write a script you'll reuse: test it, then save it with `save-as-skill`.
+`save-as-skill` (convention) · `kalshi-ops-status` (errors, deploy status, when to get a human) ·
+`kalshi-history` (backtest, memory, own trades, MCP). MCP server: `mcp/server.mjs` (read-only, `.mcp.json`; `npm --prefix mcp install` once). When you write a script you'll reuse: test it, then save it with `save-as-skill`.
 
 ## Storage
 - Predictions: `data/predictions/YYYY-MM.jsonl` (append-only, one row per market, logged before it resolves).
 - Outcomes: `data/outcomes.jsonl` (append-only, official Kalshi result per ticker).
+- Backtest: `data/backtest/YYYY-MM.jsonl` + `backtest-scorecard.json` (past settled markets; supporting evidence only).
+- Memory: `data/memory/series.json` (derived per-series knowledge, rebuilt each run; retrieval = lookup by series, no vector DB).
+- Owner's own trades: `private/` only (git-ignored; the repo is public). Never commit, publish or quote them beyond summaries.
 - Scores: `scorecard.json` (rebuilt each run from the two files above). Progress: `progress.json`, `data/progress.jsonl`, run heartbeats `data/runs.jsonl`.
 - Settings: `config.json` (horizon, filters, predictors and their hypotheses, edge threshold). `cfg` in each row = config version;
   bump `version` whenever a setting that affects predictions changes.
@@ -38,7 +42,8 @@ and count something as an improvement only when the scorecard shows it.
 - Git is the history.
 
 ## Pipeline (GitHub Actions, every 10 min, `.github/workflows/feed.yml`)
-`test.mjs` → `predict.mjs` → `resolve.mjs` → `score.mjs` → `progress.mjs` → `scan.mjs` + `agents.mjs` (Agent Flow feed, unchanged) → `dashboard.mjs`.
+`test.mjs` → `resolve.mjs` → `memory.mjs` → `predict.mjs` → `backtest.mjs` (hourly) → `score.mjs` → `progress.mjs` → `scan.mjs` + `agents.mjs` (Agent Flow feed, unchanged) → `dashboard.mjs`.
+Predictors live in `predictors.mjs` (shared by live and backtest).
 Details in `docs/architecture.md`.
 
 ## Kalshi API facts (verified 2026-11-10)

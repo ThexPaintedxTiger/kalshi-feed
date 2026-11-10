@@ -1,7 +1,9 @@
 // Research step: find Kalshi markets that resolve within the next few hours, estimate probabilities
 // with each enabled predictor, and APPEND one prediction per market to data/predictions/YYYY-MM.jsonl
 // BEFORE the market resolves. Rows are never edited afterwards. Simulation only: nothing is traded.
-import { config, kalshi, sleep, ev, resolvesAt, series, r4, readJsonl, appendJsonl, predictionFiles, readJson, writeJson } from "./lib.mjs";
+import { config, kalshi, sleep, resolvesAt, series, r4, readJsonl, appendJsonl, predictionFiles, categories } from "./lib.mjs";
+import { estimate } from "./predictors.mjs";
+import { loadSamples, makeRecall } from "./memory.mjs";
 
 const S = config.scan, now = Date.now(), nowS = Math.floor(now / 1000);
 const runId = new Date(now).toISOString();
@@ -36,12 +38,8 @@ for (const c of cand) if (!seen.has(c.m.ticker)) (byEvent[c.m.event_ticker] ||= 
 let pool = Object.values(byEvent).flatMap(a => a.sort((x, y) => Math.abs(x.mid - 0.5) - Math.abs(y.mid - 0.5)).slice(0, S.perEvent));
 pool.sort((a, b) => +(b.m.volume_24h_fp || 0) - +(a.m.volume_24h_fp || 0));
 
-// 4. Categories: cached in data/series.json; unknown series are looked up one by one (small calls, ≤30 per run).
-const cats = readJson("data/series.json", { map: {} });
-for (const t of [...new Set([...pool.map(c => series(c.m)), ...logged.map(p => p.series)])].filter(t => t && !(t in cats.map)).slice(0, 30)) {
-  try { cats.map[t] = (await kalshi(`/series/${encodeURIComponent(t)}`)).series?.category || ""; await sleep(150); }
-  catch (e) { console.log(`series ${t}: ${e.message}`); }
-}
+// 4. Categories (cached in data/series.json).
+const cats = { map: await categories([...pool.map(c => series(c.m)), ...logged.map(p => p.series)]) };
 // Take markets round-robin across categories (most active first within each) so one category can't fill the run.
 const byCat = {};
 for (const c of pool) (byCat[cats.map[series(c.m)] || "?"] ||= []).push(c);
@@ -49,22 +47,10 @@ const chosen = [];
 for (let i = 0; chosen.length < S.maxNewPerRun && Object.values(byCat).some(a => a.length > i); i++)
   for (const a of Object.values(byCat)) if (a[i] && chosen.length < S.maxNewPerRun) chosen.push(a[i]);
 
-// 5. Predictors (hypotheses live in config.json, versioned by "cfg"). Each returns a YES probability from data available NOW (no future information).
-const logit = p => Math.log(p / (1 - p)), sigm = x => 1 / (1 + Math.exp(-x));
-const PRED = {
-  market: c => c.mid,
-  longshot: c => sigm(config.predictors.longshot.slope * logit(c.mid)),
-};
-const on = Object.keys(PRED).filter(k => config.predictors[k]?.on);
-
+// 5. Predictors (predictors.mjs; hypotheses in config.json, versioned by "cfg"). Memory only uses markets settled before now.
+const recall = makeRecall(loadSamples());
 const rows = chosen.map(({ m, ask, bid, mid, res, lead }) => {
-  const est = {}, picks = {};
-  for (const k of on) {
-    const p = r4(PRED[k]({ m, ask, bid, mid })), e = ev(p, ask, bid);
-    est[k] = p;
-    const side = e.yes >= e.no ? "yes" : "no", edge = Math.max(e.yes, e.no);
-    if (edge >= config.picks.minEdge) picks[k] = { side, ev: r4(edge), cost: side === "yes" ? ask : r4(1 - bid) };
-  }
+  const { est, picks } = estimate({ mid, ask, bid, series: series(m), at: now }, { recall });
   return {
     ts: runId, run: sha, cfg: config.version,
     ticker: m.ticker, event: m.event_ticker, series: series(m), cat: cats.map[series(m)] || "",
@@ -81,5 +67,4 @@ const rows = chosen.map(({ m, ask, bid, mid, res, lead }) => {
 const [, file] = predictionFiles();
 appendJsonl(file, rows);
 appendJsonl("data/runs.jsonl", [{ ts: runId, run: sha, scanned: markets.length, candidates: cand.length, logged: rows.length }]); // heartbeat
-writeJson("data/series.json", cats);
 console.log(`scanned ${markets.length} markets (${pages} pages), ${cand.length} resolve in ${S.minLeadMinutes}m–${S.horizonHours}h, logged ${rows.length} new → ${file}`);

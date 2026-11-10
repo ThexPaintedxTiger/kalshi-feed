@@ -44,13 +44,17 @@ export function trend(cur, prev) {
   return parts.join(", ");
 }
 
-export function evaluate(sc, runs, preds, outcomes, goals, now, prevSnap) {
+export function evaluate(sc, runs, preds, outcomes, goals, now, prevSnap, bt = null) {
   const predictors = {};
-  for (const [k, p] of Object.entries(sc.predictors || {})) {
+  const names = new Set([...Object.keys(sc.predictors || {}), ...Object.keys(bt?.predictors || {})]);
+  for (const k of names) {
     if (k === "market") continue;
+    const p = sc.predictors?.[k] || { n: 0, brierVsMarket: {}, picks: { n: 0 } };
     const s = predictorStatus(p, goals.edge), vs = p.brierVsMarket || {};
     const snap = { n: p.n, mean: vs.mean ?? null, width: vs.hi != null && Number.isFinite(vs.hi) ? r4(vs.hi - vs.lo) : null };
-    predictors[k] = { ...s, n: p.n, brierVsMarket: vs.mean ?? null, picks: p.picks?.n || 0, trend: trend(snap, prevSnap?.predictors?.[k]), snap };
+    const b = bt?.predictors?.[k];
+    predictors[k] = { ...s, n: p.n, brierVsMarket: vs.mean ?? null, picks: p.picks?.n || 0, trend: trend(snap, prevSnap?.predictors?.[k]), snap,
+      backtest: b ? { n: b.n, brierVsMarket: b.brierVsMarket.mean, verdict: b.verdict, picks: b.picks.n, pnlPerContract: b.picks.pnlPerContract.mean } : null };
   }
   const h = health(sc, runs, preds, outcomes, goals.health, now);
   const st = Object.values(predictors).map(p => p.status);
@@ -67,10 +71,10 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const snaps = readJsonl("data/progress.jsonl");
   const prev = [...snaps].reverse().find(s => s.date < today);
   const preds = predictionFiles().flatMap(f => readJsonl(f));
-  const out = evaluate(readJson("scorecard.json", {}), readJsonl("data/runs.jsonl"), preds, readJsonl("data/outcomes.jsonl"), config.goals, now, prev);
+  const out = evaluate(readJson("scorecard.json", {}), readJsonl("data/runs.jsonl"), preds, readJsonl("data/outcomes.jsonl"), config.goals, now, prev, readJson("backtest-scorecard.json", null));
   writeJson("progress.json", out);
   if (!snaps.some(s => s.date === today) && Object.keys(out.predictors).length)
     appendJsonl("data/progress.jsonl", [{ date: today, resolved: out.resolved, predictors: Object.fromEntries(Object.entries(out.predictors).map(([k, p]) => [k, p.snap])) }]);
   console.log(`goal: ${out.goal}; health ${out.health.ok ? "OK" : "PROBLEM"}${out.health.warmingUp ? " (warming up)" : ""}; ` +
-    (Object.entries(out.predictors).map(([k, p]) => `${k}: ${p.status} — ${p.rec}`).join("; ") || "no resolved predictions yet"));
+    (Object.entries(out.predictors).map(([k, p]) => `${k}: ${p.status} — ${p.rec}${p.backtest ? ` [backtest n=${p.backtest.n}: ${p.backtest.verdict}]` : ""}`).join("; ") || "no resolved predictions yet"));
 }

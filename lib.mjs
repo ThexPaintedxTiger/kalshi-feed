@@ -59,3 +59,14 @@ export function predictionFiles(now = new Date()) {
   const prev = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1));
   return [`data/predictions/${ym(prev)}.jsonl`, `data/predictions/${ym(now)}.jsonl`];
 }
+
+// Series → Kalshi category, cached in data/series.json; unknown series are looked up one by one (≤ limit per call).
+export async function categories(seriesList, limit = 30) {
+  const cats = readJson("data/series.json", { map: {} });
+  for (const t of [...new Set(seriesList)].filter(t => t && !(t in cats.map)).slice(0, limit)) {
+    try { cats.map[t] = (await kalshi(`/series/${encodeURIComponent(t)}`)).series?.category || ""; await sleep(150); }
+    catch (e) { console.log(`series ${t}: ${e.message}`); }
+  }
+  writeJson("data/series.json", cats);
+  return cats.map;
+}

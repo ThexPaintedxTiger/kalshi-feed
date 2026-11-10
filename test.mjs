@@ -3,6 +3,9 @@ import assert from "node:assert/strict";
 import { fee, ev, resolvesAt } from "./lib.mjs";
 import { brier, logLoss, pnl, score } from "./score.mjs";
 import { predictorStatus, health, trend, evaluate } from "./progress.mjs";
+import { makeRecall } from "./memory.mjs";
+import { PRED, estimate } from "./predictors.mjs";
+import { parseCsv, mapColumns, normalize } from "./import-trades.mjs";
 
 // Fees: Kalshi taker fee rounds up to the cent.
 assert.equal(fee(0.5), 0.02);          // 0.07 × .5 × .5 = 1.75¢ → 2¢
@@ -36,6 +39,7 @@ assert.equal(sc.excludedLeakage, 1);
 assert.equal(sc.resolved, 200);
 assert.equal(sc.predictors.good.verdict, "beats market (Brier)");
 assert.equal(sc.predictors.market.brier.mean, 0.25);
+assert.equal(score(preds.map(p => ({ ...p, est: { ...p.est, same: p.est.market } })), outs, { score: { minResolved: 100, calibrationBins: 10 } }).predictors.same.verdict, "same as market (not active yet)");
 const small = score(preds.slice(0, 20), outs, { score: { minResolved: 100, calibrationBins: 10 } });
 assert.equal(small.predictors.good.verdict, "insufficient data"); // never conclude from few results
 
@@ -63,4 +67,22 @@ assert.equal(health({ excludedLeakage: 0 }, runs.slice(0, 6), [], [], H, T).warm
 assert.equal(trend({ n: 50, mean: -0.01, width: 0.02 }, { n: 30, mean: 0.01, width: 0.04 }), "+20 resolved, interval narrowing, direction flipped (0.01 → -0.01)");
 assert.equal(evaluate({ predictors: { market: pr(150, 0, 0, 0), x: pr(150, 0.02, 0.01, 0.03) } }, runs, [], [], { edge: G, health: H }, T).goal,
   "ALL_HYPOTHESES_FAILED — add a new predictor");
+
+// Memory never sees the future: recall at time t only uses markets settled before t.
+const mem = makeRecall(Array.from({ length: 30 }, (_, i) => ({ series: "S", mid: 0.5, y: i < 20 ? 1 : 0, t: 1000 + i })));
+assert.equal(mem("S", 1000), null);                 // nothing settled yet
+assert.equal(mem("S", 1020).n, 20);                 // only the first 20
+assert.equal(mem("S", 1020).bias, 0.5);             // all YES at 50¢ so far
+assert.equal(mem("S").n, 30); assert.equal(mem("X"), null);
+// Memory predictor: no change below minN, shrunk shift above it.
+assert.equal(PRED.memory({ mid: 0.5, series: "S", at: 1005 }, { recall: mem }), 0.5);       // n=5 < minN
+assert.equal(Math.round(PRED.memory({ mid: 0.5, series: "S", at: 1020 }, { recall: mem }) * 1e4), 5000 + 2500); // 0.5 + 20/40×0.5
+const e2 = estimate({ mid: 0.5, ask: 0.51, bid: 0.49, series: "S", at: 1005 }, { recall: mem });
+assert.equal(e2.est.market, 0.5); assert.deepEqual(e2.picks, {});              // fair price → no pick
+// Trade CSV import: quoted fields, cents, aliases, sells, junk rows.
+const csv = parseCsv('Market Ticker,Direction,Type,Contracts,Average Price,Fees\r\nKX-A,Yes,Buy,3,62¢,"$0.05"\nKX-B,No,Sell,1,40,\n,,,,,\n');
+assert.equal(csv.length, 3);
+const { map } = mapColumns(csv[0]);
+assert.deepEqual(normalize(csv[1], map), { ticker: "KX-A", side: "yes", sell: false, price: 0.62, count: 3, fees: 0.05, time: null });
+assert.equal(normalize(csv[2], map).sell, true);
 console.log("all tests passed");

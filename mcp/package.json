@@ -1,0 +1,10 @@
+{
+  "name": "kalshi-agent-mcp",
+  "private": true,
+  "type": "module",
+  "description": "Read-only MCP server exposing the Kalshi research agent's data to Claude.",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.17.4",
+    "zod": "3.25.76"
+  }
+}

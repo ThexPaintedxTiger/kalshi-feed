@@ -1,0 +1,5 @@
+{
+  "mcpServers": {
+    "kalshi-agent": { "command": "node", "args": ["mcp/server.mjs"] }
+  }
+}

@@ -1,7 +1,7 @@
 {
- "generated": "2026-11-10T16:19:26.918Z",
+ "generated": "2026-11-10T16:38:42.819Z",
  "config": {
-  "version": 1,
+  "version": 2,
   "scan": {
    "windowDays": 16,
    "horizonHours": 6,
@@ -22,6 +22,12 @@
     "on": true,
     "slope": 1.1,
     "hypothesis": "Favorite-longshot bias: cheap contracts are overpriced, so true probabilities are more extreme than prices."
+   },
+   "memory": {
+    "on": true,
+    "minN": 10,
+    "shrink": 20,
+    "hypothesis": "Series memory: a series' own past gap between outcome and price persists, so shifting the price by that gap (shrunk when history is short) beats the price."
    }
   },
   "picks": {
@@ -40,10 +46,21 @@
     "maxLeakage": 0,
     "maxBacklogHours": 24
    }
+  },
+  "backtest": {
+   "everyMinutes": 60,
+   "days": 14,
+   "leadMinutes": 60,
+   "sliceHours": 6,
+   "maxPerRun": 150,
+   "maxCandleCalls": 300,
+   "settleDelayHours": 1,
+   "perEvent": 1,
+   "minVolume": 500
   }
  },
  "progress": {
-  "updated": "2026-11-10T16:18:02.315Z",
+  "updated": "2026-11-10T16:35:08.246Z",
   "goal": "IN_PROGRESS",
   "resolved": 0,
   "health": {
@@ -52,12 +69,12 @@
    "checks": {
     "runsLast24h": {
      "value": 5,
-     "target": 0,
+     "target": 2,
      "ok": true
     },
     "newPredictionsLast24h": {
      "value": 560,
-     "target": 0,
+     "target": 1,
      "ok": true
     },
     "leakage": {
@@ -74,7 +91,48 @@
     }
    }
   },
-  "predictors": {},
+  "predictors": {
+   "longshot": {
+    "status": "INSUFFICIENT",
+    "rec": "wait: 0/20 resolved before any trend is readable",
+    "n": 0,
+    "brierVsMarket": null,
+    "picks": 0,
+    "trend": "first snapshot",
+    "snap": {
+     "n": 0,
+     "mean": null,
+     "width": null
+    },
+    "backtest": {
+     "n": 301,
+     "brierVsMarket": 0.0003,
+     "verdict": "no measurable difference",
+     "picks": 0,
+     "pnlPerContract": null
+    }
+   },
+   "memory": {
+    "status": "INSUFFICIENT",
+    "rec": "wait: 0/20 resolved before any trend is readable",
+    "n": 0,
+    "brierVsMarket": null,
+    "picks": 0,
+    "trend": "first snapshot",
+    "snap": {
+     "n": 0,
+     "mean": null,
+     "width": null
+    },
+    "backtest": {
+     "n": 301,
+     "brierVsMarket": 0,
+     "verdict": "no measurable difference",
+     "picks": 0,
+     "pnlPerContract": null
+    }
+   }
+  },
   "definitions": "SUCCESS = Brier better than market (95% interval < 0, n ≥ minResolved) AND simulated picks profitable after fees (95% interval > 0, ≥ minPicks). FAILURE = clearly worse than market, or no edge after retireAfter resolved. Recommendations only; nothing changes without owner approval."
  },
  "scorecard": {
@@ -2585,6 +2643,16 @@
    "path": ".claude/skills/kalshi-check-progress/SKILL.md"
   },
   {
+   "name": "kalshi-history",
+   "description": "Gather and use Kalshi history: run the backtest agent on past settled markets, look up what memory knows about a series, import and score the owner's own Kalshi trades from a CSV export, and query the agent's data through the read-only MCP server. Use when asked about past markets or past bets, backtesting, what we know about a series, the owner's trade history, or to set up/use the MCP tools. Not for live predictions (use kalshi-run-cycle), judging the live record (use kalshi-check-progress) or pipeline errors (use kalshi-ops-status).",
+   "path": ".claude/skills/kalshi-history/SKILL.md"
+  },
+  {
+   "name": "kalshi-ops-status",
+   "description": "Check whether the Kalshi agent's machinery is working: recent GitHub Actions runs and deploys (merges to main), whether the 10-minute schedule fires, data freshness, failed steps and their logs, then diagnose and decide whether a human is needed. Use when asked to look at errors, check the status of the recent deploy or runs, why data stopped updating, or before/after merging a change. Not for judging prediction quality (use kalshi-check-progress) or running the pipeline now (use kalshi-run-cycle).",
+   "path": ".claude/skills/kalshi-ops-status/SKILL.md"
+  },
+  {
    "name": "kalshi-run-cycle",
    "description": "Run one Kalshi research cycle on this machine right now (tests, log predictions, check outcomes, score, progress) and report counts and errors. Use when asked to run, refresh or test the prediction agent/pipeline now, or after changing predict/resolve/score code. Not for repeating on a schedule (the GitHub Action does that every 10 min; to trigger it in the cloud use gh workflow run) and not for judging results (use kalshi-check-progress).",
    "path": ".claude/skills/kalshi-run-cycle/SKILL.md"
@@ -2594,5 +2662,460 @@
    "description": "This project's convention for saving a script Claude wrote and tested as a reusable skill in .claude/skills/<name>/ (YAML front matter with what/when/not-for description, register in docs/skills.md and CLAUDE.md). Use when a script in this repo will be reused, or the owner says save this as a skill/tool. Not for general skill design, evals or skills outside this repo (use anthropic-skills:skill-creator).",
    "path": ".claude/skills/save-as-skill/SKILL.md"
   }
+ ],
+ "backtest": {
+  "resolved": 302,
+  "events": 302,
+  "window": {
+   "from": "2026-11-10T09:27:57.293Z",
+   "to": "2026-11-10T15:27:57.293Z"
+  },
+  "predictors": {
+   "market": {
+    "n": 302,
+    "brier": {
+     "mean": 0.1778,
+     "lo": 0.1561,
+     "hi": 0.1996,
+     "events": 302
+    },
+    "logLoss": {
+     "mean": 0.5281,
+     "lo": 0.4751,
+     "hi": 0.581,
+     "events": 302
+    },
+    "brierVsMarket": {
+     "mean": 0,
+     "lo": 0,
+     "hi": 0,
+     "events": 302
+    },
+    "verdict": "baseline",
+    "picks": {
+     "n": 0,
+     "wins": 0,
+     "pnlPerContract": {
+      "mean": null,
+      "lo": null,
+      "hi": null,
+      "events": 0
+     },
+     "totalPnl": 0,
+     "profitable": false
+    },
+    "calibration": [
+     {
+      "bin": "0-10%",
+      "n": 28,
+      "avgP": 0.0609,
+      "hitRate": 0.0714
+     },
+     {
+      "bin": "10-20%",
+      "n": 40,
+      "avgP": 0.1453,
+      "hitRate": 0.15
+     },
+     {
+      "bin": "20-30%",
+      "n": 33,
+      "avgP": 0.245,
+      "hitRate": 0.3636
+     },
+     {
+      "bin": "30-40%",
+      "n": 31,
+      "avgP": 0.3481,
+      "hitRate": 0.4839
+     },
+     {
+      "bin": "40-50%",
+      "n": 37,
+      "avgP": 0.4523,
+      "hitRate": 0.5946
+     },
+     {
+      "bin": "50-60%",
+      "n": 28,
+      "avgP": 0.5436,
+      "hitRate": 0.7143
+     },
+     {
+      "bin": "60-70%",
+      "n": 38,
+      "avgP": 0.6445,
+      "hitRate": 0.7632
+     },
+     {
+      "bin": "70-80%",
+      "n": 29,
+      "avgP": 0.7433,
+      "hitRate": 0.8276
+     },
+     {
+      "bin": "80-90%",
+      "n": 26,
+      "avgP": 0.8519,
+      "hitRate": 0.9615
+     },
+     {
+      "bin": "90-100%",
+      "n": 12,
+      "avgP": 0.9283,
+      "hitRate": 0.9167
+     }
+    ]
+   },
+   "longshot": {
+    "n": 302,
+    "brier": {
+     "mean": 0.1782,
+     "lo": 0.1551,
+     "hi": 0.2012,
+     "events": 302
+    },
+    "logLoss": {
+     "mean": 0.5286,
+     "lo": 0.4711,
+     "hi": 0.5862,
+     "events": 302
+    },
+    "brierVsMarket": {
+     "mean": 0.0003,
+     "lo": -0.0011,
+     "hi": 0.0018,
+     "events": 302
+    },
+    "verdict": "no measurable difference",
+    "picks": {
+     "n": 0,
+     "wins": 0,
+     "pnlPerContract": {
+      "mean": null,
+      "lo": null,
+      "hi": null,
+      "events": 0
+     },
+     "totalPnl": 0,
+     "profitable": false
+    },
+    "calibration": [
+     {
+      "bin": "0-10%",
+      "n": 35,
+      "avgP": 0.056,
+      "hitRate": 0.0571
+     },
+     {
+      "bin": "10-20%",
+      "n": 39,
+      "avgP": 0.1411,
+      "hitRate": 0.1795
+     },
+     {
+      "bin": "20-30%",
+      "n": 32,
+      "avgP": 0.2417,
+      "hitRate": 0.4063
+     },
+     {
+      "bin": "30-40%",
+      "n": 26,
+      "avgP": 0.3426,
+      "hitRate": 0.5
+     },
+     {
+      "bin": "40-50%",
+      "n": 37,
+      "avgP": 0.4476,
+      "hitRate": 0.5946
+     },
+     {
+      "bin": "50-60%",
+      "n": 27,
+      "avgP": 0.5458,
+      "hitRate": 0.7037
+     },
+     {
+      "bin": "60-70%",
+      "n": 35,
+      "avgP": 0.651,
+      "hitRate": 0.7714
+     },
+     {
+      "bin": "70-80%",
+      "n": 29,
+      "avgP": 0.7483,
+      "hitRate": 0.8621
+     },
+     {
+      "bin": "80-90%",
+      "n": 25,
+      "avgP": 0.8546,
+      "hitRate": 0.88
+     },
+     {
+      "bin": "90-100%",
+      "n": 17,
+      "avgP": 0.9337,
+      "hitRate": 0.9412
+     }
+    ]
+   },
+   "memory": {
+    "n": 302,
+    "brier": {
+     "mean": 0.1774,
+     "lo": 0.1557,
+     "hi": 0.1992,
+     "events": 302
+    },
+    "logLoss": {
+     "mean": 0.5272,
+     "lo": 0.4743,
+     "hi": 0.58,
+     "events": 302
+    },
+    "brierVsMarket": {
+     "mean": -0.0004,
+     "lo": -0.0012,
+     "hi": 0.0004,
+     "events": 302
+    },
+    "verdict": "no measurable difference",
+    "picks": {
+     "n": 1,
+     "wins": 1,
+     "pnlPerContract": {
+      "mean": 0.64,
+      "lo": null,
+      "hi": null,
+      "events": 1
+     },
+     "totalPnl": 0.64,
+     "profitable": false
+    },
+    "calibration": [
+     {
+      "bin": "0-10%",
+      "n": 28,
+      "avgP": 0.0609,
+      "hitRate": 0.0714
+     },
+     {
+      "bin": "10-20%",
+      "n": 40,
+      "avgP": 0.1453,
+      "hitRate": 0.15
+     },
+     {
+      "bin": "20-30%",
+      "n": 33,
+      "avgP": 0.245,
+      "hitRate": 0.3636
+     },
+     {
+      "bin": "30-40%",
+      "n": 30,
+      "avgP": 0.3485,
+      "hitRate": 0.4667
+     },
+     {
+      "bin": "40-50%",
+      "n": 38,
+      "avgP": 0.4519,
+      "hitRate": 0.6053
+     },
+     {
+      "bin": "50-60%",
+      "n": 28,
+      "avgP": 0.5436,
+      "hitRate": 0.7143
+     },
+     {
+      "bin": "60-70%",
+      "n": 38,
+      "avgP": 0.6445,
+      "hitRate": 0.7632
+     },
+     {
+      "bin": "70-80%",
+      "n": 29,
+      "avgP": 0.7433,
+      "hitRate": 0.8276
+     },
+     {
+      "bin": "80-90%",
+      "n": 26,
+      "avgP": 0.8519,
+      "hitRate": 0.9615
+     },
+     {
+      "bin": "90-100%",
+      "n": 12,
+      "avgP": 0.9283,
+      "hitRate": 0.9167
+     }
+    ]
+   }
+  }
+ },
+ "memory": {
+  "samples": 301,
+  "series": 48,
+  "top": [
+   {
+    "series": "KXITFWMATCH",
+    "cat": "Sports",
+    "n": 62,
+    "yesRate": 0.4032,
+    "avgPrice": 0.3768,
+    "bias": 0.0265,
+    "brierMarket": 0.1492,
+    "last": "2026-11-10T15:19:16.207Z",
+    "live": 0,
+    "backtest": 62
+   },
+   {
+    "series": "KXITFMATCH",
+    "cat": "Sports",
+    "n": 55,
+    "yesRate": 0.6182,
+    "avgPrice": 0.4875,
+    "bias": 0.1306,
+    "brierMarket": 0.1737,
+    "last": "2026-11-10T15:13:56.204Z",
+    "live": 0,
+    "backtest": 55
+   },
+   {
+    "series": "KXESOCCERGAME",
+    "cat": "Sports",
+    "n": 24,
+    "yesRate": 0.5,
+    "avgPrice": 0.3621,
+    "bias": 0.1379,
+    "brierMarket": 0.2839,
+    "last": "2026-11-10T15:24:21.203Z",
+    "live": 0,
+    "backtest": 24
+   },
+   {
+    "series": "KXITFWDOUBLES",
+    "cat": "Sports",
+    "n": 19,
+    "yesRate": 0.4211,
+    "avgPrice": 0.425,
+    "bias": -0.0039,
+    "brierMarket": 0.0597,
+    "last": "2026-11-10T15:03:06.205Z",
+    "live": 0,
+    "backtest": 19
+   },
+   {
+    "series": "KXATPCHALLENGERMATCH",
+    "cat": "Sports",
+    "n": 17,
+    "yesRate": 0.6471,
+    "avgPrice": 0.5797,
+    "bias": 0.0674,
+    "brierMarket": 0.1693,
+    "last": "2026-11-10T14:52:36.221Z",
+    "live": 0,
+    "backtest": 17
+   },
+   {
+    "series": "KXDOTA2MAP",
+    "cat": "Sports",
+    "n": 15,
+    "yesRate": 0.8667,
+    "avgPrice": 0.6043,
+    "bias": 0.2623,
+    "brierMarket": 0.1602,
+    "last": "2026-11-10T15:28:06.252Z",
+    "live": 0,
+    "backtest": 15
+   },
+   {
+    "series": "KXEBASKETBALLGAME",
+    "cat": "Sports",
+    "n": 12,
+    "yesRate": 0.6667,
+    "avgPrice": 0.5087,
+    "bias": 0.1579,
+    "brierMarket": 0.2484,
+    "last": "2026-11-10T14:58:31.204Z",
+    "live": 0,
+    "backtest": 12
+   },
+   {
+    "series": "KXITFDOUBLES",
+    "cat": "Sports",
+    "n": 11,
+    "yesRate": 0.5455,
+    "avgPrice": 0.4341,
+    "bias": 0.1114,
+    "brierMarket": 0.2056,
+    "last": "2026-11-10T15:12:26.206Z",
+    "live": 0,
+    "backtest": 11
+   },
+   {
+    "series": "KXCS2MAP",
+    "cat": "Sports",
+    "n": 9,
+    "yesRate": 0.6667,
+    "avgPrice": 0.6183,
+    "bias": 0.0483,
+    "brierMarket": 0.1651,
+    "last": "2026-11-10T14:48:06.255Z",
+    "live": 0,
+    "backtest": 9
+   },
+   {
+    "series": "KXCS2GAME",
+    "cat": "Sports",
+    "n": 7,
+    "yesRate": 0.4286,
+    "avgPrice": 0.35,
+    "bias": 0.0786,
+    "brierMarket": 0.131,
+    "last": "2026-11-10T13:52:46.258Z",
+    "live": 0,
+    "backtest": 7
+   },
+   {
+    "series": "KXDARTSMATCH",
+    "cat": "Sports",
+    "n": 7,
+    "yesRate": 0.7143,
+    "avgPrice": 0.5757,
+    "bias": 0.1386,
+    "brierMarket": 0.1964,
+    "last": "2026-11-10T12:26:11.207Z",
+    "live": 0,
+    "backtest": 7
+   },
+   {
+    "series": "KXDOTA2GAME",
+    "cat": "Sports",
+    "n": 7,
+    "yesRate": 0.8571,
+    "avgPrice": 0.7007,
+    "bias": 0.1564,
+    "brierMarket": 0.0929,
+    "last": "2026-11-10T14:55:41.201Z",
+    "live": 0,
+    "backtest": 7
+   }
+  ]
+ },
+ "mcpTools": [
+  "get_status",
+  "get_scorecard",
+  "search_predictions",
+  "recall_series",
+  "list_skills"
  ]
 }

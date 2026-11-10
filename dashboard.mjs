@@ -40,7 +40,7 @@ for (const p of preds) { const c = (cats[p.cat || "Other"] ||= { logged: 0, reso
 
 writeJson("dashboard.json", {
   generated: new Date(now).toISOString(),
-  config: { version: config.version, scan: config.scan, predictors: config.predictors, picks: config.picks, goals: config.goals },
+  config: { version: config.version, scan: config.scan, predictors: config.predictors, picks: config.picks, goals: config.goals, backtest: config.backtest },
   progress, scorecard: { resolved: scorecard.resolved, predictions: scorecard.predictions, excludedLeakage: scorecard.excludedLeakage,
     events: scorecard.events, predictors: scorecard.predictors, byCategory: scorecard.byCategory },
   totals: { predictions: preds.length, outcomes: Object.keys(out).length, trades: trades.length, runs: runs.length },
@@ -51,5 +51,9 @@ writeJson("dashboard.json", {
   gemini: { updated: bets.picksUpdated || null, agents: bets.picksAgents || [], picks: (bets.picks || []).slice(0, 10),
     feedUpdated: bets.updated || null, liquid: bets.liquid || 0, events: bets.events || 0 },
   skills,
+  backtest: (() => { const b = readJson("backtest-scorecard.json", null); return b && { resolved: b.resolved, events: b.events, window: b.window, predictors: b.predictors }; })(),
+  memory: (() => { const m = readJson("data/memory/series.json", { series: {} }); return { samples: m.samples || 0, series: Object.keys(m.series).length,
+    top: Object.entries(m.series).sort((a, b) => b[1].n - a[1].n).slice(0, 12).map(([k, v]) => ({ series: k, ...v })) }; })(),
+  mcpTools: ["get_status", "get_scorecard", "search_predictions", "recall_series", "list_skills"],
 });
 console.log(`dashboard.json: ${preds.length} predictions, ${trades.length} simulated trades, ${skills.length} skills`);
