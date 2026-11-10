@@ -20,29 +20,52 @@ const SPECS = {
   baseRate: "Judge from base rates and general knowledge: how often events like this happen before the deadline, and whether the price looks too high or too low.",
   rules: "Judge resolution and tradability risk: spread, volume, settle date and rule traps (ties, 'other', early close, vague wording). Lower your probability when the rules are risky.",
 };
-const MODELS = ["gemini-flash-latest", "gemini-2.5-flash", "gemini-2.0-flash"];
+// Pick a free "flash" model this key can actually use (names change over time).
+async function models() {
+  try {
+    const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models?pageSize=200", { headers: { "x-goog-api-key": KEY } });
+    const j = await r.json(); if (!r.ok) { console.log("ListModels:", r.status, JSON.stringify(j.error || j).slice(0, 200)); return []; }
+    return (j.models || []).filter(m => (m.supportedGenerationMethods || []).includes("generateContent") && /flash/.test(m.name) && !/image|tts|live|audio|thinking|exp|preview/.test(m.name))
+      .map(m => m.name.replace("models/", "")).sort((a, b) => (/lite/.test(a) - /lite/.test(b)) || b.localeCompare(a));
+  } catch (e) { console.log("ListModels failed:", e.message); return []; }
+}
+const MODELS = [...new Set([...(await models()), "gemini-flash-latest", "gemini-2.5-flash", "gemini-2.5-flash-lite"])].slice(0, 5);
+console.log("Models to try:", MODELS.join(", "));
 async function ask(prompt) {
-  let last;
-  for (const model of MODELS) for (let a = 0; a < 3; a++) {
-    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-      method: "POST", headers: { "Content-Type": "application/json", "x-goog-api-key": KEY },
-      body: JSON.stringify({ contents: [{ role: "user", parts: [{ text: prompt }] }], generationConfig: { responseMimeType: "application/json", temperature: 0.3 } }) });
-    if (r.status === 429 || r.status >= 500) { last = "HTTP " + r.status; await new Promise(s => setTimeout(s, 15000 * (a + 1))); continue; }
-    if (r.status === 404) { last = model + " not found"; break; }
-    const j = await r.json(); if (!r.ok) throw new Error(JSON.stringify(j.error || j).slice(0, 300));
-    const txt = (j.candidates?.[0]?.content?.parts || []).map(p => p.text || "").join("");
-    return JSON.parse(txt.replace(/^```(json)?|```$/g, "").trim());
+  for (const model of MODELS) for (let a = 0; a < 2; a++) {
+    let r, j;
+    try {
+      r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+        method: "POST", headers: { "Content-Type": "application/json", "x-goog-api-key": KEY },
+        body: JSON.stringify({ contents: [{ role: "user", parts: [{ text: prompt }] }], generationConfig: { responseMimeType: "application/json", temperature: 0.3 } }) });
+      j = await r.json().catch(() => ({}));
+    } catch (e) { console.log(`${model}: network error ${e.message}`); await new Promise(s => setTimeout(s, 5000)); continue; }
+    if (r.ok) {
+      const txt = (j.candidates?.[0]?.content?.parts || []).map(p => p.text || "").join("");
+      try { console.log(`Answer from ${model}`); return JSON.parse(txt.replace(/^```(json)?|```$/g, "").trim()); }
+      catch { console.log(`${model}: answer wasn't JSON`); continue; }
+    }
+    const msg = JSON.stringify(j.error || j).slice(0, 250); console.log(`${model}: HTTP ${r.status} ${msg}`);
+    if (r.status === 429 || r.status >= 500) { const d = +(String(msg).match(/retryDelay\W+(\d+)/) || [])[1] || 20; if (d > 60) break; await new Promise(s => setTimeout(s, d * 1000)); continue; }
+    break; // 400/403/404: try the next model
   }
-  throw new Error("Gemini failed: " + last);
+  throw new Error("no model answered");
 }
 const today = new Date().toISOString().slice(0, 10);
-const results = await Promise.allSettled(Object.entries(SPECS).map(async ([name, job]) => [name, await ask(
-`You are a careful prediction-market analyst. Today is ${today}. ${job}
-Use ONLY the data below; prices are YES prices in cents (= the market's implied chance).
-Return JSON: an array with one object per market: {"id": number, "p": your YES probability 0-100, "conf": "high"|"med"|"low", "why": "max 15 words"}.
-DATA: ${JSON.stringify(data)}`)]));
-const views = {}; for (const r of results) if (r.status === "fulfilled") views[r.value[0]] = r.value[1]; else console.log("Agent failed:", r.reason?.message);
-if (!Object.keys(views).length) { console.log("All agents failed — keeping old picks."); process.exit(0); }
+// ONE call returns all three specialists' views — 3 agents for the price of 1 request (fits the free tier easily).
+let views = {};
+try {
+  const out = await ask(`You are a team of three careful prediction-market analysts. Today is ${today}.
+Prices are YES prices in cents (= the market's implied chance). Use ONLY the data below.
+- "momentum": ${SPECS.momentum}
+- "baseRate": ${SPECS.baseRate}
+- "rules": ${SPECS.rules}
+Each analyst works independently. Return JSON: {"momentum": [...], "baseRate": [...], "rules": [...]} where each array has one object per market:
+{"id": number, "p": that analyst's YES probability 0-100, "conf": "high"|"med"|"low", "why": "max 15 words"}.
+DATA: ${JSON.stringify(data)}`);
+  for (const k of Object.keys(SPECS)) if (Array.isArray(out?.[k])) views[k] = out[k];
+} catch (e) { console.log("AI failed:", e.message); }
+if (!Object.keys(views).length) { console.log("No analyst answers — keeping old picks."); process.exit(0); }
 
 const W = { high: 3, med: 2, low: 1 };
 const picks = [];
