@@ -1,15 +1,15 @@
 {
- "updated": "2026-11-10T21:45:18.382Z",
+ "updated": "2026-11-10T21:46:37.465Z",
  "goal": "IN_PROGRESS",
  "resolved": 495,
  "health": {
-  "ok": false,
+  "ok": true,
   "warmingUp": true,
   "checks": {
    "runsLast24h": {
-    "value": 22,
+    "value": 23,
     "target": 23,
-    "ok": false
+    "ok": true
    },
    "newPredictionsLast24h": {
     "value": 853,

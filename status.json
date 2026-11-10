@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T21:45:18.782Z",
+ "updated": "2026-11-10T21:46:37.970Z",
  "trade": {
   "answer": "No — don't trade real money yet",
   "tone": "bad",
@@ -114,7 +114,7 @@
   {
    "name": "Runs on schedule (every 10 min)",
    "ok": false,
-   "detail": "6 cloud runs in the last 3 h (expect ~18)"
+   "detail": "7 cloud runs in the last 3 h (expect ~18)"
   },
   {
    "name": "New predictions are being logged",
@@ -124,7 +124,7 @@
   {
    "name": "Outcomes are being collected",
    "ok": true,
-   "detail": "343/361 predictions due >2 h ago have an official result"
+   "detail": "344/362 predictions due >2 h ago have an official result"
   },
   {
    "name": "Scorecard matches the logs",
@@ -149,7 +149,7 @@
   {
    "name": "Network trained in the last 2 h",
    "ok": true,
-   "detail": "trained 48 min ago on 1255 markets"
+   "detail": "trained 50 min ago on 1255 markets"
   },
   {
    "name": "Bet-size safety held (≤5% per bet)",

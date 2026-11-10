@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-10T21:45:18.819Z",
+ "generated": "2026-11-10T21:46:38.023Z",
  "config": {
   "version": 5,
   "scan": {
@@ -158,17 +158,17 @@
   }
  },
  "progress": {
-  "updated": "2026-11-10T21:45:18.382Z",
+  "updated": "2026-11-10T21:46:37.465Z",
   "goal": "IN_PROGRESS",
   "resolved": 495,
   "health": {
-   "ok": false,
+   "ok": true,
    "warmingUp": true,
    "checks": {
     "runsLast24h": {
-     "value": 22,
+     "value": 23,
      "target": 23,
-     "ok": false
+     "ok": true
     },
     "newPredictionsLast24h": {
      "value": 853,
@@ -673,7 +673,7 @@
   "predictions": 853,
   "outcomes": 495,
   "trades": 75,
-  "runs": 22
+  "runs": 23
  },
  "categories": {
   "Sports": {
@@ -858,6 +858,13 @@
    "run": "048b1ff",
    "scanned": 46595,
    "candidates": 1149,
+   "logged": 0
+  },
+  {
+   "ts": "2026-11-10T21:46:20.670Z",
+   "run": "ec90ae7",
+   "scanned": 46574,
+   "candidates": 1142,
    "logged": 0
   }
  ],
@@ -5765,7 +5772,7 @@
   ]
  },
  "paper": {
-  "updated": "2026-11-10T21:45:18.427Z",
+  "updated": "2026-11-10T21:46:37.531Z",
   "start": 10,
   "goal": 1000,
   "safety": {
@@ -10950,7 +10957,7 @@
   }
  },
  "status": {
-  "updated": "2026-11-10T21:45:18.782Z",
+  "updated": "2026-11-10T21:46:37.970Z",
   "trade": {
    "answer": "No — don't trade real money yet",
    "tone": "bad",
@@ -11065,7 +11072,7 @@
    {
     "name": "Runs on schedule (every 10 min)",
     "ok": false,
-    "detail": "6 cloud runs in the last 3 h (expect ~18)"
+    "detail": "7 cloud runs in the last 3 h (expect ~18)"
    },
    {
     "name": "New predictions are being logged",
@@ -11075,7 +11082,7 @@
    {
     "name": "Outcomes are being collected",
     "ok": true,
-    "detail": "343/361 predictions due >2 h ago have an official result"
+    "detail": "344/362 predictions due >2 h ago have an official result"
    },
    {
     "name": "Scorecard matches the logs",
@@ -11100,7 +11107,7 @@
    {
     "name": "Network trained in the last 2 h",
     "ok": true,
-    "detail": "trained 48 min ago on 1255 markets"
+    "detail": "trained 50 min ago on 1255 markets"
    },
    {
     "name": "Bet-size safety held (≤5% per bet)",
@@ -11145,7 +11152,7 @@
   }
  ],
  "focus": {
-  "updated": "2026-11-10T21:45:18.546Z",
+  "updated": "2026-11-10T21:46:37.715Z",
   "markets": [
    {
     "ticker": "KXHYPED-26NOV1017-T71.9999",
@@ -11166,15 +11173,10 @@
       "cost": 0.25
      }
     },
-    "price": 0.985,
-    "chg30m": 0.135,
-    "chg3h": 0.61,
+    "price": 0.975,
+    "chg30m": 0.11,
+    "chg3h": 0.595,
     "series": [
-     [
-      1794336360000,
-      0.375,
-      0
-     ],
      [
       1794336420000,
       0.38,
@@ -12029,6 +12031,11 @@
       1794347100000,
       0.985,
       0
+     ],
+     [
+      1794347160000,
+      0.975,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxhyped"
@@ -12052,9 +12059,9 @@
       "cost": 0.13
      }
     },
-    "price": 0.11,
+    "price": 0.115,
     "chg30m": 0.005,
-    "chg3h": -0.14,
+    "chg3h": -0.135,
     "series": [
      [
       1794344520000,
@@ -12275,6 +12282,11 @@
       1794347100000,
       0.11,
       0
+     ],
+     [
+      1794347160000,
+      0.115,
+      6.29
      ]
     ],
     "url": "https://kalshi.com/markets/kxtempchihs"
@@ -12377,15 +12389,10 @@
      "nn": 0.0659
     },
     "picks": {},
-    "price": 0.945,
-    "chg30m": 0.195,
-    "chg3h": 0.675,
+    "price": 0.955,
+    "chg30m": 0.18,
+    "chg3h": 0.48,
     "series": [
-     [
-      1794336360000,
-      0.27,
-      0
-     ],
      [
       1794336420000,
       0.475,
@@ -13245,6 +13252,11 @@
       1794347100000,
       0.945,
       0
+     ],
+     [
+      1794347160000,
+      0.955,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxhype"
@@ -13470,6 +13482,11 @@
       1794347100000,
       0.995,
       0
+     ],
+     [
+      1794347160000,
+      0.995,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxsilverd"
@@ -13487,9 +13504,9 @@
      "nn": 0.0934
     },
     "picks": {},
-    "price": 0.23,
-    "chg30m": 0.09,
-    "chg3h": -0.07,
+    "price": 0.305,
+    "chg30m": 0.175,
+    "chg3h": 0.005,
     "series": [
      [
       1794344520000,
@@ -13710,6 +13727,11 @@
       1794347100000,
       0.23,
       40.28
+     ],
+     [
+      1794347160000,
+      0.305,
+      395.73
      ]
     ],
     "url": "https://kalshi.com/markets/kxtempmiah"
@@ -13950,6 +13972,11 @@
       1794347100000,
       0.175,
       318.45
+     ],
+     [
+      1794347160000,
+      0.175,
+      208.31
      ]
     ],
     "url": "https://kalshi.com/markets/kxtempnychs"
@@ -13968,7 +13995,7 @@
     },
     "picks": {},
     "price": 0.285,
-    "chg30m": 0.105,
+    "chg30m": 0.145,
     "chg3h": -0.12,
     "series": [
      [
@@ -14205,6 +14232,11 @@
       1794347100000,
       0.285,
       20
+     ],
+     [
+      1794347160000,
+      0.285,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxwtih"
@@ -14222,9 +14254,9 @@
      "nn": 0.7668
     },
     "picks": {},
-    "price": 0.85,
-    "chg30m": 0.06,
-    "chg3h": 0.47,
+    "price": 0.84,
+    "chg30m": 0.005,
+    "chg3h": 0.46,
     "series": [
      [
       1794344520000,
@@ -14445,6 +14477,11 @@
       1794347100000,
       0.85,
       41
+     ],
+     [
+      1794347160000,
+      0.84,
+      184.8
      ]
     ],
     "url": "https://kalshi.com/markets/kxtemplaxhs"
@@ -14462,9 +14499,9 @@
      "nn": 0.9089
     },
     "picks": {},
-    "price": 0.945,
-    "chg30m": 0.16,
-    "chg3h": 0.595,
+    "price": 0.97,
+    "chg30m": 0.185,
+    "chg3h": 0.62,
     "series": [
      [
       1794336420000,
@@ -15150,6 +15187,11 @@
       1794347100000,
       0.945,
       0
+     ],
+     [
+      1794347160000,
+      0.97,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxbnb"
@@ -15167,9 +15209,9 @@
      "nn": 0.225
     },
     "picks": {},
-    "price": 0.16,
-    "chg30m": 0.01,
-    "chg3h": -0.005,
+    "price": 0.145,
+    "chg30m": -0.005,
+    "chg3h": -0.02,
     "series": [
      [
       1794336960000,
@@ -15575,6 +15617,11 @@
       1794347100000,
       0.16,
       0
+     ],
+     [
+      1794347160000,
+      0.145,
+      15.69
      ]
     ],
     "url": "https://kalshi.com/markets/kxbiggestquake"
