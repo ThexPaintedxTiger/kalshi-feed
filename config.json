@@ -95,7 +95,12 @@
   "monteCarlo": {
    "paths": 4000,
    "maxBets": 3000,
-   "seed": 11
+   "seed": 11,
+   "horizons": [
+    250,
+    1000,
+    3000
+   ]
   },
   "portfolios": [
    {
@@ -105,55 +110,61 @@
    },
    {
     "id": "coin",
-    "name": "Coin flip, 5% per bet (fee-drag control)",
+    "name": "Coin flip, 2% bets (fee-drag control)",
     "predictor": "coin",
     "sizing": "fixed",
-    "frac": 0.05
+    "frac": 0.02
    },
    {
-    "id": "nn-quarter",
-    "name": "Neural net, quarter Kelly",
+    "id": "nn-learn",
+    "name": "Neural net, learned bet size",
     "predictor": "nn",
-    "sizing": "kelly",
-    "kelly": 0.25,
-    "minEdge": 0.03,
-    "maxFrac": 0.1
-   },
-   {
-    "id": "nn-half",
-    "name": "Neural net, half Kelly",
-    "predictor": "nn",
-    "sizing": "kelly",
-    "kelly": 0.5,
-    "minEdge": 0.02,
-    "maxFrac": 0.25
-   },
-   {
-    "id": "nn-moonshot",
-    "name": "Neural net moonshot, full Kelly (10→1000 attempt)",
-    "predictor": "nn",
-    "sizing": "kelly",
-    "kelly": 1,
-    "minEdge": 0.02,
-    "maxFrac": 0.5
-   },
-   {
-    "id": "longshot-5",
-    "name": "Longshot bias, 5% per bet",
-    "predictor": "longshot",
-    "sizing": "fixed",
-    "frac": 0.05,
+    "sizing": "learn",
     "minEdge": 0.02
    },
    {
-    "id": "memory-quarter",
-    "name": "Series memory, quarter Kelly",
+    "id": "nn-2",
+    "name": "Neural net, flat 2% bets",
+    "predictor": "nn",
+    "sizing": "fixed",
+    "frac": 0.02,
+    "minEdge": 0.02
+   },
+   {
+    "id": "longshot-learn",
+    "name": "Longshot bias, learned bet size",
+    "predictor": "longshot",
+    "sizing": "learn",
+    "minEdge": 0.02
+   },
+   {
+    "id": "memory-learn",
+    "name": "Series memory, learned bet size",
     "predictor": "memory",
-    "sizing": "kelly",
-    "kelly": 0.25,
-    "minEdge": 0.03,
-    "maxFrac": 0.1
+    "sizing": "learn",
+    "minEdge": 0.02
    }
-  ]
+  ],
+  "safety": {
+   "maxFracPerBet": 0.05,
+   "maxOpenExposure": 0.25,
+   "brakes": [
+    [
+     0.2,
+     0.5
+    ],
+    [
+     0.4,
+     0.25
+    ]
+   ],
+   "lowWater": 5
+  },
+  "learning": {
+   "probe": 0.01,
+   "minTrack": 30,
+   "kelly": 0.25,
+   "probeMinDollars": 0.25
+  }
  }
 }

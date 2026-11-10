@@ -106,18 +106,30 @@ assert.equal(hash("KX-A"), hash("KX-A")); assert.notEqual(hash("KX-A-YES"), hash
   const nnL = test.reduce((s2, d2) => s2 + nnLoss(predict(fit.model, d2.x, d2.mid), d2.y), 0), mkL = test.reduce((s2, d2) => s2 + nnLoss(d2.mid, d2.y), 0);
   assert.ok(nnL < mkL, "network should beat the market on a planted signal (unseen test data)");
 }
-// Paper trading: fees per order, Kelly sizing, cash never negative, settlement P&L.
+// Paper trading: fees per order, Kelly, safety caps, learned sizing, money conserved.
 assert.equal(orderFee(0.5, 1), 0.02); assert.equal(orderFee(0.5, 10), 0.18);    // 0.07×10×.25 = 0.175 → 0.18
 assert.equal(r4(kellyFraction(0.6, 0.5)), 0.2); assert.equal(kellyFraction(0.4, 0.5), 0);
 {
-  const rows = [{ ts: "2026-01-01T00:00:00Z", ticker: "A", mid: 0.5, ask: 0.5, bid: 0.48, est: { x: 0.7 }, y: 1, settledAt: "2026-01-01T01:00:00Z" },
-                { ts: "2026-01-01T02:00:00Z", ticker: "B", mid: 0.5, ask: 0.5, bid: 0.48, est: { x: 0.7 }, y: 0, settledAt: "2026-01-01T03:00:00Z" }];
-  const r = simulate({ id: "t", predictor: "x", sizing: "fixed", frac: 0.5 }, rows);
-  assert.equal(r.bets, 2); assert.equal(r.wins, 1); assert.ok(r.cash >= 0);
-  assert.equal(r.equity, r4(10 + r.pnl));                                        // money is conserved
-  assert.equal(simulate({ id: "c", predictor: null }, rows).equity, 10);          // control never trades
-  assert.equal(monteCarlo([0.1, -0.05]), null);                                   // too few bets to simulate
-  const mc = monteCarlo(Array(50).fill(0).map((_, i) => (i % 2 ? 0.2 : -0.1)));
-  assert.ok(mc.pReachGoal > 0.5 && mc.growthPerBet > 0);
+  const mk = (i, y, p = 0.9) => ({ ts: new Date(Date.UTC(2026, 0, 1, 0, i * 10)).toISOString(), ticker: "T" + i, mid: 0.5, ask: 0.5, bid: 0.48, est: { x: p }, y,
+    settledAt: new Date(Date.UTC(2026, 0, 1, 0, i * 10 + 5)).toISOString() });
+  const rows = [mk(0, 1), mk(1, 0)];
+  const big = simulate({ id: "t", predictor: "x", sizing: "fixed", frac: 0.5 }, rows);      // asks for 50%…
+  assert.ok(big.maxBetPct <= 5.01, "a single bet must never exceed 5% of the bankroll");    // …gets ≤5%
+  assert.ok(big.worstLossPct >= -5.01);
+  assert.equal(big.equity, r4(10 + big.pnl));                                              // money is conserved
+  assert.equal(simulate({ id: "c", predictor: null }, rows).equity, 10);                   // control never trades
+  // Learned sizing: probe size until 30 bets settle; sizes up only once the edge is delivered.
+  const learn = { id: "l", predictor: "x", sizing: "learn" };
+  const early = simulate(learn, rows);
+  assert.ok(early.bets === 2 && early.maxBetPct <= 2.6, "probe bets stay small ($0.25 on $10) while learning");
+  const good = simulate(learn, Array.from({ length: 80 }, (_, i) => mk(i, i % 5 ? 1 : 0, 0.75)));   // wins 80% at 50¢
+  assert.ok(good.trustNow.trust > 0 && good.maxBetPct > 2.6 && good.maxBetPct <= 5.01, "proven edge → bigger, still capped");
+  const bad = simulate(learn, Array.from({ length: 80 }, (_, i) => mk(i, i % 5 ? 0 : 1, 0.75)));    // loses 80%
+  assert.equal(bad.trustNow.trust, 0); assert.ok(bad.maxBetPct <= 3.2, "no proven edge → stays at probe size");
+  assert.equal(bad.bets, 30); assert.ok(bad.equity > 6.5, "a proven loser stops risking money after its 30 probe bets");
+  assert.equal(bad.trustNow.pause, true); assert.ok(bad.shadowBets > 0);
+  assert.equal(monteCarlo([0.1, -0.05]), null);                                            // too few bets to simulate
+  const mc = monteCarlo(Array(50).fill(0).map((_, i) => (i % 2 ? 0.02 : -0.01)), { paths: 500, seed: 1, horizons: [250, 1000] }, 10);
+  assert.ok(mc.growthPerBet > 0 && mc.betsFor100x > 0 && mc.daysFor100x === Math.ceil(mc.betsFor100x / 10));
 }
 console.log("all tests passed");

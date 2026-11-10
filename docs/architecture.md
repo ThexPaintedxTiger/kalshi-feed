@@ -40,9 +40,14 @@ Order in the Action: test → resolve → memory → predict → backtest (hourl
 - **nn.mjs** (hourly): dataset = backtest rows + resolved live predictions (non-excluded categories). (1) walk-forward: 5 time blocks, train on
   earlier blocks, predict the next unseen block → `data/nn/oos.json` and the honest verdict; (2) holdout curve (early-stopping set — optimistic);
   (3) final model on all data → `data/nn/model.json` (used live by the `nn` predictor). History in `data/nn/train-log.jsonl`.
-- **paper.mjs**: portfolios in `config.json → paper.portfolios` (controls: hold cash, coin flip; neural net at ¼, ½ and full Kelly; longshot 5%;
-  memory ¼ Kelly). Buy at ask / 1−bid, per-order fee rounded up, cash locked until settlement, ≤$250 and ≤1,000 contracts per bet, bust below $0.50.
-  Replay never lets the network trade a market it trained on. Monte Carlo: 4,000 bootstrap paths of each strategy's per-bet returns.
+- **paper.mjs**: goal = grow $10 toward $1,000 over time without risking the account on one bet. Portfolios in `config.json → paper.portfolios`
+  (controls: hold cash, coin flip 2%; neural net learned-size and flat 2%; longshot learned-size; memory learned-size).
+  Safety for all (`paper.safety`): ≤5% of bankroll per bet including the fee, ≤25% in open bets, halve bets after a 20% drop from peak,
+  quarter after 40%. Learned sizing (`paper.learning`): probe bets (1% or $0.25) until 30 bets settle; then up to quarter Kelly × trust, where
+  trust = (realized return per $ − 1 SE) ÷ predicted return per $, clipped 0…1; if even realized + 1 SE < 0, the strategy pauses and records
+  shadow bets (no money) so it can recover. Buy at ask / 1−bid, per-order fee rounded up, cash locked until settlement.
+  Replay never lets the network trade a market it trained on. Monte Carlo: 4,000 bootstrap paths → chance of $1,000 within 250/1,000/3,000 bets,
+  chance of ever dropping below $5, bets (and days at the current pace) to 100× from the average growth per bet.
 - **Backtest v4**: snapshot 30 min before resolution (hourly markets open only ~1 h before close); one batch candle call prices every market
   in an event; the market nearest 50¢ at the snapshot is kept (same rule as live, no outcome leakage). Sports excluded.
 
