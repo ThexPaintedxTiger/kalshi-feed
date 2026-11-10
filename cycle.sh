@@ -25,6 +25,7 @@ need "Dashboard data" node dashboard.mjs
 [ "${SKIP_SAVE:-0}" = "1" ] && { echo "SKIP_SAVE=1: not committing"; exit 0; }
 git config user.name "kalshi-feed-bot"
 git config user.email "actions@users.noreply.github.com"
+git config merge.keep.driver true   # used by .gitattributes: keep the already-pushed derived file on a clash
 git add bets.json history.json data scorecard.json backtest-scorecard.json progress.json status.json dashboard.json
 git commit -q -m "Update Kalshi feed" || { echo "nothing to commit"; exit 0; }
 for i in 1 2 3; do git pull --rebase -q && git push -q && { echo "saved"; exit 0; }; sleep 5; done

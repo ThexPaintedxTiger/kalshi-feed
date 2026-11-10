@@ -14,6 +14,8 @@ never force-push, never edit logged predictions/outcomes. Escalate per `kalshi-o
    If no run is `in_progress` or `queued`: `gh workflow run live.yml --ref main -f cycles=6` (≈ 1 hour of 10-minute cycles; free on GitHub).
 3. **Check:** read `status.json` (written by the watchdog each cycle). If any check fails other than "Runs on schedule"
    while live mode is running, run `.claude/skills/kalshi-ops-status/status.sh` and follow that skill's table.
+   If web tools are connected to this session (Bright Data MCP: `search_engine`, `scrape_as_markdown`), search the exact error text
+   and the failing service's status page before changing code; cite what you found in the briefing. Without them, skip this.
    Fix only clear code breakage, on a branch: test (`node test.mjs`), `gh workflow run feed.yml --ref <branch>`, wait for success,
    fast-forward `main`. Anything else goes in the briefing's `needs`.
 4. **Dashboard:** don't republish the claude.ai artifact on scheduled runs (publishing needs the owner's approval and would stall an

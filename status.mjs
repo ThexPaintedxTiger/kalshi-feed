@@ -1,7 +1,7 @@
 // Watchdog + plain-English status (code, free, every run). Answers four questions for the owner:
 //   Should I trade?  Is it learning?  Is it running (and is data moving between steps)?  What do you need from me?
 // Checks data hand-offs between steps so a silent break is caught on the next run. Writes status.json.
-import { config, readJson, readJsonl, writeJson, r4 } from "./lib.mjs";
+import { config, readJson, readJsonl, writeJson } from "./lib.mjs";
 import { allPredictions, backtestRows } from "./memory.mjs";
 
 const now = Date.now(), ago = t => (now - Date.parse(t)) / 6e4, G = config.goals.edge;
