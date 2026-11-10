@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-10T17:54:33.687Z",
- "samples": 950,
+ "updated": "2026-11-10T18:04:27.195Z",
+ "samples": 952,
  "note": "Derived summary (rebuilt each run). bias = average (outcome − market price); > 0 means YES was underpriced in this series.",
  "series": {
   "KXAAAGASD": {
@@ -841,14 +841,14 @@
   },
   "KXNASDAQ100U": {
    "cat": "Financials",
-   "n": 18,
-   "yesRate": 0.4444,
-   "avgPrice": 0.4758,
-   "bias": -0.0314,
-   "brierMarket": 0.1689,
+   "n": 19,
+   "yesRate": 0.4211,
+   "avgPrice": 0.4774,
+   "bias": -0.0563,
+   "brierMarket": 0.1734,
    "last": "2026-11-10T17:01:46.273Z",
    "live": 9,
-   "backtest": 9
+   "backtest": 10
   },
   "KXNATGASD": {
    "cat": "Commodities",
@@ -1171,14 +1171,14 @@
   },
   "KXWTIH": {
    "cat": "Commodities",
-   "n": 39,
-   "yesRate": 0.4872,
-   "avgPrice": 0.5,
-   "bias": -0.0128,
-   "brierMarket": 0.2495,
+   "n": 40,
+   "yesRate": 0.475,
+   "avgPrice": 0.4996,
+   "bias": -0.0246,
+   "brierMarket": 0.2491,
    "last": "2026-11-10T17:06:06.253Z",
    "live": 4,
-   "backtest": 35
+   "backtest": 36
   },
   "KXXRP": {
    "cat": "Crypto",
