@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
-/* Layout: sticky toolbar + tabbed views (Agent · Trades · Data · Skills); the Agent view is an Agent Flow-style node canvas. */
+/* Layout: sticky toolbar + tabbed views (Live agents & devs · Agent · Trading · Neural net · P&L · Trades · Data · Skills); the Agent view is an Agent Flow-style node canvas. */
 :root{
   --bg:#14151a; --panel:#191a20; --card:#22242c; --line:#353844; --line-soft:#262832; --dot:#2b2e38;
   --fg:#e6e7eb; --muted:#9a9daa; --faint:#6f7280;
@@ -103,6 +103,15 @@ input[type=search]{font:inherit;color:inherit;background:var(--card);border:1px 
 .skill p{margin:8px 0 0;font-size:13px}
 .skill .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);display:block;margin-top:10px}
 .sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.agents{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.acard{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--c,var(--line));border-radius:12px;padding:12px;min-width:0}
+.acard .nm{white-space:normal}
+.acard .what{font-size:13px;margin:8px 0 0}
+.acard .meta{font-size:12px;color:var(--muted);margin-top:8px}
+.acard[data-s=done] .st{background:var(--good);animation:pulse 2s infinite}
+.acard[data-s=wait] .st{background:var(--warn)}
+.acard[data-s=bad] .st{background:var(--bad)}
+@media (prefers-reduced-motion:reduce){.acard .st{animation:none!important}}
 .devagent{border-color:color-mix(in srgb,var(--teal) 45%,var(--line-soft))}
 .row2{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
 .today{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
@@ -127,6 +136,7 @@ select{font:inherit;color:inherit;background:var(--card);border:1px solid var(--
 .closed{display:grid;gap:8px}.crow{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;border-bottom:1px solid var(--line-soft);padding-bottom:8px}
 .crow .t{min-width:0}.crow b{font-size:13px}.crow>b{white-space:nowrap}
 .agrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.acard.team{--c:var(--info)}
 .acard[data-s=running]{border-color:color-mix(in srgb,var(--info) 55%,var(--line-soft))}
 .ahead{font-weight:600;margin:10px 0 6px}
 button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
@@ -143,12 +153,33 @@ button.primary{background:var(--accent);border-color:var(--accent);color:#fff;fo
     <button id="refresh" type="button">Refresh</button>
   </div>
   <nav class="wrap" aria-label="Views">
-    <a href="#agent">Agent</a><a href="#agents">Live agents</a><a href="#trading">Trading</a><a href="#nn">Neural net</a><a href="#pnl">Profit &amp; loss</a><a href="#trades">Trades</a><a href="#data">Data</a><a href="#skills">Skills</a>
+    <a href="#live">Live agents &amp; devs</a><a href="#agent">Agent</a><a href="#trading">Trading</a><a href="#nn">Neural net</a><a href="#pnl">Profit &amp; loss</a><a href="#trades">Trades</a><a href="#data">Data</a><a href="#skills">Skills</a>
   </nav>
 </header>
 
 <main class="wrap">
-  <section id="v-agent" data-view>
+  <section id="v-live" data-view>
+    <div class="kpis" id="liveKpis"></div>
+    <div style="height:16px"></div>
+    <div id="devPanel"></div>
+    <div style="height:16px"></div>
+    <div class="panel"><h2>Pipeline agents · run every 10-minute cycle</h2><div class="agents" id="liveAgents"></div></div>
+    <div style="height:16px"></div>
+    <div class="panel"><h2>Dev agents · run hourly, keep the system healthy and learning</h2><div class="agents" id="devAgents"></div>
+      <p class="small muted">Green dot = the agent did its job within its expected interval. Amber = late, red = stalled. Times come from the data the pipeline pushes, so they're as fresh as the header says.</p></div>
+    <div style="height:16px"></div>
+    <h2 style="margin:4px 0 10px">Claude agent team · run on demand</h2>
+    <div class="panel"><div class="prow"><h2 style="margin:0">Live agents</h2><span class="small muted" id="laWhen">—</span></div>
+      <p class="small muted" style="margin:6px 0 10px">A team of Claude agents reads the board's live data and reports. Four specialists run side by side, then the lead analyst combines them. Research and paper trading only. Each run uses Claude usage on your account.</p>
+      <div class="row2"><button type="button" id="laRun" class="primary">Run live agents</button><button type="button" id="laStop" hidden>Stop</button>
+        <select id="laHist" aria-label="Earlier runs"></select><span class="small muted" id="laMsg"></span></div></div>
+    <div style="height:12px"></div>
+    <div class="agrid" id="laCards"></div>
+    <div style="height:12px"></div>
+    <div class="panel" id="laLead"></div>
+  </section>
+
+  <section id="v-agent" data-view hidden>
     <div id="today"></div>
     <div style="height:16px"></div>
     <div class="kpis" id="kpis"></div>
@@ -166,19 +197,6 @@ button.primary{background:var(--accent);border-color:var(--accent);color:#fff;fo
       <div class="panel"><h2>Predictions logged per run</h2><div id="spark"></div></div>
       <div class="panel"><h2>Pipeline health</h2><ul class="checks" id="health"></ul></div>
     </div>
-  </section>
-
-  <section id="v-agents" data-view hidden>
-    <div class="panel"><div class="prow"><h2 style="margin:0">Live agents</h2><span class="small muted" id="laWhen">—</span></div>
-      <p class="small muted" style="margin:6px 0 10px">A team of Claude agents reads the board's live data and reports. Four specialists run side by side, then the lead analyst combines them. Research and paper trading only. Each run uses Claude usage on your account.</p>
-      <div class="row2"><button type="button" id="laRun" class="primary">Run live agents</button><button type="button" id="laStop" hidden>Stop</button>
-        <select id="laHist" aria-label="Earlier runs"></select><span class="small muted" id="laMsg"></span></div></div>
-    <div style="height:12px"></div>
-    <div class="agrid" id="laCards"></div>
-    <div style="height:12px"></div>
-    <div class="panel" id="laLead"></div>
-    <div style="height:12px"></div>
-    <div class="panel"><h2>Background agents (always on)</h2><div class="small" id="laBg"></div></div>
   </section>
 
   <section id="v-trading" data-view hidden>
@@ -597,6 +615,68 @@ function renderPnL() {
     sel.recent.map(b => `<tr><td>${when(b.ts)}</td><td class="t">${esc(b.title)}<div class="small muted">${esc(b.cat)}</div></td><td>${b.side.toUpperCase()}</td><td class="n">${cents(b.price)}</td><td class="n">${b.contracts}</td><td class="n ${b.pnl > 0 ? "c-good" : b.pnl < 0 ? "c-bad" : ""}">${b.pnl == null ? "open" : money(b.pnl)}</td></tr>`).join("")}</tbody></table>` : `<div class="empty">No bets in this mode yet.</div>`;
 }
 
+// ---------- Live agents & devs (first view) ----------
+const ageMin = ts => ts ? (Date.now() - Date.parse(ts)) / 6e4 : null;
+function agentState(ts, every) {
+  const a = ageMin(ts);
+  if (a == null || !Number.isFinite(a)) return ["wait", "not started", "c-warn"];
+  if (a <= every * 1.5 + 10) return ["done", "running", "c-good"];
+  if (a <= every * 3 + 10) return ["wait", "late", "c-warn"];
+  return ["bad", "stalled", "c-bad"];
+}
+function liveAgents() {
+  const last = D.runs.at(-1) || {}, S = D.status || { checks: [] }, chk = n => S.checks.find(c => c.name.startsWith(n));
+  const okN = S.checks.filter(c => c.ok).length, f = D.paper?.forward?.portfolios || [], best = f.filter(p => p.predictor).sort((a, b) => b.equity - a.equity)[0];
+  const live = [
+    { c: "var(--violet)", ic: "⏱", nm: "Live loop", file: "live.yml + feed.yml", ts: last.ts, every: 10,
+      now: chk("Runs on schedule")?.detail || `${D.runs.length} runs logged`, what: "Starts a pipeline cycle every 10 minutes. The dev agent starts a fresh hour of cycles so data stays live even if GitHub's cron skips." },
+    { c: "var(--info)", ic: "🔎", nm: "Market scout & predictors", file: "predict.mjs", ts: last.ts, every: 10,
+      now: `${(last.scanned || 0).toLocaleString()} scanned · ${last.candidates ?? 0} short · ${last.logged ?? 0} logged last cycle`, what: "Scans open Kalshi markets, runs the market, longshot, memory and neural-net predictors, and logs each prediction before it resolves." },
+    { c: "var(--good)", ic: "✅", nm: "Outcome checker", file: "resolve.mjs", ts: last.ts, every: 10,
+      now: `${D.totals.outcomes.toLocaleString()} official results · ${chk("Outcomes")?.detail || ""}`, what: "Collects Kalshi's official yes/no result for every market past its resolution time." },
+    { c: "var(--warn)", ic: "🛡", nm: "Watchdog", file: "status.mjs", ts: S.updated, every: 10,
+      now: `${okN}/${S.checks.length} checks pass${S.problems ? ` · ${S.problems} issue${S.problems > 1 ? "s" : ""}` : ""}`, what: "Checks every hand-off each cycle (schedule, logging, outcomes, leakage, duplicates, bet-size safety) and writes the plain-English status." },
+    { c: "var(--teal)", ic: "💵", nm: "Paper traders", file: "paper.mjs", ts: D.paper?.updated, every: 10,
+      now: `${f.length} portfolios · best live: ${best ? `${best.name.split(",")[0]} $${best.equity.toFixed(2)}` : "none yet"}`, what: "$10 paper portfolios trade the predictions with real prices and fees. Simulation only: nothing is ever traded." },
+    { c: "var(--pink)", ic: "🤖", nm: "Gemini analysts", file: "agents.mjs", ts: D.gemini?.updated, every: 60,
+      now: `${(D.gemini?.agents || []).join(", ") || "no agents"} · ${D.gemini?.picks.length || 0} picks (not scored)`, what: "Three AI analysts rate the top markets once an hour in one free Gemini call. Dashboard feed only until they beat the code predictors." },
+  ];
+  const B = (D.briefings || [])[0], n = D.nn || {};
+  const dev = [
+    { c: "var(--teal)", ic: "🧑‍💻", nm: "Dev agent (Claude)", file: "kalshi-live-agent skill", ts: B?.ts, every: 60,
+      now: B ? `checks ${B.checks} · ${(B.needs || []).length ? B.needs.length + " item(s) need you" : "nothing needs you"}` : "no briefing yet", what: "Hourly: keeps live mode running, checks the pipeline, fixes clear breakage on a branch and writes the briefing above." },
+    { c: "var(--pink)", ic: "🕸", nm: "Neural-net trainer", file: "nn.mjs", ts: n.trained, every: 60,
+      now: n.oos ? `trained on ${n.n} markets · ${n.oos.verdict}` : (n.status || "waiting for data"), what: "Retrains the network on all settled markets every hour; only the walk-forward score on unseen markets counts." },
+    { c: "var(--violet)", ic: "⏪", nm: "Backtest agent", file: "backtest.mjs", ts: D.backtest?.window?.to, every: 120, tsLabel: "newest market scored",
+      now: `${D.backtest?.resolved || 0} past markets scored in ${D.backtest?.events || 0} events`, what: "Rebuilds predictions for already-settled markets from 1-minute price history and scores them. Supporting evidence, never the live record." },
+  ];
+  return { live, dev };
+}
+function agentCard(a) {
+  const [s, word, tone] = agentState(a.ts, a.every);
+  return `<div class="acard" data-s="${s}" style="--c:${a.c}"><div class="nh"><div class="ic">${a.ic}</div><div class="nm">${esc(a.nm)}</div><span class="pill ${tone}">${word}</span><div class="st"></div></div>
+    <div class="nsub">${esc(a.file)} · every ${a.every >= 60 ? a.every / 60 + " h" : a.every + " min"}</div>
+    <p class="what">${esc(a.now)}</p><p class="small muted" style="margin:6px 0 0">${esc(a.what)}</p>
+    <div class="meta">${esc(a.tsLabel || "last active")}: ${esc(a.ts ? rel(a.ts) : "no activity yet")}</div></div>`;
+}
+function renderLive() {
+  const { live: LA, dev: DA } = liveAgents(), up = L => L.filter(a => agentState(a.ts, a.every)[0] === "done").length;
+  const B = (D.briefings || [])[0], lastRun = D.runs.at(-1), live = D.config.live || {};
+  $("#liveKpis").innerHTML = [[`${up(LA)}/${LA.length}`, "live agents running"], [`${up(DA)}/${DA.length}`, "dev agents on time"],
+    [lastRun ? rel(lastRun.ts) : "–", "last pipeline cycle"], [B ? rel(B.ts) : "–", "last dev briefing"],
+    [D.status ? `${D.status.checks.filter(c => c.ok).length}/${D.status.checks.length}` : "–", "watchdog checks pass"]]
+    .map(([v, l]) => `<div class="kpi"><b style="font-size:${String(v).length > 9 ? 17 : 24}px">${esc(v)}</b><span>${l}</span></div>`).join("");
+  $("#liveAgents").innerHTML = LA.map(agentCard).join("");
+  $("#devAgents").innerHTML = DA.map(agentCard).join("");
+  $("#devPanel").innerHTML = `<div class="panel devagent"><div class="prow"><h2 style="margin:0">Dev agent · live mode</h2>
+      <span class="small muted">${B ? `last briefing ${esc(rel(B.ts))} · checks ${esc(B.checks)}` : "no briefing yet"}</span></div>
+      <p style="margin:8px 0 4px">${B ? esc(B.summary) : "The hourly dev agent keeps live mode running, checks the pipeline, fixes clear breakage and writes a short briefing here."}</p>
+      ${B?.actions?.length ? `<p class="small muted" style="margin:0">Did: ${B.actions.map(esc).join(" · ")}</p>` : ""}
+      ${B?.needs?.length ? `<p class="small c-warn" style="margin:4px 0 0">Needs you: ${B.needs.map(esc).join(" · ")}</p>` : ""}
+      <div class="row2"><button type="button" id="runAgent" hidden>Run dev agent now</button><span class="small muted" id="runMsg">${live.triggerId ? "" : "Dev agent not set up yet."}</span></div></div>`;
+}
+
+
 // ---------- Today: the four questions, in plain words ----------
 function renderToday() {
   const S = D.status;
@@ -604,15 +684,7 @@ function renderToday() {
   const tone = { good: "c-good", bad: "c-bad", warn: "c-warn" }[S.trade.tone] || "c-muted";
   const okN = S.checks.filter(c => c.ok).length;
   const wl = S.watchlist || [];
-  const B = (D.briefings || [])[0], live = D.config.live || {};
-  $("#today").innerHTML = `<div class="panel devagent"><div class="prow"><h2 style="margin:0">Dev agent · live mode</h2>
-      <span class="small muted">${B ? `last briefing ${esc(rel(B.ts))} · checks ${esc(B.checks)}` : "no briefing yet"}</span></div>
-      <p style="margin:8px 0 4px">${B ? esc(B.summary) : "The hourly dev agent keeps live mode running, checks the pipeline, fixes clear breakage and writes a short briefing here."}</p>
-      ${B?.actions?.length ? `<p class="small muted" style="margin:0">Did: ${B.actions.map(esc).join(" · ")}</p>` : ""}
-      ${B?.needs?.length ? `<p class="small c-warn" style="margin:4px 0 0">Needs you: ${B.needs.map(esc).join(" · ")}</p>` : ""}
-      <div class="row2"><button type="button" id="runAgent" hidden>Run dev agent now</button><span class="small muted" id="runMsg">${live.triggerId ? "" : "Dev agent not set up yet."}</span></div></div>
-    <div style="height:12px"></div>
-    <div class="today">
+  $("#today").innerHTML = `<div class="today">
     <div class="panel q"><h2>Should I trade?</h2><p class="big ${tone}">${esc(S.trade.answer)}</p><p class="small">${esc(S.trade.why)}</p><p class="small muted">${esc(S.trade.next)}</p></div>
     <div class="panel q"><h2>Is it learning?</h2><ul class="small tight">${S.learning.map(l => `<li>${esc(l)}</li>`).join("")}</ul></div>
     <div class="panel q"><h2>Is it running?</h2><p class="big ${S.problems ? "c-warn" : "c-good"}">${okN}/${S.checks.length} checks pass</p>
@@ -817,7 +889,7 @@ function laCard(a, r) {
   const st = r?.state || "idle", txt = r?.text || "";
   const [head, ...rest] = txt.split("\n").filter(l => l.trim());
   const conf = rest.find(l => /^confidence:/i.test(l)), bullets = rest.filter(l => !/^confidence:/i.test(l));
-  return `<div class="panel acard" data-s="${st}"><div class="nh"><div class="ic" style="--c:var(--info)">${a.ic}</div><div class="nm">${esc(a.name)}</div><span class="pill ${st === "done" ? "c-good" : st === "running" ? "c-info" : st === "error" ? "c-bad" : "c-muted"}">${esc(st === "running" ? "thinking" : st)}</span></div>
+  return `<div class="acard team" data-s="${st}"><div class="nh"><div class="ic" style="--c:var(--info)">${a.ic}</div><div class="nm">${esc(a.name)}</div><span class="pill ${st === "done" ? "c-good" : st === "running" ? "c-info" : st === "error" ? "c-bad" : "c-muted"}">${esc(st === "running" ? "thinking" : st)}</span></div>
     ${txt ? `<p class="ahead">${esc(head || "")}</p>${bullets.length ? `<ul class="small tight">${bullets.map(b => `<li>${esc(b.replace(/^[-•]\s*/, ""))}</li>`).join("")}</ul>` : ""}${conf ? `<p class="small muted" style="margin:6px 0 0">${esc(conf)}</p>` : ""}`
       : `<p class="small muted">${st === "running" ? "Thinking…" : st === "error" ? esc(r?.error || "Failed.") : "Not run yet."}</p>`}</div>`;
 }
@@ -834,10 +906,6 @@ function renderLiveAgents() {
   const can = !!SAMPLE_LA;
   $("#laRun").hidden = !can; $("#laStop").hidden = !laCtl;
   if (!can && !laCtl) $("#laMsg").textContent = window.claude?.use ? "Live agents need Claude access for this page (allow it when asked, or from the Permissions menu)." : "Live agents run in the claude.ai version of this board.";
-  const B = (D.briefings || [])[0];
-  $("#laBg").innerHTML = `<ul class="tight"><li><b>Dev agent</b> (Claude, hourly at :54 UTC): keeps live mode running, checks the pipeline, writes briefings. ${B ? `Last: ${esc(rel(B.ts))}, checks ${esc(B.checks)}.` : ""}</li>
-    <li><b>Live mode</b> (GitHub Actions, every 10 min): predictions, outcomes, scores, network training, paper trades, live prices.</li>
-    <li><b>Watchdog</b> (code, every cycle): ${D.status ? `${D.status.checks.filter(c => c.ok).length}/${D.status.checks.length} checks pass.` : "—"}</li></ul>`;
 }
 const laErr = e => ({ not_granted: "Claude access was declined for this page.", rate_limited: "Usage limit or too many calls right now. Try later.", sampling_disabled: "Claude isn't available for this account.", session_expired: "Sign in again, then retry.", refused: "Claude declined this request.", cancelled: "Stopped." }[e?.code] || "Interrupted. Try again.");
 async function runLiveAgents() {
@@ -871,7 +939,7 @@ document.addEventListener("click", e => {
   if (e.target?.id === "laStop") laCtl?.abort();
 });
 
-function render() { if (!D) return; renderToday(); renderTrading(); renderLiveAgents(); wireAgentButton(); renderNN(); renderPnL(); renderKpis(); renderAgent(); renderGoals(); renderTrades(); renderData(); renderSkills(); renderHistory(); paintPills(); }
+function render() { if (!D) return; renderLive(); renderToday(); renderTrading(); renderLiveAgents(); wireAgentButton(); renderNN(); renderPnL(); renderKpis(); renderAgent(); renderGoals(); renderTrades(); renderData(); renderSkills(); renderHistory(); paintPills(); }
 function paintPills() {
   const g = D.progress.goal || "IN_PROGRESS", h = D.progress.health;
   $("#goalPill").className = "pill " + statusTone(g); $("#goalPill").textContent = "goal: " + label(g);
@@ -879,10 +947,10 @@ function paintPills() {
   $("#healthPill").className = "pill " + (bad ? "c-warn" : "c-good"); $("#healthPill").textContent = bad ? `pipeline: ${bad} issue${bad > 1 ? "s" : ""}` : "pipeline ok";
 }
 function route() {
-  const v = (location.hash || "#agent").slice(1);
+  const v = (location.hash || "#live").slice(1);
   document.querySelectorAll("[data-view]").forEach(s => s.hidden = s.id !== "v-" + v);
-  if (!document.getElementById("v-" + v)) $("#v-agent").hidden = false;
-  document.querySelectorAll("nav a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === "#" + v || (!document.getElementById("v-" + v) && a.getAttribute("href") === "#agent") ? "page" : "false"));
+  if (!document.getElementById("v-" + v)) $("#v-live").hidden = false;
+  document.querySelectorAll("nav a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === "#" + v || (!document.getElementById("v-" + v) && a.getAttribute("href") === "#live") ? "page" : "false"));
 }
 addEventListener("hashchange", route); route();
 load(); setInterval(() => document.visibilityState === "visible" && load(), 5 * 60e3);
