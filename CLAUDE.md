@@ -65,7 +65,8 @@ Details in `docs/architecture.md`.
 - Market links: `https://kalshi.com/markets/<series_ticker lowercase>`.
 
 ## Agent dashboard
-Tabs: Agent (Today panel + flow) · **Trading** (paper account KPIs, live focus-market price chart and ticker, profit curve, daily P&L,
+Tabs: Agent (Today panel + flow) · **Live agents** (Market scout, Risk manager, Model trainer, Dev/ops in parallel, then Lead analyst;
+Claude via the page's `sample` capability on a click, runs saved in the board's `db` collection `agentRuns`; claude.ai copy only) · **Trading** (paper account KPIs, live focus-market price chart and ticker, profit curve, daily P&L,
 drawdown, win/loss, closed trades; "Ask the agent" box in the claude.ai copy uses Claude usage) · Neural net · Profit & loss · Trades · Data · Skills.
 `focus.mjs` (each cycle): 1-minute prices for up to 12 watched markets → `data/focus.json`. Live predictions and backtest rows record `chg30`
 (30-minute price move), a network input. Network gate: while its walk-forward verdict is "worse than market", the live `nn` predictor returns the market price.

@@ -126,6 +126,10 @@ input[type=search]{font:inherit;color:inherit;background:var(--card);border:1px 
 select{font:inherit;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:5px 8px;max-width:60%}
 .closed{display:grid;gap:8px}.crow{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;border-bottom:1px solid var(--line-soft);padding-bottom:8px}
 .crow .t{min-width:0}.crow b{font-size:13px}.crow>b{white-space:nowrap}
+.agrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.acard[data-s=running]{border-color:color-mix(in srgb,var(--info) 55%,var(--line-soft))}
+.ahead{font-weight:600;margin:10px 0 6px}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
 #toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 14px;font-size:13px}
 </style>
 
@@ -139,7 +143,7 @@ select{font:inherit;color:inherit;background:var(--card);border:1px solid var(--
     <button id="refresh" type="button">Refresh</button>
   </div>
   <nav class="wrap" aria-label="Views">
-    <a href="#agent">Agent</a><a href="#trading">Trading</a><a href="#nn">Neural net</a><a href="#pnl">Profit &amp; loss</a><a href="#trades">Trades</a><a href="#data">Data</a><a href="#skills">Skills</a>
+    <a href="#agent">Agent</a><a href="#agents">Live agents</a><a href="#trading">Trading</a><a href="#nn">Neural net</a><a href="#pnl">Profit &amp; loss</a><a href="#trades">Trades</a><a href="#data">Data</a><a href="#skills">Skills</a>
   </nav>
 </header>
 
@@ -162,6 +166,19 @@ select{font:inherit;color:inherit;background:var(--card);border:1px solid var(--
       <div class="panel"><h2>Predictions logged per run</h2><div id="spark"></div></div>
       <div class="panel"><h2>Pipeline health</h2><ul class="checks" id="health"></ul></div>
     </div>
+  </section>
+
+  <section id="v-agents" data-view hidden>
+    <div class="panel"><div class="prow"><h2 style="margin:0">Live agents</h2><span class="small muted" id="laWhen">—</span></div>
+      <p class="small muted" style="margin:6px 0 10px">A team of Claude agents reads the board's live data and reports. Four specialists run side by side, then the lead analyst combines them. Research and paper trading only. Each run uses Claude usage on your account.</p>
+      <div class="row2"><button type="button" id="laRun" class="primary">Run live agents</button><button type="button" id="laStop" hidden>Stop</button>
+        <select id="laHist" aria-label="Earlier runs"></select><span class="small muted" id="laMsg"></span></div></div>
+    <div style="height:12px"></div>
+    <div class="agrid" id="laCards"></div>
+    <div style="height:12px"></div>
+    <div class="panel" id="laLead"></div>
+    <div style="height:12px"></div>
+    <div class="panel"><h2>Background agents (always on)</h2><div class="small" id="laBg"></div></div>
   </section>
 
   <section id="v-trading" data-view hidden>
@@ -759,7 +776,102 @@ document.addEventListener("click", async e => {
 });
 $("#askQ")?.addEventListener("keydown", e => { if (e.key === "Enter") $("#askBtn").click(); });
 
-function render() { if (!D) return; renderToday(); renderTrading(); wireAgentButton(); renderNN(); renderPnL(); renderKpis(); renderAgent(); renderGoals(); renderTrades(); renderData(); renderSkills(); renderHistory(); paintPills(); }
+// ---------- Live agents: Claude agents that read this board's data and report (claude.ai viewer only) ----------
+// Runs only on a click (never on a timer). Results are saved in the board's database (`agentRuns`), so the latest run
+// shows for everyone who opens the board and later Claude sessions can read them.
+const LA = [
+  { id: "scout", name: "Market scout", ic: "🔭", tier: "quick",
+    task: "Look at the live focus markets (price, 30-minute and 3-hour moves, each predictor's estimate vs price). Name up to 3 markets worth watching and why, and any that moved sharply.",
+    data: () => ({ focus: (D.focus?.markets || []).map(m => ({ title: m.title, cat: m.cat, price: m.price, chg30m: m.chg30m, chg3h: m.chg3h, resolvesAt: m.resolvesAt, estimates: m.est, paperPick: m.picks })), watchlist: D.status?.watchlist }) },
+  { id: "risk", name: "Risk manager", ic: "🛡", tier: "quick",
+    task: "Review the paper portfolios against the safety rules (max 5% per bet, 25% open, drawdown brakes). Flag drawdowns, losing streaks, paused strategies and anything close to a limit.",
+    data: () => ({ safety: D.config.paper?.safety, forward: paperBrief("forward"), replay: paperBrief("replay") }) },
+  { id: "trainer", name: "Model trainer", ic: "🧠", tier: "quick",
+    task: "Explain how the predictors and the neural network are learning: live scorecard, the network's walk-forward verdict and training history, backtest size. Say what data or change would most help next.",
+    data: () => ({ scorecard: scoreBrief(), network: D.nn && { verdict: D.nn.oos?.verdict, oos: D.nn.oos, trainedOn: D.nn.n, importance: (D.nn.importance || []).slice(0, 6), log: (D.nn.log || []).slice(-6) }, backtest: D.backtest && { resolved: D.backtest.resolved }, progress: D.progress?.predictors }) },
+  { id: "ops", name: "Dev / ops", ic: "🛠", tier: "quick",
+    task: "Report pipeline health from the watchdog checks and the latest dev-agent briefing: what is working, what is broken, what the owner must do.",
+    data: () => ({ checks: D.status?.checks, needs: D.status?.needs, briefings: (D.briefings || []).slice(0, 2), dataAge: D.generated }) },
+];
+const LEAD = { id: "lead", name: "Lead analyst", ic: "🎯", tier: "default" };
+const paperBrief = m => (D.paper?.[m]?.portfolios || []).map(p => ({ name: p.name, equity: p.equity, bets: p.bets, settled: p.settled, maxBetPct: p.maxBetPct, maxDrawdownPct: p.maxDrawdownPct, status: p.trustNow?.why, profitFactor: p.stats?.profitFactor, winRate: p.stats?.winRate, streak: p.stats?.streak }));
+const scoreBrief = () => ({ resolved: D.scorecard?.resolved, predictors: Object.fromEntries(Object.entries(D.scorecard?.predictors || {}).map(([k, v]) => [k, { n: v.n, vsMarket: v.brierVsMarket, verdict: v.verdict }])) });
+const RULES = "You are one agent in a research team for a Kalshi prediction-market agent. Everything is research and PAPER trading: never recommend real-money bets. Use ONLY the JSON data given; quote verdicts exactly; say plainly when evidence is insufficient (a verdict needs 100+ resolved markets and a 95% range excluding zero). Format: first line = a one-sentence headline; then 2-4 short bullet lines starting with '- '; last line = 'Confidence: low|medium|high'. Under 120 words.";
+let SAMPLE_LA = null, DB_LA = null, laCtl = null, laRuns = [], laShown = null, laState = {};
+(async () => {
+  try { SAMPLE_LA = window.claude?.use ? await window.claude.use("sample") : null; } catch { SAMPLE_LA = null; }
+  try { DB_LA = window.claude?.use ? await window.claude.use("db") : null; } catch { DB_LA = null; }
+  if (DB_LA) {
+    const t = setTimeout(() => { if (!laRuns.length) $("#laMsg").textContent = "Saved runs can't be reached yet."; }, 10000);
+    try {
+      DB_LA.collection("agentRuns").orderBy("ts", "desc").limit(10).onSnapshot(s => {
+        clearTimeout(t); laRuns = s.docs.map(d => ({ id: d.id, ...d.data() }));
+        if (!laCtl && (!laShown || laShown === laRuns[1]?.id || !laRuns.some(r => r.id === laShown))) laShown = laRuns[0]?.id || null;
+        if (D) renderLiveAgents();
+      }, () => clearTimeout(t));
+    } catch { clearTimeout(t); }
+  }
+  if (D) renderLiveAgents();
+})();
+function laCard(a, r) {
+  const st = r?.state || "idle", txt = r?.text || "";
+  const [head, ...rest] = txt.split("\n").filter(l => l.trim());
+  const conf = rest.find(l => /^confidence:/i.test(l)), bullets = rest.filter(l => !/^confidence:/i.test(l));
+  return `<div class="panel acard" data-s="${st}"><div class="nh"><div class="ic" style="--c:var(--info)">${a.ic}</div><div class="nm">${esc(a.name)}</div><span class="pill ${st === "done" ? "c-good" : st === "running" ? "c-info" : st === "error" ? "c-bad" : "c-muted"}">${esc(st === "running" ? "thinking" : st)}</span></div>
+    ${txt ? `<p class="ahead">${esc(head || "")}</p>${bullets.length ? `<ul class="small tight">${bullets.map(b => `<li>${esc(b.replace(/^[-•]\s*/, ""))}</li>`).join("")}</ul>` : ""}${conf ? `<p class="small muted" style="margin:6px 0 0">${esc(conf)}</p>` : ""}`
+      : `<p class="small muted">${st === "running" ? "Thinking…" : st === "error" ? esc(r?.error || "Failed.") : "Not run yet."}</p>`}</div>`;
+}
+function renderLiveAgents() {
+  if (!$("#laCards")) return;
+  const run = laCtl ? laState : (laRuns.find(r => r.id === laShown) || null);
+  $("#laWhen").textContent = laCtl ? "running now" : run?.ts ? `last run ${rel(run.ts)} · data from ${when(run.dataBuilt)}` : "no runs yet";
+  $("#laCards").innerHTML = LA.map(a => laCard(a, run?.results?.[a.id])).join("");
+  const L = run?.results?.lead;
+  $("#laLead").innerHTML = `<h2>${LEAD.ic} Lead analyst: what to do now</h2>` + (L?.text ? `<div class="small" style="white-space:pre-wrap">${esc(L.text)}</div>` : `<p class="small muted">${L?.state === "running" ? "Combining the team's findings…" : L?.state === "error" ? esc(L.error || "Failed.") : "Runs after the four specialists."}</p>`);
+  $("#laHist").innerHTML = laRuns.map(r => `<option value="${esc(r.id)}" ${r.id === laShown ? "selected" : ""}>${esc(when(r.ts))}</option>`).join("") || `<option>no saved runs</option>`;
+  $("#laHist").disabled = !laRuns.length || !!laCtl;
+  $("#laHist").onchange = e => { laShown = e.target.value; renderLiveAgents(); };
+  const can = !!SAMPLE_LA;
+  $("#laRun").hidden = !can; $("#laStop").hidden = !laCtl;
+  if (!can && !laCtl) $("#laMsg").textContent = window.claude?.use ? "Live agents need Claude access for this page (allow it when asked, or from the Permissions menu)." : "Live agents run in the claude.ai version of this board.";
+  const B = (D.briefings || [])[0];
+  $("#laBg").innerHTML = `<ul class="tight"><li><b>Dev agent</b> (Claude, hourly at :54 UTC): keeps live mode running, checks the pipeline, writes briefings. ${B ? `Last: ${esc(rel(B.ts))}, checks ${esc(B.checks)}.` : ""}</li>
+    <li><b>Live mode</b> (GitHub Actions, every 10 min): predictions, outcomes, scores, network training, paper trades, live prices.</li>
+    <li><b>Watchdog</b> (code, every cycle): ${D.status ? `${D.status.checks.filter(c => c.ok).length}/${D.status.checks.length} checks pass.` : "—"}</li></ul>`;
+}
+const laErr = e => ({ not_granted: "Claude access was declined for this page.", rate_limited: "Usage limit or too many calls right now. Try later.", sampling_disabled: "Claude isn't available for this account.", session_expired: "Sign in again, then retry.", refused: "Claude declined this request.", cancelled: "Stopped." }[e?.code] || "Interrupted. Try again.");
+async function runLiveAgents() {
+  if (!SAMPLE_LA || laCtl) return;
+  laCtl = new AbortController(); const signal = laCtl.signal;
+  laState = { ts: new Date().toISOString(), dataBuilt: D.generated, results: Object.fromEntries([...LA, LEAD].map(a => [a.id, { state: a.id === "lead" ? "idle" : "running", text: "" }])) };
+  $("#laMsg").textContent = ""; renderLiveAgents();
+  const one = async (a, prompt, tier) => {
+    try {
+      await SAMPLE_LA(prompt, { modelTier: tier, signal, cache: false, onText: ({ text }) => { laState.results[a.id].text = text; renderLiveAgents(); } });
+      laState.results[a.id].state = "done";
+    } catch (e) { laState.results[a.id] = { state: "error", text: e?.text || "", error: laErr(e) }; }
+    renderLiveAgents();
+  };
+  await Promise.all(LA.map(a => one(a, `${RULES}\n\nYOUR ROLE: ${a.name}. ${a.task}\n\nDATA (JSON):\n${JSON.stringify(a.data()).slice(0, 60000)}`, a.tier)));
+  if (!signal.aborted) {
+    laState.results.lead.state = "running"; renderLiveAgents();
+    const team = LA.map(a => `## ${a.name}\n${laState.results[a.id].text || "(no report)"}`).join("\n\n");
+    await one(LEAD, `${RULES.replace("Under 120 words.", "Under 180 words.")}\n\nYOUR ROLE: Lead analyst. Combine the team's reports into what the owner should know and do now (paper only): the single most important finding, what is working, what is not, and the next step. Resolve disagreements by the data.\n\nTEAM REPORTS:\n${team}\n\nKEY DATA (JSON):\n${JSON.stringify({ shouldTrade: D.status?.trade, scorecard: scoreBrief() })}`, LEAD.tier);
+  }
+  const ok = Object.values(laState.results).some(r => r.state === "done");
+  if (ok && DB_LA) {
+    const clean = Object.fromEntries(Object.entries(laState.results).map(([k, r]) => [k, { state: r.state === "running" ? "error" : r.state, text: (r.text || "").slice(0, 4000), error: r.error || null }]));
+    try { const ref = await DB_LA.collection("agentRuns").add({ ts: laState.ts, dataBuilt: laState.dataBuilt, results: clean }); laShown = ref.id; $("#laMsg").textContent = "Saved."; }
+    catch (e) { $("#laMsg").textContent = e?.code === "quota_exceeded" ? "Run done, but the board's storage is full." : "Run done, but it couldn't be saved (view-only access?)."; }
+  }
+  laCtl = null; renderLiveAgents();
+}
+document.addEventListener("click", e => {
+  if (e.target?.id === "laRun") runLiveAgents();
+  if (e.target?.id === "laStop") laCtl?.abort();
+});
+
+function render() { if (!D) return; renderToday(); renderTrading(); renderLiveAgents(); wireAgentButton(); renderNN(); renderPnL(); renderKpis(); renderAgent(); renderGoals(); renderTrades(); renderData(); renderSkills(); renderHistory(); paintPills(); }
 function paintPills() {
   const g = D.progress.goal || "IN_PROGRESS", h = D.progress.health;
   $("#goalPill").className = "pill " + statusTone(g); $("#goalPill").textContent = "goal: " + label(g);
