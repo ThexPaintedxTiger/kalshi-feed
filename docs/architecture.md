@@ -51,6 +51,13 @@ Order in the Action: test → resolve → memory → predict → backtest (hourl
 - **Backtest v4**: snapshot 30 min before resolution (hourly markets open only ~1 h before close); one batch candle call prices every market
   in an event; the market nearest 50¢ at the snapshot is kept (same rule as live, no outcome leakage). Sports excluded.
 
+## Watchdog and plain-English status (status.mjs, every run)
+Code, not an AI agent: free, exact, same answer every time. Checks every hand-off: recent cloud run, schedule pace (~18 runs/3 h),
+predictions logged, outcomes collected, scorecard counts = log, leakage 0, no duplicates, backtest sample unbiased, network trained,
+bet-size safety held, paper money adds up. Writes `status.json`: Should I trade? Is it learning? Is it running? What I need from you,
+plus a paper watchlist (what the strategies would bet next; not advice). Shown at the top of the dashboard's Agent tab.
+Claude subagents are not used in the pipeline (cost and non-repeatable answers); deeper reviews run on request via the skills.
+
 ## MCP server (read-only)
 `mcp/server.mjs` (official MCP SDK, stdio). Tools: `get_status`, `get_scorecard` (live|backtest), `search_predictions`, `recall_series`, `list_skills`.
 - Claude Code: `npm --prefix mcp install`, then it's picked up from `.mcp.json` (approve the project server once).

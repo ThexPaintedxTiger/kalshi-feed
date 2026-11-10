@@ -60,5 +60,6 @@ writeJson("dashboard.json", {
     return { ...m, holdout: m.holdout && { ...m.holdout, curve: c.filter((_, i) => i % step === 0 || i === c.length - 1) },
       log: readJsonl("data/nn/train-log.jsonl").slice(-48) }; })(),
   paper: readJson("data/paper/portfolios.json", null),
+  status: readJson("status.json", null),
 });
 console.log(`dashboard.json: ${preds.length} predictions, ${trades.length} simulated trades, ${skills.length} skills`);

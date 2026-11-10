@@ -103,6 +103,11 @@ input[type=search]{font:inherit;color:inherit;background:var(--card);border:1px 
 .skill p{margin:8px 0 0;font-size:13px}
 .skill .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);display:block;margin-top:10px}
 .sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.today{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.today .q h2{margin-bottom:6px}
+.big{font:700 18px/1.3 var(--sans);margin:2px 0 8px}
+.tight{margin:0;padding-left:18px;display:grid;gap:4px}
+.checks2{list-style:none;padding-left:0}
 #toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 14px;font-size:13px}
 </style>
 
@@ -122,6 +127,8 @@ input[type=search]{font:inherit;color:inherit;background:var(--card);border:1px 
 
 <main class="wrap">
   <section id="v-agent" data-view>
+    <div id="today"></div>
+    <div style="height:16px"></div>
     <div class="kpis" id="kpis"></div>
     <div style="height:16px"></div>
     <div class="canvas-scroll"><div class="canvas" id="canvas"><svg id="edges" aria-hidden="true"></svg></div></div>
@@ -529,11 +536,30 @@ function renderPnL() {
     sel.recent.map(b => `<tr><td>${when(b.ts)}</td><td class="t">${esc(b.title)}<div class="small muted">${esc(b.cat)}</div></td><td>${b.side.toUpperCase()}</td><td class="n">${cents(b.price)}</td><td class="n">${b.contracts}</td><td class="n ${b.pnl > 0 ? "c-good" : b.pnl < 0 ? "c-bad" : ""}">${b.pnl == null ? "open" : money(b.pnl)}</td></tr>`).join("")}</tbody></table>` : `<div class="empty">No bets in this mode yet.</div>`;
 }
 
-function render() { if (!D) return; renderNN(); renderPnL(); renderKpis(); renderAgent(); renderGoals(); renderTrades(); renderData(); renderSkills(); renderHistory(); paintPills(); }
+// ---------- Today: the four questions, in plain words ----------
+function renderToday() {
+  const S = D.status;
+  if (!S) { $("#today").innerHTML = ""; return; }
+  const tone = { good: "c-good", bad: "c-bad", warn: "c-warn" }[S.trade.tone] || "c-muted";
+  const okN = S.checks.filter(c => c.ok).length;
+  const wl = S.watchlist || [];
+  $("#today").innerHTML = `<div class="today">
+    <div class="panel q"><h2>Should I trade?</h2><p class="big ${tone}">${esc(S.trade.answer)}</p><p class="small">${esc(S.trade.why)}</p><p class="small muted">${esc(S.trade.next)}</p></div>
+    <div class="panel q"><h2>Is it learning?</h2><ul class="small tight">${S.learning.map(l => `<li>${esc(l)}</li>`).join("")}</ul></div>
+    <div class="panel q"><h2>Is it running?</h2><p class="big ${S.problems ? "c-warn" : "c-good"}">${okN}/${S.checks.length} checks pass</p>
+      <ul class="small tight checks2">${S.checks.map(c => `<li><span class="${c.ok ? "c-good" : "c-bad"}">${c.ok ? "✓" : "✗"}</span> ${esc(c.name)} <span class="muted">· ${esc(c.detail)}</span></li>`).join("")}</ul></div>
+    <div class="panel q"><h2>What I need from you</h2>${S.needs.length ? `<ol class="small tight">${S.needs.map(n => `<li>${esc(n)}</li>`).join("")}</ol>` : `<p class="small c-good">Nothing right now.</p>`}
+      <h2 style="margin-top:14px">Paper watchlist (not advice)</h2>${wl.length ? `<ul class="small tight">${wl.map(w => `<li><a href="${esc(w.url)}" target="_blank" rel="noopener">${esc(w.title)}</a> · ${esc(w.side.toUpperCase())} at ${cents(w.price)} · ${esc(w.predictor)} <span class="muted">(${esc(w.status.replace(/_/g, " ").toLowerCase())}) · ${rel(w.resolvesAt)}</span></li>`).join("")}</ul>
+      <p class="small muted">What the strategies would paper-bet next. None has proven an edge, so these are tests, not trades.</p>` : `<p class="small muted">No strategy wants to bet on anything open right now.</p>`}</div>
+  </div>`;
+}
+
+function render() { if (!D) return; renderToday(); renderNN(); renderPnL(); renderKpis(); renderAgent(); renderGoals(); renderTrades(); renderData(); renderSkills(); renderHistory(); paintPills(); }
 function paintPills() {
   const g = D.progress.goal || "IN_PROGRESS", h = D.progress.health;
   $("#goalPill").className = "pill " + statusTone(g); $("#goalPill").textContent = "goal: " + label(g);
-  $("#healthPill").className = "pill " + (h?.ok ? "c-good" : "c-warn"); $("#healthPill").textContent = h?.ok ? "pipeline ok" : "pipeline check";
+  const bad = D.status ? D.status.problems : (h?.ok ? 0 : 1);
+  $("#healthPill").className = "pill " + (bad ? "c-warn" : "c-good"); $("#healthPill").textContent = bad ? `pipeline: ${bad} issue${bad > 1 ? "s" : ""}` : "pipeline ok";
 }
 function route() {
   const v = (location.hash || "#agent").slice(1);
