@@ -1,6 +1,6 @@
 ---
 name: kalshi-live-agent
-description: "The hourly dev agent for the Kalshi research agent: keeps live mode running (starts the next hour of 10-minute pipeline cycles), checks every pipeline hand-off, fixes clear breakage safely, refreshes the claude.ai dashboard and writes a short plain-English briefing. Use when a scheduled task or the dashboard's 'Run dev agent now' button asks for the live check, or the owner asks to run the dev agent. Not for one-off local runs (use kalshi-run-cycle), deep diagnosis (use kalshi-ops-status) or strategy changes (owner approves)."
+description: "The hourly dev agent for the Kalshi research agent: keeps live mode running (starts the next hour of 10-minute pipeline cycles), checks every pipeline hand-off, fixes clear breakage safely, and writes a short plain-English briefing. Use when a scheduled task or the dashboard's 'Run dev agent now' button asks for the live check, or the owner asks to run the dev agent. Not for one-off local runs (use kalshi-run-cycle), deep diagnosis (use kalshi-ops-status) or strategy changes (owner approves)."
 ---
 
 # Hourly live check (keep it short: a few tool calls when all is well)
@@ -16,8 +16,10 @@ never force-push, never edit logged predictions/outcomes. Escalate per `kalshi-o
    while live mode is running, run `.claude/skills/kalshi-ops-status/status.sh` and follow that skill's table.
    Fix only clear code breakage, on a branch: test (`node test.mjs`), `gh workflow run feed.yml --ref <branch>`, wait for success,
    fast-forward `main`. Anything else goes in the briefing's `needs`.
-4. **Refresh the dashboard artifact** (`config.json → live.artifactUrl`): read it once per session with the Artifact tool, then publish
-   `dashboard.html` without its first line (`sed '1d'`) to that `url` with `files: {"dashboard.json": "dashboard.json"}`.
+4. **Dashboard:** don't republish the claude.ai artifact on scheduled runs (publishing needs the owner's approval and would stall an
+   unattended run). The live page on GitHub Pages refreshes itself from the data the pipeline pushes. Republish the artifact only when
+   the owner asks in a conversation (then: read it, publish `dashboard.html` minus its first line to `config.json → live.artifactUrl`
+   with `files: {"dashboard.json": "dashboard.json"}`).
 5. **Brief the owner:** append ONE line to `data/briefing.jsonl`:
    `{"ts": "<now ISO>", "checks": "<passed>/<total>", "summary": "2–3 plain sentences: what changed since the last briefing (resolved count, statuses, network verdict), anything wrong", "actions": ["what you did"], "needs": ["only decisions/settings the owner must do"]}`.
    Then `git add data/briefing.jsonl && git commit -m "Dev agent briefing" && git pull --rebase -q && git push -q` (data-only, straight to main).

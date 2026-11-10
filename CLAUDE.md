@@ -44,8 +44,8 @@ and count something as an improvement only when the scorecard shows it.
 ## Live mode and dev agent
 - `cycle.sh` = one pipeline cycle. `feed.yml` runs it on the 10-minute cron (if GitHub fires it); `live.yml` runs `live.sh`: 6 cycles, 10 minutes apart (≈1 h).
 - Dev agent: Claude session `session_017aScWtmMzeyXzzwrarJEyL` (Sonnet), woken hourly at :54 by scheduled task `trig_01VBpUdvVfLrxySgxCPLceHk`,
-  follows the `kalshi-live-agent` skill: starts the next live hour, checks the watchdog, fixes clear breakage, refreshes the dashboard artifact,
-  appends a briefing to `data/briefing.jsonl`. The dashboard's "Run dev agent now" button fires the same task. Uses Claude usage (owner approved).
+  follows the `kalshi-live-agent` skill: starts the next live hour, checks the watchdog, fixes clear breakage,
+  appends a briefing to `data/briefing.jsonl`. The dashboard's "Run dev agent now" button fires the same task. Uses Claude usage (owner approved). It runs in default permission mode, so it never republishes the artifact (needs approval).
 
 ## Pipeline (GitHub Actions, every 10 min, `.github/workflows/feed.yml`)
 `test.mjs` → `resolve.mjs` → `memory.mjs` → `predict.mjs` → `backtest.mjs` (hourly) → `nn.mjs` (hourly training) → `score.mjs` → `progress.mjs` → `paper.mjs` → `status.mjs` (watchdog + plain-English status) → `scan.mjs` + `agents.mjs` (Agent Flow feed, unchanged) → `dashboard.mjs`.
