@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T22:45:01.877Z",
+ "updated": "2026-11-10T22:55:15.445Z",
  "start": 10,
  "goal": 1000,
  "safety": {
@@ -3467,6 +3467,144 @@
       }
      ]
     }
+   },
+   {
+    "id": "crypto-learn",
+    "name": "Crypto fair value, learned bet size",
+    "predictor": "crypto_fair",
+    "sizing": "learn",
+    "equity": 10,
+    "cash": 10,
+    "openPositions": 0,
+    "returnPct": 0,
+    "bets": 0,
+    "shadowBets": 0,
+    "settled": 0,
+    "wins": 0,
+    "pnl": 0,
+    "fees": 0,
+    "maxDrawdownPct": 0,
+    "lowest": 10,
+    "avgBetPct": 0,
+    "maxBetPct": 0,
+    "worstLossPct": 0,
+    "betsPerDay": 0,
+    "trustNow": {
+     "trust": 0,
+     "why": "learning: 0/30 settled bets"
+    },
+    "busted": null,
+    "reachedGoal": null,
+    "curve": [
+     [
+      1794025740000,
+      10
+     ]
+    ],
+    "recent": [],
+    "stats": {
+     "trades": 0,
+     "wins": 0,
+     "losses": 0,
+     "winRate": null,
+     "grossProfit": 0,
+     "grossLoss": 0,
+     "net": 0,
+     "profitFactor": null,
+     "best": null,
+     "worst": null,
+     "expectedPayoff": null,
+     "recoveryFactor": null,
+     "perBetSharpe": null,
+     "avgDailyPnl": null,
+     "lastDay": null,
+     "streak": null,
+     "daily": [],
+     "drawdown": [
+      [
+       1794025740000,
+       0
+      ]
+     ]
+    },
+    "review": {
+     "n": 0,
+     "netCloser": null,
+     "losses": 0,
+     "firstHalf": null,
+     "secondHalf": null
+    },
+    "closed": [],
+    "monteCarlo": null
+   },
+   {
+    "id": "weather-learn",
+    "name": "Weather forecast, learned bet size",
+    "predictor": "weather_nws",
+    "sizing": "learn",
+    "equity": 10,
+    "cash": 10,
+    "openPositions": 0,
+    "returnPct": 0,
+    "bets": 0,
+    "shadowBets": 0,
+    "settled": 0,
+    "wins": 0,
+    "pnl": 0,
+    "fees": 0,
+    "maxDrawdownPct": 0,
+    "lowest": 10,
+    "avgBetPct": 0,
+    "maxBetPct": 0,
+    "worstLossPct": 0,
+    "betsPerDay": 0,
+    "trustNow": {
+     "trust": 0,
+     "why": "learning: 0/30 settled bets"
+    },
+    "busted": null,
+    "reachedGoal": null,
+    "curve": [
+     [
+      1794025740000,
+      10
+     ]
+    ],
+    "recent": [],
+    "stats": {
+     "trades": 0,
+     "wins": 0,
+     "losses": 0,
+     "winRate": null,
+     "grossProfit": 0,
+     "grossLoss": 0,
+     "net": 0,
+     "profitFactor": null,
+     "best": null,
+     "worst": null,
+     "expectedPayoff": null,
+     "recoveryFactor": null,
+     "perBetSharpe": null,
+     "avgDailyPnl": null,
+     "lastDay": null,
+     "streak": null,
+     "daily": [],
+     "drawdown": [
+      [
+       1794025740000,
+       0
+      ]
+     ]
+    },
+    "review": {
+     "n": 0,
+     "netCloser": null,
+     "losses": 0,
+     "firstHalf": null,
+     "secondHalf": null
+    },
+    "closed": [],
+    "monteCarlo": null
    }
   ]
  },
@@ -6148,6 +6286,144 @@
       "settledAt": "2026-11-10T19:02:31.266Z"
      }
     ],
+    "monteCarlo": null
+   },
+   {
+    "id": "crypto-learn",
+    "name": "Crypto fair value, learned bet size",
+    "predictor": "crypto_fair",
+    "sizing": "learn",
+    "equity": 10,
+    "cash": 10,
+    "openPositions": 0,
+    "returnPct": 0,
+    "bets": 0,
+    "shadowBets": 0,
+    "settled": 0,
+    "wins": 0,
+    "pnl": 0,
+    "fees": 0,
+    "maxDrawdownPct": 0,
+    "lowest": 10,
+    "avgBetPct": 0,
+    "maxBetPct": 0,
+    "worstLossPct": 0,
+    "betsPerDay": 0,
+    "trustNow": {
+     "trust": 0,
+     "why": "learning: 0/30 settled bets"
+    },
+    "busted": null,
+    "reachedGoal": null,
+    "curve": [
+     [
+      1794330626839,
+      10
+     ]
+    ],
+    "recent": [],
+    "stats": {
+     "trades": 0,
+     "wins": 0,
+     "losses": 0,
+     "winRate": null,
+     "grossProfit": 0,
+     "grossLoss": 0,
+     "net": 0,
+     "profitFactor": null,
+     "best": null,
+     "worst": null,
+     "expectedPayoff": null,
+     "recoveryFactor": null,
+     "perBetSharpe": null,
+     "avgDailyPnl": null,
+     "lastDay": null,
+     "streak": null,
+     "daily": [],
+     "drawdown": [
+      [
+       1794330626839,
+       0
+      ]
+     ]
+    },
+    "review": {
+     "n": 0,
+     "netCloser": null,
+     "losses": 0,
+     "firstHalf": null,
+     "secondHalf": null
+    },
+    "closed": [],
+    "monteCarlo": null
+   },
+   {
+    "id": "weather-learn",
+    "name": "Weather forecast, learned bet size",
+    "predictor": "weather_nws",
+    "sizing": "learn",
+    "equity": 10,
+    "cash": 10,
+    "openPositions": 0,
+    "returnPct": 0,
+    "bets": 0,
+    "shadowBets": 0,
+    "settled": 0,
+    "wins": 0,
+    "pnl": 0,
+    "fees": 0,
+    "maxDrawdownPct": 0,
+    "lowest": 10,
+    "avgBetPct": 0,
+    "maxBetPct": 0,
+    "worstLossPct": 0,
+    "betsPerDay": 0,
+    "trustNow": {
+     "trust": 0,
+     "why": "learning: 0/30 settled bets"
+    },
+    "busted": null,
+    "reachedGoal": null,
+    "curve": [
+     [
+      1794330626839,
+      10
+     ]
+    ],
+    "recent": [],
+    "stats": {
+     "trades": 0,
+     "wins": 0,
+     "losses": 0,
+     "winRate": null,
+     "grossProfit": 0,
+     "grossLoss": 0,
+     "net": 0,
+     "profitFactor": null,
+     "best": null,
+     "worst": null,
+     "expectedPayoff": null,
+     "recoveryFactor": null,
+     "perBetSharpe": null,
+     "avgDailyPnl": null,
+     "lastDay": null,
+     "streak": null,
+     "daily": [],
+     "drawdown": [
+      [
+       1794330626839,
+       0
+      ]
+     ]
+    },
+    "review": {
+     "n": 0,
+     "netCloser": null,
+     "losses": 0,
+     "firstHalf": null,
+     "secondHalf": null
+    },
+    "closed": [],
     "monteCarlo": null
    }
   ]

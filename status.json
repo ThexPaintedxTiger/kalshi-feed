@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T22:45:02.609Z",
+ "updated": "2026-11-10T22:56:03.950Z",
  "trade": {
   "answer": "No — don't trade real money yet",
   "tone": "bad",
@@ -110,12 +110,12 @@
   {
    "name": "Pipeline ran recently",
    "ok": true,
-   "detail": "last cloud run 0 min ago"
+   "detail": "last cloud run 1 min ago"
   },
   {
    "name": "Runs on schedule (every 10 min)",
    "ok": true,
-   "detail": "13 cloud runs in the last 3 h (expect ~18)"
+   "detail": "14 cloud runs in the last 3 h (expect ~18)"
   },
   {
    "name": "New predictions are being logged",
@@ -150,7 +150,7 @@
   {
    "name": "Network trained in the last 2 h",
    "ok": true,
-   "detail": "trained 38 min ago on 1425 markets"
+   "detail": "trained 49 min ago on 1425 markets"
   },
   {
    "name": "Bet-size safety held (≤5% per bet)",
@@ -160,7 +160,17 @@
   {
    "name": "Paper money adds up",
    "ok": true,
-   "detail": "12 portfolios checked"
+   "detail": "16 portfolios checked"
+  },
+  {
+   "name": "Outside data: Coinbase crypto agent",
+   "ok": true,
+   "detail": "0/0 markets got an outside estimate, 1 min ago"
+  },
+  {
+   "name": "Outside data: NWS weather agent",
+   "ok": true,
+   "detail": "0/0 markets got an outside estimate, 1 min ago"
   }
  ],
  "problems": 0,
