@@ -23,4 +23,7 @@ never force-push, never edit logged predictions/outcomes. Escalate per `kalshi-o
 5. **Brief the owner:** append ONE line to `data/briefing.jsonl`:
    `{"ts": "<now ISO>", "checks": "<passed>/<total>", "summary": "2–3 plain sentences: what changed since the last briefing (resolved count, statuses, network verdict), anything wrong", "actions": ["what you did"], "needs": ["only decisions/settings the owner must do"]}`.
    Then `git add data/briefing.jsonl && git commit -m "Dev agent briefing" && git pull --rebase -q && git push -q` (data-only, straight to main).
+   Accuracy rules for the briefing: quote verdicts and statuses exactly as `status.json`/`progress.json`/`data/nn/model.json` word them
+   (e.g. "no measurable difference" is not "worse"); only claim a cause you checked (runs started by live mode or by hand are not the cron
+   schedule: `gh run list --workflow feed.yml --event schedule` tells you whether the schedule fired).
 6. Reply with the same 2–3 sentences. Don't re-explain the project.
