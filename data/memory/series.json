@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-10T23:04:58.780Z",
- "samples": 1973,
+ "updated": "2026-11-10T23:14:57.980Z",
+ "samples": 2126,
  "note": "Derived summary (rebuilt each run). bias = average (outcome − market price); > 0 means YES was underpriced in this series.",
  "series": {
   "KXAAAGASD": {
@@ -25,16 +25,27 @@
    "live": 0,
    "backtest": 1
   },
-  "KXAAAGASDAZ": {
+  "KXAAAGASDAL": {
    "cat": "Economics",
    "n": 1,
-   "yesRate": 1,
-   "avgPrice": 0.95,
-   "bias": 0.05,
-   "brierMarket": 0.0025,
-   "last": "2026-11-09T12:14:47.051Z",
+   "yesRate": 0,
+   "avgPrice": 0.04,
+   "bias": -0.04,
+   "brierMarket": 0.0016,
+   "last": "2026-11-07T12:15:07.056Z",
    "live": 0,
    "backtest": 1
+  },
+  "KXAAAGASDAZ": {
+   "cat": "Economics",
+   "n": 2,
+   "yesRate": 1,
+   "avgPrice": 0.9475,
+   "bias": 0.0525,
+   "brierMarket": 0.0028,
+   "last": "2026-11-09T12:14:47.051Z",
+   "live": 0,
+   "backtest": 2
   },
   "KXAAAGASDCA": {
    "cat": "Economics",
@@ -49,14 +60,14 @@
   },
   "KXAAAGASDCT": {
    "cat": "Economics",
-   "n": 1,
+   "n": 2,
    "yesRate": 0,
-   "avgPrice": 0.035,
-   "bias": -0.035,
-   "brierMarket": 0.0012,
+   "avgPrice": 0.0325,
+   "bias": -0.0325,
+   "brierMarket": 0.0011,
    "last": "2026-11-08T12:14:22.052Z",
    "live": 0,
-   "backtest": 1
+   "backtest": 2
   },
   "KXAAAGASDDE": {
    "cat": "Economics",
@@ -71,36 +82,47 @@
   },
   "KXAAAGASDGA": {
    "cat": "Economics",
-   "n": 1,
-   "yesRate": 0,
-   "avgPrice": 0.03,
-   "bias": -0.03,
-   "brierMarket": 0.0009,
+   "n": 2,
+   "yesRate": 0.5,
+   "avgPrice": 0.4625,
+   "bias": 0.0375,
+   "brierMarket": 0.006,
    "last": "2026-11-09T12:14:42.050Z",
    "live": 0,
-   "backtest": 1
+   "backtest": 2
   },
   "KXAAAGASDHI": {
    "cat": "Economics",
-   "n": 3,
-   "yesRate": 0.6667,
-   "avgPrice": 0.3367,
-   "bias": 0.33,
-   "brierMarket": 0.3035,
+   "n": 4,
+   "yesRate": 0.5,
+   "avgPrice": 0.27,
+   "bias": 0.23,
+   "brierMarket": 0.2289,
    "last": "2026-11-10T12:15:36.258Z",
    "live": 0,
-   "backtest": 3
+   "backtest": 4
   },
   "KXAAAGASDIA": {
    "cat": "Economics",
-   "n": 3,
-   "yesRate": 0,
-   "avgPrice": 0.055,
-   "bias": -0.055,
-   "brierMarket": 0.0033,
+   "n": 4,
+   "yesRate": 0.25,
+   "avgPrice": 0.28,
+   "bias": -0.03,
+   "brierMarket": 0.003,
    "last": "2026-11-10T12:15:31.251Z",
    "live": 0,
-   "backtest": 3
+   "backtest": 4
+  },
+  "KXAAAGASDID": {
+   "cat": "Economics",
+   "n": 1,
+   "yesRate": 0,
+   "avgPrice": 0.04,
+   "bias": -0.04,
+   "brierMarket": 0.0016,
+   "last": "2026-11-07T12:15:17.052Z",
+   "live": 0,
+   "backtest": 1
   },
   "KXAAAGASDIN": {
    "cat": "Economics",
@@ -115,25 +137,25 @@
   },
   "KXAAAGASDKY": {
    "cat": "Economics",
-   "n": 2,
-   "yesRate": 0.5,
-   "avgPrice": 0.5075,
-   "bias": -0.0075,
-   "brierMarket": 0.0023,
+   "n": 3,
+   "yesRate": 0.6667,
+   "avgPrice": 0.6567,
+   "bias": 0.01,
+   "brierMarket": 0.0022,
    "last": "2026-11-10T12:15:41.254Z",
    "live": 0,
-   "backtest": 2
+   "backtest": 3
   },
   "KXAAAGASDLA": {
    "cat": "Economics",
-   "n": 1,
-   "yesRate": 1,
-   "avgPrice": 0.96,
-   "bias": 0.04,
-   "brierMarket": 0.0016,
+   "n": 2,
+   "yesRate": 0.5,
+   "avgPrice": 0.495,
+   "bias": 0.005,
+   "brierMarket": 0.0013,
    "last": "2026-11-09T12:15:07.053Z",
    "live": 0,
-   "backtest": 1
+   "backtest": 2
   },
   "KXAAAGASDMA": {
    "cat": "Economics",
@@ -154,6 +176,17 @@
    "bias": -0.04,
    "brierMarket": 0.0016,
    "last": "2026-11-08T12:14:22.050Z",
+   "live": 0,
+   "backtest": 1
+  },
+  "KXAAAGASDME": {
+   "cat": "Economics",
+   "n": 1,
+   "yesRate": 0,
+   "avgPrice": 0.03,
+   "bias": -0.03,
+   "brierMarket": 0.0009,
+   "last": "2026-11-07T12:15:07.053Z",
    "live": 0,
    "backtest": 1
   },
@@ -181,47 +214,47 @@
   },
   "KXAAAGASDMS": {
    "cat": "Economics",
-   "n": 2,
-   "yesRate": 0.5,
-   "avgPrice": 0.485,
-   "bias": 0.015,
-   "brierMarket": 0.0023,
+   "n": 3,
+   "yesRate": 0.6667,
+   "avgPrice": 0.6467,
+   "bias": 0.02,
+   "brierMarket": 0.0018,
    "last": "2026-11-10T12:15:41.255Z",
    "live": 0,
-   "backtest": 2
+   "backtest": 3
   },
   "KXAAAGASDNC": {
    "cat": "Economics",
-   "n": 2,
+   "n": 3,
    "yesRate": 0,
-   "avgPrice": 0.0525,
-   "bias": -0.0525,
-   "brierMarket": 0.0028,
+   "avgPrice": 0.045,
+   "bias": -0.045,
+   "brierMarket": 0.0021,
    "last": "2026-11-09T12:14:42.055Z",
    "live": 0,
-   "backtest": 2
+   "backtest": 3
   },
   "KXAAAGASDND": {
    "cat": "Economics",
-   "n": 2,
-   "yesRate": 0.5,
-   "avgPrice": 0.48,
-   "bias": 0.02,
-   "brierMarket": 0.0029,
+   "n": 3,
+   "yesRate": 0.6667,
+   "avgPrice": 0.6267,
+   "bias": 0.04,
+   "brierMarket": 0.0041,
    "last": "2026-11-10T12:15:41.251Z",
    "live": 0,
-   "backtest": 2
+   "backtest": 3
   },
   "KXAAAGASDNE": {
    "cat": "Economics",
-   "n": 3,
-   "yesRate": 0.6667,
-   "avgPrice": 0.645,
-   "bias": 0.0217,
-   "brierMarket": 0.0027,
+   "n": 4,
+   "yesRate": 0.75,
+   "avgPrice": 0.505,
+   "bias": 0.245,
+   "brierMarket": 0.2113,
    "last": "2026-11-10T12:15:41.250Z",
    "live": 0,
-   "backtest": 3
+   "backtest": 4
   },
   "KXAAAGASDNJ": {
    "cat": "Economics",
@@ -289,49 +322,71 @@
    "live": 0,
    "backtest": 2
   },
-  "KXAAAGASDRI": {
-   "cat": "Economics",
-   "n": 1,
-   "yesRate": 1,
-   "avgPrice": 0.97,
-   "bias": 0.03,
-   "brierMarket": 0.0009,
-   "last": "2026-11-08T12:14:42.054Z",
-   "live": 0,
-   "backtest": 1
-  },
-  "KXAAAGASDSC": {
+  "KXAAAGASDOR": {
    "cat": "Economics",
    "n": 1,
    "yesRate": 0,
-   "avgPrice": 0.03,
-   "bias": -0.03,
-   "brierMarket": 0.0009,
-   "last": "2026-11-08T12:14:22.049Z",
+   "avgPrice": 0.07,
+   "bias": -0.07,
+   "brierMarket": 0.0049,
+   "last": "2026-11-07T12:14:57.056Z",
    "live": 0,
    "backtest": 1
+  },
+  "KXAAAGASDPA": {
+   "cat": "Economics",
+   "n": 1,
+   "yesRate": 0,
+   "avgPrice": 0.035,
+   "bias": -0.035,
+   "brierMarket": 0.0012,
+   "last": "2026-11-07T12:14:47.106Z",
+   "live": 0,
+   "backtest": 1
+  },
+  "KXAAAGASDRI": {
+   "cat": "Economics",
+   "n": 2,
+   "yesRate": 0.5,
+   "avgPrice": 0.5275,
+   "bias": -0.0275,
+   "brierMarket": 0.0041,
+   "last": "2026-11-08T12:14:42.054Z",
+   "live": 0,
+   "backtest": 2
+  },
+  "KXAAAGASDSC": {
+   "cat": "Economics",
+   "n": 2,
+   "yesRate": 0.5,
+   "avgPrice": 0.495,
+   "bias": 0.005,
+   "brierMarket": 0.0013,
+   "last": "2026-11-08T12:14:22.049Z",
+   "live": 0,
+   "backtest": 2
   },
   "KXAAAGASDSD": {
    "cat": "Economics",
-   "n": 1,
-   "yesRate": 1,
-   "avgPrice": 0.96,
-   "bias": 0.04,
-   "brierMarket": 0.0016,
+   "n": 2,
+   "yesRate": 0.5,
+   "avgPrice": 0.5325,
+   "bias": -0.0325,
+   "brierMarket": 0.0063,
    "last": "2026-11-10T12:15:46.252Z",
    "live": 0,
-   "backtest": 1
+   "backtest": 2
   },
   "KXAAAGASDTN": {
    "cat": "Economics",
-   "n": 1,
+   "n": 2,
    "yesRate": 0,
    "avgPrice": 0.04,
    "bias": -0.04,
    "brierMarket": 0.0016,
    "last": "2026-11-10T12:15:11.252Z",
    "live": 0,
-   "backtest": 1
+   "backtest": 2
   },
   "KXAAAGASDTX": {
    "cat": "Economics",
@@ -577,36 +632,36 @@
   },
   "KXBIGGESTQUAKE": {
    "cat": "Climate and Weather",
-   "n": 3,
-   "yesRate": 0.6667,
-   "avgPrice": 0.375,
-   "bias": 0.2917,
-   "brierMarket": 0.2005,
+   "n": 4,
+   "yesRate": 0.5,
+   "avgPrice": 0.2925,
+   "bias": 0.2075,
+   "brierMarket": 0.1509,
    "last": "2026-11-10T03:00:31.205Z",
    "live": 0,
-   "backtest": 3
+   "backtest": 4
   },
   "KXBNB": {
    "cat": "Crypto",
-   "n": 10,
+   "n": 15,
    "yesRate": 0.4,
-   "avgPrice": 0.461,
-   "bias": -0.061,
-   "brierMarket": 0.0867,
+   "avgPrice": 0.4773,
+   "bias": -0.0773,
+   "brierMarket": 0.0993,
    "last": "2026-11-10T22:02:46.257Z",
    "live": 1,
-   "backtest": 9
+   "backtest": 14
   },
   "KXBNBD": {
    "cat": "Crypto",
-   "n": 18,
-   "yesRate": 0.4444,
-   "avgPrice": 0.4383,
-   "bias": 0.0061,
-   "brierMarket": 0.2828,
-   "last": "2026-11-10T21:02:46.207Z",
-   "live": 0,
-   "backtest": 18
+   "n": 23,
+   "yesRate": 0.5217,
+   "avgPrice": 0.4815,
+   "bias": 0.0402,
+   "brierMarket": 0.2492,
+   "last": "2026-11-10T23:02:51.254Z",
+   "live": 2,
+   "backtest": 21
   },
   "KXBRENTD": {
    "cat": "Commodities",
@@ -621,25 +676,25 @@
   },
   "KXBTC": {
    "cat": "Crypto",
-   "n": 108,
-   "yesRate": 0.3056,
-   "avgPrice": 0.2967,
-   "bias": 0.0089,
-   "brierMarket": 0.1786,
-   "last": "2026-11-10T22:02:36.328Z",
-   "live": 26,
-   "backtest": 82
+   "n": 121,
+   "yesRate": 0.2893,
+   "avgPrice": 0.2969,
+   "bias": -0.0076,
+   "brierMarket": 0.1735,
+   "last": "2026-11-10T23:02:36.258Z",
+   "live": 33,
+   "backtest": 88
   },
   "KXBTCD": {
    "cat": "Crypto",
-   "n": 115,
-   "yesRate": 0.5478,
-   "avgPrice": 0.475,
-   "bias": 0.0728,
-   "brierMarket": 0.2102,
-   "last": "2026-11-10T22:02:36.322Z",
-   "live": 34,
-   "backtest": 81
+   "n": 129,
+   "yesRate": 0.5194,
+   "avgPrice": 0.4877,
+   "bias": 0.0317,
+   "brierMarket": 0.2124,
+   "last": "2026-11-10T23:02:36.296Z",
+   "live": 42,
+   "backtest": 87
   },
   "KXCAVAFT": {
    "cat": "Financials",
@@ -962,25 +1017,25 @@
   },
   "KXETH": {
    "cat": "Crypto",
-   "n": 44,
-   "yesRate": 0.3409,
-   "avgPrice": 0.4156,
-   "bias": -0.0747,
-   "brierMarket": 0.1581,
-   "last": "2026-11-10T22:02:36.326Z",
-   "live": 5,
-   "backtest": 39
+   "n": 48,
+   "yesRate": 0.3542,
+   "avgPrice": 0.4118,
+   "bias": -0.0576,
+   "brierMarket": 0.1603,
+   "last": "2026-11-10T23:02:26.310Z",
+   "live": 7,
+   "backtest": 41
   },
   "KXETHD": {
    "cat": "Crypto",
-   "n": 102,
-   "yesRate": 0.4804,
-   "avgPrice": 0.4941,
-   "bias": -0.0137,
-   "brierMarket": 0.194,
-   "last": "2026-11-10T22:02:36.326Z",
-   "live": 21,
-   "backtest": 81
+   "n": 114,
+   "yesRate": 0.4649,
+   "avgPrice": 0.4974,
+   "bias": -0.0325,
+   "brierMarket": 0.1927,
+   "last": "2026-11-10T23:02:26.321Z",
+   "live": 27,
+   "backtest": 87
   },
   "KXEUROCUPGAME": {
    "cat": "Sports",
@@ -1116,25 +1171,25 @@
   },
   "KXHYPE": {
    "cat": "Crypto",
-   "n": 39,
-   "yesRate": 0.2821,
-   "avgPrice": 0.3854,
-   "bias": -0.1033,
-   "brierMarket": 0.1997,
+   "n": 45,
+   "yesRate": 0.3333,
+   "avgPrice": 0.3862,
+   "bias": -0.0529,
+   "brierMarket": 0.2138,
    "last": "2026-11-10T22:02:41.252Z",
    "live": 5,
-   "backtest": 34
+   "backtest": 40
   },
   "KXHYPED": {
    "cat": "Crypto",
-   "n": 40,
-   "yesRate": 0.575,
-   "avgPrice": 0.4598,
-   "bias": 0.1152,
-   "brierMarket": 0.214,
-   "last": "2026-11-10T22:02:41.254Z",
-   "live": 12,
-   "backtest": 28
+   "n": 46,
+   "yesRate": 0.5,
+   "avgPrice": 0.4686,
+   "bias": 0.0314,
+   "brierMarket": 0.2318,
+   "last": "2026-11-10T23:02:41.314Z",
+   "live": 17,
+   "backtest": 29
   },
   "KXINX": {
    "cat": "Financials",
@@ -1389,6 +1444,17 @@
    "live": 0,
    "backtest": 1
   },
+  "KXPARAGUAYNEXT": {
+   "cat": "Elections",
+   "n": 1,
+   "yesRate": 1,
+   "avgPrice": 0.67,
+   "bias": 0.33,
+   "brierMarket": 0.1089,
+   "last": "2026-11-06T23:38:52.052Z",
+   "live": 0,
+   "backtest": 1
+  },
   "KXPRESSBRIEFINGCOUNT": {
    "cat": "Politics",
    "n": 1,
@@ -1397,6 +1463,17 @@
    "bias": 0.065,
    "brierMarket": 0.0042,
    "last": "2026-11-09T22:57:17.047Z",
+   "live": 0,
+   "backtest": 1
+  },
+  "KXPSAKIMENTION": {
+   "cat": "Mentions",
+   "n": 1,
+   "yesRate": 0,
+   "avgPrice": 0.12,
+   "bias": -0.12,
+   "brierMarket": 0.0144,
+   "last": "2026-11-07T15:15:07.050Z",
    "live": 0,
    "backtest": 1
   },
@@ -1501,25 +1578,25 @@
   },
   "KXSOLD": {
    "cat": "Crypto",
-   "n": 104,
-   "yesRate": 0.5288,
-   "avgPrice": 0.5028,
-   "bias": 0.0261,
-   "brierMarket": 0.1787,
-   "last": "2026-11-10T22:02:26.257Z",
-   "live": 22,
-   "backtest": 82
+   "n": 114,
+   "yesRate": 0.5175,
+   "avgPrice": 0.5121,
+   "bias": 0.0054,
+   "brierMarket": 0.1841,
+   "last": "2026-11-10T23:02:01.312Z",
+   "live": 26,
+   "backtest": 88
   },
   "KXSOLE": {
    "cat": "Crypto",
-   "n": 57,
-   "yesRate": 0.386,
+   "n": 67,
+   "yesRate": 0.3881,
    "avgPrice": 0.4125,
-   "bias": -0.0265,
-   "brierMarket": 0.1953,
-   "last": "2026-11-10T21:01:51.261Z",
-   "live": 3,
-   "backtest": 54
+   "bias": -0.0245,
+   "brierMarket": 0.1929,
+   "last": "2026-11-10T23:02:01.317Z",
+   "live": 7,
+   "backtest": 60
   },
   "KXT20MATCH": {
    "cat": "Sports",
@@ -1534,47 +1611,47 @@
   },
   "KXTEMPCHIHS": {
    "cat": "Climate and Weather",
-   "n": 80,
-   "yesRate": 0.5875,
-   "avgPrice": 0.4735,
-   "bias": 0.114,
-   "brierMarket": 0.1838,
-   "last": "2026-11-10T22:00:00.000Z",
-   "live": 9,
-   "backtest": 71
+   "n": 89,
+   "yesRate": 0.5955,
+   "avgPrice": 0.463,
+   "bias": 0.1325,
+   "brierMarket": 0.1857,
+   "last": "2026-11-10T23:00:00.000Z",
+   "live": 12,
+   "backtest": 77
   },
   "KXTEMPLAXHS": {
    "cat": "Climate and Weather",
-   "n": 85,
-   "yesRate": 0.5294,
-   "avgPrice": 0.5231,
-   "bias": 0.0063,
-   "brierMarket": 0.189,
-   "last": "2026-11-10T22:00:00.000Z",
-   "live": 8,
-   "backtest": 77
+   "n": 93,
+   "yesRate": 0.5269,
+   "avgPrice": 0.5242,
+   "bias": 0.0027,
+   "brierMarket": 0.1991,
+   "last": "2026-11-10T23:00:00.000Z",
+   "live": 10,
+   "backtest": 83
   },
   "KXTEMPMIAH": {
    "cat": "Climate and Weather",
-   "n": 87,
-   "yesRate": 0.4368,
-   "avgPrice": 0.4887,
-   "bias": -0.052,
-   "brierMarket": 0.1293,
-   "last": "2026-11-10T22:00:00.000Z",
-   "live": 7,
-   "backtest": 80
+   "n": 95,
+   "yesRate": 0.4421,
+   "avgPrice": 0.4884,
+   "bias": -0.0463,
+   "brierMarket": 0.1303,
+   "last": "2026-11-10T23:00:00.000Z",
+   "live": 9,
+   "backtest": 86
   },
   "KXTEMPNYCHS": {
    "cat": "Climate and Weather",
-   "n": 80,
-   "yesRate": 0.425,
-   "avgPrice": 0.4694,
-   "bias": -0.0444,
-   "brierMarket": 0.1202,
-   "last": "2026-11-10T22:00:00.000Z",
-   "live": 6,
-   "backtest": 74
+   "n": 88,
+   "yesRate": 0.4318,
+   "avgPrice": 0.4655,
+   "bias": -0.0337,
+   "brierMarket": 0.1186,
+   "last": "2026-11-10T23:00:00.000Z",
+   "live": 8,
+   "backtest": 80
   },
   "KXTHEWEEKNIGHTMENTION": {
    "cat": "Mentions",
@@ -1628,6 +1705,17 @@
    "bias": 0.035,
    "brierMarket": 0.0012,
    "last": "2026-11-07T20:19:07.052Z",
+   "live": 0,
+   "backtest": 1
+  },
+  "KXTRUMPMENTION": {
+   "cat": "Mentions",
+   "n": 1,
+   "yesRate": 0,
+   "avgPrice": 0.45,
+   "bias": -0.45,
+   "brierMarket": 0.2025,
+   "last": "2026-11-07T00:15:37.104Z",
    "live": 0,
    "backtest": 1
   },
@@ -1820,24 +1908,24 @@
   },
   "KXWORLDNEWSMENTION": {
    "cat": "Mentions",
-   "n": 1,
-   "yesRate": 1,
-   "avgPrice": 0.68,
-   "bias": 0.32,
-   "brierMarket": 0.1024,
+   "n": 2,
+   "yesRate": 0.5,
+   "avgPrice": 0.365,
+   "bias": 0.135,
+   "brierMarket": 0.0524,
    "last": "2026-11-10T00:49:41.255Z",
    "live": 0,
-   "backtest": 1
+   "backtest": 2
   },
   "KXWTACHALLENGERMATCH": {
    "cat": "Sports",
-   "n": 10,
+   "n": 12,
    "yesRate": 0.5,
-   "avgPrice": 0.5065,
-   "bias": -0.0065,
-   "brierMarket": 0.1002,
-   "last": "2026-11-10T20:32:11.217Z",
-   "live": 10,
+   "avgPrice": 0.5054,
+   "bias": -0.0054,
+   "brierMarket": 0.0905,
+   "last": "2026-11-10T23:07:06.221Z",
+   "live": 12,
    "backtest": 0
   },
   "KXWTI": {
@@ -1864,25 +1952,25 @@
   },
   "KXXRP": {
    "cat": "Crypto",
-   "n": 22,
-   "yesRate": 0.6364,
-   "avgPrice": 0.6018,
-   "bias": 0.0345,
-   "brierMarket": 0.2052,
-   "last": "2026-11-10T22:00:00.000Z",
-   "live": 5,
-   "backtest": 17
+   "n": 24,
+   "yesRate": 0.6667,
+   "avgPrice": 0.6062,
+   "bias": 0.0604,
+   "brierMarket": 0.1993,
+   "last": "2026-11-10T23:00:00.000Z",
+   "live": 6,
+   "backtest": 18
   },
   "KXXRPD": {
    "cat": "Crypto",
-   "n": 85,
-   "yesRate": 0.4941,
-   "avgPrice": 0.4915,
-   "bias": 0.0026,
-   "brierMarket": 0.1545,
-   "last": "2026-11-10T22:00:00.000Z",
-   "live": 10,
-   "backtest": 75
+   "n": 91,
+   "yesRate": 0.4615,
+   "avgPrice": 0.4861,
+   "bias": -0.0246,
+   "brierMarket": 0.1589,
+   "last": "2026-11-10T23:00:00.000Z",
+   "live": 11,
+   "backtest": 80
   },
   "KXZECMINMON": {
    "cat": "Crypto",
