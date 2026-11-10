@@ -30,20 +30,17 @@ for (const m of markets) {
 
 // 3. Log each market once: skip tickers already predicted; per event keep the markets nearest 50¢
 //    (most uncertain = most informative), then the most active events first.
-const seen = new Set(predictionFiles().flatMap(f => readJsonl(f)).map(p => p.ticker));
+const logged = predictionFiles().flatMap(f => readJsonl(f)), seen = new Set(logged.map(p => p.ticker));
 const byEvent = {};
 for (const c of cand) if (!seen.has(c.m.ticker)) (byEvent[c.m.event_ticker] ||= []).push(c);
 let pool = Object.values(byEvent).flatMap(a => a.sort((x, y) => Math.abs(x.mid - 0.5) - Math.abs(y.mid - 0.5)).slice(0, S.perEvent));
 pool.sort((a, b) => +(b.m.volume_24h_fp || 0) - +(a.m.volume_24h_fp || 0));
 
-// 4. Categories: cache only the series we meet; refresh the full list at most once a day.
-const cats = readJson("data/series.json", { fetched: 0, map: {} });
-if (pool.some(c => !(series(c.m) in cats.map)) && now - cats.fetched > 864e5) {
-  try {
-    const all = Object.fromEntries(((await kalshi("/series")).series || []).map(s => [s.ticker, s.category || ""]));
-    for (const c of pool) cats.map[series(c.m)] = all[series(c.m)] ?? "";
-    cats.fetched = now;
-  } catch (e) { console.log("series lookup failed:", e.message); }
+// 4. Categories: cached in data/series.json; unknown series are looked up one by one (small calls, ≤30 per run).
+const cats = readJson("data/series.json", { map: {} });
+for (const t of [...new Set([...pool.map(c => series(c.m)), ...logged.map(p => p.series)])].filter(t => t && !(t in cats.map)).slice(0, 30)) {
+  try { cats.map[t] = (await kalshi(`/series/${encodeURIComponent(t)}`)).series?.category || ""; await sleep(150); }
+  catch (e) { console.log(`series ${t}: ${e.message}`); }
 }
 // Take markets round-robin across categories (most active first within each) so one category can't fill the run.
 const byCat = {};

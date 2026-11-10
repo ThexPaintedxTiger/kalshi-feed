@@ -16,3 +16,7 @@ and `config.json → goals`.
 4. If health fails: runs missing → check `gh run list --limit 10`; backlog → run `node resolve.mjs` and inspect; leakage > 0 → stop and investigate `score.mjs`.
 5. Recommendations (turn a predictor off, retire a hypothesis, new idea) are proposals: ask the owner before editing
    `config.json`. After approval, record the change and the evidence in `docs/lessons.md` (dated, newest first).
+6. Optional, if the owner wants the claude.ai dashboard (https://claude.ai/artifact/YWELuS2iUX9Y62DHMX737v) current: after step 1,
+   republish it with the Artifact tool. Use `url` set to that link, the page (`dashboard.html` without its first `<!doctype html>` line), and
+   `files: {"dashboard.json": "dashboard.json"}`. The repo copy of `dashboard.html` loads live data from GitHub by itself.
+

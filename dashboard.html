@@ -1,0 +1,359 @@
+<!doctype html>
+<title>Kalshi Agent Board</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: sticky toolbar + tabbed views (Agent · Trades · Data · Skills); the Agent view is an Agent Flow-style node canvas. */
+:root{
+  --bg:#14151a; --panel:#191a20; --card:#22242c; --line:#353844; --line-soft:#262832; --dot:#2b2e38;
+  --fg:#e6e7eb; --muted:#9a9daa; --faint:#6f7280;
+  --accent:#ff6d5a; --info:#7dd3fc; --good:#4ade80; --bad:#f87171; --warn:#fbbf24; --violet:#a78bfa;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:14px/1.45 var(--sans)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--panel)}
+button{font:inherit;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 12px;cursor:pointer}
+button:hover{border-color:var(--muted)}
+button:focus-visible,a:focus-visible,.node:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+a{color:var(--info)}
+.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--panel);border-bottom:1px solid var(--line-soft)}
+.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-block:10px}
+.logo{font-weight:700;letter-spacing:.02em;white-space:nowrap}.logo span{color:var(--accent)}
+.sp{flex:1}
+.src{font-size:12px;color:var(--muted)}
+nav{display:flex;gap:4px;overflow-x:auto;padding-block:0 8px}
+nav a{color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:8px;white-space:nowrap;font-weight:600}
+nav a[aria-current=page]{color:var(--fg);background:var(--card)}
+main{padding-block:16px 40px;display:grid;grid-template-columns:minmax(0,1fr);gap:16px;max-width:1500px;margin:0 auto}
+main>section{min-width:0}
+h2{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 10px;font-weight:600}
+.panel{background:var(--panel);border:1px solid var(--line-soft);border-radius:12px;padding:14px;min-width:0}
+.grid2{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:16px}
+@media (max-width:900px){.grid2{grid-template-columns:minmax(0,1fr)}}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.kpi{background:var(--panel);border:1px solid var(--line-soft);border-radius:12px;padding:12px 14px}
+.kpi b{display:block;font:600 24px/1.2 var(--mono);font-variant-numeric:tabular-nums}
+.kpi span{font-size:12px;color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.c-good{color:var(--good)}.c-bad{color:var(--bad)}.c-warn{color:var(--warn)}.c-info{color:var(--info)}.c-muted{color:var(--muted)}.c-accent{color:var(--accent)}
+.muted{color:var(--muted)}.small{font-size:12px}
+.sim{border:1px dashed var(--warn);color:var(--warn);border-radius:10px;padding:8px 12px;font-size:13px}
+/* Flow canvas */
+.canvas-scroll{overflow-x:auto;border-radius:12px;border:1px solid var(--line-soft)}
+.canvas{position:relative;width:1920px;height:440px;background-color:var(--bg);background-image:radial-gradient(var(--dot) 1px,transparent 1px);background-size:22px 22px}
+.canvas svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.edge{fill:none;stroke:var(--faint);stroke-width:2.5}
+.edge.live{stroke:var(--info);stroke-dasharray:6 5;animation:dash .8s linear infinite}
+.edge.dim{stroke:var(--line);stroke-dasharray:4 5}
+.edge.loop{stroke:var(--accent);stroke-dasharray:3 6;stroke-width:2}
+.edge-label{fill:var(--accent);font:600 11px var(--sans)}
+@keyframes dash{to{stroke-dashoffset:-11}}
+@media (prefers-reduced-motion:reduce){.edge.live{animation:none}}
+.node{position:absolute;width:200px;background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer;box-shadow:0 6px 20px rgb(0 0 0 / .35)}
+.node:hover{border-color:var(--muted)}
+.node.sel{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 20%,transparent),0 6px 20px rgb(0 0 0 / .35)}
+.node.dim{opacity:.55}
+.nh{display:flex;align-items:center;gap:9px}
+.ic{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 25%,transparent);font-size:16px;flex:none}
+.nm{font-weight:600;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.st{width:10px;height:10px;border-radius:50%;background:var(--line);flex:none}
+.node[data-s=done] .st{background:var(--good)}
+.node[data-s=wait] .st{background:var(--warn)}
+.node[data-s=run] .st{background:var(--info);animation:pulse 1.2s infinite}
+.node[data-s=bad] .st{background:var(--bad)}
+@keyframes pulse{50%{opacity:.35}}
+.nsub{font-size:11px;color:var(--faint);margin-top:6px;font-family:var(--mono);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nstat{font-size:12px;color:var(--muted);margin-top:4px}
+.tag{position:absolute;top:-10px;right:10px;font-size:10px;background:var(--line-soft);border:1px solid var(--line);border-radius:6px;padding:1px 6px;color:var(--muted)}
+.detail dl{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 14px;margin:10px 0 0}
+.detail dt{color:var(--muted);font-size:12px}.detail dd{margin:0}
+code{font-family:var(--mono);font-size:12px;background:var(--line-soft);padding:1px 5px;border-radius:4px}
+/* Predictor + health */
+.cards{display:grid;gap:10px}
+.pcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px}
+.prow{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.meter{height:6px;background:var(--line-soft);border-radius:4px;margin:10px 0 6px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--accent);border-radius:4px}
+.checks{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.checks li{display:flex;justify-content:space-between;gap:10px;font-size:13px;border-bottom:1px solid var(--line-soft);padding-bottom:6px}
+.checks b{font-family:var(--mono);font-variant-numeric:tabular-nums}
+/* Tables */
+.tscroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;padding:6px 8px;border-bottom:1px solid var(--line)}
+td{padding:7px 8px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+td.n,th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+td.t{min-width:220px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.chip{font-size:12px;padding:4px 10px;border-radius:999px;background:var(--card);border:1px solid var(--line);cursor:pointer}
+.chip[aria-pressed=true]{border-color:var(--accent);color:var(--accent)}
+input[type=search]{font:inherit;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 10px;width:min(320px,100%)}
+.bars{display:grid;gap:8px}
+.barrow{display:grid;grid-template-columns:minmax(90px,150px) minmax(0,1fr) 70px;gap:10px;align-items:center;font-size:13px}
+.track{height:10px;background:var(--line-soft);border-radius:5px;position:relative;overflow:hidden}
+.track i{position:absolute;inset:0 auto 0 0;background:var(--violet);border-radius:5px}
+.track em{position:absolute;inset:0 auto 0 0;background:var(--good);border-radius:5px}
+.empty{color:var(--muted);font-size:13px;padding:14px;border:1px dashed var(--line);border-radius:10px}
+.skill h3{margin:0;font:600 15px var(--mono)}
+.skill p{margin:8px 0 0;font-size:13px}
+.skill .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);display:block;margin-top:10px}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+#toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 14px;font-size:13px}
+</style>
+
+<header>
+  <div class="wrap bar">
+    <div class="logo">Kalshi <span>Research Agent</span></div>
+    <span id="goalPill" class="pill c-muted">loading</span>
+    <span id="healthPill" class="pill c-muted">health</span>
+    <div class="sp"></div>
+    <span id="src" class="src">Loading data…</span>
+    <button id="refresh" type="button">Refresh</button>
+  </div>
+  <nav class="wrap" aria-label="Views">
+    <a href="#agent">Agent</a><a href="#trades">Trades</a><a href="#data">Data</a><a href="#skills">Skills</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section id="v-agent" data-view>
+    <div class="kpis" id="kpis"></div>
+    <div style="height:16px"></div>
+    <div class="canvas-scroll"><div class="canvas" id="canvas"><svg id="edges" aria-hidden="true"></svg></div></div>
+    <div style="height:16px"></div>
+    <div class="grid2">
+      <div class="panel detail" id="detail"></div>
+      <div class="panel"><h2>Goal: beat the market</h2><div class="cards" id="predictors"></div></div>
+    </div>
+    <div style="height:16px"></div>
+    <div class="grid2">
+      <div class="panel"><h2>Predictions logged per run</h2><div id="spark"></div></div>
+      <div class="panel"><h2>Pipeline health</h2><ul class="checks" id="health"></ul></div>
+    </div>
+  </section>
+
+  <section id="v-trades" data-view hidden>
+    <p class="sim">Simulation only. These are paper trades for scoring. No money is placed, and nothing here is a recommendation to bet.</p>
+    <div style="height:12px"></div>
+    <div class="kpis" id="tkpis"></div>
+    <div style="height:16px"></div>
+    <div class="panel"><h2>Simulated trades (scored)</h2><div id="trades"></div></div>
+    <div style="height:16px"></div>
+    <div class="panel"><h2>Gemini picks (dashboard feed, not scored yet)</h2><div id="gemini"></div></div>
+  </section>
+
+  <section id="v-data" data-view hidden>
+    <div class="grid2">
+      <div class="panel"><h2>Predictions by category</h2><div class="bars" id="cats"></div>
+        <p class="small muted">Violet = logged · green = resolved and scored</p></div>
+      <div class="panel"><h2>Resolving next</h2><div id="next"></div></div>
+    </div>
+    <div style="height:16px"></div>
+    <div class="panel"><h2>Recent predictions</h2>
+      <div class="chips" id="catChips"></div>
+      <input type="search" id="q" placeholder="Search markets" aria-label="Search markets">
+      <div style="height:10px"></div>
+      <div class="tscroll" id="preds"></div>
+    </div>
+  </section>
+
+  <section id="v-skills" data-view hidden>
+    <div class="panel"><h2>Skills Claude uses for this agent</h2>
+      <p class="small muted">Ask Claude in plain words, or type <code>/skill-name</code> in Claude Code. Saved in <code>.claude/skills/</code>; reviewed in <code>docs/skills.md</code>.</p>
+      <div class="sg" id="skills"></div>
+    </div>
+  </section>
+</main>
+<div id="toast" hidden></div>
+
+<script>
+const SOURCES = [
+  ["live from GitHub", "https://raw.githubusercontent.com/ThexPaintedxTiger/kalshi-feed/main/dashboard.json"],
+  ["snapshot", "dashboard.json"],
+];
+let D = null, sel = "progress", catFilter = "All", showAll = false;
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const cents = p => p == null ? "–" : Math.round(p * 100) + "¢";
+const pct = p => p == null ? "–" : (Math.round(p * 1000) / 10) + "%";
+const money = x => x == null ? "–" : (x >= 0 ? "+$" : "−$") + Math.abs(x).toFixed(2);
+const sgn = x => x == null ? "–" : (x > 0 ? "+" : "") + x.toFixed(4);
+const when = ts => { if (!ts) return "–"; const d = new Date(ts); return d.toLocaleString([], { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }); };
+const rel = ts => { const m = Math.round((Date.parse(ts) - Date.now()) / 6e4), a = Math.abs(m), s = a < 60 ? a + "m" : Math.floor(a / 60) + "h " + String(a % 60).padStart(2, "0") + "m"; return m >= 0 ? "in " + s : s + " ago"; };
+const toast = t => { const el = $("#toast"); el.textContent = t; el.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => el.hidden = true, 2500); };
+
+async function load(manual) {
+  for (const [label, url] of SOURCES) {
+    try {
+      const r = await fetch(url + (url.startsWith("http") ? "?t=" + Date.now() : ""), { cache: "no-store" });
+      if (!r.ok) continue;
+      D = await r.json(); render(); $("#src").textContent = `Data ${label} · built ${when(D.generated)}`;
+      if (manual) toast("Data refreshed"); return;
+    } catch {}
+  }
+  $("#src").textContent = "Couldn't load data. Paste dashboard.json here (Ctrl+V).";
+}
+document.addEventListener("paste", e => {
+  try { const j = JSON.parse(e.clipboardData.getData("text")); if (j.generated && j.totals) { D = j; render(); $("#src").textContent = `Data pasted · built ${when(D.generated)}`; toast("Pasted data loaded"); } } catch {}
+});
+$("#refresh").onclick = () => load(true);
+
+const statusTone = s => ({ SUCCESS: "c-good", IN_PROGRESS: "c-info", ON_TRACK: "c-info", ACCURATE_NOT_PROFITABLE: "c-info", OFF_TRACK: "c-warn",
+  INSUFFICIENT: "c-muted", FAILURE_WORSE: "c-bad", FAILURE_RETIRE: "c-bad" }[s] || (String(s).startsWith("ALL_") ? "c-bad" : "c-muted"));
+const label = s => String(s || "").split(" — ")[0].replace(/_/g, " ").toLowerCase();
+const outPill = o => `<span class="pill ${o === "yes" ? "c-good" : o === "no" ? "c-bad" : o === "awaiting" ? "c-warn" : "c-muted"}">${esc(o)}</span>`;
+
+function predictorRows() {
+  const G = D.config.goals.edge, P = D.progress.predictors || {};
+  return Object.entries(D.config.predictors).filter(([k, v]) => k !== "market" && v.on).map(([k, v]) =>
+    ({ k, hyp: v.hypothesis, ...(P[k] || { status: "INSUFFICIENT", n: 0, rec: `wait: 0/${G.minForTrend} resolved before any trend is readable`, picks: 0, trend: "no data yet" }) }));
+}
+
+// ---------- Agent view ----------
+function nodes() {
+  const last = D.runs[D.runs.length - 1] || {}, h = D.progress.health?.checks || {}, sc = D.scorecard, G = D.config.goals.edge;
+  const pr = Object.fromEntries(predictorRows().map(p => [p.k, p]));
+  const goal = D.progress.goal || "IN_PROGRESS";
+  return [
+    { id: "sched", x: 20, y: 200, c: "var(--violet)", ic: "⏱", nm: "Schedule", sub: ".github/workflows/feed.yml", stat: `${h.runsLast24h?.value ?? D.runs.length} runs in 24h`, s: h.runsLast24h?.ok === false ? "wait" : "done",
+      what: "Starts the whole pipeline every 10 minutes on GitHub Actions. Runs can start 5–30 minutes late; that's why markets closing in under 20 minutes are skipped.", cost: "Free (public repo)", skill: "kalshi-run-cycle (run it now instead of waiting)" },
+    { id: "tests", x: 250, y: 200, c: "var(--good)", ic: "🧪", nm: "Tests", sub: "test.mjs", stat: "fees, EV, scores, leakage, goals", s: "done",
+      what: "Checks the math (fees, expected value, Brier, log loss), the leakage guard and every goal status. A failure stops the run so bad numbers never get logged.", cost: "Free", skill: "kalshi-run-cycle" },
+    { id: "discover", x: 480, y: 200, c: "var(--info)", ic: "🔎", nm: "Discover markets", sub: "predict.mjs · Kalshi API", stat: last.scanned ? `${last.scanned.toLocaleString()} scanned · ${last.candidates} short` : "waiting for first run", s: last.logged ? "done" : "wait",
+      what: `Reads open Kalshi markets (public data) and keeps those resolving in ${D.config.scan.minLeadMinutes} min–${D.config.scan.horizonHours} h with bid > 0, spread ≤ ${cents(D.config.scan.maxSpread)} and volume ≥ ${D.config.scan.minVolume}. Logs up to ${D.config.scan.maxNewPerRun} new markets per run, rotating across categories.`, cost: "Free · ~50 API requests per run", skill: "kalshi-run-cycle" },
+    { id: "market", x: 750, y: 80, c: "var(--muted)", ic: "⚖️", nm: "Market baseline", sub: "predictor · market", stat: "P = mid price · the bar to beat", s: "done", tag: "baseline",
+      what: D.config.predictors.market.hypothesis + " Every other predictor is scored against it on the same markets. It can never show a profitable pick, by design.", cost: "Free", skill: "kalshi-check-progress" },
+    { id: "longshot", x: 750, y: 200, c: "var(--accent)", ic: "🎯", nm: "Longshot bias", sub: `predictor · slope ${D.config.predictors.longshot?.slope}`, stat: `${label(pr.longshot?.status)} · ${pr.longshot?.n || 0}/${G.minResolved}`, s: "run", tag: "hypothesis",
+      what: (D.config.predictors.longshot?.hypothesis || "") + " Status: " + (pr.longshot?.rec || ""), cost: "Free", skill: "kalshi-add-predictor (to add more ideas)" },
+    { id: "gemini", x: 750, y: 320, c: "var(--violet)", ic: "🤖", nm: "Gemini analysts", sub: "agents.mjs · hourly", stat: `${D.gemini.picks.length} picks · not scored yet`, s: "idle", dim: true, tag: "dashboard only",
+      what: "Three AI analysts (momentum, base rate, rules) rate the dashboard's top markets once an hour in one free Gemini call. Their picks are not part of the scored pipeline yet; they must beat the code predictors before they cost anything.", cost: "Free Gemini tier (1 call/hour)", skill: "kalshi-add-predictor (to score it)" },
+    { id: "log", x: 1010, y: 200, c: "var(--warn)", ic: "📒", nm: "Prediction log", sub: "data/predictions/*.jsonl", stat: `${D.totals.predictions.toLocaleString()} predictions`, s: "done",
+      what: "Append-only record of every prediction, written before the market resolves: time, prices, spread, liquidity, rules, each predictor's estimate and expected value after fees. Never edited afterwards.", cost: "~700 bytes per prediction in git", skill: "kalshi-check-progress" },
+    { id: "resolve", x: 1250, y: 200, c: "var(--good)", ic: "✅", nm: "Check outcomes", sub: "resolve.mjs", stat: `${D.totals.outcomes} official results`, s: D.totals.outcomes ? "done" : "wait",
+      what: "Asks Kalshi for the official yes/no result of markets past their resolution time (200 per request) and appends it to data/outcomes.jsonl. Unsettled after 7 days = void, never scored.", cost: "Free", skill: "kalshi-run-cycle" },
+    { id: "score", x: 1490, y: 200, c: "var(--info)", ic: "📊", nm: "Scorecard", sub: "score.mjs → scorecard.json", stat: `${sc.resolved || 0} resolved · leakage ${sc.excludedLeakage || 0}`, s: sc.resolved ? "done" : "wait",
+      what: "Brier score and log loss per predictor, compared with the market on the same markets, calibration, and simulated P&L after fees. 95% intervals are counted per event. Predictions logged after their market resolved are thrown out.", cost: "Free", skill: "kalshi-check-progress" },
+    { id: "progress", x: 1730, y: 200, c: "var(--accent)", ic: "🏁", nm: "Progress vs goals", sub: "progress.mjs → progress.json", stat: label(goal), s: goal === "SUCCESS" ? "done" : goal.startsWith("ALL_") ? "bad" : "run",
+      what: D.progress.definitions || "", cost: "Free", skill: "kalshi-check-progress" },
+  ];
+}
+const EDGES = [["sched", "tests", "live"], ["tests", "discover", "live"], ["discover", "market", "live"], ["discover", "longshot", "live"], ["discover", "gemini", "dim"],
+  ["market", "log", "live"], ["longshot", "log", "live"], ["log", "resolve", "live"], ["resolve", "score", "live"], ["score", "progress", "live"]];
+
+function renderAgent() {
+  const N = nodes(), byId = Object.fromEntries(N.map(n => [n.id, n])), W = 200, H = 86;
+  const cv = $("#canvas");
+  cv.querySelectorAll(".node").forEach(n => n.remove());
+  for (const n of N) {
+    const el = document.createElement("div");
+    el.className = "node" + (n.dim ? " dim" : "") + (sel === n.id ? " sel" : ""); el.tabIndex = 0; el.dataset.s = n.s; el.dataset.id = n.id;
+    el.style.cssText = `left:${n.x}px;top:${n.y}px;--c:${n.c}`;
+    el.setAttribute("role", "button"); el.setAttribute("aria-label", n.nm);
+    el.innerHTML = `${n.tag ? `<span class="tag">${esc(n.tag)}</span>` : ""}<div class="nh"><div class="ic">${n.ic}</div><div class="nm">${esc(n.nm)}</div><div class="st"></div></div><div class="nsub">${esc(n.sub)}</div><div class="nstat">${esc(n.stat)}</div>`;
+    el.onclick = el.onkeydown = e => { if (e.type === "keydown" && e.key !== "Enter" && e.key !== " ") return; e.preventDefault?.(); sel = n.id; renderAgent(); };
+    cv.appendChild(el);
+  }
+  const path = (a, b) => { const x1 = a.x + W, y1 = a.y + 30, x2 = b.x, y2 = b.y + 30, dx = Math.max(40, (x2 - x1) / 2); return `M${x1},${y1} C${x1 + dx},${y1} ${x2 - dx},${y2} ${x2},${y2}`; };
+  const p = byId.progress, l = byId.longshot;
+  $("#edges").innerHTML = EDGES.map(([a, b, k]) => `<path class="edge ${k}" d="${path(byId[a], byId[b])}"/>`).join("") +
+    `<path class="edge loop" d="M${p.x + W / 2},${p.y} C${p.x + W / 2},${0} ${l.x + W / 2},${0} ${l.x + W / 2 + 40},${l.y - 2}"/>` +
+    `<text class="edge-label" x="${(p.x + l.x) / 2 + 60}" y="26" text-anchor="middle">learning loop: recommendations → owner approves → predictors change</text>`;
+  const n = byId[sel] || p;
+  $("#detail").innerHTML = `<h2>Selected step</h2><div class="nh"><div class="ic" style="--c:${n.c}">${n.ic}</div><div class="nm" style="white-space:normal">${esc(n.nm)}</div></div>
+    <p>${esc(n.what)}</p><dl><dt>File</dt><dd><code>${esc(n.sub)}</code></dd><dt>Now</dt><dd>${esc(n.stat)}</dd><dt>Cost</dt><dd>${esc(n.cost)}</dd><dt>Skill</dt><dd><code>${esc(n.skill)}</code></dd></dl>
+    <p class="small muted">Click any step on the canvas.</p>`;
+}
+
+function renderGoals() {
+  const G = D.config.goals.edge;
+  $("#predictors").innerHTML = predictorRows().map(p => `<div class="pcard">
+    <div class="prow"><b>${esc(p.k)}</b><span class="pill ${statusTone(p.status)}">${esc(label(p.status))}</span></div>
+    <div class="meter" role="img" aria-label="${p.n} of ${G.minResolved} resolved"><i style="width:${Math.min(100, p.n / G.minResolved * 100)}%"></i></div>
+    <div class="prow small muted"><span>${p.n}/${G.minResolved} resolved · ${p.picks} picks</span><span>Brier vs market ${sgn(p.brierVsMarket)}</span></div>
+    <p class="small" style="margin:8px 0 0">${esc(p.rec)}</p><p class="small muted" style="margin:4px 0 0">Trend: ${esc(p.trend)}</p></div>`).join("") +
+    `<p class="small muted" style="margin:0">Success = more accurate than the market price over ${G.minResolved}+ resolved markets <b>and</b> profitable simulated picks after fees over ${G.minPicks}+ picks. Failure = clearly worse, or no edge after ${G.retireAfter}.</p>`;
+  const h = D.progress.health || { checks: {} }, names = { runsLast24h: "Runs in last 24h", newPredictionsLast24h: "New predictions in 24h", leakage: "Logged after resolution (leakage)", unresolvedBacklog: "Overdue outcomes (>24h)" };
+  $("#health").innerHTML = Object.entries(h.checks).map(([k, c]) => `<li><span>${names[k] || k}</span><span><b>${c.value}</b> <span class="muted small">${c.max ? "≤" : "≥"} ${c.target}</span> <span class="pill ${c.ok ? "c-good" : "c-bad"}">${c.ok ? "ok" : "check"}</span></span></li>`).join("") +
+    (h.warmingUp ? `<li class="muted small">Targets scale up over the first 24 hours.</li>` : "");
+  // Sparkline of logged per run
+  const r = D.runs.slice(-72), w = 600, ht = 110, max = Math.max(1, ...r.map(x => x.logged));
+  if (!r.length) { $("#spark").innerHTML = `<div class="empty">Appears after the first run.</div>`; return; }
+  const bw = w / Math.max(r.length, 12);
+  $("#spark").innerHTML = `<svg viewBox="0 0 ${w} ${ht + 22}" style="width:100%;height:auto" role="img" aria-label="Predictions logged per run">
+    <line x1="0" y1="${ht}" x2="${w}" y2="${ht}" stroke="var(--line)"/>
+    <line x1="0" y1="${ht - ht * 0.5}" x2="${w}" y2="${ht - ht * 0.5}" stroke="var(--line-soft)" stroke-dasharray="3 4"/>
+    ${r.map((x, i) => `<rect x="${i * bw + 1}" y="${ht - x.logged / max * ht}" width="${Math.max(2, bw - 2)}" height="${x.logged / max * ht}" rx="2" fill="${i === r.length - 1 ? "var(--accent)" : "var(--violet)"}"><title>${when(x.ts)}: ${x.logged} logged of ${x.candidates}</title></rect>`).join("")}
+    <text x="0" y="${ht + 16}" fill="var(--muted)" font-size="11">${esc(when(r[0].ts))}</text><text x="${w}" y="${ht + 16}" fill="var(--muted)" font-size="11" text-anchor="end">latest: ${r[r.length - 1].logged}</text>
+    <text x="${w}" y="12" fill="var(--muted)" font-size="11" text-anchor="end">max ${max} per run</text></svg>`;
+}
+
+function renderKpis() {
+  const sc = D.scorecard, h = D.progress.health?.checks || {};
+  const k = [[D.totals.predictions.toLocaleString(), "predictions logged"], [sc.resolved || 0, "resolved & scored"], [D.totals.trades, "simulated trades"],
+    [h.runsLast24h?.value ?? D.runs.length, "runs in 24h"], [sc.excludedLeakage || 0, "leakage (must be 0)"]];
+  $("#kpis").innerHTML = k.map(([v, l]) => `<div class="kpi"><b>${esc(v)}</b><span>${l}</span></div>`).join("");
+}
+
+// ---------- Trades ----------
+function renderTrades() {
+  const T = D.trades, done = T.filter(t => t.pnl != null), pnl = done.reduce((s, t) => s + t.pnl, 0), wins = done.filter(t => t.pnl > 0).length;
+  $("#tkpis").innerHTML = [[T.length, "simulated trades"], [T.filter(t => t.pnl == null).length, "open"], [done.length ? `${wins}/${done.length}` : "–", "won"],
+    [done.length ? money(pnl) : "–", "P&L after fees (1 contract each)"]].map(([v, l]) => `<div class="kpi"><b>${esc(v)}</b><span>${l}</span></div>`).join("");
+  $("#trades").innerHTML = T.length ? `<div class="tscroll"><table><thead><tr><th>Logged</th><th>Market</th><th>Predictor</th><th>Side</th><th class="n">Cost</th><th class="n">Fee</th><th class="n">EV</th><th>Resolves</th><th>Outcome</th><th class="n">P&amp;L</th></tr></thead><tbody>${
+    T.map(t => `<tr><td>${when(t.ts)}</td><td class="t">${esc(t.title)}<div class="small muted">${esc(t.cat)}</div></td><td>${esc(t.predictor)}</td><td>${esc(t.side.toUpperCase())}</td><td class="n">${cents(t.cost)}</td><td class="n">${cents(t.fee)}</td><td class="n">${cents(t.ev)}</td><td>${rel(t.resolvesAt)}</td><td>${outPill(t.outcome)}</td><td class="n ${t.pnl > 0 ? "c-good" : t.pnl < 0 ? "c-bad" : ""}">${money(t.pnl)}</td></tr>`).join("")}</tbody></table></div>`
+    : `<div class="empty">No simulated trades yet. One is recorded only when a predictor's expected value is at least ${cents(D.config.picks.minEdge)} per contract after the spread and fees. The market baseline can never qualify, and Longshot hasn't found one so far. That's expected: it means prices have been fair after costs.</div>`;
+  const g = D.gemini;
+  $("#gemini").innerHTML = g.picks.length ? `<div class="tscroll"><table><thead><tr><th>Market</th><th>Side</th><th class="n">AI estimate</th><th class="n">Edge</th><th class="n">Cost</th><th>Closes</th></tr></thead><tbody>${
+    g.picks.map(p => `<tr><td class="t"><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.t)}</a></td><td>${esc(p.side)}</td><td class="n">${esc(p.pc)}%</td><td class="n">${esc(p.edge)} pts</td><td class="n">${esc(p.cost)}¢</td><td>${esc(p.close)}</td></tr>`).join("")}</tbody></table></div>`
+    : `<div class="empty">Gemini's last run (${when(g.updated)}, agents: ${esc(g.agents.join(", ") || "none")}) found no market with an edge of 5 points or more.</div>`;
+}
+
+// ---------- Data ----------
+function renderData() {
+  const C = Object.entries(D.categories).sort((a, b) => b[1].logged - a[1].logged), max = Math.max(1, ...C.map(([, c]) => c.logged));
+  $("#cats").innerHTML = C.map(([k, c]) => `<div class="barrow"><span>${esc(k)}</span><div class="track" role="img" aria-label="${c.logged} logged, ${c.resolved} resolved"><i style="width:${c.logged / max * 100}%"></i><em style="width:${c.resolved / max * 100}%"></em></div><span class="n small muted" style="text-align:right">${c.resolved}/${c.logged}</span></div>`).join("") || `<div class="empty">No predictions yet.</div>`;
+  const nx = D.predictions.filter(p => p.outcome === "open").sort((a, b) => Date.parse(a.resolvesAt) - Date.parse(b.resolvesAt)).slice(0, 8);
+  $("#next").innerHTML = nx.length ? `<table><tbody>${nx.map(p => `<tr><td class="t">${esc(p.title)}<div class="small muted">${esc(p.cat)} · market ${cents(p.mid)}</div></td><td class="n">${rel(p.resolvesAt)}</td></tr>`).join("")}</tbody></table>` : `<div class="empty">Nothing open in the latest window.</div>`;
+  const cats = ["All", ...C.map(([k]) => k)];
+  $("#catChips").innerHTML = cats.map(c => `<button type="button" class="chip" aria-pressed="${c === catFilter}" data-c="${esc(c)}">${esc(c)}</button>`).join("");
+  $("#catChips").querySelectorAll(".chip").forEach(b => b.onclick = () => { catFilter = b.dataset.c; showAll = false; renderData(); });
+  const q = $("#q").value.toLowerCase(), est = Object.keys(D.config.predictors).filter(k => k !== "market");
+  const rows = D.predictions.filter(p => (catFilter === "All" || p.cat === catFilter) && (!q || p.title.toLowerCase().includes(q)));
+  const shown = showAll ? rows : rows.slice(0, 50);
+  $("#preds").innerHTML = rows.length ? `<table><thead><tr><th>Logged</th><th>Market</th><th class="n">Market price</th>${est.map(k => `<th class="n">${esc(k)}</th>`).join("")}<th class="n">Spread</th><th>Resolves</th><th>Outcome</th></tr></thead><tbody>${
+    shown.map(p => `<tr><td>${when(p.ts)}</td><td class="t"><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a><div class="small muted">${esc(p.cat)}</div></td><td class="n">${pct(p.mid)}</td>${est.map(k => `<td class="n">${pct(p.est?.[k])}</td>`).join("")}<td class="n">${cents(p.ask - p.bid)}</td><td>${rel(p.resolvesAt)}</td><td>${outPill(p.outcome)}</td></tr>`).join("")}</tbody></table>` +
+      (rows.length > shown.length ? `<p><button type="button" id="more">Show all ${rows.length}</button></p>` : `<p class="small muted">Showing the latest ${rows.length} predictions.</p>`)
+    : `<div class="empty">No predictions match.</div>`;
+  const more = $("#more"); if (more) more.onclick = () => { showAll = true; renderData(); };
+}
+$("#q").oninput = () => renderData();
+
+// ---------- Skills ----------
+function renderSkills() {
+  const part = (d, a, b) => { const i = a ? d.indexOf(a) : 0; if (i < 0) return ""; const j = b ? d.indexOf(b, i + 1) : -1; return d.slice(a ? i + a.length : 0, j < 0 ? undefined : j).trim().replace(/^[:,.\s]+/, ""); };
+  $("#skills").innerHTML = D.skills.map(s => {
+    const d = s.description, what = part(d, "", "Use when").replace(/\.$/, ""), use = part(d, "Use when", "Not for"), not = part(d, "Not for", "");
+    return `<div class="pcard skill"><h3>/${esc(s.name)}</h3><p>${esc(what || d)}.</p>${use ? `<span class="lbl">Use when</span><p style="margin-top:2px">${esc(use)}</p>` : ""}${not ? `<span class="lbl">Not for</span><p style="margin-top:2px">${esc(not)}</p>` : ""}<p class="small muted"><code>${esc(s.path)}</code></p></div>`;
+  }).join("") || `<div class="empty">No skills found.</div>`;
+}
+
+function render() { if (!D) return; renderKpis(); renderAgent(); renderGoals(); renderTrades(); renderData(); renderSkills(); paintPills(); }
+function paintPills() {
+  const g = D.progress.goal || "IN_PROGRESS", h = D.progress.health;
+  $("#goalPill").className = "pill " + statusTone(g); $("#goalPill").textContent = "goal: " + label(g);
+  $("#healthPill").className = "pill " + (h?.ok ? "c-good" : "c-warn"); $("#healthPill").textContent = h?.ok ? "pipeline ok" : "pipeline check";
+}
+function route() {
+  const v = (location.hash || "#agent").slice(1);
+  document.querySelectorAll("[data-view]").forEach(s => s.hidden = s.id !== "v-" + v);
+  if (!document.getElementById("v-" + v)) $("#v-agent").hidden = false;
+  document.querySelectorAll("nav a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === "#" + v || (!document.getElementById("v-" + v) && a.getAttribute("href") === "#agent") ? "page" : "false"));
+}
+addEventListener("hashchange", route); route();
+load(); setInterval(() => document.visibilityState === "visible" && load(), 5 * 60e3);
+</script>

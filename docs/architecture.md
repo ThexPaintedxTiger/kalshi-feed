@@ -18,6 +18,7 @@ every 10 min (GitHub Actions)
  progress.mjs  scorecard + run heartbeats (data/runs.jsonl) vs config.json goals → progress.json;
                daily snapshot → data/progress.jsonl (trend). Recommends only; never edits config.
  scan.mjs, agents.mjs   dashboard feed (bets.json), unchanged
+ dashboard.mjs everything above → dashboard.json (~70 KB) for dashboard.html
 ```
 
 ## Why this shape

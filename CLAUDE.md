@@ -38,7 +38,7 @@ and count something as an improvement only when the scorecard shows it.
 - Git is the history.
 
 ## Pipeline (GitHub Actions, every 10 min, `.github/workflows/feed.yml`)
-`test.mjs` → `predict.mjs` → `resolve.mjs` → `score.mjs` → `progress.mjs` → `scan.mjs` + `agents.mjs` (dashboard feed, unchanged).
+`test.mjs` → `predict.mjs` → `resolve.mjs` → `score.mjs` → `progress.mjs` → `scan.mjs` + `agents.mjs` (Agent Flow feed, unchanged) → `dashboard.mjs`.
 Details in `docs/architecture.md`.
 
 ## Kalshi API facts (verified 2026-11-10)
@@ -51,7 +51,13 @@ Details in `docs/architecture.md`.
 - Fee estimate: `ceil(0.07 × P × (1−P))` per contract, rounded up to the cent.
 - Market links: `https://kalshi.com/markets/<series_ticker lowercase>`.
 
-## Dashboard (unchanged)
+## Agent dashboard
+`dashboard.html` (views: Agent flow · Trades · Data · Skills) reads `dashboard.json`, which `dashboard.mjs` builds each run.
+Data sources in order: raw GitHub (live, used on GitHub Pages or a local file), then a `dashboard.json` next to the page (the claude.ai copy,
+https://claude.ai/artifact/YWELuS2iUX9Y62DHMX737v, a snapshot refreshed when Claude republishes it), then paste (Ctrl+V JSON).
+Pages can't fetch outside data inside claude.ai.
+
+## Agent Flow dashboard (unchanged)
 `scan.mjs` + `agents.mjs` write `bets.json` for Agent Flow (`index.html`, main copy: https://claude.ai/artifact/HLrAvS3ABiJHXuQUUa5RRt).
 Feed: https://raw.githubusercontent.com/ThexPaintedxTiger/kalshi-feed/main/bets.json. Gemini picks keep the ≤2% stake cap.
 
