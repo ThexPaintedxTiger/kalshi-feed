@@ -12,9 +12,35 @@
   "maxNewPerRun": 80
  },
  "predictors": {
-  "market": { "on": true, "hypothesis": "The market mid price is the best available estimate (baseline to beat)." },
-  "longshot": { "on": true, "slope": 1.1, "hypothesis": "Favorite-longshot bias: cheap contracts are overpriced, so true probabilities are more extreme than prices." }
+  "market": {
+   "on": true,
+   "hypothesis": "The market mid price is the best available estimate (baseline to beat)."
+  },
+  "longshot": {
+   "on": true,
+   "slope": 1.1,
+   "hypothesis": "Favorite-longshot bias: cheap contracts are overpriced, so true probabilities are more extreme than prices."
+  }
  },
- "picks": { "minEdge": 0.02 },
- "score": { "minResolved": 100, "calibrationBins": 10 }
+ "picks": {
+  "minEdge": 0.02
+ },
+ "score": {
+  "minResolved": 100,
+  "calibrationBins": 10
+ },
+ "goals": {
+  "edge": {
+   "minResolved": 100,
+   "minPicks": 100,
+   "retireAfter": 300,
+   "minForTrend": 20
+  },
+  "health": {
+   "minRunsPerDay": 100,
+   "minNewPerDay": 50,
+   "maxLeakage": 0,
+   "maxBacklogHours": 24
+  }
+ }
 }

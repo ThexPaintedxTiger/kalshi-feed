@@ -14,17 +14,31 @@ and count something as an improvement only when the scorecard shows it.
 - Keep market price, our estimate and the actual outcome clearly separate. High payout or confidence ≠ profit.
 - Process: requirements → inspect → propose → owner approves → smallest useful version → test → document → improve.
 
+## Goals: what success and failure mean (`config.json → goals`, checked by `progress.mjs` → `progress.json`)
+- **SUCCESS** (per predictor): Brier better than the market price (95% interval < 0) over ≥ 100 resolved markets
+  **and** simulated picks profitable after fees (95% interval > 0) over ≥ 100 picks. Even then: paper-trade review only.
+- **FAILURE**: clearly worse than the market (interval > 0) at ≥ 100 resolved → recommend turning it off;
+  no measurable edge after 300 resolved → recommend retiring the hypothesis.
+- In between: ON_TRACK / OFF_TRACK (leaning better / not better, n < 100), ACCURATE_NOT_PROFITABLE, INSUFFICIENT (n < 20).
+- Pipeline health: ≥ 100 runs/day, ≥ 50 new predictions/day, 0 leakage, nothing unresolved > 24 h past resolution.
+- Progress = more resolved data and narrowing intervals, tracked daily in `data/progress.jsonl`.
+- `progress.mjs` only recommends. Strategy changes need the owner's approval, then a dated entry in `docs/lessons.md`.
+
+## Skills (`.claude/skills/`, reviewed in `docs/skills.md`)
+`kalshi-run-cycle` (run now) · `kalshi-check-progress` (judge results) · `kalshi-add-predictor` (new hypothesis) ·
+`save-as-skill` (convention). When you write a script you'll reuse: test it, then save it with `save-as-skill`.
+
 ## Storage
 - Predictions: `data/predictions/YYYY-MM.jsonl` (append-only, one row per market, logged before it resolves).
 - Outcomes: `data/outcomes.jsonl` (append-only, official Kalshi result per ticker).
-- Scores: `scorecard.json` (rebuilt each run from the two files above).
+- Scores: `scorecard.json` (rebuilt each run from the two files above). Progress: `progress.json`, `data/progress.jsonl`, run heartbeats `data/runs.jsonl`.
 - Settings: `config.json` (horizon, filters, predictors and their hypotheses, edge threshold). `cfg` in each row = config version;
   bump `version` whenever a setting that affects predictions changes.
 - Findings and lessons: `docs/findings.md`, `docs/lessons.md`. Architecture and setup: `docs/architecture.md`.
 - Git is the history.
 
 ## Pipeline (GitHub Actions, every 10 min, `.github/workflows/feed.yml`)
-`test.mjs` → `predict.mjs` → `resolve.mjs` → `score.mjs` → `scan.mjs` + `agents.mjs` (dashboard feed, unchanged).
+`test.mjs` → `predict.mjs` → `resolve.mjs` → `score.mjs` → `progress.mjs` → `scan.mjs` + `agents.mjs` (dashboard feed, unchanged).
 Details in `docs/architecture.md`.
 
 ## Kalshi API facts (verified 2026-11-10)

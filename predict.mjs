@@ -83,5 +83,6 @@ const rows = chosen.map(({ m, ask, bid, mid, res, lead }) => {
 
 const [, file] = predictionFiles();
 appendJsonl(file, rows);
+appendJsonl("data/runs.jsonl", [{ ts: runId, run: sha, scanned: markets.length, candidates: cand.length, logged: rows.length }]); // heartbeat
 writeJson("data/series.json", cats);
 console.log(`scanned ${markets.length} markets (${pages} pages), ${cand.length} resolve in ${S.minLeadMinutes}m–${S.horizonHours}h, logged ${rows.length} new → ${file}`);

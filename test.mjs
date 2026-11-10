@@ -2,6 +2,7 @@
 import assert from "node:assert/strict";
 import { fee, ev, resolvesAt } from "./lib.mjs";
 import { brier, logLoss, pnl, score } from "./score.mjs";
+import { predictorStatus, health, trend, evaluate } from "./progress.mjs";
 
 // Fees: Kalshi taker fee rounds up to the cent.
 assert.equal(fee(0.5), 0.02);          // 0.07 × .5 × .5 = 1.75¢ → 2¢
@@ -37,4 +38,29 @@ assert.equal(sc.predictors.good.verdict, "beats market (Brier)");
 assert.equal(sc.predictors.market.brier.mean, 0.25);
 const small = score(preds.slice(0, 20), outs, { score: { minResolved: 100, calibrationBins: 10 } });
 assert.equal(small.predictors.good.verdict, "insufficient data"); // never conclude from few results
+
+// Goal statuses (success / failure definitions).
+const G = { minResolved: 100, minPicks: 100, retireAfter: 300, minForTrend: 20 };
+const pr = (n, mean, lo, hi, pk = 0, plo = null) => ({ n, brierVsMarket: { mean, lo, hi }, picks: { n: pk, pnlPerContract: { mean: plo, lo: plo, hi: plo } } });
+assert.equal(predictorStatus(pr(10, -0.1, -0.2, 0), G).status, "INSUFFICIENT");
+assert.equal(predictorStatus(pr(50, -0.01, -0.03, 0.01), G).status, "ON_TRACK");
+assert.equal(predictorStatus(pr(50, 0.01, -0.01, 0.03), G).status, "OFF_TRACK");
+assert.equal(predictorStatus(pr(150, -0.02, -0.03, -0.01, 120, 0.02), G).status, "SUCCESS");
+assert.equal(predictorStatus(pr(150, -0.02, -0.03, -0.01, 40, 0.02), G).status, "ACCURATE_NOT_PROFITABLE");
+assert.equal(predictorStatus(pr(150, -0.02, -0.03, -0.01, 120, -0.01), G).status, "ACCURATE_NOT_PROFITABLE");
+assert.equal(predictorStatus(pr(150, 0.02, 0.01, 0.03), G).status, "FAILURE_WORSE");
+assert.equal(predictorStatus(pr(350, -0.001, -0.01, 0.008), G).status, "FAILURE_RETIRE");
+// Health: targets scale while warming up; leakage and backlog must be zero.
+const H = { minRunsPerDay: 100, minNewPerDay: 50, maxLeakage: 0, maxBacklogHours: 24 }, T = Date.parse("2026-01-03T00:00:00Z");
+const runs = Array.from({ length: 140 }, (_, i) => ({ ts: new Date(T - i * 6e5).toISOString() }));
+const hp = [{ ts: "2026-01-02T12:00:00Z", ticker: "A", resolvesAt: "2026-01-02T14:00:00Z" }, { ts: "2026-01-01T00:00:00Z", ticker: "B", resolvesAt: "2026-01-01T01:00:00Z" }];
+const h1 = health({ excludedLeakage: 0 }, runs, hp, [{ ticker: "A" }], H, T);
+assert.equal(h1.checks.runsLast24h.ok, true);
+assert.equal(h1.checks.unresolvedBacklog.value, 1);   // B is >24h past resolution with no outcome
+assert.equal(h1.ok, false);
+assert.equal(health({ excludedLeakage: 0 }, runs.slice(0, 6), [], [], H, T).warmingUp, true);
+// Trend.
+assert.equal(trend({ n: 50, mean: -0.01, width: 0.02 }, { n: 30, mean: 0.01, width: 0.04 }), "+20 resolved, interval narrowing, direction flipped (0.01 → -0.01)");
+assert.equal(evaluate({ predictors: { market: pr(150, 0, 0, 0), x: pr(150, 0.02, 0.01, 0.03) } }, runs, [], [], { edge: G, health: H }, T).goal,
+  "ALL_HYPOTHESES_FAILED — add a new predictor");
 console.log("all tests passed");

@@ -15,6 +15,8 @@ every 10 min (GitHub Actions)
  resolve.mjs   tickers past resolution → /markets?tickers= (200 per call) → append data/outcomes.jsonl
                (yes/no only; still unsettled after 7 days → "void", never scored)
  score.mjs     join → scorecard.json
+ progress.mjs  scorecard + run heartbeats (data/runs.jsonl) vs config.json goals → progress.json;
+               daily snapshot → data/progress.jsonl (trend). Recommends only; never edits config.
  scan.mjs, agents.mjs   dashboard feed (bets.json), unchanged
 ```
 

@@ -24,6 +24,8 @@ jobs:
         run: node resolve.mjs
       - name: Update scorecard
         run: node score.mjs
+      - name: Progress vs goals
+        run: node progress.mjs
       - name: Dashboard feed
         run: node scan.mjs
         continue-on-error: true
@@ -38,6 +40,6 @@ jobs:
         run: |
           git config user.name "kalshi-feed-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add bets.json history.json data scorecard.json
+          git add bets.json history.json data scorecard.json progress.json
           git commit -m "Update Kalshi feed" || exit 0
           for i in 1 2 3; do git pull --rebase -q && git push && exit 0; sleep 5; done; exit 1
