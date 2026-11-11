@@ -1,30 +1,30 @@
 {
- "updated": "2026-11-11T00:25:39.006Z",
+ "updated": "2026-11-11T00:35:34.661Z",
  "note": "Simulation only. Brier/log loss: lower is better. brierVsMarket < 0 means better than the market price. Intervals are 95%, counted per event. No edge is claimed below 100 resolved predictions.",
- "predictions": 1112,
- "resolved": 939,
+ "predictions": 1132,
+ "resolved": 940,
  "excludedLeakage": 0,
- "events": 308,
+ "events": 309,
  "predictors": {
   "market": {
-   "n": 939,
+   "n": 940,
    "brier": {
-    "mean": 0.1778,
-    "lo": 0.1585,
-    "hi": 0.1971,
-    "events": 308
+    "mean": 0.1772,
+    "lo": 0.1579,
+    "hi": 0.1965,
+    "events": 309
    },
    "logLoss": {
-    "mean": 0.5319,
-    "lo": 0.4811,
-    "hi": 0.5827,
-    "events": 308
+    "mean": 0.5304,
+    "lo": 0.4797,
+    "hi": 0.5812,
+    "events": 309
    },
    "brierVsMarket": {
     "mean": 0,
     "lo": 0,
     "hi": 0,
-    "events": 308
+    "events": 309
    },
    "verdict": "baseline",
    "picks": {
@@ -42,9 +42,9 @@
    "calibration": [
     {
      "bin": "0-10%",
-     "n": 129,
+     "n": 130,
      "avgP": 0.0616,
-     "hitRate": 0.062
+     "hitRate": 0.0615
     },
     {
      "bin": "10-20%",
@@ -103,24 +103,24 @@
    ]
   },
   "longshot": {
-   "n": 939,
+   "n": 940,
    "brier": {
-    "mean": 0.1784,
-    "lo": 0.1581,
-    "hi": 0.1987,
-    "events": 308
+    "mean": 0.1778,
+    "lo": 0.1576,
+    "hi": 0.1981,
+    "events": 309
    },
    "logLoss": {
-    "mean": 0.5353,
-    "lo": 0.4799,
-    "hi": 0.5908,
-    "events": 308
+    "mean": 0.5338,
+    "lo": 0.4785,
+    "hi": 0.5891,
+    "events": 309
    },
    "brierVsMarket": {
     "mean": 0.0006,
     "lo": -0.0005,
     "hi": 0.0018,
-    "events": 308
+    "events": 309
    },
    "verdict": "no measurable difference",
    "picks": {
@@ -138,9 +138,9 @@
    "calibration": [
     {
      "bin": "0-10%",
-     "n": 154,
+     "n": 155,
      "avgP": 0.0546,
-     "hitRate": 0.0584
+     "hitRate": 0.0581
     },
     {
      "bin": "10-20%",
@@ -557,8 +557,8 @@
    "brierMarket": 0.6211
   },
   "Financials": {
-   "n": 133,
-   "brierMarket": 0.1341
+   "n": 134,
+   "brierMarket": 0.1332
   },
   "?": {
    "n": 99,

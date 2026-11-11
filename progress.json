@@ -1,18 +1,18 @@
 {
- "updated": "2026-11-11T00:25:39.046Z",
+ "updated": "2026-11-11T00:35:34.698Z",
  "goal": "IN_PROGRESS",
- "resolved": 939,
+ "resolved": 940,
  "health": {
   "ok": true,
   "warmingUp": true,
   "checks": {
    "runsLast24h": {
-    "value": 40,
-    "target": 34,
+    "value": 41,
+    "target": 35,
     "ok": true
    },
    "newPredictionsLast24h": {
-    "value": 1112,
+    "value": 1132,
     "target": 17,
     "ok": true
    },
@@ -34,12 +34,12 @@
   "longshot": {
    "status": "RETIRED",
    "rec": "2026-11-10: FAILURE_RETIRE (no measurable edge after 832 resolved; backtest 1334, no difference). Owner approved.",
-   "n": 939,
+   "n": 940,
    "brierVsMarket": 0.0006,
    "picks": 0,
-   "trend": "+939 resolved",
+   "trend": "+940 resolved",
    "snap": {
-    "n": 939,
+    "n": 940,
     "mean": 0.0006,
     "width": 0.0023
    },

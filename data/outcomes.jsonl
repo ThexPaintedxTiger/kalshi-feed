@@ -937,3 +937,4 @@
 {"ticker":"KXBTC-26NOV1019-B73350","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-11T00:11:46.260869Z","closedAt":"2026-11-11T00:00:00Z","checkedAt":"2026-11-11T00:15:13.477Z"}
 {"ticker":"KXETH-26NOV1019-B2042","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-11T00:11:36.260624Z","closedAt":"2026-11-11T00:00:00Z","checkedAt":"2026-11-11T00:15:13.477Z"}
 {"ticker":"KXTEMPCHIHS-26NOV1019-T51.99","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-11T00:00:00Z","checkedAt":"2026-11-11T00:15:13.477Z"}
+{"ticker":"KXINXDUD-26NOV10H1600-T7549.83","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-11T00:32:11.207562Z","closedAt":"2026-11-10T21:00:00Z","checkedAt":"2026-11-11T00:35:13.851Z"}
