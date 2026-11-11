@@ -1,18 +1,18 @@
 {
- "updated": "2026-11-11T02:55:43.962Z",
+ "updated": "2026-11-11T03:05:43.727Z",
  "goal": "IN_PROGRESS",
- "resolved": 1042,
+ "resolved": 1084,
  "health": {
   "ok": true,
   "warmingUp": true,
   "checks": {
    "runsLast24h": {
-    "value": 50,
+    "value": 51,
     "target": 45,
     "ok": true
    },
    "newPredictionsLast24h": {
-    "value": 1260,
+    "value": 1285,
     "target": 22,
     "ok": true
    },
@@ -53,15 +53,15 @@
   },
   "memory": {
    "status": "FAILURE_RETIRE",
-   "rec": "no measurable edge after 492 resolved — recommend retiring this hypothesis",
-   "n": 492,
-   "brierVsMarket": 0.0039,
-   "picks": 94,
-   "trend": "+492 resolved",
+   "rec": "no measurable edge after 534 resolved — recommend retiring this hypothesis",
+   "n": 534,
+   "brierVsMarket": 0.0037,
+   "picks": 100,
+   "trend": "+534 resolved",
    "snap": {
-    "n": 492,
-    "mean": 0.0039,
-    "width": 0.0105
+    "n": 534,
+    "mean": 0.0037,
+    "width": 0.01
    },
    "backtest": {
     "n": 1665,
@@ -73,29 +73,29 @@
   },
   "nn": {
    "status": "FAILURE_RETIRE",
-   "rec": "no measurable edge after 351 resolved — recommend retiring this hypothesis",
-   "n": 351,
-   "brierVsMarket": -0.0003,
+   "rec": "no measurable edge after 393 resolved — recommend retiring this hypothesis",
+   "n": 393,
+   "brierVsMarket": -0.0002,
    "picks": 25,
    "trend": "first snapshot",
    "snap": {
-    "n": 351,
-    "mean": -0.0003,
-    "width": 0.005
+    "n": 393,
+    "mean": -0.0002,
+    "width": 0.0045
    },
    "backtest": null
   },
   "crypto_fair": {
    "status": "OFF_TRACK",
-   "rec": "not beating the market so far (+0.0048) — wait for 29 more resolved before judging",
-   "n": 71,
-   "brierVsMarket": 0.0048,
-   "picks": 9,
+   "rec": "not beating the market so far (+0.0018) — wait for 6 more resolved before judging",
+   "n": 94,
+   "brierVsMarket": 0.0018,
+   "picks": 13,
    "trend": "first snapshot",
    "snap": {
-    "n": 71,
-    "mean": 0.0048,
-    "width": 0.018
+    "n": 94,
+    "mean": 0.0018,
+    "width": 0.0174
    },
    "backtest": {
     "n": 184,
