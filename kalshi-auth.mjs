@@ -6,7 +6,8 @@
 // Safety: only GET requests to an allowlist of read-only portfolio paths can be signed, and the WebSocket only subscribes to
 // market-data channels. Anything else throws BEFORE signing. There is no order code in this project.
 // Auth (from Kalshi's official starter code): signature of timestamp(ms) + method + path (no query): RSA keys sign with
-// RSA-PSS/SHA-256 (verified against the starter code); Ed25519 keys sign with Ed25519 (Kalshi's key page offers both),
+// RSA-PSS/SHA-256 (MGF1-SHA256, salt = digest length); Ed25519 keys sign the message directly. Checked 2026-11-11 against Kalshi's
+// starter code and two public integrations quoting docs.kalshi.com. Keys: unencrypted PEM (RSA PKCS#1/#8, Ed25519 PKCS#8),
 // headers KALSHI-ACCESS-KEY / KALSHI-ACCESS-SIGNATURE / KALSHI-ACCESS-TIMESTAMP. Same headers on the WebSocket handshake.
 import { existsSync, readFileSync } from "node:fs";
 import { createPrivateKey, sign, constants } from "node:crypto";

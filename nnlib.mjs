@@ -40,6 +40,8 @@ export function bookImbalance(yes, no, levels = 5) {
 }
 // Trades in the 30 minutes up to T ([{t: unix s, side: "yes"/"no", n: contracts}]), only t ≤ T:
 // flow30 = (YES-taker volume − NO-taker volume) / total, in [-1, 1]; null when nothing traded.
+// Taker direction of one Kalshi trade: newer fields first (taker_outcome_side, taker_book_side bid=YES/ask=NO), legacy taker_side last.
+export const takerSide = x => x.taker_outcome_side || (x.taker_book_side === "bid" ? "yes" : x.taker_book_side === "ask" ? "no" : x.taker_side) || null;
 export function tradeFlow(trades, T) {
   let y = 0, n = 0;
   for (const x of trades || []) if (x.t <= T && x.t > T - 1800) { if (x.side === "yes") y += x.n; else if (x.side === "no") n += x.n; }

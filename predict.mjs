@@ -1,7 +1,7 @@
 // Research step: find Kalshi markets that resolve within the next few hours, estimate probabilities
 // with each enabled predictor, and APPEND one prediction per market to data/predictions/YYYY-MM.jsonl
 // BEFORE the market resolves. Rows are never edited afterwards. Simulation only: nothing is traded.
-import { minuteStats, bookImbalance, tradeFlow } from "./nnlib.mjs";
+import { minuteStats, bookImbalance, tradeFlow, takerSide } from "./nnlib.mjs";
 import { config, kalshi, sleep, resolvesAt, series, r4, readJsonl, appendJsonl, predictionFiles, hotFile, categories } from "./lib.mjs";
 import { estimate } from "./predictors.mjs";
 import * as crypto from "./external/crypto.mjs";
@@ -74,7 +74,7 @@ for (const { m } of chosen) {
   try {
     const t = encodeURIComponent(m.ticker), ob = (await kalshi(`/markets/${t}/orderbook?depth=5`)).orderbook_fp || {};
     const tr = await kalshi(`/markets/trades?ticker=${t}&min_ts=${nowS - 1800}&limit=1000`);
-    const trades = (tr.trades || []).map(x => ({ t: Date.parse(x.created_time) / 1000, side: x.taker_side, n: +x.count_fp || 0 }));
+    const trades = (tr.trades || []).filter(x => !x.is_block_trade).map(x => ({ t: Date.parse(x.created_time) / 1000, side: takerSide(x), n: +x.count_fp || 0 }));
     book[m.ticker] = { imb5: bookImbalance(ob.yes_dollars, ob.no_dollars), ...tradeFlow(trades, nowS) };
   } catch (e) { console.log(`book lookup failed on ${m.ticker}: ${e.message}`); }
   await sleep(100);

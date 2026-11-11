@@ -15,7 +15,7 @@ import { spawnSync } from "node:child_process";
 import { mkdirSync, appendFileSync } from "node:fs";
 import { kalshi, readJsonl, writeJson, predictionFiles, r4, sleep } from "./lib.mjs";
 import { hasKey, privateIgnored, openStream } from "./kalshi-auth.mjs";
-import { bookImbalance } from "./nnlib.mjs";
+import { bookImbalance, takerSide } from "./nnlib.mjs";
 
 const NO_PUSH = process.env.NO_PUSH === "1", LIMIT = +process.env.STREAM_MINUTES || Infinity, started = Date.now();
 const node = (f, env = {}) => { const r = spawnSync(process.execPath, [f], { stdio: "pipe", encoding: "utf8", env: { ...process.env, ...env } });
@@ -40,9 +40,9 @@ function onMsg(m) {
   else if (m.type === "orderbook_delta" && books[k]?.[d.side]) {
     const side = books[k][d.side], p = px(d.price_dollars ?? d.price), q = (side.get(p) || 0) + +(d.delta_fp ?? d.delta ?? 0);
     if (q > 0) side.set(p, q); else side.delete(p);
-  } else if (m.type === "trade") {
-    const f = flow[k] ||= { y: 0, n: 0 }, c = +(d.count_fp ?? d.count) || 0;
-    if (d.taker_side === "yes") f.y += c; else if (d.taker_side === "no") f.n += c;
+  } else if (m.type === "trade" && !d.is_block_trade) {
+    const f = flow[k] ||= { y: 0, n: 0 }, c = +(d.count_fp ?? d.count) || 0, side = takerSide(d);
+    if (side === "yes") f.y += c; else if (side === "no") f.n += c;
   }
 }
 function keyedFor(tickers) {                                                     // (re)subscribe when the watched set changes

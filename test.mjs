@@ -18,7 +18,7 @@ import { readJsonl as rj, allMonthFiles } from "./lib.mjs";
 import { archiveFile, due } from "./archive.mjs";
 import { minuteStats, features as nnFeatures, FEATURES as NN_FEATURES } from "./nnlib.mjs";
 import { buildSnapshots } from "./snapshots.mjs";
-import { bookImbalance, tradeFlow } from "./nnlib.mjs";
+import { bookImbalance, tradeFlow, takerSide } from "./nnlib.mjs";
 import { assertReadOnly, assertChannels, signedHeaders, privateIgnored, KEY_FILE } from "./kalshi-auth.mjs";
 import { fromFill } from "./import-trades.mjs";
 import { generateKeyPairSync, verify, constants as CC } from "node:crypto";
@@ -252,6 +252,8 @@ assert.deepEqual(firstPerTicker([{ ticker: "A", n: 1 }, { ticker: "B", n: 2 }, {
   const tr = [{ t: 100, side: "yes", n: 30 }, { t: 200, side: "no", n: 10 }, { t: 2000, side: "no", n: 999 }];
   assert.deepEqual(tradeFlow(tr, 1000), { flow30: 0.5, vol30t: 40 });                              // the trade at t=2000 is in the future
   assert.deepEqual(tradeFlow([], 1000), { flow30: null, vol30t: 0 });
+  assert.equal(takerSide({ taker_book_side: "bid", taker_side: "no" }), "yes");                       // newer field wins
+  assert.equal(takerSide({ taker_outcome_side: "no" }), "no"); assert.equal(takerSide({ taker_side: "yes" }), "yes"); assert.equal(takerSide({}), null);
   const res = Date.parse("2026-11-10T12:00:00Z"), iso = s => new Date(res - s * 1000).toISOString(), ticks = [];
   for (let s = 3600; s >= 0; s -= 60) ticks.push({ t: iso(s), k: "K2", b: 0.4, a: 0.42, im: s > 600 ? 0.1 : -0.9, ty: s > 600 ? 1 : 0, tn: s > 600 ? 0 : 50 });
   const sn = buildSnapshots(ticks, { K2: { ticker: "K2", resolvesAt: new Date(res).toISOString() } }, { K2: "yes" });
