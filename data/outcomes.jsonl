@@ -1028,3 +1028,15 @@
 {"ticker":"KXSOLD-26NOV1021-T83.4999","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-11T02:02:31.37157Z","closedAt":"2026-11-11T02:00:00Z","checkedAt":"2026-11-11T02:14:51.642Z"}
 {"ticker":"KXSOLE-26NOV1021-B83.375","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-11T02:02:31.362872Z","closedAt":"2026-11-11T02:00:00Z","checkedAt":"2026-11-11T02:14:51.642Z"}
 {"ticker":"KXSOLE-26NOV1021-B83.625","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-11T02:02:31.362872Z","closedAt":"2026-11-11T02:00:00Z","checkedAt":"2026-11-11T02:14:51.642Z"}
+{"ticker":"KXWTI-26NOV1014-T85.49","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T19:30:00Z","checkedAt":"2026-11-11T02:24:52.039Z"}
+{"ticker":"KXWTI-26NOV1014-T85.99","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T19:30:00Z","checkedAt":"2026-11-11T02:24:52.039Z"}
+{"ticker":"KXWTI-26NOV1014-T84.99","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T19:30:00Z","checkedAt":"2026-11-11T02:24:52.039Z"}
+{"ticker":"KXWTI-26NOV1014-T86.49","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T19:30:00Z","checkedAt":"2026-11-11T02:24:52.039Z"}
+{"ticker":"KXWTI-26NOV1014-T84.49","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T19:30:00Z","checkedAt":"2026-11-11T02:24:52.039Z"}
+{"ticker":"KXWTI-26NOV1014-T86.99","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T19:30:00Z","checkedAt":"2026-11-11T02:24:52.039Z"}
+{"ticker":"KXWTI-26NOV1014-T87.49","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T19:30:00Z","checkedAt":"2026-11-11T02:24:52.039Z"}
+{"ticker":"KXWTI-26NOV1014-T83.99","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T19:30:00Z","checkedAt":"2026-11-11T02:24:52.039Z"}
+{"ticker":"KXWTI-26NOV1014-T88.49","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T19:30:00Z","checkedAt":"2026-11-11T02:24:52.039Z"}
+{"ticker":"KXWTI-26NOV1014-T87.99","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T19:30:00Z","checkedAt":"2026-11-11T02:24:52.039Z"}
+{"ticker":"KXWTI-26NOV1014-T83.49","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-10T19:30:00Z","checkedAt":"2026-11-11T02:24:52.039Z"}
+{"ticker":"KXWTI-26NOV1014-T88.99","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T19:30:00Z","checkedAt":"2026-11-11T02:24:52.039Z"}
