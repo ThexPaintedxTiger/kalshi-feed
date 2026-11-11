@@ -1099,3 +1099,8 @@
 {"ticker":"KXTEMPLAXHS-26NOV1022-T72.99","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-11T03:00:00Z","checkedAt":"2026-11-11T03:15:23.360Z"}
 {"ticker":"KXBTCD-26NOV1022-T72999.99","result":"yes","raw":"yes","status":"finalized","settledAt":"2026-11-11T03:11:46.345153Z","closedAt":"2026-11-11T03:00:00Z","checkedAt":"2026-11-11T03:15:23.360Z"}
 {"ticker":"KXBTCD-26NOV1022-T73699.99","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-11T03:11:46.345153Z","closedAt":"2026-11-11T03:00:00Z","checkedAt":"2026-11-11T03:15:23.360Z"}
+{"ticker":"KXBIGGESTQUAKE-10NOV26-5.8","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T23:59:59Z","checkedAt":"2026-11-11T03:25:24.121Z"}
+{"ticker":"KXBIGGESTQUAKE-10NOV26-6.0","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T23:59:59Z","checkedAt":"2026-11-11T03:25:24.121Z"}
+{"ticker":"KXBIGGESTQUAKE-10NOV26-6.6","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T23:59:59Z","checkedAt":"2026-11-11T03:25:24.121Z"}
+{"ticker":"KXBIGGESTQUAKE-10NOV26-6.2","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T23:59:59Z","checkedAt":"2026-11-11T03:25:24.121Z"}
+{"ticker":"KXBIGGESTQUAKE-10NOV26-6.4","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-10T23:59:59Z","checkedAt":"2026-11-11T03:25:24.121Z"}

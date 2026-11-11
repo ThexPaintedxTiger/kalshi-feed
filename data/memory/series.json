@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-11T03:15:23.853Z",
- "samples": 2695,
+ "updated": "2026-11-11T03:25:24.641Z",
+ "samples": 2700,
  "note": "Derived summary (rebuilt each run). bias = average (outcome − market price); > 0 means YES was underpriced in this series.",
  "series": {
   "KXAAAGASD": {
@@ -687,13 +687,13 @@
   },
   "KXBIGGESTQUAKE": {
    "cat": "Climate and Weather",
-   "n": 4,
-   "yesRate": 0.5,
-   "avgPrice": 0.2925,
-   "bias": 0.2075,
-   "brierMarket": 0.1509,
-   "last": "2026-11-10T03:00:31.205Z",
-   "live": 0,
+   "n": 9,
+   "yesRate": 0.2222,
+   "avgPrice": 0.185,
+   "bias": 0.0372,
+   "brierMarket": 0.0752,
+   "last": "2026-11-10T23:59:59.000Z",
+   "live": 5,
    "backtest": 4
   },
   "KXBNB": {

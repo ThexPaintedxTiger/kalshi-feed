@@ -1,30 +1,30 @@
 {
- "updated": "2026-11-11T03:15:43.558Z",
+ "updated": "2026-11-11T03:25:44.224Z",
  "note": "Simulation only. Brier/log loss: lower is better. brierVsMarket < 0 means better than the market price. Intervals are 95%, counted per event. No edge is claimed below 100 resolved predictions.",
- "predictions": 1308,
- "resolved": 1101,
+ "predictions": 1324,
+ "resolved": 1106,
  "excludedLeakage": 0,
- "events": 358,
+ "events": 359,
  "predictors": {
   "market": {
-   "n": 1101,
+   "n": 1106,
    "brier": {
-    "mean": 0.1734,
-    "lo": 0.156,
-    "hi": 0.1908,
-    "events": 358
+    "mean": 0.173,
+    "lo": 0.1556,
+    "hi": 0.1903,
+    "events": 359
    },
    "logLoss": {
-    "mean": 0.5198,
-    "lo": 0.4745,
-    "hi": 0.5652,
-    "events": 358
+    "mean": 0.5187,
+    "lo": 0.4734,
+    "hi": 0.564,
+    "events": 359
    },
    "brierVsMarket": {
     "mean": 0,
     "lo": 0,
     "hi": 0,
-    "events": 358
+    "events": 359
    },
    "verdict": "baseline",
    "picks": {
@@ -42,21 +42,21 @@
    "calibration": [
     {
      "bin": "0-10%",
-     "n": 157,
-     "avgP": 0.0601,
-     "hitRate": 0.051
+     "n": 160,
+     "avgP": 0.0599,
+     "hitRate": 0.05
     },
     {
      "bin": "10-20%",
-     "n": 134,
-     "avgP": 0.1423,
-     "hitRate": 0.1567
+     "n": 135,
+     "avgP": 0.1421,
+     "hitRate": 0.1556
     },
     {
      "bin": "20-30%",
-     "n": 111,
-     "avgP": 0.2452,
-     "hitRate": 0.2342
+     "n": 112,
+     "avgP": 0.245,
+     "hitRate": 0.2321
     },
     {
      "bin": "30-40%",
@@ -103,24 +103,24 @@
    ]
   },
   "longshot": {
-   "n": 952,
+   "n": 957,
    "brier": {
-    "mean": 0.1775,
-    "lo": 0.1572,
-    "hi": 0.1977,
-    "events": 310
+    "mean": 0.1769,
+    "lo": 0.1567,
+    "hi": 0.1971,
+    "events": 311
    },
    "logLoss": {
-    "mean": 0.5327,
-    "lo": 0.4775,
-    "hi": 0.5879,
-    "events": 310
+    "mean": 0.5313,
+    "lo": 0.4762,
+    "hi": 0.5864,
+    "events": 311
    },
    "brierVsMarket": {
     "mean": 0.0006,
     "lo": -0.0005,
-    "hi": 0.0018,
-    "events": 310
+    "hi": 0.0017,
+    "events": 311
    },
    "verdict": "no measurable difference",
    "picks": {
@@ -138,21 +138,21 @@
    "calibration": [
     {
      "bin": "0-10%",
-     "n": 160,
-     "avgP": 0.0542,
-     "hitRate": 0.0563
+     "n": 163,
+     "avgP": 0.0539,
+     "hitRate": 0.0552
     },
     {
      "bin": "10-20%",
-     "n": 113,
-     "avgP": 0.141,
-     "hitRate": 0.1858
+     "n": 114,
+     "avgP": 0.1407,
+     "hitRate": 0.1842
     },
     {
      "bin": "20-30%",
-     "n": 89,
-     "avgP": 0.247,
-     "hitRate": 0.3034
+     "n": 90,
+     "avgP": 0.2465,
+     "hitRate": 0.3
     },
     {
      "bin": "30-40%",
@@ -199,24 +199,24 @@
    ]
   },
   "memory": {
-   "n": 551,
+   "n": 556,
    "brier": {
-    "mean": 0.173,
-    "lo": 0.1475,
-    "hi": 0.1985,
-    "events": 187
+    "mean": 0.1721,
+    "lo": 0.1467,
+    "hi": 0.1975,
+    "events": 188
    },
    "logLoss": {
-    "mean": 0.5229,
-    "lo": 0.4495,
-    "hi": 0.5962,
-    "events": 187
+    "mean": 0.5207,
+    "lo": 0.4476,
+    "hi": 0.5938,
+    "events": 188
    },
    "brierVsMarket": {
-    "mean": 0.0039,
+    "mean": 0.0038,
     "lo": -0.0011,
     "hi": 0.0088,
-    "events": 187
+    "events": 188
    },
    "verdict": "no measurable difference",
    "picks": {
@@ -234,21 +234,21 @@
    "calibration": [
     {
      "bin": "0-10%",
-     "n": 82,
+     "n": 85,
      "avgP": 0.0503,
-     "hitRate": 0.0488
+     "hitRate": 0.0471
     },
     {
      "bin": "10-20%",
-     "n": 70,
-     "avgP": 0.1518,
-     "hitRate": 0.1714
+     "n": 71,
+     "avgP": 0.1514,
+     "hitRate": 0.169
     },
     {
      "bin": "20-30%",
-     "n": 69,
-     "avgP": 0.2456,
-     "hitRate": 0.3043
+     "n": 70,
+     "avgP": 0.2453,
+     "hitRate": 0.3
     },
     {
      "bin": "30-40%",
@@ -295,24 +295,24 @@
    ]
   },
   "nn": {
-   "n": 410,
+   "n": 415,
    "brier": {
-    "mean": 0.1682,
-    "lo": 0.1393,
-    "hi": 0.1972,
-    "events": 120
+    "mean": 0.167,
+    "lo": 0.1382,
+    "hi": 0.1958,
+    "events": 121
    },
    "logLoss": {
-    "mean": 0.5037,
-    "lo": 0.4289,
-    "hi": 0.5785,
-    "events": 120
+    "mean": 0.5004,
+    "lo": 0.4259,
+    "hi": 0.5748,
+    "events": 121
    },
    "brierVsMarket": {
     "mean": -0.0002,
     "lo": -0.0024,
     "hi": 0.0019,
-    "events": 120
+    "events": 121
    },
    "verdict": "no measurable difference",
    "picks": {
@@ -330,21 +330,21 @@
    "calibration": [
     {
      "bin": "0-10%",
-     "n": 65,
-     "avgP": 0.0598,
-     "hitRate": 0.0462
+     "n": 68,
+     "avgP": 0.0591,
+     "hitRate": 0.0441
     },
     {
      "bin": "10-20%",
-     "n": 53,
-     "avgP": 0.1509,
-     "hitRate": 0.1887
+     "n": 54,
+     "avgP": 0.1505,
+     "hitRate": 0.1852
     },
     {
      "bin": "20-30%",
-     "n": 47,
-     "avgP": 0.2535,
-     "hitRate": 0.2128
+     "n": 48,
+     "avgP": 0.2529,
+     "hitRate": 0.2083
     },
     {
      "bin": "30-40%",
@@ -591,8 +591,8 @@
    "brierMarket": 0.1587
   },
   "Climate and Weather": {
-   "n": 75,
-   "brierMarket": 0.1118
+   "n": 80,
+   "brierMarket": 0.1057
   }
  }
 }

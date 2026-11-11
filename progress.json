@@ -1,18 +1,18 @@
 {
- "updated": "2026-11-11T03:15:43.590Z",
+ "updated": "2026-11-11T03:25:44.255Z",
  "goal": "IN_PROGRESS",
- "resolved": 1101,
+ "resolved": 1106,
  "health": {
   "ok": true,
   "warmingUp": true,
   "checks": {
    "runsLast24h": {
-    "value": 52,
-    "target": 46,
+    "value": 53,
+    "target": 47,
     "ok": true
    },
    "newPredictionsLast24h": {
-    "value": 1308,
+    "value": 1324,
     "target": 23,
     "ok": true
    },
@@ -34,14 +34,14 @@
   "longshot": {
    "status": "RETIRED",
    "rec": "2026-11-10: FAILURE_RETIRE (no measurable edge after 832 resolved; backtest 1334, no difference). Owner approved.",
-   "n": 952,
+   "n": 957,
    "brierVsMarket": 0.0006,
    "picks": 0,
-   "trend": "+952 resolved",
+   "trend": "+957 resolved",
    "snap": {
-    "n": 952,
+    "n": 957,
     "mean": 0.0006,
-    "width": 0.0023
+    "width": 0.0022
    },
    "backtest": {
     "n": 1334,
@@ -53,14 +53,14 @@
   },
   "memory": {
    "status": "FAILURE_RETIRE",
-   "rec": "no measurable edge after 551 resolved — recommend retiring this hypothesis",
-   "n": 551,
-   "brierVsMarket": 0.0039,
+   "rec": "no measurable edge after 556 resolved — recommend retiring this hypothesis",
+   "n": 556,
+   "brierVsMarket": 0.0038,
    "picks": 102,
-   "trend": "+551 resolved",
+   "trend": "+556 resolved",
    "snap": {
-    "n": 551,
-    "mean": 0.0039,
+    "n": 556,
+    "mean": 0.0038,
     "width": 0.0099
    },
    "backtest": {
@@ -73,13 +73,13 @@
   },
   "nn": {
    "status": "FAILURE_RETIRE",
-   "rec": "no measurable edge after 410 resolved — recommend retiring this hypothesis",
-   "n": 410,
+   "rec": "no measurable edge after 415 resolved — recommend retiring this hypothesis",
+   "n": 415,
    "brierVsMarket": -0.0002,
    "picks": 25,
    "trend": "first snapshot",
    "snap": {
-    "n": 410,
+    "n": 415,
     "mean": -0.0002,
     "width": 0.0043
    },
