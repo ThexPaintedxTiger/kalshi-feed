@@ -1,7 +1,7 @@
 {
- "updated": "2026-11-11T01:55:13.147Z",
+ "updated": "2026-11-11T02:05:11.839Z",
  "note": "Simulation only. Brier/log loss: lower is better. brierVsMarket < 0 means better than the market price. Intervals are 95%, counted per event. No edge is claimed below 100 resolved predictions.",
- "predictions": 1184,
+ "predictions": 1198,
  "resolved": 999,
  "excludedLeakage": 0,
  "events": 327,

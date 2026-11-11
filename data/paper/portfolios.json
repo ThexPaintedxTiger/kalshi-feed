@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T01:55:13.250Z",
+ "updated": "2026-11-11T02:05:11.941Z",
  "start": 10,
  "goal": 1000,
  "safety": {
@@ -4960,7 +4960,7 @@
   ]
  },
  "forward": {
-  "rows": 481,
+  "rows": 495,
   "settled": 320,
   "portfolios": [
    {
@@ -5043,7 +5043,7 @@
     "avgBetPct": 1.9019,
     "maxBetPct": 1.9798,
     "worstLossPct": -1.9766,
-    "betsPerDay": 126.3078,
+    "betsPerDay": 123.9457,
     "trustNow": null,
     "busted": null,
     "reachedGoal": null,
@@ -5857,7 +5857,7 @@
     "avgBetPct": 2.3631,
     "maxBetPct": 2.502,
     "worstLossPct": -2.502,
-    "betsPerDay": 30.204,
+    "betsPerDay": 29.6392,
     "trustNow": {
      "trust": 0,
      "why": "learning: 11/30 settled bets"
@@ -6426,7 +6426,7 @@
     "avgBetPct": 1.9538,
     "maxBetPct": 1.9788,
     "worstLossPct": -1.9659,
-    "betsPerDay": 35.6957,
+    "betsPerDay": 35.0281,
     "trustNow": null,
     "busted": null,
     "reachedGoal": null,
@@ -7046,7 +7046,7 @@
     "avgBetPct": 2.4867,
     "maxBetPct": 2.9969,
     "worstLossPct": -2.9969,
-    "betsPerDay": 107.087,
+    "betsPerDay": 105.0844,
     "trustNow": {
      "trust": 0,
      "why": "edge not proven yet (return per $ -0.2105, conservative -0.4868)"
@@ -7899,22 +7899,22 @@
     "name": "Crypto fair value, learned bet size",
     "predictor": "crypto_fair",
     "sizing": "learn",
-    "equity": 12.7729,
-    "cash": 12.3174,
-    "openPositions": 2,
-    "returnPct": 27.729,
-    "bets": 9,
+    "equity": 12.7629,
+    "cash": 12.075,
+    "openPositions": 3,
+    "returnPct": 27.629,
+    "bets": 10,
     "shadowBets": 0,
     "settled": 7,
     "wins": 3,
     "pnl": 2.8129,
-    "fees": 0.17,
+    "fees": 0.18,
     "maxDrawdownPct": 5.4726,
     "lowest": 9.7032,
-    "avgBetPct": 2.1368,
+    "avgBetPct": 2.1129,
     "maxBetPct": 2.4894,
     "worstLossPct": -2.468,
-    "betsPerDay": 24.7124,
+    "betsPerDay": 26.9447,
     "trustNow": {
      "trust": 0,
      "why": "learning: 7/30 settled bets"
@@ -7956,6 +7956,24 @@
      ]
     ],
     "recent": [
+     {
+      "ts": "2026-11-11T02:04:52.490Z",
+      "ticker": "KXBTC-26NOV1022-B73550",
+      "title": "Bitcoin price range on Nov 10, 2026? — $73,500 to 73,599.99",
+      "cat": "Crypto",
+      "side": "no",
+      "price": 0.83,
+      "p": 0.1391,
+      "mid": 0.175,
+      "contracts": 0.28,
+      "fee": 0.01,
+      "stake": 0.2424,
+      "bankroll": 12.7729,
+      "betPct": 1.8978,
+      "evPerDollar": 0.0252,
+      "pnl": null,
+      "won": null
+     },
      {
       "ts": "2026-11-11T01:29:45.157Z",
       "ticker": "KXBNBD-26NOV1021-T679.99",
@@ -8354,7 +8372,7 @@
     "avgBetPct": 2.3707,
     "maxBetPct": 3.018,
     "worstLossPct": -3.0107,
-    "betsPerDay": 63.1539,
+    "betsPerDay": 61.9729,
     "trustNow": {
      "trust": 0,
      "why": "learning: 16/30 settled bets"

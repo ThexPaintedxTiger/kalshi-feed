@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T01:55:14.469Z",
+ "updated": "2026-11-11T02:05:46.656Z",
  "trade": {
   "answer": "No — don't trade real money yet",
   "tone": "bad",
@@ -7,7 +7,7 @@
   "next": "Let it keep collecting. The answer changes automatically when a strategy reaches SUCCESS on the live record."
  },
  "learning": [
-  "Live record: 999 of 1184 predictions resolved so far (327 separate events).",
+  "Live record: 999 of 1198 predictions resolved so far (327 separate events).",
   "longshot: retired — 2026-11-10: FAILURE_RETIRE (no measurable edge after 832 resolved; backtest 1334, no difference). Owner approved.",
   "memory: failure retire — no measurable edge after 460 resolved — recommend retiring this hypothesis",
   "nn: failure retire — no measurable edge after 320 resolved — recommend retiring this hypothesis",
@@ -21,99 +21,22 @@
  ],
  "watchlist": [
   {
-   "title": "Will the gold close price be above 4035.99 USD/ounce on November 10, 2026 at 9:00 PM ET? — Above $4035.99",
-   "cat": "Commodities",
-   "resolvesAt": "2026-11-11T02:00:00.000Z",
-   "predictor": "memory",
-   "status": "FAILURE_RETIRE",
+   "title": "Bitcoin price range on Nov 10, 2026? — $73,500 to 73,599.99",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-11T03:00:00.000Z",
+   "predictor": "crypto_fair",
+   "status": "ON_TRACK",
    "side": "no",
-   "price": 0.31,
-   "ev": 0.0331,
-   "url": "https://kalshi.com/markets/kxgoldh"
-  },
-  {
-   "title": "Will the gold close price be above 4047.99 USD/ounce on November 10, 2026 at 9:00 PM ET? — Above $4047.99",
-   "cat": "Commodities",
-   "resolvesAt": "2026-11-11T02:00:00.000Z",
-   "predictor": "memory",
-   "status": "FAILURE_RETIRE",
-   "side": "no",
-   "price": 0.8,
-   "ev": 0.0281,
-   "url": "https://kalshi.com/markets/kxgoldh"
-  },
-  {
-   "title": "Will the gold close price be above 4045.99 USD/ounce on November 10, 2026 at 9:00 PM ET? — Above $4045.99",
-   "cat": "Commodities",
-   "resolvesAt": "2026-11-11T02:00:00.000Z",
-   "predictor": "memory",
-   "status": "FAILURE_RETIRE",
-   "side": "no",
-   "price": 0.77,
-   "ev": 0.0331,
-   "url": "https://kalshi.com/markets/kxgoldh"
-  },
-  {
-   "title": "Will the gold close price be above 4033.99 USD/ounce on November 10, 2026 at 9:00 PM ET? — Above $4033.99",
-   "cat": "Commodities",
-   "resolvesAt": "2026-11-11T02:00:00.000Z",
-   "predictor": "memory",
-   "status": "FAILURE_RETIRE",
-   "side": "no",
-   "price": 0.3,
-   "ev": 0.0331,
-   "url": "https://kalshi.com/markets/kxgoldh"
-  },
-  {
-   "title": "Will the gold close price be above 4039.99 USD/ounce on November 10, 2026 at 9:00 PM ET? — Above $4039.99",
-   "cat": "Commodities",
-   "resolvesAt": "2026-11-11T02:00:00.000Z",
-   "predictor": "memory",
-   "status": "FAILURE_RETIRE",
-   "side": "no",
-   "price": 0.67,
-   "ev": 0.0554,
-   "url": "https://kalshi.com/markets/kxgoldh"
-  },
-  {
-   "title": "Will the temp in Miami be above 78.99° on Nov 10, 2026 at 9pm EST? — 79° or above",
-   "cat": "Climate and Weather",
-   "resolvesAt": "2026-11-11T02:00:00.000Z",
-   "predictor": "weather_nws",
-   "status": "OFF_TRACK",
-   "side": "yes",
-   "price": 0.11,
-   "ev": 0.3145,
-   "url": "https://kalshi.com/markets/kxtempmiah"
-  },
-  {
-   "title": "Will the gold close price be above 4037.99 USD/ounce on November 10, 2026 at 9:00 PM ET? — Above $4037.99",
-   "cat": "Commodities",
-   "resolvesAt": "2026-11-11T02:00:00.000Z",
-   "predictor": "memory",
-   "status": "FAILURE_RETIRE",
-   "side": "no",
-   "price": 0.61,
-   "ev": 0.0554,
-   "url": "https://kalshi.com/markets/kxgoldh"
-  },
-  {
-   "title": "Will the temp in New York City be above 53.99° on Nov 10, 2026 at 9pm EST? — 54° or above",
-   "cat": "Climate and Weather",
-   "resolvesAt": "2026-11-11T02:00:00.000Z",
-   "predictor": "weather_nws",
-   "status": "OFF_TRACK",
-   "side": "yes",
-   "price": 0.32,
-   "ev": 0.655,
-   "url": "https://kalshi.com/markets/kxtempnychs"
+   "price": 0.83,
+   "ev": 0.0209,
+   "url": "https://kalshi.com/markets/kxbtc"
   }
  ],
  "checks": [
   {
    "name": "Pipeline ran recently",
    "ok": true,
-   "detail": "last cloud run 0 min ago"
+   "detail": "last cloud run 1 min ago"
   },
   {
    "name": "Runs on schedule (every 10 min)",
@@ -123,17 +46,17 @@
   {
    "name": "New predictions are being logged",
    "ok": true,
-   "detail": "40 logged in the last hour"
+   "detail": "54 logged in the last hour"
   },
   {
    "name": "Outcomes are being collected",
    "ok": true,
-   "detail": "0/0 predictions due >24 h ago have an official result; 29 newer ones awaiting Kalshi's settlement"
+   "detail": "0/0 predictions due >24 h ago have an official result; 60 newer ones awaiting Kalshi's settlement"
   },
   {
    "name": "Scorecard matches the logs",
    "ok": true,
-   "detail": "scorecard counts 1184, log has 1184"
+   "detail": "scorecard counts 1198, log has 1198"
   },
   {
    "name": "No prediction logged after its market resolved",
@@ -153,7 +76,7 @@
   {
    "name": "Network trained in the last 2 h",
    "ok": true,
-   "detail": "trained 0 min ago on 2134 markets"
+   "detail": "trained 11 min ago on 2134 markets"
   },
   {
    "name": "Bet-size safety held (≤5% per bet)",
@@ -168,12 +91,12 @@
   {
    "name": "Outside data: Coinbase crypto agent",
    "ok": true,
-   "detail": "0/0 markets got an outside estimate, 0 min ago"
+   "detail": "9/9 markets got an outside estimate, 1 min ago"
   },
   {
    "name": "Outside data: NWS weather agent",
    "ok": true,
-   "detail": "0/0 markets got an outside estimate, 0 min ago"
+   "detail": "0/0 markets got an outside estimate, 1 min ago"
   },
   {
    "name": "Storage has room (archive + limits)",
