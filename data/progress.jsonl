@@ -1,1 +1,2 @@
 {"date":"2026-11-10","resolved":0,"predictors":{"longshot":{"n":0,"mean":null,"width":null},"memory":{"n":0,"mean":null,"width":null}}}
+{"date":"2026-11-11","resolved":921,"predictors":{"longshot":{"n":921,"mean":0.0006,"width":0.0024},"memory":{"n":383,"mean":0.0041,"width":0.0129},"nn":{"n":243,"mean":-0.0016,"width":0.0076},"crypto_fair":{"n":23,"mean":-0.0041,"width":0.0435}}}

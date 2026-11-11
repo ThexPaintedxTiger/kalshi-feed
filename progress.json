@@ -1,18 +1,18 @@
 {
- "updated": "2026-11-10T23:55:32.279Z",
+ "updated": "2026-11-11T00:07:23.507Z",
  "goal": "IN_PROGRESS",
- "resolved": 832,
+ "resolved": 921,
  "health": {
   "ok": true,
   "warmingUp": true,
   "checks": {
    "runsLast24h": {
-    "value": 37,
-    "target": 32,
+    "value": 38,
+    "target": 33,
     "ok": true
    },
    "newPredictionsLast24h": {
-    "value": 1041,
+    "value": 1064,
     "target": 16,
     "ok": true
    },
@@ -34,14 +34,14 @@
   "longshot": {
    "status": "RETIRED",
    "rec": "2026-11-10: FAILURE_RETIRE (no measurable edge after 832 resolved; backtest 1334, no difference). Owner approved.",
-   "n": 832,
+   "n": 921,
    "brierVsMarket": 0.0006,
    "picks": 0,
-   "trend": "first snapshot",
+   "trend": "+921 resolved",
    "snap": {
-    "n": 832,
+    "n": 921,
     "mean": 0.0006,
-    "width": 0.0025
+    "width": 0.0024
    },
    "backtest": {
     "n": 1334,
@@ -53,56 +53,56 @@
   },
   "memory": {
    "status": "FAILURE_RETIRE",
-   "rec": "no measurable edge after 321 resolved — recommend retiring this hypothesis",
-   "n": 321,
-   "brierVsMarket": 0.0038,
-   "picks": 64,
-   "trend": "first snapshot",
+   "rec": "no measurable edge after 383 resolved — recommend retiring this hypothesis",
+   "n": 383,
+   "brierVsMarket": 0.0041,
+   "picks": 76,
+   "trend": "+383 resolved",
    "snap": {
-    "n": 321,
-    "mean": 0.0038,
-    "width": 0.0138
+    "n": 383,
+    "mean": 0.0041,
+    "width": 0.0129
    },
    "backtest": {
-    "n": 1334,
-    "brierVsMarket": -0.0003,
+    "n": 1455,
+    "brierVsMarket": -0.0002,
     "verdict": "no measurable difference",
-    "picks": 23,
-    "pnlPerContract": 0.087
+    "picks": 25,
+    "pnlPerContract": 0.04
    }
   },
   "nn": {
    "status": "ON_TRACK",
-   "rec": "leaning better than the market (-0.0019) — wait for 0 more resolved",
-   "n": 188,
-   "brierVsMarket": -0.0019,
+   "rec": "leaning better than the market (-0.0016) — wait for 0 more resolved",
+   "n": 243,
+   "brierVsMarket": -0.0016,
    "picks": 25,
    "trend": "first snapshot",
    "snap": {
-    "n": 188,
-    "mean": -0.0019,
-    "width": 0.0093
+    "n": 243,
+    "mean": -0.0016,
+    "width": 0.0076
    },
    "backtest": null
   },
   "crypto_fair": {
-   "status": "INSUFFICIENT",
-   "rec": "wait: 0/20 resolved before any trend is readable",
-   "n": 0,
-   "brierVsMarket": null,
-   "picks": 0,
+   "status": "ON_TRACK",
+   "rec": "leaning better than the market (-0.0041) — wait for 77 more resolved",
+   "n": 23,
+   "brierVsMarket": -0.0041,
+   "picks": 4,
    "trend": "first snapshot",
    "snap": {
-    "n": 0,
-    "mean": null,
-    "width": null
+    "n": 23,
+    "mean": -0.0041,
+    "width": 0.0435
    },
    "backtest": {
-    "n": 52,
-    "brierVsMarket": 0.0162,
+    "n": 97,
+    "brierVsMarket": 0.0072,
     "verdict": "no measurable difference",
-    "picks": 25,
-    "pnlPerContract": -0.0932
+    "picks": 47,
+    "pnlPerContract": -0.0289
    }
   }
  },
