@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-11T03:37:48.904Z",
+ "generated": "2026-11-11T03:46:13.636Z",
  "config": {
   "version": 8,
   "scan": {
@@ -174,7 +174,7 @@
   }
  },
  "progress": {
-  "updated": "2026-11-11T03:37:39.856Z",
+  "updated": "2026-11-11T03:45:42.978Z",
   "goal": "IN_PROGRESS",
   "resolved": 1106,
   "health": {
@@ -182,12 +182,12 @@
    "warmingUp": true,
    "checks": {
     "runsLast24h": {
-     "value": 54,
+     "value": 55,
      "target": 48,
      "ok": true
     },
     "newPredictionsLast24h": {
-     "value": 1336,
+     "value": 1338,
      "target": 24,
      "ok": true
     },
@@ -299,7 +299,7 @@
  },
  "scorecard": {
   "resolved": 1106,
-  "predictions": 1336,
+  "predictions": 1338,
   "excludedLeakage": 0,
   "events": 359,
   "predictors": {
@@ -894,10 +894,10 @@
   }
  },
  "totals": {
-  "predictions": 1336,
+  "predictions": 1338,
   "outcomes": 1106,
   "trades": 208,
-  "runs": 54
+  "runs": 55
  },
  "categories": {
   "Sports": {
@@ -917,7 +917,7 @@
    "resolved": 134
   },
   "Economics": {
-   "logged": 98,
+   "logged": 100,
    "resolved": 0
   },
   "Crypto": {
@@ -1319,9 +1319,50 @@
    "scanned": 49558,
    "candidates": 1687,
    "logged": 19
+  },
+  {
+   "ts": "2026-11-11T03:45:24.427Z",
+   "run": "0c72b95",
+   "scanned": 49521,
+   "candidates": 1496,
+   "logged": 2
   }
  ],
  "predictions": [
+  {
+   "ts": "2026-11-11T03:45:24.427Z",
+   "ticker": "KXAAAGASDSD-26NOV11-3.8750",
+   "title": "Will average **gas prices** be above $3.8750? — Above 3.8750",
+   "cat": "Economics",
+   "resolvesAt": "2026-11-11T04:59:00.000Z",
+   "ask": 0.98,
+   "bid": 0.96,
+   "mid": 0.97,
+   "est": {
+    "market": 0.97,
+    "memory": 0.97,
+    "nn": 0.9704
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxaaagasdsd"
+  },
+  {
+   "ts": "2026-11-11T03:45:24.427Z",
+   "ticker": "KXAAAGASDNM-26NOV11-3.7900",
+   "title": "Will average **gas prices** be above $3.7900? — Above 3.7900",
+   "cat": "Economics",
+   "resolvesAt": "2026-11-11T04:59:00.000Z",
+   "ask": 0.07,
+   "bid": 0.05,
+   "mid": 0.06,
+   "est": {
+    "market": 0.06,
+    "memory": 0.06,
+    "nn": 0.0603
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxaaagasdnm"
+  },
   {
    "ts": "2026-11-11T03:35:23.968Z",
    "ticker": "KXAAAGASDMS-26NOV11-3.6200",
@@ -3911,42 +3952,6 @@
    },
    "outcome": "yes",
    "url": "https://kalshi.com/markets/kxxrpd"
-  },
-  {
-   "ts": "2026-11-11T02:04:52.490Z",
-   "ticker": "KXBTC-26NOV1022-B73550",
-   "title": "Bitcoin price range on Nov 10, 2026? — $73,500 to 73,599.99",
-   "cat": "Crypto",
-   "resolvesAt": "2026-11-11T03:00:00.000Z",
-   "ask": 0.18,
-   "bid": 0.17,
-   "mid": 0.175,
-   "est": {
-    "market": 0.175,
-    "memory": 0.1669,
-    "crypto_fair": 0.1391,
-    "nn": 0.1738
-   },
-   "outcome": "yes",
-   "url": "https://kalshi.com/markets/kxbtc"
-  },
-  {
-   "ts": "2026-11-11T02:04:52.490Z",
-   "ticker": "KXETHD-26NOV1022-T2049.99",
-   "title": "Ethereum price at Nov 10, 2026 at 10pm EST? — $2,050 or above",
-   "cat": "Crypto",
-   "resolvesAt": "2026-11-11T03:00:00.000Z",
-   "ask": 0.63,
-   "bid": 0.62,
-   "mid": 0.625,
-   "est": {
-    "market": 0.625,
-    "memory": 0.6019,
-    "crypto_fair": 0.6042,
-    "nn": 0.6234
-   },
-   "outcome": "yes",
-   "url": "https://kalshi.com/markets/kxethd"
   }
  ],
  "trades": [
@@ -6059,7 +6064,7 @@
    "rules"
   ],
   "picks": [],
-  "feedUpdated": "2026-11-11T03:17:55.671Z",
+  "feedUpdated": "2026-11-11T03:46:12.957Z",
   "liquid": 400,
   "events": 20000
  },
@@ -6500,152 +6505,152 @@
   }
  },
  "memory": {
-  "samples": 2700,
-  "series": 215,
+  "samples": 2828,
+  "series": 220,
   "top": [
    {
     "series": "KXBTCD",
     "cat": "Crypto",
-    "n": 168,
-    "yesRate": 0.5357,
-    "avgPrice": 0.4956,
-    "bias": 0.0401,
-    "brierMarket": 0.2104,
+    "n": 174,
+    "yesRate": 0.5402,
+    "avgPrice": 0.4948,
+    "bias": 0.0455,
+    "brierMarket": 0.2119,
     "last": "2026-11-11T03:11:46.345Z",
     "live": 64,
-    "backtest": 104
+    "backtest": 110
    },
    {
     "series": "KXBTC",
     "cat": "Crypto",
-    "n": 161,
-    "yesRate": 0.2671,
-    "avgPrice": 0.2688,
-    "bias": -0.0017,
-    "brierMarket": 0.1639,
+    "n": 167,
+    "yesRate": 0.2635,
+    "avgPrice": 0.2656,
+    "bias": -0.0021,
+    "brierMarket": 0.1628,
     "last": "2026-11-11T03:02:16.511Z",
     "live": 56,
-    "backtest": 105
+    "backtest": 111
    },
    {
     "series": "KXETHD",
     "cat": "Crypto",
-    "n": 148,
-    "yesRate": 0.473,
-    "avgPrice": 0.4877,
-    "bias": -0.0148,
-    "brierMarket": 0.1924,
+    "n": 154,
+    "yesRate": 0.487,
+    "avgPrice": 0.4889,
+    "bias": -0.0019,
+    "brierMarket": 0.1939,
     "last": "2026-11-11T03:02:06.512Z",
     "live": 45,
-    "backtest": 103
+    "backtest": 109
    },
    {
     "series": "KXSOLD",
     "cat": "Crypto",
-    "n": 147,
-    "yesRate": 0.517,
-    "avgPrice": 0.5036,
-    "bias": 0.0134,
-    "brierMarket": 0.1954,
+    "n": 154,
+    "yesRate": 0.526,
+    "avgPrice": 0.5046,
+    "bias": 0.0214,
+    "brierMarket": 0.1974,
     "last": "2026-11-11T03:01:46.417Z",
     "live": 42,
-    "backtest": 105
+    "backtest": 112
    },
    {
     "series": "KXTEMPMIAH",
     "cat": "Climate and Weather",
-    "n": 121,
-    "yesRate": 0.4463,
-    "avgPrice": 0.4855,
-    "bias": -0.0392,
-    "brierMarket": 0.1254,
+    "n": 128,
+    "yesRate": 0.4453,
+    "avgPrice": 0.4923,
+    "bias": -0.047,
+    "brierMarket": 0.1332,
     "last": "2026-11-11T03:00:00.000Z",
     "live": 18,
-    "backtest": 103
+    "backtest": 110
    },
    {
     "series": "KXTEMPLAXHS",
     "cat": "Climate and Weather",
-    "n": 118,
-    "yesRate": 0.4831,
-    "avgPrice": 0.4817,
-    "bias": 0.0014,
-    "brierMarket": 0.1856,
+    "n": 125,
+    "yesRate": 0.464,
+    "avgPrice": 0.4624,
+    "bias": 0.0016,
+    "brierMarket": 0.1828,
     "last": "2026-11-11T03:00:00.000Z",
     "live": 19,
-    "backtest": 99
+    "backtest": 106
    },
    {
     "series": "KXTEMPCHIHS",
     "cat": "Climate and Weather",
-    "n": 117,
-    "yesRate": 0.5043,
-    "avgPrice": 0.4383,
-    "bias": 0.0659,
-    "brierMarket": 0.1639,
+    "n": 124,
+    "yesRate": 0.5081,
+    "avgPrice": 0.439,
+    "bias": 0.069,
+    "brierMarket": 0.1631,
     "last": "2026-11-11T03:00:00.000Z",
     "live": 24,
-    "backtest": 93
+    "backtest": 100
    },
    {
     "series": "KXTEMPNYCHS",
     "cat": "Climate and Weather",
-    "n": 111,
-    "yesRate": 0.4595,
-    "avgPrice": 0.4797,
-    "bias": -0.0202,
-    "brierMarket": 0.1289,
+    "n": 118,
+    "yesRate": 0.4492,
+    "avgPrice": 0.4739,
+    "bias": -0.0248,
+    "brierMarket": 0.1245,
     "last": "2026-11-11T03:00:00.000Z",
     "live": 14,
-    "backtest": 97
+    "backtest": 104
    },
    {
     "series": "KXXRPD",
     "cat": "Crypto",
-    "n": 111,
-    "yesRate": 0.4414,
-    "avgPrice": 0.4702,
-    "bias": -0.0288,
-    "brierMarket": 0.1444,
+    "n": 117,
+    "yesRate": 0.4359,
+    "avgPrice": 0.4689,
+    "bias": -0.033,
+    "brierMarket": 0.1433,
     "last": "2026-11-11T03:00:00.000Z",
     "live": 16,
-    "backtest": 95
+    "backtest": 101
    },
    {
     "series": "KXGOLDH",
     "cat": "Commodities",
-    "n": 99,
-    "yesRate": 0.4141,
-    "avgPrice": 0.4909,
-    "bias": -0.0768,
-    "brierMarket": 0.2305,
+    "n": 105,
+    "yesRate": 0.4,
+    "avgPrice": 0.4911,
+    "bias": -0.0911,
+    "brierMarket": 0.2315,
     "last": "2026-11-11T03:05:16.310Z",
     "live": 41,
-    "backtest": 58
+    "backtest": 64
    },
    {
     "series": "KXWTIH",
     "cat": "Commodities",
-    "n": 90,
-    "yesRate": 0.4444,
-    "avgPrice": 0.4993,
-    "bias": -0.0549,
-    "brierMarket": 0.1953,
+    "n": 97,
+    "yesRate": 0.433,
+    "avgPrice": 0.4967,
+    "bias": -0.0637,
+    "brierMarket": 0.1988,
     "last": "2026-11-11T03:05:16.306Z",
     "live": 34,
-    "backtest": 56
+    "backtest": 63
    },
    {
-    "series": "KXSOLE",
+    "series": "KXHYPED",
     "cat": "Crypto",
-    "n": 80,
-    "yesRate": 0.3375,
-    "avgPrice": 0.3988,
-    "bias": -0.0613,
-    "brierMarket": 0.194,
-    "last": "2026-11-11T02:02:31.362Z",
-    "live": 15,
-    "backtest": 65
+    "n": 81,
+    "yesRate": 0.5062,
+    "avgPrice": 0.4909,
+    "bias": 0.0152,
+    "brierMarket": 0.2153,
+    "last": "2026-11-11T03:02:26.510Z",
+    "live": 34,
+    "backtest": 47
    }
   ]
  },
@@ -7669,7 +7674,7 @@
   ]
  },
  "paper": {
-  "updated": "2026-11-11T03:37:39.933Z",
+  "updated": "2026-11-11T03:45:43.055Z",
   "start": 10,
   "goal": 1000,
   "safety": {
@@ -12772,7 +12777,7 @@
    ]
   },
   "forward": {
-   "rows": 633,
+   "rows": 635,
    "settled": 415,
    "portfolios": [
     {
@@ -12855,7 +12860,7 @@
      "avgBetPct": 1.8949,
      "maxBetPct": 1.9798,
      "worstLossPct": -1.9766,
-     "betsPerDay": 117.513,
+     "betsPerDay": 115.6609,
      "trustNow": null,
      "busted": null,
      "reachedGoal": null,
@@ -13718,7 +13723,7 @@
      "avgBetPct": 2.3631,
      "maxBetPct": 2.502,
      "worstLossPct": -2.502,
-     "betsPerDay": 25.3459,
+     "betsPerDay": 24.9465,
      "trustNow": {
       "trust": 0,
       "why": "learning: 11/30 settled bets"
@@ -14287,7 +14292,7 @@
      "avgBetPct": 1.9538,
      "maxBetPct": 1.9788,
      "worstLossPct": -1.9659,
-     "betsPerDay": 29.9543,
+     "betsPerDay": 29.4822,
      "trustNow": null,
      "busted": null,
      "reachedGoal": null,
@@ -14907,7 +14912,7 @@
      "avgBetPct": 2.4867,
      "maxBetPct": 2.9969,
      "worstLossPct": -2.9969,
-     "betsPerDay": 89.8629,
+     "betsPerDay": 88.4465,
      "trustNow": {
       "trust": 0,
       "pause": true,
@@ -15812,7 +15817,7 @@
      "avgBetPct": 1.6972,
      "maxBetPct": 2.4894,
      "worstLossPct": -2.468,
-     "betsPerDay": 76.0378,
+     "betsPerDay": 74.8394,
      "trustNow": {
       "trust": 0,
       "why": "learning: 15/30 settled bets"
@@ -16474,7 +16479,7 @@
      "avgBetPct": 2.2228,
      "maxBetPct": 3.018,
      "worstLossPct": -3.0107,
-     "betsPerDay": 69.1253,
+     "betsPerDay": 68.0358,
      "trustNow": {
       "trust": 0,
       "pause": true,
@@ -17281,7 +17286,7 @@
   }
  },
  "status": {
-  "updated": "2026-11-11T03:37:48.844Z",
+  "updated": "2026-11-11T03:46:13.576Z",
   "trade": {
    "answer": "No — don't trade real money yet",
    "tone": "bad",
@@ -17289,7 +17294,7 @@
    "next": "Let it keep collecting. The answer changes automatically when a strategy reaches SUCCESS on the live record."
   },
   "learning": [
-   "Live record: 1106 of 1336 predictions resolved so far (359 separate events).",
+   "Live record: 1106 of 1338 predictions resolved so far (359 separate events).",
    "longshot: retired — 2026-11-10: FAILURE_RETIRE (no measurable edge after 832 resolved; backtest 1334, no difference). Owner approved.",
    "memory: failure retire — no measurable edge after 556 resolved — recommend retiring this hypothesis",
    "nn: failure retire — no measurable edge after 415 resolved — recommend retiring this hypothesis",
@@ -17395,7 +17400,7 @@
    {
     "name": "Pipeline ran recently",
     "ok": true,
-    "detail": "last cloud run 2 min ago"
+    "detail": "last cloud run 1 min ago"
    },
    {
     "name": "Runs on schedule (every 10 min)",
@@ -17415,7 +17420,7 @@
    {
     "name": "Scorecard matches the logs",
     "ok": true,
-    "detail": "scorecard counts 1336, log has 1336"
+    "detail": "scorecard counts 1338, log has 1338"
    },
    {
     "name": "No prediction logged after its market resolved",
@@ -17435,7 +17440,7 @@
    {
     "name": "Network trained in the last 2 h",
     "ok": true,
-    "detail": "trained 42 min ago on 2270 markets"
+    "detail": "trained 51 min ago on 2270 markets"
    },
    {
     "name": "Bet-size safety held (≤5% per bet)",
@@ -17450,12 +17455,12 @@
    {
     "name": "Outside data: Coinbase crypto agent",
     "ok": true,
-    "detail": "5/5 markets got an outside estimate, 2 min ago"
+    "detail": "0/0 markets got an outside estimate, 1 min ago"
    },
    {
     "name": "Outside data: NWS weather agent",
     "ok": true,
-    "detail": "2/2 markets got an outside estimate, 2 min ago"
+    "detail": "0/0 markets got an outside estimate, 1 min ago"
    },
    {
     "name": "Storage has room (archive + limits)",
@@ -17470,21 +17475,21 @@
   ]
  },
  "external": {
-  "at": "2026-11-11T03:35:23.968Z",
+  "at": "2026-11-11T03:45:24.427Z",
   "crypto": {
-   "tried": 5,
-   "got": 5
+   "tried": 0,
+   "got": 0
   },
   "weather": {
-   "tried": 2,
-   "got": 2
+   "tried": 0,
+   "got": 0
   }
  },
  "stream": null,
  "storage": {
-  "at": "2026-11-11T03:37:48.546Z",
+  "at": "2026-11-11T03:46:13.270Z",
   "hotMB": {
-   "predictions": 0.9535,
+   "predictions": 0.9549,
    "backtest": 0.8183,
    "snapshots": 0
   },
@@ -17499,12 +17504,12 @@
   "archiveFailures": [],
   "oversizeHot": [],
   "repoMB": 4.9668,
-  "repoGrowthMBPerDay": -3.6466,
+  "repoGrowthMBPerDay": -3.6282,
   "daysToRepoLimit": null,
   "repoLimitMB": 1024,
   "localCopyMB": 0,
   "ticksMB": 0,
-  "freeDiskGB": 87.3746,
+  "freeDiskGB": 87.3739,
   "limits": {
    "maxHotMB": 40,
    "repoLimitMB": 1024,
@@ -17590,7 +17595,7 @@
   }
  ],
  "focus": {
-  "updated": "2026-11-11T03:37:48.252Z",
+  "updated": "2026-11-11T03:46:13.064Z",
   "markets": [
    {
     "ticker": "KXTEMPCHIHS-26NOV1023-T43.99",
@@ -17616,9 +17621,9 @@
       "cost": 0.32
      }
     },
-    "price": 0.665,
-    "chg30m": 0.15,
-    "chg3h": 0.155,
+    "price": 0.865,
+    "chg30m": 0.56,
+    "chg3h": 0.355,
     "series": [
      [
       1794366120000,
@@ -17789,6 +17794,51 @@
       1794368220000,
       0.665,
       0
+     ],
+     [
+      1794368280000,
+      0.725,
+      80.18
+     ],
+     [
+      1794368340000,
+      0.725,
+      0
+     ],
+     [
+      1794368400000,
+      0.75,
+      0
+     ],
+     [
+      1794368460000,
+      0.805,
+      0
+     ],
+     [
+      1794368520000,
+      0.805,
+      0
+     ],
+     [
+      1794368580000,
+      0.8,
+      0.45
+     ],
+     [
+      1794368640000,
+      0.805,
+      0
+     ],
+     [
+      1794368700000,
+      0.815,
+      42.66
+     ],
+     [
+      1794368760000,
+      0.865,
+      1.29
      ]
     ],
     "url": "https://kalshi.com/markets/kxtempchihs"
@@ -17817,9 +17867,9 @@
       "cost": 0.7
      }
     },
-    "price": 0.255,
-    "chg30m": 0.005,
-    "chg3h": 0.17,
+    "price": 0.065,
+    "chg30m": -0.24,
+    "chg3h": -0.02,
     "series": [
      [
       1794366060000,
@@ -18005,6 +18055,51 @@
       1794368220000,
       0.255,
       0
+     ],
+     [
+      1794368280000,
+      0.165,
+      25
+     ],
+     [
+      1794368340000,
+      0.2,
+      0
+     ],
+     [
+      1794368400000,
+      0.17,
+      0
+     ],
+     [
+      1794368460000,
+      0.16,
+      0
+     ],
+     [
+      1794368520000,
+      0.11,
+      0
+     ],
+     [
+      1794368580000,
+      0.12,
+      0
+     ],
+     [
+      1794368640000,
+      0.09,
+      0
+     ],
+     [
+      1794368700000,
+      0.075,
+      0
+     ],
+     [
+      1794368760000,
+      0.065,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxsole"
@@ -18034,7 +18129,7 @@
      }
     },
     "price": 0.935,
-    "chg30m": 0.2,
+    "chg30m": 0.08,
     "chg3h": 0.4,
     "series": [
      [
@@ -18221,6 +18316,51 @@
       1794368220000,
       0.935,
       2091.99
+     ],
+     [
+      1794368280000,
+      0.915,
+      1977.41
+     ],
+     [
+      1794368340000,
+      0.935,
+      1228.59
+     ],
+     [
+      1794368400000,
+      0.945,
+      1953.63
+     ],
+     [
+      1794368460000,
+      0.945,
+      654.74
+     ],
+     [
+      1794368520000,
+      0.955,
+      2375.16
+     ],
+     [
+      1794368580000,
+      0.945,
+      187.22
+     ],
+     [
+      1794368640000,
+      0.925,
+      1758.22
+     ],
+     [
+      1794368700000,
+      0.945,
+      802.25
+     ],
+     [
+      1794368760000,
+      0.935,
+      6922.82
      ]
     ],
     "url": "https://kalshi.com/markets/kxbtcd"
@@ -18244,9 +18384,9 @@
       "cost": 0.26
      }
     },
-    "price": 0.18,
-    "chg30m": -0.09,
-    "chg3h": 0.065,
+    "price": 0.035,
+    "chg30m": -0.405,
+    "chg3h": -0.08,
     "series": [
      [
       1794366060000,
@@ -18432,6 +18572,51 @@
       1794368220000,
       0.18,
       0
+     ],
+     [
+      1794368280000,
+      0.14,
+      0
+     ],
+     [
+      1794368340000,
+      0.165,
+      0
+     ],
+     [
+      1794368400000,
+      0.135,
+      147.66
+     ],
+     [
+      1794368460000,
+      0.125,
+      28
+     ],
+     [
+      1794368520000,
+      0.115,
+      10.2
+     ],
+     [
+      1794368580000,
+      0.08,
+      308.92
+     ],
+     [
+      1794368640000,
+      0.065,
+      1
+     ],
+     [
+      1794368700000,
+      0.055,
+      8.7
+     ],
+     [
+      1794368760000,
+      0.035,
+      81
      ]
     ],
     "url": "https://kalshi.com/markets/kxethd"
@@ -18455,9 +18640,9 @@
       "cost": 0.84
      }
     },
-    "price": 0.29,
-    "chg30m": 0.125,
-    "chg3h": 0.13,
+    "price": 0.425,
+    "chg30m": 0.23,
+    "chg3h": 0.265,
     "series": [
      [
       1794366060000,
@@ -18643,6 +18828,51 @@
       1794368220000,
       0.29,
       3.07
+     ],
+     [
+      1794368280000,
+      0.315,
+      30.15
+     ],
+     [
+      1794368340000,
+      0.32,
+      0
+     ],
+     [
+      1794368400000,
+      0.335,
+      2
+     ],
+     [
+      1794368460000,
+      0.335,
+      18.72
+     ],
+     [
+      1794368520000,
+      0.37,
+      10
+     ],
+     [
+      1794368580000,
+      0.395,
+      36
+     ],
+     [
+      1794368640000,
+      0.415,
+      185.08
+     ],
+     [
+      1794368700000,
+      0.415,
+      264.92
+     ],
+     [
+      1794368760000,
+      0.425,
+      425.57
      ]
     ],
     "url": "https://kalshi.com/markets/kxbtc"
@@ -18666,9 +18896,9 @@
       "cost": 0.05
      }
     },
-    "price": 0.015,
-    "chg30m": -0.03,
-    "chg3h": -0.005,
+    "price": 0.005,
+    "chg30m": -0.075,
+    "chg3h": -0.015,
     "series": [
      [
       1794366060000,
@@ -18849,6 +19079,51 @@
       1794368220000,
       0.015,
       0
+     ],
+     [
+      1794368280000,
+      0.015,
+      0
+     ],
+     [
+      1794368340000,
+      0.01,
+      0
+     ],
+     [
+      1794368400000,
+      0.01,
+      0
+     ],
+     [
+      1794368460000,
+      0.01,
+      0
+     ],
+     [
+      1794368520000,
+      0.005,
+      0
+     ],
+     [
+      1794368580000,
+      0.005,
+      0
+     ],
+     [
+      1794368640000,
+      0.005,
+      0
+     ],
+     [
+      1794368700000,
+      0.005,
+      0
+     ],
+     [
+      1794368760000,
+      0.005,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxsold"
@@ -18872,9 +19147,9 @@
       "cost": 0.68
      }
     },
-    "price": 0.71,
-    "chg30m": 0.065,
-    "chg3h": 0.2,
+    "price": 0.85,
+    "chg30m": 0.18,
+    "chg3h": 0.34,
     "series": [
      [
       1794366060000,
@@ -19045,6 +19320,51 @@
       1794368220000,
       0.71,
       12.57
+     ],
+     [
+      1794368280000,
+      0.725,
+      2.76
+     ],
+     [
+      1794368340000,
+      0.69,
+      2
+     ],
+     [
+      1794368400000,
+      0.58,
+      26.79
+     ],
+     [
+      1794368460000,
+      0.67,
+      483.52
+     ],
+     [
+      1794368520000,
+      0.71,
+      6.31
+     ],
+     [
+      1794368580000,
+      0.745,
+      1.54
+     ],
+     [
+      1794368640000,
+      0.825,
+      56.28
+     ],
+     [
+      1794368700000,
+      0.84,
+      37.18
+     ],
+     [
+      1794368760000,
+      0.85,
+      50.49
      ]
     ],
     "url": "https://kalshi.com/markets/kxtempmiah"
@@ -19068,9 +19388,9 @@
       "cost": 0.61
      }
     },
-    "price": 0.52,
-    "chg30m": 0.05,
-    "chg3h": 0.01,
+    "price": 0.77,
+    "chg30m": 0.19,
+    "chg3h": 0.26,
     "series": [
      [
       1794366120000,
@@ -19241,6 +19561,51 @@
       1794368220000,
       0.52,
       0
+     ],
+     [
+      1794368280000,
+      0.535,
+      11.35
+     ],
+     [
+      1794368340000,
+      0.635,
+      1.79
+     ],
+     [
+      1794368400000,
+      0.615,
+      2.28
+     ],
+     [
+      1794368460000,
+      0.54,
+      11.63
+     ],
+     [
+      1794368520000,
+      0.545,
+      1.73
+     ],
+     [
+      1794368580000,
+      0.59,
+      13
+     ],
+     [
+      1794368640000,
+      0.785,
+      297.31
+     ],
+     [
+      1794368700000,
+      0.71,
+      118.92
+     ],
+     [
+      1794368760000,
+      0.77,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxtemplaxhs"
@@ -19264,9 +19629,9 @@
       "cost": 0.63
      }
     },
-    "price": 0.36,
-    "chg30m": -0.22,
-    "chg3h": -0.15,
+    "price": 0.1,
+    "chg30m": -0.57,
+    "chg3h": -0.41,
     "series": [
      [
       1794366120000,
@@ -19442,6 +19807,51 @@
       1794368220000,
       0.36,
       49.18
+     ],
+     [
+      1794368280000,
+      0.355,
+      0
+     ],
+     [
+      1794368340000,
+      0.315,
+      54.44
+     ],
+     [
+      1794368400000,
+      0.3,
+      15.05
+     ],
+     [
+      1794368460000,
+      0.25,
+      0
+     ],
+     [
+      1794368520000,
+      0.19,
+      298.26
+     ],
+     [
+      1794368580000,
+      0.17,
+      9.02
+     ],
+     [
+      1794368640000,
+      0.16,
+      133.08
+     ],
+     [
+      1794368700000,
+      0.14,
+      46.23
+     ],
+     [
+      1794368760000,
+      0.1,
+      49.06
      ]
     ],
     "url": "https://kalshi.com/markets/kxtempnychs"
@@ -19465,9 +19875,9 @@
       "cost": 0.76
      }
     },
-    "price": 0.165,
-    "chg30m": 0,
-    "chg3h": 0.11,
+    "price": 0.04,
+    "chg30m": -0.215,
+    "chg3h": -0.015,
     "series": [
      [
       1794366060000,
@@ -19653,6 +20063,51 @@
       1794368220000,
       0.165,
       0
+     ],
+     [
+      1794368280000,
+      0.115,
+      0
+     ],
+     [
+      1794368340000,
+      0.135,
+      0
+     ],
+     [
+      1794368400000,
+      0.105,
+      0
+     ],
+     [
+      1794368460000,
+      0.11,
+      0
+     ],
+     [
+      1794368520000,
+      0.09,
+      0
+     ],
+     [
+      1794368580000,
+      0.08,
+      0
+     ],
+     [
+      1794368640000,
+      0.06,
+      0
+     ],
+     [
+      1794368700000,
+      0.06,
+      0
+     ],
+     [
+      1794368760000,
+      0.04,
+      18.05
      ]
     ],
     "url": "https://kalshi.com/markets/kxeth"
@@ -19675,9 +20130,9 @@
       "cost": 0.15
      }
     },
-    "price": 0.95,
-    "chg30m": 0.17,
-    "chg3h": 0.45,
+    "price": 0.97,
+    "chg30m": 0.08,
+    "chg3h": 0.47,
     "series": [
      [
       1794362460000,
@@ -20123,6 +20578,51 @@
       1794368220000,
       0.95,
       2.21
+     ],
+     [
+      1794368280000,
+      0.91,
+      0.26
+     ],
+     [
+      1794368340000,
+      0.915,
+      65.26
+     ],
+     [
+      1794368400000,
+      0.93,
+      14.26
+     ],
+     [
+      1794368460000,
+      0.935,
+      0.07
+     ],
+     [
+      1794368520000,
+      0.935,
+      0
+     ],
+     [
+      1794368580000,
+      0.96,
+      69.35
+     ],
+     [
+      1794368640000,
+      0.96,
+      0
+     ],
+     [
+      1794368700000,
+      0.965,
+      0
+     ],
+     [
+      1794368760000,
+      0.97,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxgoldh"
@@ -20139,9 +20639,9 @@
      "nn": 0.2723
     },
     "picks": {},
-    "price": 0.08,
-    "chg30m": -0.15,
-    "chg3h": -0.275,
+    "price": 0.235,
+    "chg30m": 0.15,
+    "chg3h": -0.12,
     "series": [
      [
       1794365940000,
@@ -20332,6 +20832,51 @@
       1794368220000,
       0.08,
       0
+     ],
+     [
+      1794368280000,
+      0.075,
+      0
+     ],
+     [
+      1794368340000,
+      0.11,
+      0
+     ],
+     [
+      1794368400000,
+      0.115,
+      0
+     ],
+     [
+      1794368460000,
+      0.1,
+      0
+     ],
+     [
+      1794368520000,
+      0.125,
+      61
+     ],
+     [
+      1794368580000,
+      0.2,
+      0
+     ],
+     [
+      1794368640000,
+      0.175,
+      0
+     ],
+     [
+      1794368700000,
+      0.11,
+      0
+     ],
+     [
+      1794368760000,
+      0.235,
+      58.95
      ]
     ],
     "url": "https://kalshi.com/markets/kxwtih"
