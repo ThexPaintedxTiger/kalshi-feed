@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-11T04:16:26.621Z",
+ "generated": "2026-11-11T04:25:43.307Z",
  "config": {
   "version": 9,
   "scan": {
@@ -174,7 +174,7 @@
   }
  },
  "progress": {
-  "updated": "2026-11-11T04:15:41.921Z",
+  "updated": "2026-11-11T04:25:41.632Z",
   "goal": "IN_PROGRESS",
   "resolved": 1164,
   "health": {
@@ -182,12 +182,12 @@
    "warmingUp": true,
    "checks": {
     "runsLast24h": {
-     "value": 58,
-     "target": 50,
+     "value": 59,
+     "target": 51,
      "ok": true
     },
     "newPredictionsLast24h": {
-     "value": 1377,
+     "value": 1394,
      "target": 25,
      "ok": true
     },
@@ -299,7 +299,7 @@
  },
  "scorecard": {
   "resolved": 1164,
-  "predictions": 1377,
+  "predictions": 1394,
   "excludedLeakage": 0,
   "events": 375,
   "predictors": {
@@ -894,10 +894,10 @@
   }
  },
  "totals": {
-  "predictions": 1377,
+  "predictions": 1394,
   "outcomes": 1164,
-  "trades": 227,
-  "runs": 58
+  "trades": 239,
+  "runs": 59
  },
  "categories": {
   "Sports": {
@@ -905,7 +905,7 @@
    "resolved": 402
   },
   "Commodities": {
-   "logged": 197,
+   "logged": 201,
    "resolved": 189
   },
   "Politics": {
@@ -921,11 +921,11 @@
    "resolved": 0
   },
   "Crypto": {
-   "logged": 367,
+   "logged": 378,
    "resolved": 346
   },
   "Climate and Weather": {
-   "logged": 115,
+   "logged": 117,
    "resolved": 90
   },
   "Entertainment": {
@@ -1347,9 +1347,317 @@
    "scanned": 48864,
    "candidates": 1184,
    "logged": 22
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "run": "f42d852",
+   "scanned": 49175,
+   "candidates": 1074,
+   "logged": 17
   }
  ],
  "predictions": [
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "ticker": "KXSOLD-26NOV1100-T82.7499",
+   "title": "SOL price on Nov 11, 2026? — $82.75 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "ask": 0.59,
+   "bid": 0.55,
+   "mid": 0.57,
+   "est": {
+    "market": 0.57,
+    "memory": 0.5855,
+    "crypto_fair": 0.5401,
+    "nn": 0.5788
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxsold"
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "ticker": "KXSOLD-26NOV1100-T82.4999",
+   "title": "SOL price on Nov 11, 2026? — $82.5 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "ask": 0.88,
+   "bid": 0.87,
+   "mid": 0.875,
+   "est": {
+    "market": 0.875,
+    "memory": 0.8905,
+    "crypto_fair": 0.8261,
+    "nn": 0.8789
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxsold"
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "ticker": "KXSOLE-26NOV1100-B82.375",
+   "title": "SOL price on Nov 11, 2026? — $82.25 to 82.4999",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "ask": 0.1,
+   "bid": 0.06,
+   "mid": 0.08,
+   "est": {
+    "market": 0.08,
+    "memory": 0.0406,
+    "crypto_fair": 0.1363,
+    "nn": 0.0827
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxsole"
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "ticker": "KXSOLE-26NOV1100-B82.625",
+   "title": "SOL price on Nov 11, 2026? — $82.5 to 82.7499",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "ask": 0.33,
+   "bid": 0.29,
+   "mid": 0.31,
+   "est": {
+    "market": 0.31,
+    "memory": 0.2706,
+    "crypto_fair": 0.2859,
+    "nn": 0.3177
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxsole"
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "ticker": "KXBTC-26NOV1100-B73450",
+   "title": "Bitcoin price range on Nov 11, 2026? — $73,400 to 73,499.99",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "ask": 0.26,
+   "bid": 0.25,
+   "mid": 0.255,
+   "est": {
+    "market": 0.255,
+    "memory": 0.2546,
+    "crypto_fair": 0.1904,
+    "nn": 0.2619
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxbtc"
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "ticker": "KXBNBD-26NOV1100-T679.99",
+   "title": "BNB price on Nov 11, 2026? — $680 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "ask": 0.4,
+   "bid": 0.35,
+   "mid": 0.375,
+   "est": {
+    "market": 0.375,
+    "memory": 0.4504,
+    "crypto_fair": 0.4128,
+    "nn": 0.3834
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxbnbd"
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "ticker": "KXBTC-26NOV1100-B73350",
+   "title": "Bitcoin price range on Nov 11, 2026? — $73,300 to 73,399.99",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "ask": 0.17,
+   "bid": 0.16,
+   "mid": 0.165,
+   "est": {
+    "market": 0.165,
+    "memory": 0.1646,
+    "crypto_fair": 0.1546,
+    "nn": 0.17
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxbtc"
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "ticker": "KXGOLDH-26NOV1100-T4039.99",
+   "title": "Will the gold close price be above 4039.99 USD/ounce on November 11, 2026 at 12:00 AM ET? — Above $4039.99",
+   "cat": "Commodities",
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "ask": 0.85,
+   "bid": 0.79,
+   "mid": 0.82,
+   "est": {
+    "market": 0.82,
+    "memory": 0.7381,
+    "nn": 0.8252
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxgoldh"
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "ticker": "KXHYPED-26NOV1100-T71.9999",
+   "title": "HYPE price on Nov 11, 2026? — $72 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "ask": 0.17,
+   "bid": 0.1,
+   "mid": 0.135,
+   "est": {
+    "market": 0.135,
+    "memory": 0.1369,
+    "nn": 0.1392
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxhyped"
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "ticker": "KXGOLDH-26NOV1100-T4043.99",
+   "title": "Will the gold close price be above 4043.99 USD/ounce on November 11, 2026 at 12:00 AM ET? — Above $4043.99",
+   "cat": "Commodities",
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "ask": 0.52,
+   "bid": 0.46,
+   "mid": 0.49,
+   "est": {
+    "market": 0.49,
+    "memory": 0.4081,
+    "nn": 0.499
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxgoldh"
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "ticker": "KXETHD-26NOV1100-T2069.99",
+   "title": "Ethereum price at Nov 11, 2026 at 12am EST? — $2,070 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "ask": 0.04,
+   "bid": 0.03,
+   "mid": 0.035,
+   "est": {
+    "market": 0.035,
+    "memory": 0.0292,
+    "crypto_fair": 0.0288,
+    "nn": 0.0362
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxethd"
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "ticker": "KXWTIH-26NOV1100-T85.79",
+   "title": "Will the WTI Oil close price be above 85.79 USD/barrel on November 11, 2026 at 12:00 AM ET? — Above $85.79",
+   "cat": "Commodities",
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "ask": 0.84,
+   "bid": 0.74,
+   "mid": 0.79,
+   "est": {
+    "market": 0.79,
+    "memory": 0.7365,
+    "nn": 0.7959
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxwtih"
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "ticker": "KXTEMPLAXHS-26NOV1100-T68.99",
+   "title": "Will the temp in Coastal Los Angeles be above 68.99° on Nov 11, 2026 at 12am EST? — 69° or above",
+   "cat": "Climate and Weather",
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "ask": 0.97,
+   "bid": 0.96,
+   "mid": 0.965,
+   "est": {
+    "market": 0.965,
+    "memory": 0.9626,
+    "weather_nws": 0.6983,
+    "nn": 0.9662
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxtemplaxhs"
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "ticker": "KXBTCD-26NOV1100-T73299.99",
+   "title": "Bitcoin price on Nov 11, 2026? — $73,300 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "ask": 0.9,
+   "bid": 0.89,
+   "mid": 0.895,
+   "est": {
+    "market": 0.895,
+    "memory": 0.9332,
+    "crypto_fair": 0.823,
+    "nn": 0.8983
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxbtcd"
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "ticker": "KXWTIH-26NOV1100-T85.99",
+   "title": "Will the WTI Oil close price be above 85.99 USD/barrel on November 11, 2026 at 12:00 AM ET? — Above $85.99",
+   "cat": "Commodities",
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "ask": 0.21,
+   "bid": 0.14,
+   "mid": 0.175,
+   "est": {
+    "market": 0.175,
+    "memory": 0.1215,
+    "nn": 0.1802
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxwtih"
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "ticker": "KXTEMPCHIHS-26NOV1100-T43.99",
+   "title": "Will the temp in Chicago Metro Area be above 43.99° on Nov 11, 2026 at 12am EST? — 44° or above",
+   "cat": "Climate and Weather",
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "ask": 0.07,
+   "bid": 0.03,
+   "mid": 0.05,
+   "est": {
+    "market": 0.05,
+    "memory": 0.1132,
+    "weather_nws": 0.995,
+    "nn": 0.0517
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxtempchihs"
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "ticker": "KXBTCD-26NOV1100-T73399.99",
+   "title": "Bitcoin price on Nov 11, 2026? — $73,400 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "ask": 0.73,
+   "bid": 0.72,
+   "mid": 0.725,
+   "est": {
+    "market": 0.725,
+    "memory": 0.7632,
+    "crypto_fair": 0.6684,
+    "nn": 0.7321
+   },
+   "outcome": "open",
+   "url": "https://kalshi.com/markets/kxbtcd"
+  },
   {
    "ts": "2026-11-11T04:15:13.342Z",
    "ticker": "KXSOLD-26NOV1100-T83.2499",
@@ -3677,305 +3985,177 @@
    },
    "outcome": "no",
    "url": "https://kalshi.com/markets/kxbtc"
-  },
-  {
-   "ts": "2026-11-11T02:34:51.895Z",
-   "ticker": "KXSILVERH-26NOV1022-T52.349",
-   "title": "Will the silver close price be above 52.349 USD/ounce on November 10, 2026 at 10:00 PM ET? — Above $52.349",
-   "cat": "Commodities",
-   "resolvesAt": "2026-11-11T03:00:00.000Z",
-   "ask": 0.5,
-   "bid": 0.41,
-   "mid": 0.455,
-   "est": {
-    "market": 0.455,
-    "memory": 0.3981,
-    "nn": 0.4572
-   },
-   "outcome": "yes",
-   "url": "https://kalshi.com/markets/kxsilverh"
-  },
-  {
-   "ts": "2026-11-11T02:34:51.895Z",
-   "ticker": "KXAAAGASDKS-26NOV11-3.6950",
-   "title": "Will average **gas prices** be above $3.6950? — Above 3.6950",
-   "cat": "Economics",
-   "resolvesAt": "2026-11-11T04:59:00.000Z",
-   "ask": 0.04,
-   "bid": 0.02,
-   "mid": 0.03,
-   "est": {
-    "market": 0.03,
-    "memory": 0.03,
-    "nn": 0.0299
-   },
-   "outcome": "open",
-   "url": "https://kalshi.com/markets/kxaaagasdks"
-  },
-  {
-   "ts": "2026-11-11T02:34:51.895Z",
-   "ticker": "KXETHD-26NOV1022-T2064.99",
-   "title": "Ethereum price at Nov 10, 2026 at 10pm EST? — $2,065 or above",
-   "cat": "Crypto",
-   "resolvesAt": "2026-11-11T03:00:00.000Z",
-   "ask": 0.04,
-   "bid": 0.03,
-   "mid": 0.035,
-   "est": {
-    "market": 0.035,
-    "memory": 0.0111,
-    "crypto_fair": 0.0385,
-    "nn": 0.0346
-   },
-   "outcome": "no",
-   "url": "https://kalshi.com/markets/kxethd"
-  },
-  {
-   "ts": "2026-11-11T02:34:51.895Z",
-   "ticker": "KXGOLDH-26NOV1022-T4047.99",
-   "title": "Will the gold close price be above 4047.99 USD/ounce on November 10, 2026 at 10:00 PM ET? — Above $4047.99",
-   "cat": "Commodities",
-   "resolvesAt": "2026-11-11T03:00:00.000Z",
-   "ask": 0.36,
-   "bid": 0.33,
-   "mid": 0.345,
-   "est": {
-    "market": 0.345,
-    "memory": 0.2631,
-    "nn": 0.3452
-   },
-   "outcome": "no",
-   "url": "https://kalshi.com/markets/kxgoldh"
-  },
-  {
-   "ts": "2026-11-11T02:34:51.895Z",
-   "ticker": "KXAAAGASDNE-26NOV11-3.9250",
-   "title": "Will average **gas prices** be above $3.9250? — Above 3.9250",
-   "cat": "Economics",
-   "resolvesAt": "2026-11-11T04:59:00.000Z",
-   "ask": 0.08,
-   "bid": 0.06,
-   "mid": 0.07,
-   "est": {
-    "market": 0.07,
-    "memory": 0.07,
-    "nn": 0.0692
-   },
-   "outcome": "open",
-   "url": "https://kalshi.com/markets/kxaaagasdne"
-  },
-  {
-   "ts": "2026-11-11T02:34:51.895Z",
-   "ticker": "KXBTC-26NOV1022-B72950",
-   "title": "Bitcoin price range on Nov 10, 2026? — $72,900 to 72,999.99",
-   "cat": "Crypto",
-   "resolvesAt": "2026-11-11T03:00:00.000Z",
-   "ask": 0.05,
-   "bid": 0.02,
-   "mid": 0.035,
-   "est": {
-    "market": 0.035,
-    "memory": 0.0248,
-    "crypto_fair": 0.0372,
-    "nn": 0.0349
-   },
-   "outcome": "no",
-   "url": "https://kalshi.com/markets/kxbtc"
-  },
-  {
-   "ts": "2026-11-11T02:34:51.895Z",
-   "ticker": "KXWTIH-26NOV1022-T85.89",
-   "title": "Will the WTI Oil close price be above 85.89 USD/barrel on November 10, 2026 at 10:00 PM ET? — Above $85.89",
-   "cat": "Commodities",
-   "resolvesAt": "2026-11-11T03:00:00.000Z",
-   "ask": 0.46,
-   "bid": 0.38,
-   "mid": 0.42,
-   "est": {
-    "market": 0.42,
-    "memory": 0.3889,
-    "nn": 0.4268
-   },
-   "outcome": "no",
-   "url": "https://kalshi.com/markets/kxwtih"
-  },
-  {
-   "ts": "2026-11-11T02:34:51.895Z",
-   "ticker": "KXAAAGASDOK-26NOV11-3.5400",
-   "title": "Will average **gas prices** be above $3.5400? — Above 3.5400",
-   "cat": "Economics",
-   "resolvesAt": "2026-11-11T04:59:00.000Z",
-   "ask": 0.97,
-   "bid": 0.95,
-   "mid": 0.96,
-   "est": {
-    "market": 0.96,
-    "memory": 0.96,
-    "nn": 0.9608
-   },
-   "outcome": "open",
-   "url": "https://kalshi.com/markets/kxaaagasdok"
-  },
-  {
-   "ts": "2026-11-11T02:34:51.895Z",
-   "ticker": "KXSOLD-26NOV1022-T82.7499",
-   "title": "SOL price on Nov 10, 2026? — $82.75 or above",
-   "cat": "Crypto",
-   "resolvesAt": "2026-11-11T03:00:00.000Z",
-   "ask": 0.94,
-   "bid": 0.92,
-   "mid": 0.93,
-   "est": {
-    "market": 0.93,
-    "memory": 0.9487,
-    "crypto_fair": 0.8707,
-    "nn": 0.9307
-   },
-   "outcome": "yes",
-   "url": "https://kalshi.com/markets/kxsold"
-  },
-  {
-   "ts": "2026-11-11T02:34:51.895Z",
-   "ticker": "KXSILVERH-26NOV1022-T52.299",
-   "title": "Will the silver close price be above 52.299 USD/ounce on November 10, 2026 at 10:00 PM ET? — Above $52.299",
-   "cat": "Commodities",
-   "resolvesAt": "2026-11-11T03:00:00.000Z",
-   "ask": 0.63,
-   "bid": 0.53,
-   "mid": 0.58,
-   "est": {
-    "market": 0.58,
-    "memory": 0.5231,
-    "nn": 0.5844
-   },
-   "outcome": "yes",
-   "url": "https://kalshi.com/markets/kxsilverh"
-  },
-  {
-   "ts": "2026-11-11T02:34:51.895Z",
-   "ticker": "KXAAAGASDLA-26NOV11-3.5250",
-   "title": "Will average **gas prices** be above $3.5250? — Above 3.5250",
-   "cat": "Economics",
-   "resolvesAt": "2026-11-11T04:59:00.000Z",
-   "ask": 0.97,
-   "bid": 0.95,
-   "mid": 0.96,
-   "est": {
-    "market": 0.96,
-    "memory": 0.96,
-    "nn": 0.9611
-   },
-   "outcome": "open",
-   "url": "https://kalshi.com/markets/kxaaagasdla"
-  },
-  {
-   "ts": "2026-11-11T02:34:51.895Z",
-   "ticker": "KXBTCD-26NOV1022-T73699.99",
-   "title": "Bitcoin price on Nov 10, 2026? — $73,700 or above",
-   "cat": "Crypto",
-   "resolvesAt": "2026-11-11T03:00:00.000Z",
-   "ask": 0.04,
-   "bid": 0.03,
-   "mid": 0.035,
-   "est": {
-    "market": 0.035,
-    "memory": 0.0508,
-    "crypto_fair": 0.0336,
-    "nn": 0.0344
-   },
-   "outcome": "no",
-   "url": "https://kalshi.com/markets/kxbtcd"
-  },
-  {
-   "ts": "2026-11-11T02:34:51.895Z",
-   "ticker": "KXGOLDH-26NOV1022-T4045.99",
-   "title": "Will the gold close price be above 4045.99 USD/ounce on November 10, 2026 at 10:00 PM ET? — Above $4045.99",
-   "cat": "Commodities",
-   "resolvesAt": "2026-11-11T03:00:00.000Z",
-   "ask": 0.54,
-   "bid": 0.5,
-   "mid": 0.52,
-   "est": {
-    "market": 0.52,
-    "memory": 0.4381,
-    "nn": 0.5245
-   },
-   "outcome": "no",
-   "url": "https://kalshi.com/markets/kxgoldh"
-  },
-  {
-   "ts": "2026-11-11T02:34:51.895Z",
-   "ticker": "KXAAAGASDWY-26NOV11-4.0700",
-   "title": "Will average **gas prices** be above $4.0700? — Above 4.0700",
-   "cat": "Economics",
-   "resolvesAt": "2026-11-11T04:59:00.000Z",
-   "ask": 0.07,
-   "bid": 0.05,
-   "mid": 0.06,
-   "est": {
-    "market": 0.06,
-    "memory": 0.06,
-    "nn": 0.0594
-   },
-   "outcome": "open",
-   "url": "https://kalshi.com/markets/kxaaagasdwy"
-  },
-  {
-   "ts": "2026-11-11T02:34:51.895Z",
-   "ticker": "KXBTCD-26NOV1022-T72999.99",
-   "title": "Bitcoin price on Nov 10, 2026? — $73,000 or above",
-   "cat": "Crypto",
-   "resolvesAt": "2026-11-11T03:00:00.000Z",
-   "ask": 0.95,
-   "bid": 0.94,
-   "mid": 0.945,
-   "est": {
-    "market": 0.945,
-    "memory": 0.9608,
-    "crypto_fair": 0.9441,
-    "nn": 0.9451
-   },
-   "outcome": "yes",
-   "url": "https://kalshi.com/markets/kxbtcd"
-  },
-  {
-   "ts": "2026-11-11T02:24:52.516Z",
-   "ticker": "KXETH-26NOV1022-B2047",
-   "title": "Ethereum price at Nov 10, 2026 at 10pm EST? — $2,045 to 2,049.99",
-   "cat": "Crypto",
-   "resolvesAt": "2026-11-11T03:00:00.000Z",
-   "ask": 0.34,
-   "bid": 0.27,
-   "mid": 0.305,
-   "est": {
-    "market": 0.305,
-    "memory": 0.2782,
-    "crypto_fair": 0.2479,
-    "nn": 0.304
-   },
-   "outcome": "no",
-   "url": "https://kalshi.com/markets/kxeth"
-  },
-  {
-   "ts": "2026-11-11T02:24:52.516Z",
-   "ticker": "KXBTC-26NOV1022-B73050",
-   "title": "Bitcoin price range on Nov 10, 2026? — $73,000 to 73,099.99",
-   "cat": "Crypto",
-   "resolvesAt": "2026-11-11T03:00:00.000Z",
-   "ask": 0.08,
-   "bid": 0.05,
-   "mid": 0.065,
-   "est": {
-    "market": 0.065,
-    "memory": 0.0548,
-    "crypto_fair": 0.1104,
-    "nn": 0.0645
-   },
-   "outcome": "no",
-   "url": "https://kalshi.com/markets/kxbtc"
   }
  ],
  "trades": [
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "predictor": "crypto_fair",
+   "ticker": "KXSOLD-26NOV1100-T82.4999",
+   "title": "SOL price on Nov 11, 2026? — $82.5 or above",
+   "cat": "Crypto",
+   "side": "no",
+   "cost": 0.13,
+   "ev": 0.0339,
+   "fee": 0.01,
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "outcome": "open",
+   "pnl": null
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "predictor": "crypto_fair",
+   "ticker": "KXSOLE-26NOV1100-B82.375",
+   "title": "SOL price on Nov 11, 2026? — $82.25 to 82.4999",
+   "cat": "Crypto",
+   "side": "yes",
+   "cost": 0.1,
+   "ev": 0.0263,
+   "fee": 0.01,
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "outcome": "open",
+   "pnl": null
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "predictor": "crypto_fair",
+   "ticker": "KXBTC-26NOV1100-B73450",
+   "title": "Bitcoin price range on Nov 11, 2026? — $73,400 to 73,499.99",
+   "cat": "Crypto",
+   "side": "no",
+   "cost": 0.75,
+   "ev": 0.0396,
+   "fee": 0.02,
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "outcome": "open",
+   "pnl": null
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "predictor": "memory",
+   "ticker": "KXBNBD-26NOV1100-T679.99",
+   "title": "BNB price on Nov 11, 2026? — $680 or above",
+   "cat": "Crypto",
+   "side": "yes",
+   "cost": 0.4,
+   "ev": 0.0304,
+   "fee": 0.02,
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "outcome": "open",
+   "pnl": null
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "predictor": "memory",
+   "ticker": "KXGOLDH-26NOV1100-T4039.99",
+   "title": "Will the gold close price be above 4039.99 USD/ounce on November 11, 2026 at 12:00 AM ET? — Above $4039.99",
+   "cat": "Commodities",
+   "side": "no",
+   "cost": 0.21,
+   "ev": 0.0319,
+   "fee": 0.02,
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "outcome": "open",
+   "pnl": null
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "predictor": "memory",
+   "ticker": "KXGOLDH-26NOV1100-T4043.99",
+   "title": "Will the gold close price be above 4043.99 USD/ounce on November 11, 2026 at 12:00 AM ET? — Above $4043.99",
+   "cat": "Commodities",
+   "side": "no",
+   "cost": 0.54,
+   "ev": 0.0319,
+   "fee": 0.02,
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "outcome": "open",
+   "pnl": null
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "predictor": "weather_nws",
+   "ticker": "KXTEMPLAXHS-26NOV1100-T68.99",
+   "title": "Will the temp in Coastal Los Angeles be above 68.99° on Nov 11, 2026 at 12am EST? — 69° or above",
+   "cat": "Climate and Weather",
+   "side": "no",
+   "cost": 0.04,
+   "ev": 0.2517,
+   "fee": 0.01,
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "outcome": "open",
+   "pnl": null
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "predictor": "crypto_fair",
+   "ticker": "KXBTCD-26NOV1100-T73299.99",
+   "title": "Bitcoin price on Nov 11, 2026? — $73,300 or above",
+   "cat": "Crypto",
+   "side": "no",
+   "cost": 0.11,
+   "ev": 0.057,
+   "fee": 0.01,
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "outcome": "open",
+   "pnl": null
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "predictor": "memory",
+   "ticker": "KXBTCD-26NOV1100-T73299.99",
+   "title": "Bitcoin price on Nov 11, 2026? — $73,300 or above",
+   "cat": "Crypto",
+   "side": "yes",
+   "cost": 0.9,
+   "ev": 0.0232,
+   "fee": 0.01,
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "outcome": "open",
+   "pnl": null
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "predictor": "weather_nws",
+   "ticker": "KXTEMPCHIHS-26NOV1100-T43.99",
+   "title": "Will the temp in Chicago Metro Area be above 43.99° on Nov 11, 2026 at 12am EST? — 44° or above",
+   "cat": "Climate and Weather",
+   "side": "yes",
+   "cost": 0.07,
+   "ev": 0.915,
+   "fee": 0.01,
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "outcome": "open",
+   "pnl": null
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "predictor": "memory",
+   "ticker": "KXTEMPCHIHS-26NOV1100-T43.99",
+   "title": "Will the temp in Chicago Metro Area be above 43.99° on Nov 11, 2026 at 12am EST? — 44° or above",
+   "cat": "Climate and Weather",
+   "side": "yes",
+   "cost": 0.07,
+   "ev": 0.0332,
+   "fee": 0.01,
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "outcome": "open",
+   "pnl": null
+  },
+  {
+   "ts": "2026-11-11T04:25:13.660Z",
+   "predictor": "crypto_fair",
+   "ticker": "KXBTCD-26NOV1100-T73399.99",
+   "title": "Bitcoin price on Nov 11, 2026? — $73,400 or above",
+   "cat": "Crypto",
+   "side": "no",
+   "cost": 0.28,
+   "ev": 0.0316,
+   "fee": 0.02,
+   "resolvesAt": "2026-11-11T05:00:00.000Z",
+   "outcome": "open",
+   "pnl": null
+  },
   {
    "ts": "2026-11-11T04:15:13.342Z",
    "predictor": "crypto_fair",
@@ -5907,174 +6087,6 @@
    "resolvesAt": "2026-11-11T00:00:00.000Z",
    "outcome": "yes",
    "pnl": 0.6
-  },
-  {
-   "ts": "2026-11-10T22:34:44.221Z",
-   "predictor": "memory",
-   "ticker": "KXETH-26NOV1018-B2052",
-   "title": "Ethereum price at Nov 10, 2026 at 6pm EST? — $2,050 to 2,054.99",
-   "cat": "Crypto",
-   "side": "no",
-   "cost": 0.79,
-   "ev": 0.0214,
-   "fee": 0.02,
-   "resolvesAt": "2026-11-10T23:00:00.000Z",
-   "outcome": "no",
-   "pnl": 0.19
-  },
-  {
-   "ts": "2026-11-10T22:34:44.221Z",
-   "predictor": "memory",
-   "ticker": "KXBTCD-26NOV1018-T73299.99",
-   "title": "Bitcoin price on Nov 10, 2026? — $73,300 or above",
-   "cat": "Crypto",
-   "side": "yes",
-   "cost": 0.96,
-   "ev": 0.02,
-   "fee": 0.01,
-   "resolvesAt": "2026-11-10T23:00:00.000Z",
-   "outcome": "yes",
-   "pnl": 0.03
-  },
-  {
-   "ts": "2026-11-10T22:34:44.221Z",
-   "predictor": "memory",
-   "ticker": "KXTEMPCHIHS-26NOV1018-T59.99",
-   "title": "Will the temp in Chicago Metro Area be above 59.99° on Nov 10, 2026 at 6pm EST? — 60° or above",
-   "cat": "Climate and Weather",
-   "side": "yes",
-   "cost": 0.05,
-   "ev": 0.0612,
-   "fee": 0.01,
-   "resolvesAt": "2026-11-10T23:00:00.000Z",
-   "outcome": "no",
-   "pnl": -0.06
-  },
-  {
-   "ts": "2026-11-10T22:34:44.221Z",
-   "predictor": "memory",
-   "ticker": "KXBTCD-26NOV1018-T73399.99",
-   "title": "Bitcoin price on Nov 10, 2026? — $73,400 or above",
-   "cat": "Crypto",
-   "side": "yes",
-   "cost": 0.9,
-   "ev": 0.047,
-   "fee": 0.01,
-   "resolvesAt": "2026-11-10T23:00:00.000Z",
-   "outcome": "yes",
-   "pnl": 0.09
-  },
-  {
-   "ts": "2026-11-10T22:24:44.741Z",
-   "predictor": "memory",
-   "ticker": "KXHYPED-26NOV1018-T72.2499",
-   "title": "HYPE price on Nov 10, 2026? — $72.25 or above",
-   "cat": "Crypto",
-   "side": "yes",
-   "cost": 0.93,
-   "ev": 0.05,
-   "fee": 0.01,
-   "resolvesAt": "2026-11-10T23:00:00.000Z",
-   "outcome": "no",
-   "pnl": -0.94
-  },
-  {
-   "ts": "2026-11-10T22:24:44.741Z",
-   "predictor": "memory",
-   "ticker": "KXBTCD-26NOV1018-T73499.99",
-   "title": "Bitcoin price on Nov 10, 2026? — $73,500 or above",
-   "cat": "Crypto",
-   "side": "yes",
-   "cost": 0.92,
-   "ev": 0.047,
-   "fee": 0.01,
-   "resolvesAt": "2026-11-10T23:00:00.000Z",
-   "outcome": "yes",
-   "pnl": 0.07
-  },
-  {
-   "ts": "2026-11-10T22:24:44.741Z",
-   "predictor": "memory",
-   "ticker": "KXTEMPCHIHS-26NOV1018-T58.99",
-   "title": "Will the temp in Chicago Metro Area be above 58.99° on Nov 10, 2026 at 6pm EST? — 59° or above",
-   "cat": "Climate and Weather",
-   "side": "yes",
-   "cost": 0.05,
-   "ev": 0.0612,
-   "fee": 0.01,
-   "resolvesAt": "2026-11-10T23:00:00.000Z",
-   "outcome": "no",
-   "pnl": -0.06
-  },
-  {
-   "ts": "2026-11-10T22:24:44.741Z",
-   "predictor": "memory",
-   "ticker": "KXBTCD-26NOV1018-T73599.99",
-   "title": "Bitcoin price on Nov 10, 2026? — $73,600 or above",
-   "cat": "Crypto",
-   "side": "yes",
-   "cost": 0.78,
-   "ev": 0.037,
-   "fee": 0.02,
-   "resolvesAt": "2026-11-10T23:00:00.000Z",
-   "outcome": "no",
-   "pnl": -0.8
-  },
-  {
-   "ts": "2026-11-10T22:14:44.296Z",
-   "predictor": "memory",
-   "ticker": "KXHYPED-26NOV1018-T72.4999",
-   "title": "HYPE price on Nov 10, 2026? — $72.5 or above",
-   "cat": "Crypto",
-   "side": "yes",
-   "cost": 0.82,
-   "ev": 0.0518,
-   "fee": 0.02,
-   "resolvesAt": "2026-11-10T23:00:00.000Z",
-   "outcome": "no",
-   "pnl": -0.84
-  },
-  {
-   "ts": "2026-11-10T22:14:44.296Z",
-   "predictor": "memory",
-   "ticker": "KXHYPED-26NOV1018-T73.2499",
-   "title": "HYPE price on Nov 10, 2026? — $73.25 or above",
-   "cat": "Crypto",
-   "side": "yes",
-   "cost": 0.18,
-   "ev": 0.0368,
-   "fee": 0.02,
-   "resolvesAt": "2026-11-10T23:00:00.000Z",
-   "outcome": "no",
-   "pnl": -0.2
-  },
-  {
-   "ts": "2026-11-10T22:14:44.296Z",
-   "predictor": "memory",
-   "ticker": "KXTEMPCHIHS-26NOV1018-T57.99",
-   "title": "Will the temp in Chicago Metro Area be above 57.99° on Nov 10, 2026 at 6pm EST? — 58° or above",
-   "cat": "Climate and Weather",
-   "side": "yes",
-   "cost": 0.1,
-   "ev": 0.0512,
-   "fee": 0.01,
-   "resolvesAt": "2026-11-10T23:00:00.000Z",
-   "outcome": "yes",
-   "pnl": 0.89
-  },
-  {
-   "ts": "2026-11-10T22:14:44.296Z",
-   "predictor": "memory",
-   "ticker": "KXBTCD-26NOV1018-T73699.99",
-   "title": "Bitcoin price on Nov 10, 2026? — $73,700 or above",
-   "cat": "Crypto",
-   "side": "yes",
-   "cost": 0.79,
-   "ev": 0.037,
-   "fee": 0.02,
-   "resolvesAt": "2026-11-10T23:00:00.000Z",
-   "outcome": "no",
-   "pnl": -0.81
   }
  ],
  "gemini": {
@@ -7958,7 +7970,7 @@
   ]
  },
  "paper": {
-  "updated": "2026-11-11T04:15:42.017Z",
+  "updated": "2026-11-11T04:25:41.743Z",
   "start": 10,
   "goal": 1000,
   "safety": {
@@ -13077,7 +13089,7 @@
    ]
   },
   "forward": {
-   "rows": 674,
+   "rows": 691,
    "settled": 473,
    "portfolios": [
     {
@@ -13160,7 +13172,7 @@
      "avgBetPct": 1.8949,
      "maxBetPct": 1.9798,
      "worstLossPct": -1.9766,
-     "betsPerDay": 110.4735,
+     "betsPerDay": 108.8354,
      "trustNow": null,
      "busted": null,
      "reachedGoal": null,
@@ -14023,7 +14035,7 @@
      "avgBetPct": 2.3631,
      "maxBetPct": 2.502,
      "worstLossPct": -2.502,
-     "betsPerDay": 23.8276,
+     "betsPerDay": 23.4743,
      "trustNow": {
       "trust": 0,
       "why": "learning: 11/30 settled bets"
@@ -14592,7 +14604,7 @@
      "avgBetPct": 1.9538,
      "maxBetPct": 1.9788,
      "worstLossPct": -1.9659,
-     "betsPerDay": 28.1599,
+     "betsPerDay": 27.7424,
      "trustNow": null,
      "busted": null,
      "reachedGoal": null,
@@ -15199,10 +15211,10 @@
      "sizing": "learn",
      "equity": 7.0369,
      "cash": 7.0369,
-     "openPositions": 6,
+     "openPositions": 11,
      "returnPct": -29.631,
      "bets": 39,
-     "shadowBets": 33,
+     "shadowBets": 38,
      "settled": 39,
      "wins": 9,
      "pnl": -2.9631,
@@ -15212,7 +15224,7 @@
      "avgBetPct": 2.4867,
      "maxBetPct": 2.9969,
      "worstLossPct": -2.9969,
-     "betsPerDay": 84.4797,
+     "betsPerDay": 83.2271,
      "trustNow": {
       "trust": 0,
       "pause": true,
@@ -15383,6 +15395,101 @@
       ]
      ],
      "recent": [
+      {
+       "ts": "2026-11-11T04:25:13.660Z",
+       "ticker": "KXBNBD-26NOV1100-T679.99",
+       "title": "BNB price on Nov 11, 2026? — $680 or above",
+       "cat": "Crypto",
+       "side": "yes",
+       "price": 0.4,
+       "p": 0.4504,
+       "mid": 0.375,
+       "contracts": 0.625,
+       "fee": 0.02,
+       "shadow": true,
+       "stake": 0.27,
+       "bankroll": 7.0369,
+       "betPct": 0,
+       "evPerDollar": 0.076,
+       "pnl": null,
+       "won": null
+      },
+      {
+       "ts": "2026-11-11T04:25:13.660Z",
+       "ticker": "KXGOLDH-26NOV1100-T4039.99",
+       "title": "Will the gold close price be above 4039.99 USD/ounce on November 11, 2026 at 12:00 AM ET? — Above $4039.99",
+       "cat": "Commodities",
+       "side": "no",
+       "price": 0.21,
+       "p": 0.7381,
+       "mid": 0.82,
+       "contracts": 1.1905,
+       "fee": 0.02,
+       "shadow": true,
+       "stake": 0.27,
+       "bankroll": 7.0369,
+       "betPct": 0,
+       "evPerDollar": 0.1519,
+       "pnl": null,
+       "won": null
+      },
+      {
+       "ts": "2026-11-11T04:25:13.660Z",
+       "ticker": "KXGOLDH-26NOV1100-T4043.99",
+       "title": "Will the gold close price be above 4043.99 USD/ounce on November 11, 2026 at 12:00 AM ET? — Above $4043.99",
+       "cat": "Commodities",
+       "side": "no",
+       "price": 0.54,
+       "p": 0.4081,
+       "mid": 0.49,
+       "contracts": 0.463,
+       "fee": 0.01,
+       "shadow": true,
+       "stake": 0.26,
+       "bankroll": 7.0369,
+       "betPct": 0,
+       "evPerDollar": 0.0591,
+       "pnl": null,
+       "won": null
+      },
+      {
+       "ts": "2026-11-11T04:25:13.660Z",
+       "ticker": "KXBTCD-26NOV1100-T73299.99",
+       "title": "Bitcoin price on Nov 11, 2026? — $73,300 or above",
+       "cat": "Crypto",
+       "side": "yes",
+       "price": 0.9,
+       "p": 0.9332,
+       "mid": 0.895,
+       "contracts": 0.2778,
+       "fee": 0.01,
+       "shadow": true,
+       "stake": 0.26,
+       "bankroll": 7.0369,
+       "betPct": 0,
+       "evPerDollar": 0.0258,
+       "pnl": null,
+       "won": null
+      },
+      {
+       "ts": "2026-11-11T04:25:13.660Z",
+       "ticker": "KXTEMPCHIHS-26NOV1100-T43.99",
+       "title": "Will the temp in Chicago Metro Area be above 43.99° on Nov 11, 2026 at 12am EST? — 44° or above",
+       "cat": "Climate and Weather",
+       "side": "yes",
+       "price": 0.07,
+       "p": 0.1132,
+       "mid": 0.05,
+       "contracts": 3.5714,
+       "fee": 0.02,
+       "shadow": true,
+       "stake": 0.27,
+       "bankroll": 7.0369,
+       "betPct": 0,
+       "evPerDollar": 0.4743,
+       "pnl": null,
+       "won": null
+      },
       {
        "ts": "2026-11-11T04:15:13.342Z",
        "ticker": "KXBNBD-26NOV1100-T684.99",
@@ -15576,106 +15683,6 @@
        "pnl": 0.0088,
        "won": true,
        "settledAt": "2026-11-11T04:02:31.335Z"
-      },
-      {
-       "ts": "2026-11-11T03:25:24.673Z",
-       "ticker": "KXGOLDH-26NOV1023-T4041.99",
-       "title": "Will the gold close price be above 4041.99 USD/ounce on November 10, 2026 at 11:00 PM ET? — Above $4041.99",
-       "cat": "Commodities",
-       "side": "no",
-       "price": 0.15,
-       "p": 0.8111,
-       "mid": 0.875,
-       "contracts": 1.6667,
-       "fee": 0.02,
-       "shadow": true,
-       "stake": 0.27,
-       "bankroll": 7.0369,
-       "betPct": 0,
-       "evPerDollar": 0.1927,
-       "pnl": -0.27,
-       "won": false,
-       "settledAt": "2026-11-11T04:00:00.000Z"
-      },
-      {
-       "ts": "2026-11-11T03:25:24.673Z",
-       "ticker": "KXBTCD-26NOV1023-T73499.99",
-       "title": "Bitcoin price on Nov 10, 2026? — $73,500 or above",
-       "cat": "Crypto",
-       "side": "yes",
-       "price": 0.84,
-       "p": 0.8708,
-       "mid": 0.835,
-       "contracts": 0.2976,
-       "fee": 0.01,
-       "shadow": true,
-       "stake": 0.26,
-       "bankroll": 7.0369,
-       "betPct": 0,
-       "evPerDollar": 0.0248,
-       "pnl": 0.0376,
-       "won": true,
-       "settledAt": "2026-11-11T04:02:31.335Z"
-      },
-      {
-       "ts": "2026-11-11T03:15:23.885Z",
-       "ticker": "KXSOLE-26NOV1023-B83.625",
-       "title": "SOL price on Nov 10, 2026? — $83.5 to 83.7499",
-       "cat": "Crypto",
-       "side": "no",
-       "price": 0.7,
-       "p": 0.256,
-       "mid": 0.305,
-       "contracts": 0.3571,
-       "fee": 0.01,
-       "shadow": true,
-       "stake": 0.26,
-       "bankroll": 7.0369,
-       "betPct": 0,
-       "evPerDollar": 0.0343,
-       "pnl": 0.0971,
-       "won": true,
-       "settledAt": "2026-11-11T04:02:06.317Z"
-      },
-      {
-       "ts": "2026-11-11T03:15:23.885Z",
-       "ticker": "KXTEMPCHIHS-26NOV1023-T42.99",
-       "title": "Will the temp in Chicago Metro Area be above 42.99° on Nov 10, 2026 at 11pm EST? — 43° or above",
-       "cat": "Climate and Weather",
-       "side": "yes",
-       "price": 0.94,
-       "p": 0.9813,
-       "mid": 0.925,
-       "contracts": 0.266,
-       "fee": 0.01,
-       "shadow": true,
-       "stake": 0.26,
-       "bankroll": 7.0369,
-       "betPct": 0,
-       "evPerDollar": 0.0333,
-       "pnl": 0.006,
-       "won": true,
-       "settledAt": "2026-11-11T04:00:00.000Z"
-      },
-      {
-       "ts": "2026-11-11T03:15:23.885Z",
-       "ticker": "KXTEMPCHIHS-26NOV1023-T43.99",
-       "title": "Will the temp in Chicago Metro Area be above 43.99° on Nov 10, 2026 at 11pm EST? — 44° or above",
-       "cat": "Climate and Weather",
-       "side": "yes",
-       "price": 0.32,
-       "p": 0.3613,
-       "mid": 0.305,
-       "contracts": 0.7813,
-       "fee": 0.02,
-       "shadow": true,
-       "stake": 0.27,
-       "bankroll": 7.0369,
-       "betPct": 0,
-       "evPerDollar": 0.0666,
-       "pnl": 0.5113,
-       "won": true,
-       "settledAt": "2026-11-11T04:00:00.000Z"
       }
      ],
      "stats": {
@@ -16105,22 +16112,22 @@
      "name": "Crypto fair value, learned bet size",
      "predictor": "crypto_fair",
      "sizing": "learn",
-     "equity": 8.8104,
-     "cash": 8.0267,
-     "openPositions": 7,
-     "returnPct": -11.896,
-     "bets": 40,
+     "equity": 8.7604,
+     "cash": 7.4118,
+     "openPositions": 12,
+     "returnPct": -12.396,
+     "bets": 45,
      "shadowBets": 0,
      "settled": 33,
      "wins": 7,
      "pnl": -1.1196,
-     "fees": 0.54,
+     "fees": 0.59,
      "maxDrawdownPct": 34.7835,
      "lowest": 8.8399,
-     "avgBetPct": 1.6413,
+     "avgBetPct": 1.6144,
      "maxBetPct": 2.4894,
      "worstLossPct": -2.468,
-     "betsPerDay": 86.6459,
+     "betsPerDay": 96.0312,
      "trustNow": {
       "trust": 0,
       "why": "edge not proven yet (return per $ -0.2928, conservative -0.6565)"
@@ -16266,6 +16273,96 @@
       ]
      ],
      "recent": [
+      {
+       "ts": "2026-11-11T04:25:13.660Z",
+       "ticker": "KXSOLD-26NOV1100-T82.4999",
+       "title": "SOL price on Nov 11, 2026? — $82.5 or above",
+       "cat": "Crypto",
+       "side": "no",
+       "price": 0.13,
+       "p": 0.8261,
+       "mid": 0.875,
+       "contracts": 0.87,
+       "fee": 0.01,
+       "stake": 0.1231,
+       "bankroll": 8.7704,
+       "betPct": 1.4036,
+       "evPerDollar": 0.2608,
+       "pnl": null,
+       "won": null
+      },
+      {
+       "ts": "2026-11-11T04:25:13.660Z",
+       "ticker": "KXSOLE-26NOV1100-B82.375",
+       "title": "SOL price on Nov 11, 2026? — $82.25 to 82.4999",
+       "cat": "Crypto",
+       "side": "yes",
+       "price": 0.1,
+       "p": 0.1363,
+       "mid": 0.08,
+       "contracts": 1.14,
+       "fee": 0.01,
+       "stake": 0.124,
+       "bankroll": 8.7804,
+       "betPct": 1.4122,
+       "evPerDollar": 0.263,
+       "pnl": null,
+       "won": null
+      },
+      {
+       "ts": "2026-11-11T04:25:13.660Z",
+       "ticker": "KXBTC-26NOV1100-B73450",
+       "title": "Bitcoin price range on Nov 11, 2026? — $73,400 to 73,499.99",
+       "cat": "Crypto",
+       "side": "no",
+       "price": 0.75,
+       "p": 0.1904,
+       "mid": 0.255,
+       "contracts": 0.15,
+       "fee": 0.01,
+       "stake": 0.1225,
+       "bankroll": 8.7904,
+       "betPct": 1.3936,
+       "evPerDollar": 0.0528,
+       "pnl": null,
+       "won": null
+      },
+      {
+       "ts": "2026-11-11T04:25:13.660Z",
+       "ticker": "KXBTCD-26NOV1100-T73299.99",
+       "title": "Bitcoin price on Nov 11, 2026? — $73,300 or above",
+       "cat": "Crypto",
+       "side": "no",
+       "price": 0.11,
+       "p": 0.823,
+       "mid": 0.895,
+       "contracts": 1.03,
+       "fee": 0.01,
+       "stake": 0.1233,
+       "bankroll": 8.8004,
+       "betPct": 1.4011,
+       "evPerDollar": 0.5182,
+       "pnl": null,
+       "won": null
+      },
+      {
+       "ts": "2026-11-11T04:25:13.660Z",
+       "ticker": "KXBTCD-26NOV1100-T73399.99",
+       "title": "Bitcoin price on Nov 11, 2026? — $73,400 or above",
+       "cat": "Crypto",
+       "side": "no",
+       "price": 0.28,
+       "p": 0.6684,
+       "mid": 0.725,
+       "contracts": 0.4,
+       "fee": 0.01,
+       "stake": 0.122,
+       "bankroll": 8.8104,
+       "betPct": 1.3847,
+       "evPerDollar": 0.1129,
+       "pnl": null,
+       "won": null
+      },
       {
        "ts": "2026-11-11T04:15:13.342Z",
        "ticker": "KXBNBD-26NOV1100-T684.99",
@@ -16448,101 +16545,6 @@
        "pnl": -0.124,
        "won": false,
        "settledAt": "2026-11-11T04:02:26.312Z"
-      },
-      {
-       "ts": "2026-11-11T03:25:24.673Z",
-       "ticker": "KXSOLD-26NOV1023-T83.2499",
-       "title": "SOL price on Nov 10, 2026? — $83.25 or above",
-       "cat": "Crypto",
-       "side": "no",
-       "price": 0.3,
-       "p": 0.6204,
-       "mid": 0.71,
-       "contracts": 0.38,
-       "fee": 0.01,
-       "stake": 0.124,
-       "bankroll": 10.6814,
-       "betPct": 1.1609,
-       "evPerDollar": 0.1987,
-       "pnl": -0.124,
-       "won": false,
-       "settledAt": "2026-11-11T04:02:06.311Z"
-      },
-      {
-       "ts": "2026-11-11T03:25:24.673Z",
-       "ticker": "KXBTCD-26NOV1023-T73399.99",
-       "title": "Bitcoin price on Nov 10, 2026? — $73,400 or above",
-       "cat": "Crypto",
-       "side": "no",
-       "price": 0.08,
-       "p": 0.8576,
-       "mid": 0.925,
-       "contracts": 1.42,
-       "fee": 0.01,
-       "stake": 0.1236,
-       "bankroll": 10.6914,
-       "betPct": 1.1561,
-       "evPerDollar": 0.655,
-       "pnl": -0.1236,
-       "won": false,
-       "settledAt": "2026-11-11T04:02:31.335Z"
-      },
-      {
-       "ts": "2026-11-11T03:25:24.673Z",
-       "ticker": "KXBTCD-26NOV1023-T73499.99",
-       "title": "Bitcoin price on Nov 10, 2026? — $73,500 or above",
-       "cat": "Crypto",
-       "side": "no",
-       "price": 0.17,
-       "p": 0.7492,
-       "mid": 0.835,
-       "contracts": 0.67,
-       "fee": 0.01,
-       "stake": 0.1239,
-       "bankroll": 10.7014,
-       "betPct": 1.1578,
-       "evPerDollar": 0.4165,
-       "pnl": -0.1239,
-       "won": false,
-       "settledAt": "2026-11-11T04:02:31.335Z"
-      },
-      {
-       "ts": "2026-11-11T03:15:23.885Z",
-       "ticker": "KXETH-26NOV1023-B2062",
-       "title": "Ethereum price at Nov 10, 2026 at 11pm EST? — $2,060 to 2,064.99",
-       "cat": "Crypto",
-       "side": "no",
-       "price": 0.7,
-       "p": 0.2083,
-       "mid": 0.31,
-       "contracts": 0.16,
-       "fee": 0.01,
-       "stake": 0.122,
-       "bankroll": 10.7114,
-       "betPct": 1.139,
-       "evPerDollar": 0.1024,
-       "pnl": 0.038,
-       "won": true,
-       "settledAt": "2026-11-11T04:02:26.318Z"
-      },
-      {
-       "ts": "2026-11-11T03:15:23.885Z",
-       "ticker": "KXETH-26NOV1023-B2067",
-       "title": "Ethereum price at Nov 10, 2026 at 11pm EST? — $2,065 to 2,069.99",
-       "cat": "Crypto",
-       "side": "no",
-       "price": 0.76,
-       "p": 0.1996,
-       "mid": 0.26,
-       "contracts": 0.15,
-       "fee": 0.01,
-       "stake": 0.124,
-       "bankroll": 10.7214,
-       "betPct": 1.1566,
-       "evPerDollar": 0.0268,
-       "pnl": 0.026,
-       "won": true,
-       "settledAt": "2026-11-11T04:02:26.318Z"
       }
      ],
      "stats": {
@@ -16946,10 +16948,10 @@
      "sizing": "learn",
      "equity": 6.2373,
      "cash": 6.2373,
-     "openPositions": 6,
+     "openPositions": 8,
      "returnPct": -37.627,
      "bets": 30,
-     "shadowBets": 15,
+     "shadowBets": 17,
      "settled": 30,
      "wins": 4,
      "pnl": -3.7627,
@@ -16959,7 +16961,7 @@
      "avgBetPct": 2.2228,
      "maxBetPct": 3.018,
      "worstLossPct": -3.0107,
-     "betsPerDay": 64.9844,
+     "betsPerDay": 64.0208,
      "trustNow": {
       "trust": 0,
       "pause": true,
@@ -17094,6 +17096,44 @@
       ]
      ],
      "recent": [
+      {
+       "ts": "2026-11-11T04:25:13.660Z",
+       "ticker": "KXTEMPLAXHS-26NOV1100-T68.99",
+       "title": "Will the temp in Coastal Los Angeles be above 68.99° on Nov 11, 2026 at 12am EST? — 69° or above",
+       "cat": "Climate and Weather",
+       "side": "no",
+       "price": 0.04,
+       "p": 0.6983,
+       "mid": 0.965,
+       "contracts": 6.25,
+       "fee": 0.02,
+       "shadow": true,
+       "stake": 0.27,
+       "bankroll": 6.2373,
+       "betPct": 0,
+       "evPerDollar": 6.2925,
+       "pnl": null,
+       "won": null
+      },
+      {
+       "ts": "2026-11-11T04:25:13.660Z",
+       "ticker": "KXTEMPCHIHS-26NOV1100-T43.99",
+       "title": "Will the temp in Chicago Metro Area be above 43.99° on Nov 11, 2026 at 12am EST? — 44° or above",
+       "cat": "Climate and Weather",
+       "side": "yes",
+       "price": 0.07,
+       "p": 0.995,
+       "mid": 0.05,
+       "contracts": 3.5714,
+       "fee": 0.02,
+       "shadow": true,
+       "stake": 0.27,
+       "bankroll": 6.2373,
+       "betPct": 0,
+       "evPerDollar": 13.0714,
+       "pnl": null,
+       "won": null
+      },
       {
        "ts": "2026-11-11T04:15:13.342Z",
        "ticker": "KXTEMPCHIHS-26NOV1100-T42.99",
@@ -17345,46 +17385,6 @@
        "betPct": 0,
        "evPerDollar": 0.0479,
        "pnl": 0.006,
-       "won": true,
-       "settledAt": "2026-11-11T04:00:00.000Z"
-      },
-      {
-       "ts": "2026-11-11T03:15:23.885Z",
-       "ticker": "KXTEMPCHIHS-26NOV1023-T43.99",
-       "title": "Will the temp in Chicago Metro Area be above 43.99° on Nov 10, 2026 at 11pm EST? — 44° or above",
-       "cat": "Climate and Weather",
-       "side": "yes",
-       "price": 0.32,
-       "p": 0.995,
-       "mid": 0.305,
-       "contracts": 0.7813,
-       "fee": 0.02,
-       "shadow": true,
-       "stake": 0.27,
-       "bankroll": 6.2373,
-       "betPct": 0,
-       "evPerDollar": 2.0469,
-       "pnl": 0.5113,
-       "won": true,
-       "settledAt": "2026-11-11T04:00:00.000Z"
-      },
-      {
-       "ts": "2026-11-11T03:15:23.885Z",
-       "ticker": "KXTEMPMIAH-26NOV1023-T76.99",
-       "title": "Will the temp in Miami be above 76.99° on Nov 10, 2026 at 11pm EST? — 77° or above",
-       "cat": "Climate and Weather",
-       "side": "yes",
-       "price": 0.68,
-       "p": 0.9306,
-       "mid": 0.65,
-       "contracts": 0.3676,
-       "fee": 0.01,
-       "shadow": true,
-       "stake": 0.26,
-       "bankroll": 6.2373,
-       "betPct": 0,
-       "evPerDollar": 0.3391,
-       "pnl": 0.1076,
        "won": true,
        "settledAt": "2026-11-11T04:00:00.000Z"
       }
@@ -17775,7 +17775,7 @@
   }
  },
  "status": {
-  "updated": "2026-11-11T04:16:26.545Z",
+  "updated": "2026-11-11T04:25:43.229Z",
   "trade": {
    "answer": "No — don't trade real money yet",
    "tone": "bad",
@@ -17783,7 +17783,7 @@
    "next": "Let it keep collecting. The answer changes automatically when a strategy reaches SUCCESS on the live record."
   },
   "learning": [
-   "Live record: 1164 of 1377 predictions resolved so far (375 separate events).",
+   "Live record: 1164 of 1394 predictions resolved so far (375 separate events).",
    "longshot: retired — 2026-11-10: FAILURE_RETIRE (no measurable edge after 832 resolved; backtest 1334, no difference). Owner approved.",
    "memory: failure retire — no measurable edge after 614 resolved — recommend retiring this hypothesis",
    "nn: failure retire — no measurable edge after 473 resolved — recommend retiring this hypothesis",
@@ -17889,17 +17889,17 @@
    {
     "name": "Pipeline ran recently",
     "ok": true,
-    "detail": "last cloud run 1 min ago"
+    "detail": "last cloud run 0 min ago"
    },
    {
     "name": "Runs on schedule (every 10 min)",
     "ok": true,
-    "detail": "16 cloud runs in the last 3 h (expect ~18)"
+    "detail": "17 cloud runs in the last 3 h (expect ~18)"
    },
    {
     "name": "New predictions are being logged",
     "ok": true,
-    "detail": "76 logged in the last hour"
+    "detail": "77 logged in the last hour"
    },
    {
     "name": "Outcomes are being collected",
@@ -17909,7 +17909,7 @@
    {
     "name": "Scorecard matches the logs",
     "ok": true,
-    "detail": "scorecard counts 1377, log has 1377"
+    "detail": "scorecard counts 1394, log has 1394"
    },
    {
     "name": "No prediction logged after its market resolved",
@@ -17929,7 +17929,7 @@
    {
     "name": "Network trained in the last 2 h",
     "ok": true,
-    "detail": "trained 22 min ago on 2329 markets"
+    "detail": "trained 32 min ago on 2329 markets"
    },
    {
     "name": "Bet-size safety held (≤5% per bet)",
@@ -17944,12 +17944,12 @@
    {
     "name": "Outside data: Coinbase crypto agent",
     "ok": true,
-    "detail": "8/8 markets got an outside estimate, 1 min ago"
+    "detail": "10/10 markets got an outside estimate, 0 min ago"
    },
    {
     "name": "Outside data: NWS weather agent",
     "ok": true,
-    "detail": "8/8 markets got an outside estimate, 1 min ago"
+    "detail": "2/2 markets got an outside estimate, 0 min ago"
    },
    {
     "name": "Storage has room (archive + limits)",
@@ -17964,21 +17964,21 @@
   ]
  },
  "external": {
-  "at": "2026-11-11T04:15:13.342Z",
+  "at": "2026-11-11T04:25:13.660Z",
   "crypto": {
-   "tried": 8,
-   "got": 8
+   "tried": 10,
+   "got": 10
   },
   "weather": {
-   "tried": 8,
-   "got": 8
+   "tried": 2,
+   "got": 2
   }
  },
  "stream": null,
  "storage": {
-  "at": "2026-11-11T04:16:26.125Z",
+  "at": "2026-11-11T04:25:42.891Z",
   "hotMB": {
-   "predictions": 0.9887,
+   "predictions": 1.004,
    "backtest": 0.8183,
    "snapshots": 0
   },
@@ -17993,12 +17993,12 @@
   "archiveFailures": [],
   "oversizeHot": [],
   "repoMB": 4.9668,
-  "repoGrowthMBPerDay": -3.5636,
+  "repoGrowthMBPerDay": -3.5442,
   "daysToRepoLimit": null,
   "repoLimitMB": 1024,
   "localCopyMB": 0,
   "ticksMB": 0,
-  "freeDiskGB": 87.3595,
+  "freeDiskGB": 87.3588,
   "limits": {
    "maxHotMB": 40,
    "repoLimitMB": 1024,
@@ -18084,7 +18084,7 @@
   }
  ],
  "focus": {
-  "updated": "2026-11-11T04:16:25.744Z",
+  "updated": "2026-11-11T04:25:42.570Z",
   "markets": [
    {
     "ticker": "KXBNBD-26NOV1100-T684.99",
@@ -18110,9 +18110,9 @@
       "cost": 0.04
      }
     },
-    "price": 0.025,
+    "price": 0.01,
     "chg30m": null,
-    "chg3h": -0.055,
+    "chg3h": -0.07,
     "series": [
      [
       1794369660000,
@@ -18193,9 +18193,336 @@
       1794370560000,
       0.025,
       0
+     ],
+     [
+      1794370620000,
+      0.025,
+      0
+     ],
+     [
+      1794370680000,
+      0.015,
+      0
+     ],
+     [
+      1794370740000,
+      0.015,
+      0
+     ],
+     [
+      1794370800000,
+      0.01,
+      1
+     ],
+     [
+      1794370860000,
+      0.01,
+      0
+     ],
+     [
+      1794370920000,
+      0.005,
+      0
+     ],
+     [
+      1794370980000,
+      0.005,
+      0
+     ],
+     [
+      1794371040000,
+      0.01,
+      0
+     ],
+     [
+      1794371100000,
+      0.01,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxbnbd"
+   },
+   {
+    "ticker": "KXTEMPCHIHS-26NOV1100-T43.99",
+    "title": "Will the temp in Chicago Metro Area be above 43.99° on Nov 11, 2026 at 12am EST? — 44° or above",
+    "cat": "Climate and Weather",
+    "resolvesAt": "2026-11-11T05:00:00.000Z",
+    "loggedPrice": 0.05,
+    "est": {
+     "market": 0.05,
+     "memory": 0.1132,
+     "weather_nws": 0.995,
+     "nn": 0.0517
+    },
+    "picks": {
+     "memory": {
+      "side": "yes",
+      "ev": 0.0332,
+      "cost": 0.07
+     },
+     "weather_nws": {
+      "side": "yes",
+      "ev": 0.915,
+      "cost": 0.07
+     }
+    },
+    "price": 0.05,
+    "chg30m": null,
+    "chg3h": -0.455,
+    "series": [
+     [
+      1794369720000,
+      0.505,
+      0
+     ],
+     [
+      1794369840000,
+      0.5,
+      0
+     ],
+     [
+      1794370020000,
+      0.5,
+      0
+     ],
+     [
+      1794370080000,
+      0.315,
+      10
+     ],
+     [
+      1794370140000,
+      0.12,
+      40.11
+     ],
+     [
+      1794370200000,
+      0.085,
+      7.62
+     ],
+     [
+      1794370260000,
+      0.03,
+      0
+     ],
+     [
+      1794370320000,
+      0.015,
+      0
+     ],
+     [
+      1794370380000,
+      0.03,
+      56.67
+     ],
+     [
+      1794370440000,
+      0.025,
+      0
+     ],
+     [
+      1794370500000,
+      0.03,
+      218.49
+     ],
+     [
+      1794370560000,
+      0.02,
+      0
+     ],
+     [
+      1794370620000,
+      0.02,
+      0
+     ],
+     [
+      1794370740000,
+      0.02,
+      2.49
+     ],
+     [
+      1794370800000,
+      0.02,
+      0
+     ],
+     [
+      1794370860000,
+      0.02,
+      0
+     ],
+     [
+      1794370920000,
+      0.02,
+      1.24
+     ],
+     [
+      1794371040000,
+      0.025,
+      0
+     ],
+     [
+      1794371100000,
+      0.05,
+      119.83
+     ]
+    ],
+    "url": "https://kalshi.com/markets/kxtempchihs"
+   },
+   {
+    "ticker": "KXBTCD-26NOV1100-T73299.99",
+    "title": "Bitcoin price on Nov 11, 2026? — $73,300 or above",
+    "cat": "Crypto",
+    "resolvesAt": "2026-11-11T05:00:00.000Z",
+    "loggedPrice": 0.895,
+    "est": {
+     "market": 0.895,
+     "memory": 0.9332,
+     "crypto_fair": 0.823,
+     "nn": 0.8983
+    },
+    "picks": {
+     "memory": {
+      "side": "yes",
+      "ev": 0.0232,
+      "cost": 0.9
+     },
+     "crypto_fair": {
+      "side": "no",
+      "ev": 0.057,
+      "cost": 0.11
+     }
+    },
+    "price": 0.855,
+    "chg30m": null,
+    "chg3h": -0.11,
+    "series": [
+     [
+      1794369660000,
+      0.965,
+      2604.76
+     ],
+     [
+      1794369720000,
+      0.975,
+      909.57
+     ],
+     [
+      1794369780000,
+      0.975,
+      93.48
+     ],
+     [
+      1794369840000,
+      0.975,
+      146.58
+     ],
+     [
+      1794369900000,
+      0.985,
+      10
+     ],
+     [
+      1794369960000,
+      0.985,
+      293.5
+     ],
+     [
+      1794370020000,
+      0.985,
+      210.64
+     ],
+     [
+      1794370080000,
+      0.985,
+      264.08
+     ],
+     [
+      1794370140000,
+      0.985,
+      302.81
+     ],
+     [
+      1794370200000,
+      0.985,
+      116.97
+     ],
+     [
+      1794370260000,
+      0.985,
+      397.73
+     ],
+     [
+      1794370320000,
+      0.985,
+      337.62
+     ],
+     [
+      1794370380000,
+      0.965,
+      744.92
+     ],
+     [
+      1794370440000,
+      0.965,
+      4394.17
+     ],
+     [
+      1794370500000,
+      0.955,
+      3750.88
+     ],
+     [
+      1794370560000,
+      0.885,
+      2282.4
+     ],
+     [
+      1794370620000,
+      0.895,
+      4696.31
+     ],
+     [
+      1794370680000,
+      0.865,
+      1311.58
+     ],
+     [
+      1794370740000,
+      0.825,
+      3440.91
+     ],
+     [
+      1794370800000,
+      0.755,
+      4037.53
+     ],
+     [
+      1794370860000,
+      0.765,
+      4725.01
+     ],
+     [
+      1794370920000,
+      0.755,
+      2071.09
+     ],
+     [
+      1794370980000,
+      0.755,
+      1551.52
+     ],
+     [
+      1794371040000,
+      0.855,
+      2050.73
+     ],
+     [
+      1794371100000,
+      0.855,
+      1527.34
+     ]
+    ],
+    "url": "https://kalshi.com/markets/kxbtcd"
    },
    {
     "ticker": "KXGOLDH-26NOV1100-T4047.99",
@@ -18215,9 +18542,9 @@
       "cost": 0.47
      }
     },
-    "price": 0.23,
-    "chg30m": -0.245,
-    "chg3h": -0.27,
+    "price": 0.175,
+    "chg30m": -0.325,
+    "chg3h": -0.325,
     "series": [
      [
       1794366120000,
@@ -18558,6 +18885,51 @@
       1794370560000,
       0.23,
       50
+     ],
+     [
+      1794370620000,
+      0.22,
+      0
+     ],
+     [
+      1794370680000,
+      0.2,
+      516.49
+     ],
+     [
+      1794370740000,
+      0.195,
+      50
+     ],
+     [
+      1794370800000,
+      0.145,
+      0
+     ],
+     [
+      1794370860000,
+      0.12,
+      29.51
+     ],
+     [
+      1794370920000,
+      0.14,
+      0
+     ],
+     [
+      1794370980000,
+      0.125,
+      6.29
+     ],
+     [
+      1794371040000,
+      0.16,
+      5.08
+     ],
+     [
+      1794371100000,
+      0.175,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxgoldh"
@@ -18581,9 +18953,9 @@
       "cost": 0.29
      }
     },
-    "price": 0.095,
+    "price": 0.025,
     "chg30m": null,
-    "chg3h": -0.185,
+    "chg3h": -0.255,
     "series": [
      [
       1794369660000,
@@ -18664,6 +19036,51 @@
       1794370560000,
       0.095,
       2
+     ],
+     [
+      1794370620000,
+      0.085,
+      0
+     ],
+     [
+      1794370680000,
+      0.06,
+      10
+     ],
+     [
+      1794370740000,
+      0.05,
+      0
+     ],
+     [
+      1794370800000,
+      0.04,
+      0
+     ],
+     [
+      1794370860000,
+      0.025,
+      1
+     ],
+     [
+      1794370920000,
+      0.025,
+      0
+     ],
+     [
+      1794370980000,
+      0.025,
+      1
+     ],
+     [
+      1794371040000,
+      0.035,
+      0
+     ],
+     [
+      1794371100000,
+      0.025,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxxrpd"
@@ -18687,9 +19104,9 @@
       "cost": 0.15
      }
     },
-    "price": 0.485,
+    "price": 0.18,
     "chg30m": null,
-    "chg3h": -0.28,
+    "chg3h": -0.585,
     "series": [
      [
       1794369660000,
@@ -18770,6 +19187,51 @@
       1794370560000,
       0.485,
       0
+     ],
+     [
+      1794370620000,
+      0.48,
+      0
+     ],
+     [
+      1794370680000,
+      0.385,
+      2
+     ],
+     [
+      1794370740000,
+      0.325,
+      1.18
+     ],
+     [
+      1794370800000,
+      0.285,
+      4
+     ],
+     [
+      1794370860000,
+      0.2,
+      4
+     ],
+     [
+      1794370920000,
+      0.165,
+      0
+     ],
+     [
+      1794370980000,
+      0.135,
+      285
+     ],
+     [
+      1794371040000,
+      0.2,
+      20
+     ],
+     [
+      1794371100000,
+      0.18,
+      48.57
      ]
     ],
     "url": "https://kalshi.com/markets/kxsold"
@@ -18793,9 +19255,9 @@
       "cost": 0.78
      }
     },
-    "price": 0.1,
+    "price": 0.055,
     "chg30m": null,
-    "chg3h": -0.1,
+    "chg3h": -0.145,
     "series": [
      [
       1794369660000,
@@ -18876,115 +19338,54 @@
       1794370560000,
       0.1,
       10
+     ],
+     [
+      1794370620000,
+      0.105,
+      0
+     ],
+     [
+      1794370680000,
+      0.085,
+      10
+     ],
+     [
+      1794370740000,
+      0.075,
+      0
+     ],
+     [
+      1794370800000,
+      0.055,
+      0
+     ],
+     [
+      1794370860000,
+      0.055,
+      0
+     ],
+     [
+      1794370920000,
+      0.045,
+      0
+     ],
+     [
+      1794370980000,
+      0.045,
+      10
+     ],
+     [
+      1794371040000,
+      0.065,
+      0
+     ],
+     [
+      1794371100000,
+      0.055,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxbtc"
-   },
-   {
-    "ticker": "KXBTCD-26NOV1100-T73499.99",
-    "title": "Bitcoin price on Nov 11, 2026? — $73,500 or above",
-    "cat": "Crypto",
-    "resolvesAt": "2026-11-11T05:00:00.000Z",
-    "loggedPrice": 0.645,
-    "est": {
-     "market": 0.645,
-     "memory": 0.6832,
-     "crypto_fair": 0.5571,
-     "nn": 0.6532
-    },
-    "picks": {
-     "crypto_fair": {
-      "side": "no",
-      "ev": 0.0629,
-      "cost": 0.36
-     }
-    },
-    "price": 0.575,
-    "chg30m": null,
-    "chg3h": -0.24,
-    "series": [
-     [
-      1794369660000,
-      0.815,
-      547.18
-     ],
-     [
-      1794369720000,
-      0.865,
-      2099.83
-     ],
-     [
-      1794369780000,
-      0.875,
-      870.17
-     ],
-     [
-      1794369840000,
-      0.885,
-      1260.36
-     ],
-     [
-      1794369900000,
-      0.905,
-      4668.64
-     ],
-     [
-      1794369960000,
-      0.905,
-      132.19
-     ],
-     [
-      1794370020000,
-      0.905,
-      1541.29
-     ],
-     [
-      1794370080000,
-      0.925,
-      2079.92
-     ],
-     [
-      1794370140000,
-      0.935,
-      320.77
-     ],
-     [
-      1794370200000,
-      0.935,
-      870.56
-     ],
-     [
-      1794370260000,
-      0.925,
-      1552.14
-     ],
-     [
-      1794370320000,
-      0.925,
-      294.83
-     ],
-     [
-      1794370380000,
-      0.805,
-      4570.57
-     ],
-     [
-      1794370440000,
-      0.805,
-      4115.6
-     ],
-     [
-      1794370500000,
-      0.755,
-      2119.82
-     ],
-     [
-      1794370560000,
-      0.575,
-      2617.11
-     ]
-    ],
-    "url": "https://kalshi.com/markets/kxbtcd"
    },
    {
     "ticker": "KXTEMPLAXHS-26NOV1100-T70.99",
@@ -19005,9 +19406,9 @@
       "cost": 0.08
      }
     },
-    "price": 0.03,
+    "price": 0.02,
     "chg30m": null,
-    "chg3h": -0.475,
+    "chg3h": -0.485,
     "series": [
      [
       1794369720000,
@@ -19073,6 +19474,46 @@
       1794370560000,
       0.03,
       50
+     ],
+     [
+      1794370620000,
+      0.02,
+      0
+     ],
+     [
+      1794370680000,
+      0.02,
+      0
+     ],
+     [
+      1794370740000,
+      0.02,
+      0
+     ],
+     [
+      1794370800000,
+      0.025,
+      117.5
+     ],
+     [
+      1794370860000,
+      0.02,
+      0
+     ],
+     [
+      1794370920000,
+      0.02,
+      0
+     ],
+     [
+      1794371040000,
+      0.02,
+      0
+     ],
+     [
+      1794371100000,
+      0.02,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxtemplaxhs"
@@ -19096,9 +19537,9 @@
       "cost": 0.19
      }
     },
-    "price": 0.785,
+    "price": 0.725,
     "chg30m": null,
-    "chg3h": 0,
+    "chg3h": -0.06,
     "series": [
      [
       1794369660000,
@@ -19179,6 +19620,51 @@
       1794370560000,
       0.785,
       8
+     ],
+     [
+      1794370620000,
+      0.75,
+      19.39
+     ],
+     [
+      1794370680000,
+      0.66,
+      10.62
+     ],
+     [
+      1794370740000,
+      0.62,
+      0
+     ],
+     [
+      1794370800000,
+      0.525,
+      239.93
+     ],
+     [
+      1794370860000,
+      0.545,
+      99.41
+     ],
+     [
+      1794370920000,
+      0.51,
+      385
+     ],
+     [
+      1794370980000,
+      0.6,
+      95
+     ],
+     [
+      1794371040000,
+      0.7,
+      6
+     ],
+     [
+      1794371100000,
+      0.725,
+      25
      ]
     ],
     "url": "https://kalshi.com/markets/kxethd"
@@ -19202,9 +19688,9 @@
       "cost": 0.49
      }
     },
-    "price": 0.485,
+    "price": 0.66,
     "chg30m": null,
-    "chg3h": -0.02,
+    "chg3h": 0.155,
     "series": [
      [
       1794369720000,
@@ -19280,6 +19766,51 @@
       1794370560000,
       0.485,
       1
+     ],
+     [
+      1794370620000,
+      0.43,
+      245.65
+     ],
+     [
+      1794370680000,
+      0.485,
+      8.48
+     ],
+     [
+      1794370740000,
+      0.52,
+      5.29
+     ],
+     [
+      1794370800000,
+      0.53,
+      8.66
+     ],
+     [
+      1794370860000,
+      0.53,
+      0
+     ],
+     [
+      1794370920000,
+      0.53,
+      0
+     ],
+     [
+      1794370980000,
+      0.545,
+      44.36
+     ],
+     [
+      1794371040000,
+      0.565,
+      0
+     ],
+     [
+      1794371100000,
+      0.66,
+      186.69
      ]
     ],
     "url": "https://kalshi.com/markets/kxtempmiah"
@@ -19302,9 +19833,9 @@
       "cost": 0.91
      }
     },
-    "price": 0.155,
+    "price": 0.02,
     "chg30m": null,
-    "chg3h": -0.22,
+    "chg3h": -0.355,
     "series": [
      [
       1794369540000,
@@ -19395,6 +19926,51 @@
       1794370560000,
       0.155,
       0
+     ],
+     [
+      1794370620000,
+      0.075,
+      0
+     ],
+     [
+      1794370680000,
+      0.075,
+      0
+     ],
+     [
+      1794370740000,
+      0.085,
+      0
+     ],
+     [
+      1794370800000,
+      0.08,
+      35
+     ],
+     [
+      1794370860000,
+      0.055,
+      0
+     ],
+     [
+      1794370920000,
+      0.055,
+      0
+     ],
+     [
+      1794370980000,
+      0.035,
+      0
+     ],
+     [
+      1794371040000,
+      0.035,
+      0
+     ],
+     [
+      1794371100000,
+      0.02,
+      0
      ]
     ],
     "url": "https://kalshi.com/markets/kxwtih"
@@ -19418,9 +19994,9 @@
       "cost": 0.13
      }
     },
-    "price": 0.115,
+    "price": 0.1,
     "chg30m": null,
-    "chg3h": -0.39,
+    "chg3h": -0.405,
     "series": [
      [
       1794369720000,
@@ -19491,90 +20067,54 @@
       1794370560000,
       0.115,
       14.5
+     ],
+     [
+      1794370620000,
+      0.105,
+      0
+     ],
+     [
+      1794370680000,
+      0.115,
+      0
+     ],
+     [
+      1794370740000,
+      0.1,
+      7.84
+     ],
+     [
+      1794370800000,
+      0.11,
+      0
+     ],
+     [
+      1794370860000,
+      0.115,
+      54.93
+     ],
+     [
+      1794370920000,
+      0.12,
+      34.8
+     ],
+     [
+      1794370980000,
+      0.12,
+      34.8
+     ],
+     [
+      1794371040000,
+      0.115,
+      36.25
+     ],
+     [
+      1794371100000,
+      0.1,
+      385.18
      ]
     ],
     "url": "https://kalshi.com/markets/kxtempnychs"
-   },
-   {
-    "ticker": "KXTEMPCHIHS-26NOV1100-T42.99",
-    "title": "Will the temp in Chicago Metro Area be above 42.99° on Nov 11, 2026 at 12am EST? — 43° or above",
-    "cat": "Climate and Weather",
-    "resolvesAt": "2026-11-11T05:00:00.000Z",
-    "loggedPrice": 0.23,
-    "est": {
-     "market": 0.23,
-     "memory": 0.2932,
-     "weather_nws": 0.995,
-     "nn": 0.2364
-    },
-    "picks": {
-     "weather_nws": {
-      "side": "yes",
-      "ev": 0.715,
-      "cost": 0.26
-     }
-    },
-    "price": 0.21,
-    "chg30m": null,
-    "chg3h": -0.295,
-    "series": [
-     [
-      1794369720000,
-      0.505,
-      0
-     ],
-     [
-      1794369840000,
-      0.5,
-      0
-     ],
-     [
-      1794370080000,
-      0.93,
-      0
-     ],
-     [
-      1794370140000,
-      0.515,
-      29.1
-     ],
-     [
-      1794370200000,
-      0.415,
-      0
-     ],
-     [
-      1794370260000,
-      0.195,
-      0
-     ],
-     [
-      1794370320000,
-      0.15,
-      0
-     ],
-     [
-      1794370380000,
-      0.255,
-      57.14
-     ],
-     [
-      1794370440000,
-      0.205,
-      0
-     ],
-     [
-      1794370500000,
-      0.165,
-      14.2
-     ],
-     [
-      1794370560000,
-      0.21,
-      11.74
-     ]
-    ],
-    "url": "https://kalshi.com/markets/kxtempchihs"
    }
   ]
  }
