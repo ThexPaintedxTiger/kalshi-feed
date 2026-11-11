@@ -1,19 +1,19 @@
 {
- "updated": "2026-11-11T02:05:11.871Z",
+ "updated": "2026-11-11T02:15:11.769Z",
  "goal": "IN_PROGRESS",
- "resolved": 999,
+ "resolved": 1030,
  "health": {
   "ok": true,
   "warmingUp": true,
   "checks": {
    "runsLast24h": {
-    "value": 45,
-    "target": 41,
+    "value": 46,
+    "target": 42,
     "ok": true
    },
    "newPredictionsLast24h": {
-    "value": 1198,
-    "target": 20,
+    "value": 1215,
+    "target": 21,
     "ok": true
    },
    "leakage": {
@@ -53,15 +53,15 @@
   },
   "memory": {
    "status": "FAILURE_RETIRE",
-   "rec": "no measurable edge after 460 resolved — recommend retiring this hypothesis",
-   "n": 460,
-   "brierVsMarket": 0.0034,
-   "picks": 86,
-   "trend": "+460 resolved",
+   "rec": "no measurable edge after 491 resolved — recommend retiring this hypothesis",
+   "n": 491,
+   "brierVsMarket": 0.0039,
+   "picks": 94,
+   "trend": "+491 resolved",
    "snap": {
-    "n": 460,
-    "mean": 0.0034,
-    "width": 0.0113
+    "n": 491,
+    "mean": 0.0039,
+    "width": 0.0105
    },
    "backtest": {
     "n": 1560,
@@ -73,29 +73,29 @@
   },
   "nn": {
    "status": "FAILURE_RETIRE",
-   "rec": "no measurable edge after 320 resolved — recommend retiring this hypothesis",
-   "n": 320,
-   "brierVsMarket": -0.001,
+   "rec": "no measurable edge after 351 resolved — recommend retiring this hypothesis",
+   "n": 351,
+   "brierVsMarket": -0.0003,
    "picks": 25,
    "trend": "first snapshot",
    "snap": {
-    "n": 320,
-    "mean": -0.001,
-    "width": 0.0056
+    "n": 351,
+    "mean": -0.0003,
+    "width": 0.005
    },
    "backtest": null
   },
   "crypto_fair": {
-   "status": "ON_TRACK",
-   "rec": "leaning better than the market (-0.0001) — wait for 41 more resolved",
-   "n": 59,
-   "brierVsMarket": -0.0001,
-   "picks": 7,
+   "status": "OFF_TRACK",
+   "rec": "not beating the market so far (+0.0048) — wait for 29 more resolved before judging",
+   "n": 71,
+   "brierVsMarket": 0.0048,
+   "picks": 9,
    "trend": "first snapshot",
    "snap": {
-    "n": 59,
-    "mean": -0.0001,
-    "width": 0.0181
+    "n": 71,
+    "mean": 0.0048,
+    "width": 0.018
    },
    "backtest": {
     "n": 138,
@@ -107,15 +107,15 @@
   },
   "weather_nws": {
    "status": "OFF_TRACK",
-   "rec": "not beating the market so far (+0.291) — wait for 80 more resolved before judging",
-   "n": 20,
-   "brierVsMarket": 0.291,
-   "picks": 16,
+   "rec": "not beating the market so far (+0.3576) — wait for 73 more resolved before judging",
+   "n": 27,
+   "brierVsMarket": 0.3576,
+   "picks": 23,
    "trend": "first snapshot",
    "snap": {
-    "n": 20,
-    "mean": 0.291,
-    "width": 0.5009
+    "n": 27,
+    "mean": 0.3576,
+    "width": 0.4133
    },
    "backtest": null
   }
