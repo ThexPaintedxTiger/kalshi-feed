@@ -51,3 +51,7 @@ What we changed because the data (or a mistake) taught us something. Newest firs
   MCP server now use the pipeline's own Kalshi fetch and log readers instead of copies. Found 7 markets logged twice (a local streamer test overlapped a
   cloud run, 2026-11-10 23:45 UTC). Rows were not deleted; every reader now counts the first logged row per market and the watchdog reports repeats.
   Lesson: a local test run must not log predictions while the cloud is running (use `SKIP_SAVE=1`/a copy), and readers must not trust "one row per ticker".
+- 2026-11-11: Owner approved an optional Kalshi API key, owner's computer only (`private/`), read-only by construction (`kalshi-auth.mjs`:
+  GET allowlist + market-data channels; orders throw before signing; tests check this, Ed25519 and RSA signatures, and that no private key is tracked).
+  Network inputs 23 → 27 (config v9): order-book imbalance and 30-min trade flow. Live rows get them from public endpoints (no key) so the
+  walk-forward test can judge them; the keyed stream adds them to minute snapshots. Expectation before data: small chance of a real edge (~10%, estimated).

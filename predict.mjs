@@ -1,7 +1,7 @@
 // Research step: find Kalshi markets that resolve within the next few hours, estimate probabilities
 // with each enabled predictor, and APPEND one prediction per market to data/predictions/YYYY-MM.jsonl
 // BEFORE the market resolves. Rows are never edited afterwards. Simulation only: nothing is traded.
-import { minuteStats } from "./nnlib.mjs";
+import { minuteStats, bookImbalance, tradeFlow } from "./nnlib.mjs";
 import { config, kalshi, sleep, resolvesAt, series, r4, readJsonl, appendJsonl, predictionFiles, hotFile, categories } from "./lib.mjs";
 import { estimate } from "./predictors.mjs";
 import * as crypto from "./external/crypto.mjs";
@@ -68,6 +68,17 @@ try {
     }
   }
 } catch (e) { console.log("price-move lookup failed:", e.message); }
+// Order book (top 5 levels) and the last 30 min of trades for each chosen market: public endpoints, no key. Network inputs.
+const book = {};
+for (const { m } of chosen) {
+  try {
+    const t = encodeURIComponent(m.ticker), ob = (await kalshi(`/markets/${t}/orderbook?depth=5`)).orderbook_fp || {};
+    const tr = await kalshi(`/markets/trades?ticker=${t}&min_ts=${nowS - 1800}&limit=1000`);
+    const trades = (tr.trades || []).map(x => ({ t: Date.parse(x.created_time) / 1000, side: x.taker_side, n: +x.count_fp || 0 }));
+    book[m.ticker] = { imb5: bookImbalance(ob.yes_dollars, ob.no_dollars), ...tradeFlow(trades, nowS) };
+  } catch (e) { console.log(`book lookup failed on ${m.ticker}: ${e.message}`); }
+  await sleep(100);
+}
 // Outside data (not from Kalshi): Coinbase prices for crypto markets, NWS observations + forecasts for temperature markets.
 const ext = {}, extStat = { crypto: { tried: 0, got: 0 }, weather: { tried: 0, got: 0 } };
 for (const { m } of chosen) {
@@ -79,14 +90,15 @@ for (const { m } of chosen) {
 }
 writeJson("data/external/last.json", { at: new Date(now).toISOString(), ...extStat });
 const rows = chosen.map(({ m, ask, bid, mid, res, lead }) => {
-  const chg30 = m.ticker in move ? r4(mid - move[m.ticker]) : null, vol30 = vol[m.ticker] ?? null;
-  const { est, picks } = estimate({ mid, ask, bid, series: series(m), at: now, cat: cats.map[series(m)] || "", resolvesAt: res, leadMin: lead / 6e4, chg30, vol30, ext: ext[m.ticker] }, { recall });
+  const chg30 = m.ticker in move ? r4(mid - move[m.ticker]) : null, vol30 = vol[m.ticker] ?? null, bk = book[m.ticker] || {};
+  const imb5 = bk.imb5 ?? null, flow30 = bk.flow30 ?? null, vol30t = bk.vol30t ?? null;
+  const { est, picks } = estimate({ mid, ask, bid, series: series(m), at: now, cat: cats.map[series(m)] || "", resolvesAt: res, leadMin: lead / 6e4, chg30, vol30, imb5, flow30, ext: ext[m.ticker] }, { recall });
   return {
     ts: runId, run: sha, cfg: config.version,
     ticker: m.ticker, event: m.event_ticker, series: series(m), cat: cats.map[series(m)] || "",
     title: m.title + (m.yes_sub_title && !String(m.title).includes(m.yes_sub_title) ? " — " + m.yes_sub_title : ""),
     rules: String(m.rules_primary || "").slice(0, 300),
-    resolvesAt: res, leadMin: Math.round(lead / 6e4), chg30, vol30, ...(ext[m.ticker] ? { ext: ext[m.ticker] } : {}),
+    resolvesAt: res, leadMin: Math.round(lead / 6e4), chg30, vol30, imb5, flow30, vol30t, ...(ext[m.ticker] ? { ext: ext[m.ticker] } : {}),
     ask, bid, mid: r4(mid), spread: r4(ask - bid), askSize: +(m.yes_ask_size_fp || 0), bidSize: +(m.yes_bid_size_fp || 0),
     vol: Math.round(+(m.volume_fp || 0)), v24: Math.round(+(m.volume_24h_fp || 0)), oi: Math.round(+(m.open_interest_fp || 0)),
     est, picks,

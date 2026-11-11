@@ -1,5 +1,5 @@
 {
- "version": 8,
+ "version": 9,
  "scan": {
   "windowDays": 16,
   "horizonHours": 6,

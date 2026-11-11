@@ -1,6 +1,7 @@
 // Import YOUR Kalshi trade history from a CSV you export yourself (Kalshi website → account history / documents).
-// No account access, no keys: the file is the only input. Output stays in private/ (git-ignored: this repo is public).
-//   node import-trades.mjs [private/kalshi-trades.csv]
+// Output stays in private/ (git-ignored: this repo is public).
+//   node import-trades.mjs [private/kalshi-trades.csv]   from a CSV you export (no key)
+//   node import-trades.mjs --api                          from your fills via your read-only key in private/ (kalshi-auth.mjs)
 // Columns are matched by name; the report lists anything it couldn't map so the aliases below can be extended.
 import { readFileSync, existsSync } from "node:fs";
 import { kalshi, sleep, fee, r4, writeJson, readJson } from "./lib.mjs";
@@ -47,14 +48,33 @@ export function normalize(cells, map) {
   return { ticker, side, sell, price: r4(price), count, fees, time: g("time") || null };
 }
 
+// One fill from GET /portfolio/fills → the same shape as normalize(). Price = price paid for the chosen side, in dollars.
+export function fromFill(f) {
+  const side = f.side === "no" ? "no" : f.side === "yes" ? "yes" : null;
+  let price = +(side === "no" ? f.no_price_dollars ?? f.no_price : f.yes_price_dollars ?? f.yes_price); if (price > 1) price /= 100;
+  if (!f.ticker || !side || !(price > 0 && price < 1)) return null;
+  return { ticker: String(f.ticker).toUpperCase(), side, sell: f.action === "sell", price: r4(price), count: +(f.count_fp ?? f.count) || 1, fees: null, time: f.created_time || null };
+}
+
 if (import.meta.url === `file://${process.argv[1]}`) {
-  const file = process.argv[2] || "private/kalshi-trades.csv";
-  if (!existsSync(file)) { console.log(`No file at ${file}. Export your trade history from Kalshi as CSV and save it there (private/ is git-ignored).`); process.exit(0); }
-  const [header, ...lines] = parseCsv(readFileSync(file, "utf8"));
-  const { map, unmapped } = mapColumns(header);
-  const missing = ["ticker", "side", "price"].filter(k => map[k] == null);
-  if (missing.length) { console.log(`Can't find column(s): ${missing.join(", ")}. Header: ${header.join(" | ")}. Add the names to ALIASES in import-trades.mjs.`); process.exit(1); }
-  const trades = lines.map(c => normalize(c, map)), bad = trades.filter(t => !t).length, ok = trades.filter(Boolean);
+  const api = process.argv.includes("--api");
+  let file, lines, unmapped = [], trades;
+  if (api) {                                                                   // read-only key, owner's computer only
+    const { keyedGet, hasKey } = await import("./kalshi-auth.mjs");
+    if (!hasKey()) { console.log("No key files in private/ (kalshi-key-id.txt + kalshi-key.pem). See docs/manual.md → Kalshi key."); process.exit(0); }
+    lines = []; let cursor = "";
+    do { const j = await keyedGet(`/portfolio/fills?limit=200${cursor ? "&cursor=" + encodeURIComponent(cursor) : ""}`); lines.push(...(j.fills || [])); cursor = j.cursor; await sleep(200); } while (cursor);
+    file = "api: /portfolio/fills"; trades = lines.map(fromFill);
+  } else {
+    file = process.argv[2] || "private/kalshi-trades.csv";
+    if (!existsSync(file)) { console.log(`No file at ${file}. Export your trade history from Kalshi as CSV and save it there (private/ is git-ignored), or use --api with your key.`); process.exit(0); }
+    const [header, ...rows] = parseCsv(readFileSync(file, "utf8")); lines = rows;
+    const mc = mapColumns(header), map = mc.map; unmapped = mc.unmapped;
+    const missing = ["ticker", "side", "price"].filter(k => map[k] == null);
+    if (missing.length) { console.log(`Can't find column(s): ${missing.join(", ")}. Header: ${header.join(" | ")}. Add the names to ALIASES in import-trades.mjs.`); process.exit(1); }
+    trades = lines.map(c => normalize(c, map));
+  }
+  const bad = trades.filter(t => !t).length, ok = trades.filter(Boolean);
 
   // Official outcomes for every ticker (public API, 200 per call).
   const tickers = [...new Set(ok.map(t => t.ticker))], res = {};

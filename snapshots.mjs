@@ -5,17 +5,17 @@
 // They are training-only (never scored as predictions). Code only, free, no API calls.
 import { existsSync, readdirSync } from "node:fs";
 import { readJsonl, appendJsonl, hotFile, predictionFiles, r4, config } from "./lib.mjs";
-import { minuteStats } from "./nnlib.mjs";
+import { minuteStats, tradeFlow } from "./nnlib.mjs";
 import { snapshotRows } from "./memory.mjs";
 
 export const LEADS = [60, 30, 15, 5];
 const MAX_QUOTE_AGE = 180;                                                   // seconds: the last tick must be this fresh at T
 
-// ticks: [{t: ISO, k: ticker, b, a}]; meta: ticker → logged prediction row; out: ticker → "yes"/"no"; done: Set("ticker|lead").
+// ticks: [{t: ISO, k: ticker, b, a, im?, ty?, tn?}] (im = book imbalance, ty/tn = YES/NO-taker contracts that minute; keyed stream only); meta: ticker → logged prediction row; out: ticker → "yes"/"no"; done: Set("ticker|lead").
 export function buildSnapshots(ticks, meta, out, done = new Set(), leads = LEADS) {
   const by = {};
   for (const x of ticks) if (meta[x.k] && (out[x.k] === "yes" || out[x.k] === "no") && x.b > 0 && x.a < 1 && x.a > x.b)
-    (by[x.k] ||= []).push({ t: Date.parse(x.t) / 1000, bid: x.b, ask: x.a, mid: (x.a + x.b) / 2 });
+    (by[x.k] ||= []).push({ t: Date.parse(x.t) / 1000, bid: x.b, ask: x.a, mid: (x.a + x.b) / 2, im: x.im ?? null, ty: x.ty ?? 0, tn: x.tn ?? 0 });
   const rows = [];
   for (const [k, pts] of Object.entries(by)) {
     pts.sort((a, b) => a.t - b.t);
@@ -25,8 +25,9 @@ export function buildSnapshots(ticks, meta, out, done = new Set(), leads = LEADS
       const T = res - lead * 60, upto = pts.filter(x => x.t <= T), q = upto.at(-1);   // nothing after T is used
       if (!q || T - q.t > MAX_QUOTE_AGE) continue;
       const { chg30, vol30 } = minuteStats(upto, T);
+      const { flow30, vol30t } = tradeFlow(upto.flatMap(x => [{ t: x.t, side: "yes", n: x.ty }, { t: x.t, side: "no", n: x.tn }]), T);
       rows.push({ ts: new Date(T * 1000).toISOString(), ticker: k, event: p.event, series: p.series, cat: p.cat, title: p.title,
-        resolvesAt: p.resolvesAt, leadMin: lead, bid: q.bid, ask: q.ask, mid: r4(q.mid), spread: r4(q.ask - q.bid), chg30, vol30,
+        resolvesAt: p.resolvesAt, leadMin: lead, bid: q.bid, ask: q.ask, mid: r4(q.mid), spread: r4(q.ask - q.bid), chg30, vol30, imb5: q.im, flow30, vol30t,
         y: out[k] === "yes" ? 1 : 0, ticks: upto.length, src: "minute", cfg: config.version });
     }
   }

@@ -18,6 +18,11 @@ import { readJsonl as rj, allMonthFiles } from "./lib.mjs";
 import { archiveFile, due } from "./archive.mjs";
 import { minuteStats, features as nnFeatures, FEATURES as NN_FEATURES } from "./nnlib.mjs";
 import { buildSnapshots } from "./snapshots.mjs";
+import { bookImbalance, tradeFlow } from "./nnlib.mjs";
+import { assertReadOnly, assertChannels, signedHeaders, privateIgnored, KEY_FILE } from "./kalshi-auth.mjs";
+import { fromFill } from "./import-trades.mjs";
+import { generateKeyPairSync, verify, constants as CC } from "node:crypto";
+import { spawnSync } from "node:child_process";
 
 // Fees: Kalshi taker fee rounds up to the cent.
 assert.equal(fee(0.5), 0.02);          // 0.07 × .5 × .5 = 1.75¢ → 2¢
@@ -220,4 +225,39 @@ assert.equal(r4(kellyFraction(0.6, 0.5)), 0.2); assert.equal(kellyFraction(0.4, 
 }
 // One prediction per market: the first logged row counts, later repeats are ignored (log untouched).
 assert.deepEqual(firstPerTicker([{ ticker: "A", n: 1 }, { ticker: "B", n: 2 }, { ticker: "A", n: 3 }]).map(r => r.n), [1, 2]);
+// Kalshi key: read-only by construction. Orders, other methods and non-market channels throw BEFORE anything is signed.
+{
+  for (const [m, p] of [["POST", "/trade-api/v2/portfolio/orders"], ["DELETE", "/trade-api/v2/portfolio/orders/x"], ["GET", "/trade-api/v2/portfolio/orders"],
+    ["GET", "/trade-api/v2/portfolio/balance"], ["PUT", "/trade-api/v2/portfolio/fills"], ["POST", "/trade-api/ws/v2"]])
+    assert.throws(() => signedHeaders(m, p, { id: "x", pk: null }), /blocked/);
+  assert.equal(assertReadOnly("GET", "/trade-api/v2/portfolio/fills?limit=200"), "/trade-api/v2/portfolio/fills");
+  assert.throws(() => assertChannels(["orderbook_delta", "fill"]), /blocked/);
+  // Signature format (throwaway key made here, never saved): RSA-PSS SHA-256 over timestamp + method + path without the query.
+  const { privateKey, publicKey } = generateKeyPairSync("rsa", { modulusLength: 2048 });
+  const h = signedHeaders("GET", "/trade-api/v2/portfolio/fills?limit=5", { id: "kid", pk: privateKey }, 1700000000000);
+  assert.equal(h["KALSHI-ACCESS-TIMESTAMP"], "1700000000000");
+  assert.ok(verify("sha256", Buffer.from("1700000000000GET/trade-api/v2/portfolio/fills"), { key: publicKey, padding: CC.RSA_PKCS1_PSS_PADDING, saltLength: CC.RSA_PSS_SALTLEN_DIGEST }, Buffer.from(h["KALSHI-ACCESS-SIGNATURE"], "base64")));
+  const ed = generateKeyPairSync("ed25519"), he = signedHeaders("GET", "/trade-api/ws/v2", { id: "kid", pk: ed.privateKey }, 1700000000000);
+  assert.ok(verify(null, Buffer.from("1700000000000GET/trade-api/ws/v2"), ed.publicKey, Buffer.from(he["KALSHI-ACCESS-SIGNATURE"], "base64")));   // Ed25519 keys too
+  // The key folder is git-ignored, and no tracked file contains a private key.
+  assert.ok(privateIgnored(), `${KEY_FILE} must be git-ignored`);
+  const leak = spawnSync("git", ["grep", "-lE", "-----BEGIN [A-Z ]*PRIV" + "ATE KEY-----"], { encoding: "utf8" }).stdout.trim();
+  assert.equal(leak, "", `private key text in tracked files: ${leak}`);
+}
+// Order book + trade flow inputs (same formulas for public REST and the keyed stream), and no leakage from later trades.
+{
+  assert.equal(bookImbalance([["0.40", "30"], ["0.41", "10"]], [["0.55", "20"]]), 0.3333);        // (40 − 20) / 60
+  assert.equal(bookImbalance([], []), null);
+  assert.equal(bookImbalance([[0.1, 1], [0.2, 1], [0.3, 1], [0.4, 1], [0.5, 1], [0.05, 100]], [[0.4, 5]]), 0);   // only the top 5 levels count
+  const tr = [{ t: 100, side: "yes", n: 30 }, { t: 200, side: "no", n: 10 }, { t: 2000, side: "no", n: 999 }];
+  assert.deepEqual(tradeFlow(tr, 1000), { flow30: 0.5, vol30t: 40 });                              // the trade at t=2000 is in the future
+  assert.deepEqual(tradeFlow([], 1000), { flow30: null, vol30t: 0 });
+  const res = Date.parse("2026-11-10T12:00:00Z"), iso = s => new Date(res - s * 1000).toISOString(), ticks = [];
+  for (let s = 3600; s >= 0; s -= 60) ticks.push({ t: iso(s), k: "K2", b: 0.4, a: 0.42, im: s > 600 ? 0.1 : -0.9, ty: s > 600 ? 1 : 0, tn: s > 600 ? 0 : 50 });
+  const sn = buildSnapshots(ticks, { K2: { ticker: "K2", resolvesAt: new Date(res).toISOString() } }, { K2: "yes" });
+  for (const r of sn.filter(r => r.leadMin >= 15)) { assert.equal(r.imb5, 0.1); assert.equal(r.flow30, 1); }   // late selling invisible earlier
+  assert.equal(nnFeatures({ ...sn[0], at: Date.parse(sn[0].ts) }, null).length, NN_FEATURES.length);
+  assert.deepEqual(fromFill({ ticker: "kx-a", side: "no", action: "buy", no_price_dollars: "0.3500", count_fp: "4.00", created_time: "t" }),
+    { ticker: "KX-A", side: "no", sell: false, price: 0.35, count: 4, fees: null, time: "t" });
+}
 console.log("all tests passed");

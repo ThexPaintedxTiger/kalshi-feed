@@ -1,6 +1,6 @@
 # Kalshi feed + Agent Flow
 
-**Read-only. Never trades. No account, no keys.**
+**Read-only. Never trades. Public data by default; an optional read-only Kalshi key stays on your computer.**
 
 ## Run it 24/7 on your computer
 Needs [Node.js 20+](https://nodejs.org) and git, signed in to GitHub with push access to this repo.
@@ -12,6 +12,10 @@ node stream.mjs
 Every minute: live prices for watched markets, new outcomes, and an immediate network retrain when outcomes arrive. Full scan every
 10 minutes; pushes every 5. Ctrl+C stops it; the cloud schedule takes over when it isn't running. Keep the computer from sleeping
 (power settings). Minute-by-minute prices stay on your computer in `local/ticks/` (not pushed).
+
+### Optional: Kalshi key (read-only, stays on your computer)
+Adds a real-time order book + trade stream and automatic import of your own fills. Steps: `docs/manual.md` → "Kalshi key".
+Make the key **inside `private/`** (git-ignored), upload only the `.pub` file to Kalshi, never share the private key.
 
 ## Live dashboard
 https://thexpaintedxtiger.github.io/kalshi-feed/dashboard.html (refreshes every 5 minutes; header shows how fresh the data is).

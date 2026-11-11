@@ -7,11 +7,15 @@
 // Storage:       old months move to data/archive/ (verified gzip); an uncompressed copy of everything stays in local/archive/.
 // Every 10 min:  the full scan (new predictions, backtest, focus prices, Gemini, dashboard) — the same steps as cycle.sh.
 // Every 5 min:   commit + push. A heartbeat (data/stream.json) tells the cloud schedule to step aside while this runs.
-// Public data only: no Kalshi account, no keys, nothing that can trade.
+// Optional Kalshi key (private/, this computer only; see kalshi-auth.mjs): adds a live order book + trade stream over Kalshi's
+// WebSocket; each minute tick then also records book imbalance and taker volume. Read-only allowlist; nothing can trade.
+// Without the key files: public data only, exactly as before. NO_KEY=1 turns the keyed stream off.
 // Options: STREAM_MINUTES=n (stop after n minutes), NO_PUSH=1 (never commit/push), GEMINI_API_KEY (optional, your own).
 import { spawnSync } from "node:child_process";
 import { mkdirSync, appendFileSync } from "node:fs";
 import { kalshi, readJsonl, writeJson, predictionFiles, r4, sleep } from "./lib.mjs";
+import { hasKey, privateIgnored, openStream } from "./kalshi-auth.mjs";
+import { bookImbalance } from "./nnlib.mjs";
 
 const NO_PUSH = process.env.NO_PUSH === "1", LIMIT = +process.env.STREAM_MINUTES || Infinity, started = Date.now();
 const node = (f, env = {}) => { const r = spawnSync(process.execPath, [f], { stdio: "pipe", encoding: "utf8", env: { ...process.env, ...env } });
@@ -22,6 +26,32 @@ const log = m => console.log(`${new Date().toISOString().slice(11, 19)}  ${m}`);
 const outcomesCount = () => readJsonl("data/outcomes.jsonl").length;
 let lastFull = 0, lastPush = Date.now(), minute = 0, stop = false;
 process.on("SIGINT", () => { stop = true; log("stopping after this step…"); });
+
+// Keyed stream state: order book per market (price → contracts, YES bids and NO bids) and taker volume since the last tick.
+const KEYED = process.env.NO_KEY !== "1" && hasKey() && privateIgnored();
+const books = {}, flow = {}, seen = new Set(); let ws = null, wsKey = "", reported = 0;
+const px = v => { const x = +v; return Math.round((x > 1 ? x / 100 : x) * 1e4) / 1e4; };           // cents or dollars → dollars
+const lv = a => (a || []).map(([p, q]) => [px(p), +q]);
+function onMsg(m) {
+  if (m.type) seen.add(m.type);
+  if (m.type === "error") log(`keyed stream error: ${JSON.stringify(m.msg || m).slice(0, 160)}`);
+  const d = m.msg || {}, k = d.market_ticker; if (!k) return;
+  if (m.type === "orderbook_snapshot") books[k] = { yes: new Map(lv(d.yes_dollars_fp ?? d.yes_dollars ?? d.yes)), no: new Map(lv(d.no_dollars_fp ?? d.no_dollars ?? d.no)) };
+  else if (m.type === "orderbook_delta" && books[k]?.[d.side]) {
+    const side = books[k][d.side], p = px(d.price_dollars ?? d.price), q = (side.get(p) || 0) + +(d.delta_fp ?? d.delta ?? 0);
+    if (q > 0) side.set(p, q); else side.delete(p);
+  } else if (m.type === "trade") {
+    const f = flow[k] ||= { y: 0, n: 0 }, c = +(d.count_fp ?? d.count) || 0;
+    if (d.taker_side === "yes") f.y += c; else if (d.taker_side === "no") f.n += c;
+  }
+}
+function keyedFor(tickers) {                                                     // (re)subscribe when the watched set changes
+  const key = [...tickers].sort().join(",");
+  if (!KEYED || !tickers.length || (ws && key === wsKey)) return;
+  ws?.close(); for (const k of Object.keys(books)) delete books[k];
+  try { ws = openStream(tickers, onMsg, code => { ws = null; log(`keyed stream closed (${code}) — reconnecting next minute`); }); wsKey = key; }
+  catch (e) { ws = null; log(`keyed stream not started: ${e.message}`); }
+}
 
 // Live prices for open, watched markets (logged predictions that haven't resolved). One batch call per 200 tickers.
 async function tick() {
@@ -34,9 +64,13 @@ async function tick() {
     for (const m of j.markets || []) live.push({ ticker: m.ticker, bid: +m.yes_bid_dollars, ask: +m.yes_ask_dollars, last: +m.last_price_dollars, status: m.status });
     await sleep(200);
   }
+  keyedFor(open.map(p => p.ticker));
+  if (seen.size > reported) { reported = seen.size; log(`keyed stream receiving: ${[...seen].join(", ")} · books for ${Object.keys(books).length} markets`); }
   const at = new Date(now).toISOString(), day = at.slice(0, 10);
+  const extra = k => { if (!ws) return {}; const b = books[k], f = flow[k] || { y: 0, n: 0 }; delete flow[k];
+    return { im: b ? bookImbalance([...b.yes], [...b.no]) : null, ty: r4(f.y), tn: r4(f.n) }; };
   mkdirSync("local/ticks", { recursive: true });
-  if (live.length) appendFileSync(`local/ticks/${day}.jsonl`, live.map(x => JSON.stringify({ t: at, k: x.ticker, b: x.bid, a: x.ask })).join("\n") + "\n");
+  if (live.length) appendFileSync(`local/ticks/${day}.jsonl`, live.map(x => JSON.stringify({ t: at, k: x.ticker, b: x.bid, a: x.ask, ...extra(x.ticker) })).join("\n") + "\n");
   writeJson("data/live.json", { at, markets: live.map(x => ({ ...x, mid: r4((x.bid + x.ask) / 2) })) });
   return live.length;
 }
@@ -52,6 +86,7 @@ function save(reason) {
 }
 
 log(`24/7 streamer started${NO_PUSH ? " (NO_PUSH: local only)" : ""}. Ctrl+C to stop.`);
+log(KEYED ? "keyed stream: on (order book + trades, read-only)" : hasKey() && !privateIgnored() ? "keyed stream: OFF — private/ is not git-ignored, key not used" : "keyed stream: off (no key files; public data only)");
 if (!NO_PUSH) git("pull", "--rebase", "-q");
 while (!stop && Date.now() - started < LIMIT * 6e4) {
   const t0 = Date.now(); minute++;
@@ -85,4 +120,4 @@ while (!stop && Date.now() - started < LIMIT * 6e4) {
   const wait = 6e4 - (Date.now() - t0);
   if (wait > 0 && !stop) await sleep(wait);
 }
-save("final"); log("streamer stopped");
+ws?.close(); save("final"); log("streamer stopped");

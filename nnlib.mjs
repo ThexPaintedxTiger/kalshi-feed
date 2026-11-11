@@ -7,7 +7,8 @@ export const CATS = ["Crypto", "Financials", "Economics", "Commodities", "Climat
 export const FEATURES = ["price (logit)", "spread", "distance from 50¢", "hour (sin)", "hour (cos)",
   ...CATS.map(c => "cat: " + c), "cat: other", "series gap (shrunk)", "series history size", "series YES rate",
   "price move 30 min", "has 30-min history", "outside estimate − price", "has outside data",
-  "minute volatility 30 min", "has minute volatility", "time left (log hours)"];
+  "minute volatility 30 min", "has minute volatility", "time left (log hours)",
+  "book imbalance (top 5)", "has book", "trade flow 30 min", "has trades 30 min"];
 
 const clipP = p => Math.min(0.99, Math.max(0.01, p));
 export const logit = p => Math.log(clipP(p) / (1 - clipP(p)));
@@ -30,6 +31,20 @@ export function minuteStats(points, T) {
   return { chg30: old ? Math.round((p.at(-1).mid - old.mid) * 1e4) / 1e4 : null,
     vol30: d.length >= 4 ? Math.round(Math.sqrt(d.reduce((s, x) => s + (x - m) ** 2, 0) / d.length) * 1e4) / 1e4 : null };
 }
+// Order book: Kalshi lists YES bids and NO bids ([[price, contracts]]). Imbalance of the top 5 levels on each side:
+// (YES depth − NO depth) / total, in [-1, 1]; null when the book is empty. Same formula for public REST and the keyed stream.
+export function bookImbalance(yes, no, levels = 5) {
+  const top = a => (a || []).map(([p, q]) => [+p, +q]).filter(([p, q]) => q > 0).sort((x, y) => y[0] - x[0]).slice(0, levels).reduce((t, [, q]) => t + q, 0);
+  const Y = top(yes), N = top(no);
+  return Y + N > 0 ? Math.round((Y - N) / (Y + N) * 1e4) / 1e4 : null;
+}
+// Trades in the 30 minutes up to T ([{t: unix s, side: "yes"/"no", n: contracts}]), only t ≤ T:
+// flow30 = (YES-taker volume − NO-taker volume) / total, in [-1, 1]; null when nothing traded.
+export function tradeFlow(trades, T) {
+  let y = 0, n = 0;
+  for (const x of trades || []) if (x.t <= T && x.t > T - 1800) { if (x.side === "yes") y += x.n; else if (x.side === "no") n += x.n; }
+  return { flow30: y + n > 0 ? Math.round((y - n) / (y + n) * 1e4) / 1e4 : null, vol30t: Math.round((y + n) * 100) / 100 };
+}
 export function features(r, recall) {
   const d = new Date(r.resolvesAt), h = d.getUTCHours() + d.getUTCMinutes() / 60;
   const s = recall ? recall(r.series, r.at) : null;
@@ -38,7 +53,8 @@ export function features(r, recall) {
     s ? (s.n / (s.n + 20)) * s.bias * 5 : 0, s ? Math.log1p(s.n) / 5 : 0, s ? s.yesRate - 0.5 : 0,
     r.chg30 == null ? 0 : Math.max(-1, Math.min(1, r.chg30 * 5)), r.chg30 == null ? 0 : 1,
     outside(r) == null ? 0 : Math.max(-1, Math.min(1, (logit(outside(r)) - logit(r.mid)) / 3)), outside(r) == null ? 0 : 1,
-    r.vol30 == null ? 0 : Math.min(1, r.vol30 * 50), r.vol30 == null ? 0 : 1, Math.log1p(leadMin(r) / 60) / 2];
+    r.vol30 == null ? 0 : Math.min(1, r.vol30 * 50), r.vol30 == null ? 0 : 1, Math.log1p(leadMin(r) / 60) / 2,
+    r.imb5 == null ? 0 : r.imb5, r.imb5 == null ? 0 : 1, r.flow30 == null ? 0 : r.flow30, r.flow30 == null ? 0 : 1];
 }
 
 export function rng(seed) { // mulberry32: same seed → same training run
