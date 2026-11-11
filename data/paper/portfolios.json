@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T03:55:35.979Z",
+ "updated": "2026-11-11T04:05:39.800Z",
  "start": 10,
  "goal": 1000,
  "safety": {
@@ -1647,26 +1647,26 @@
     "name": "Neural net, learned bet size",
     "predictor": "nn",
     "sizing": "learn",
-    "equity": 7.1761,
-    "cash": 7.1761,
+    "equity": 7.0953,
+    "cash": 7.0953,
     "openPositions": 0,
-    "returnPct": -28.239,
-    "bets": 37,
+    "returnPct": -29.047,
+    "bets": 36,
     "shadowBets": 5,
-    "settled": 37,
-    "wins": 12,
-    "pnl": -2.8239,
-    "fees": 0.46,
-    "maxDrawdownPct": 28.991,
-    "lowest": 7.1009,
-    "avgBetPct": 2.2908,
-    "maxBetPct": 3.0228,
-    "worstLossPct": -3.0228,
-    "betsPerDay": 7.2195,
+    "settled": 36,
+    "wins": 11,
+    "pnl": -2.9047,
+    "fees": 0.45,
+    "maxDrawdownPct": 29.703,
+    "lowest": 7.0297,
+    "avgBetPct": 2.3249,
+    "maxBetPct": 3.0531,
+    "worstLossPct": -3.0531,
+    "betsPerDay": 7.0244,
     "trustNow": {
      "trust": 0,
      "pause": true,
-     "why": "losing even on the optimistic estimate (-0.3046 per $): paused, tracking shadow bets"
+     "why": "losing even on the optimistic estimate (-0.3214 per $): paused, tracking shadow bets"
     },
     "busted": null,
     "reachedGoal": null,
@@ -1692,136 +1692,132 @@
       9.1687
      ],
      [
-      1794333701310,
-      9.2947
-     ],
-     [
       1794333721315,
-      9.0607
+      8.9347
      ],
      [
       1794333746212,
-      8.8255
+      8.6995
      ],
      [
       1794333941259,
-      8.5954
+      8.4694
+     ],
+     [
+      1794334321258,
+      8.5142
      ],
      [
       1794335451206,
-      8.3174
+      8.2362
      ],
      [
       1794336056250,
-      8.0902
+      8.009
      ],
      [
       1794336076207,
-      9.3822
+      9.301
      ],
      [
       1794337351266,
-      9.1472
+      9.066
      ],
      [
       1794337361297,
-      8.912
+      8.8308
      ],
      [
       1794337366308,
-      8.678
+      8.5968
      ],
      [
       1794337876208,
-      8.4505
+      8.3693
      ],
      [
       1794339086257,
-      8.2243
+      8.1431
      ],
      [
       1794348146257,
-      7.9066
+      7.8254
      ],
      [
       1794348156322,
-      7.9726
+      7.8914
      ],
      [
       1794348156326,
-      8.1406
+      8.0594
      ],
      [
       1794348156326,
-      8.3005
+      8.2193
      ],
      [
       1794348156328,
-      8.0683
+      7.9871
      ],
      [
       1794348161254,
-      7.8406
+      7.7594
      ],
      [
       1794349891255,
-      7.9569
+      7.8757
      ],
      [
       1794351721312,
-      7.8489
+      7.7677
      ],
      [
       1794351746321,
-      7.7361
+      7.6549
      ],
      [
       1794351756296,
-      7.6236
+      7.5424
      ],
      [
       1794351761314,
-      7.5114
+      7.4302
      ],
      [
       1794353476257,
-      7.3193
+      7.2481
      ],
      [
       1794354051206,
-      7.3289
+      7.2577
      ],
      [
       1794355316311,
-      7.2149
+      7.1437
      ],
      [
       1794355341291,
-      7.1009
+      7.0297
      ],
      [
       1794355541253,
-      7.2602
+      7.189
      ],
      [
       1794355546259,
-      7.3482
+      7.277
      ],
      [
       1794355906260,
-      7.3887
+      7.3175
      ],
      [
       1794357066253,
-      7.2753
+      7.2041
      ],
      [
       1794357626210,
-      7.1665
-     ],
-     [
-      1794359426211,
-      7.1761
+      7.0953
      ]
     ],
     "recent": [
@@ -1832,15 +1828,15 @@
       "cat": "Crypto",
       "side": "yes",
       "price": 0.43,
-      "p": 0.4717,
+      "p": 0.4844,
       "mid": 0.425,
       "contracts": 0.5814,
       "fee": 0.01,
       "shadow": true,
       "stake": 0.26,
-      "bankroll": 7.3887,
+      "bankroll": 7.3175,
       "betPct": 0,
-      "evPerDollar": 0.0505,
+      "evPerDollar": 0.08,
       "pnl": -0.26,
       "won": false,
       "settledAt": "2026-11-11T01:03:11.286Z"
@@ -1852,15 +1848,15 @@
       "cat": "Crypto",
       "side": "yes",
       "price": 0.45,
-      "p": 0.5818,
+      "p": 0.5941,
       "mid": 0.44,
       "contracts": 0.5556,
       "fee": 0.01,
       "shadow": true,
       "stake": 0.26,
-      "bankroll": 7.3887,
+      "bankroll": 7.3175,
       "betPct": 0,
-      "evPerDollar": 0.2484,
+      "evPerDollar": 0.2758,
       "pnl": -0.26,
       "won": false,
       "settledAt": "2026-11-11T01:02:56.271Z"
@@ -1872,15 +1868,15 @@
       "cat": "Crypto",
       "side": "yes",
       "price": 0.43,
-      "p": 0.5417,
+      "p": 0.5543,
       "mid": 0.41,
       "contracts": 0.5814,
       "fee": 0.01,
       "shadow": true,
       "stake": 0.26,
-      "bankroll": 7.3887,
+      "bankroll": 7.3175,
       "betPct": 0,
-      "evPerDollar": 0.2133,
+      "evPerDollar": 0.2426,
       "pnl": -0.26,
       "won": false,
       "settledAt": "2026-11-11T01:03:16.257Z"
@@ -1892,15 +1888,15 @@
       "cat": "Climate and Weather",
       "side": "yes",
       "price": 0.49,
-      "p": 0.5868,
+      "p": 0.5991,
       "mid": 0.455,
       "contracts": 0.5102,
       "fee": 0.01,
       "shadow": true,
       "stake": 0.26,
-      "bankroll": 7.3887,
+      "bankroll": 7.3175,
       "betPct": 0,
-      "evPerDollar": 0.1567,
+      "evPerDollar": 0.1818,
       "pnl": -0.26,
       "won": false,
       "settledAt": "2026-11-11T02:10:36.208Z"
@@ -1912,15 +1908,15 @@
       "cat": "Crypto",
       "side": "yes",
       "price": 0.08,
-      "p": 0.3819,
+      "p": 0.394,
       "mid": 0.075,
       "contracts": 3.125,
       "fee": 0.02,
       "shadow": true,
       "stake": 0.27,
-      "bankroll": 7.3887,
+      "bankroll": 7.3175,
       "betPct": 0,
-      "evPerDollar": 3.6488,
+      "evPerDollar": 3.8,
       "pnl": -0.27,
       "won": false,
       "settledAt": "2026-11-11T01:31:51.253Z"
@@ -1932,14 +1928,14 @@
       "cat": "Crypto",
       "side": "no",
       "price": 0.73,
-      "p": 0.1929,
+      "p": 0.201,
       "mid": 0.28,
       "contracts": 0.15,
       "fee": 0.01,
       "stake": 0.1195,
-      "bankroll": 7.4414,
-      "betPct": 1.6059,
-      "evPerDollar": 0.0782,
+      "bankroll": 7.3702,
+      "betPct": 1.6214,
+      "evPerDollar": 0.0671,
       "pnl": 0.0305,
       "won": true,
       "settledAt": "2026-11-11T00:11:46.260Z"
@@ -1951,14 +1947,14 @@
       "cat": "Crypto",
       "side": "no",
       "price": 0.57,
-      "p": 0.3719,
+      "p": 0.3839,
       "mid": 0.435,
       "contracts": 0.2,
       "fee": 0.01,
       "stake": 0.124,
-      "bankroll": 7.4514,
-      "betPct": 1.6641,
-      "evPerDollar": 0.0668,
+      "bankroll": 7.3802,
+      "betPct": 1.6802,
+      "evPerDollar": 0.0458,
       "pnl": -0.124,
       "won": false,
       "settledAt": "2026-11-11T00:02:21.291Z"
@@ -1970,14 +1966,14 @@
       "cat": "Commodities",
       "side": "yes",
       "price": 0.56,
-      "p": 0.637,
+      "p": 0.6487,
       "mid": 0.53,
       "contracts": 0.2,
       "fee": 0.01,
       "stake": 0.122,
-      "bankroll": 7.4614,
-      "betPct": 1.6351,
-      "evPerDollar": 0.1018,
+      "bankroll": 7.3902,
+      "betPct": 1.6508,
+      "evPerDollar": 0.1227,
       "pnl": 0.078,
       "won": true,
       "settledAt": "2026-11-11T00:05:46.259Z"
@@ -1989,36 +1985,17 @@
       "cat": "Crypto",
       "side": "no",
       "price": 0.6,
-      "p": 0.188,
+      "p": 0.1959,
       "mid": 0.41,
       "contracts": 0.19,
       "fee": 0.01,
       "stake": 0.124,
-      "bankroll": 7.4714,
-      "betPct": 1.6597,
-      "evPerDollar": 0.32,
+      "bankroll": 7.4002,
+      "betPct": 1.6756,
+      "evPerDollar": 0.3068,
       "pnl": -0.124,
       "won": false,
       "settledAt": "2026-11-11T00:01:56.311Z"
-     },
-     {
-      "ts": "2026-11-10T23:30:00.000Z",
-      "ticker": "KXTEMPLAXHS-26NOV1019-T78.99",
-      "title": "Will the temp in Coastal Los Angeles be above 78.99° on Nov 10, 2026 at 7pm EST? — 79° or above",
-      "cat": "Climate and Weather",
-      "side": "no",
-      "price": 0.92,
-      "p": 0.0494,
-      "mid": 0.09,
-      "contracts": 0.12,
-      "fee": 0.01,
-      "stake": 0.1204,
-      "bankroll": 7.4814,
-      "betPct": 1.6093,
-      "evPerDollar": 0.0224,
-      "pnl": -0.0004,
-      "won": true,
-      "settledAt": "2026-11-11T01:10:26.211Z"
      },
      {
       "ts": "2026-11-10T23:30:00.000Z",
@@ -2027,14 +2004,14 @@
       "cat": "Climate and Weather",
       "side": "yes",
       "price": 0.64,
-      "p": 0.8534,
+      "p": 0.8596,
       "mid": 0.615,
       "contracts": 0.17,
       "fee": 0.01,
       "stake": 0.1188,
-      "bankroll": 7.4914,
-      "betPct": 1.5858,
-      "evPerDollar": 0.3022,
+      "bankroll": 7.4102,
+      "betPct": 1.6032,
+      "evPerDollar": 0.3119,
       "pnl": -0.1188,
       "won": false,
       "settledAt": "2026-11-11T00:40:26.210Z"
@@ -2046,14 +2023,14 @@
       "cat": "Commodities",
       "side": "no",
       "price": 0.41,
-      "p": 0.4617,
+      "p": 0.4744,
       "mid": 0.625,
       "contracts": 0.27,
       "fee": 0.01,
       "stake": 0.1207,
-      "bankroll": 7.5014,
-      "betPct": 1.609,
-      "evPerDollar": 0.2641,
+      "bankroll": 7.4202,
+      "betPct": 1.6266,
+      "evPerDollar": 0.2332,
       "pnl": 0.1493,
       "won": true,
       "settledAt": "2026-11-11T00:05:41.253Z"
@@ -2065,14 +2042,14 @@
       "cat": "Crypto",
       "side": "yes",
       "price": 0.07,
-      "p": 0.1681,
+      "p": 0.1754,
       "mid": 0.065,
       "contracts": 1.62,
       "fee": 0.01,
       "stake": 0.1234,
-      "bankroll": 7.5114,
-      "betPct": 1.6428,
-      "evPerDollar": 1.2586,
+      "bankroll": 7.4302,
+      "betPct": 1.6608,
+      "evPerDollar": 1.3629,
       "pnl": -0.1234,
       "won": false,
       "settledAt": "2026-11-11T00:31:06.253Z"
@@ -2084,14 +2061,14 @@
       "cat": "Crypto",
       "side": "yes",
       "price": 0.45,
-      "p": 0.7727,
+      "p": 0.7815,
       "mid": 0.445,
       "contracts": 0.25,
       "fee": 0.01,
       "stake": 0.1225,
-      "bankroll": 7.7906,
-      "betPct": 1.5724,
-      "evPerDollar": 0.6727,
+      "bankroll": 7.7094,
+      "betPct": 1.589,
+      "evPerDollar": 0.6922,
       "pnl": -0.1225,
       "won": false,
       "settledAt": "2026-11-10T23:02:36.296Z"
@@ -2103,50 +2080,69 @@
       "cat": "Crypto",
       "side": "yes",
       "price": 0.47,
-      "p": 0.8483,
+      "p": 0.8548,
       "mid": 0.45,
       "contracts": 0.24,
       "fee": 0.01,
       "stake": 0.1228,
-      "bankroll": 7.8006,
-      "betPct": 1.5742,
-      "evPerDollar": 0.7623,
+      "bankroll": 7.7194,
+      "betPct": 1.5908,
+      "evPerDollar": 0.7762,
       "pnl": -0.1228,
       "won": false,
       "settledAt": "2026-11-10T23:02:26.321Z"
+     },
+     {
+      "ts": "2026-11-10T22:30:00.000Z",
+      "ticker": "KXHYPED-26NOV1018-T72.4999",
+      "title": "HYPE price on Nov 10, 2026? — $72.5 or above",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.51,
+      "p": 0.8206,
+      "mid": 0.49,
+      "contracts": 0.22,
+      "fee": 0.01,
+      "stake": 0.1222,
+      "bankroll": 7.7294,
+      "betPct": 1.581,
+      "evPerDollar": 0.5698,
+      "pnl": -0.1222,
+      "won": false,
+      "settledAt": "2026-11-10T23:02:41.314Z"
      }
     ],
     "stats": {
-     "trades": 37,
+     "trades": 36,
      "wins": 10,
-     "losses": 27,
-     "winRate": 0.2703,
-     "grossProfit": 2.2011,
-     "grossLoss": 5.025,
-     "net": -2.8239,
-     "profitFactor": 0.438,
+     "losses": 26,
+     "winRate": 0.2778,
+     "grossProfit": 2.1199,
+     "grossLoss": 5.0246,
+     "net": -2.9047,
+     "profitFactor": 0.4219,
      "best": 1.272,
      "worst": -0.248,
-     "expectedPayoff": -0.0763,
-     "recoveryFactor": -0.9741,
-     "perBetSharpe": -0.312,
-     "avgDailyPnl": -1.4119,
+     "expectedPayoff": -0.0807,
+     "recoveryFactor": -0.9779,
+     "perBetSharpe": -0.3278,
+     "avgDailyPnl": -1.4523,
      "lastDay": {
       "date": "2026-11-11",
-      "pnl": -0.2328
+      "pnl": -0.2324
      },
      "streak": {
       "kind": "loss",
-      "n": 3
+      "n": 2
      },
      "daily": [
       {
        "date": "2026-11-10",
-       "pnl": -2.5911
+       "pnl": -2.6723
       },
       {
        "date": "2026-11-11",
-       "pnl": -0.2328
+       "pnl": -0.2324
       }
      ],
      "drawdown": [
@@ -2171,166 +2167,143 @@
        -8.313
       ],
       [
-       1794333701310,
-       -7.053
-      ],
-      [
        1794333721315,
-       -9.393
+       -10.653
       ],
       [
        1794333746212,
-       -11.745
+       -13.005
       ],
       [
        1794333941259,
-       -14.046
+       -15.306
+      ],
+      [
+       1794334321258,
+       -14.858
       ],
       [
        1794335451206,
-       -16.826
+       -17.638
       ],
       [
        1794336056250,
-       -19.098
+       -19.91
       ],
       [
        1794336076207,
-       -6.178
+       -6.99
       ],
       [
        1794337351266,
-       -8.528
+       -9.34
       ],
       [
        1794337361297,
-       -10.88
+       -11.692
       ],
       [
        1794337366308,
-       -13.22
+       -14.032
       ],
       [
        1794337876208,
-       -15.495
+       -16.307
       ],
       [
        1794339086257,
-       -17.757
+       -18.569
       ],
       [
        1794348146257,
-       -20.934
+       -21.746
       ],
       [
        1794348156322,
-       -20.274
+       -21.086
       ],
       [
        1794348156326,
-       -18.594
+       -19.406
       ],
       [
        1794348156326,
-       -16.995
+       -17.807
       ],
       [
        1794348156328,
-       -19.317
+       -20.129
       ],
       [
        1794348161254,
-       -21.594
+       -22.406
       ],
       [
        1794349891255,
-       -20.431
+       -21.243
       ],
       [
        1794351721312,
-       -21.511
+       -22.323
       ],
       [
        1794351746321,
-       -22.639
+       -23.451
       ],
       [
        1794351756296,
-       -23.764
+       -24.576
       ],
       [
        1794351761314,
-       -24.886
+       -25.698
       ],
       [
        1794353476257,
-       -26.807
+       -27.519
       ],
       [
        1794354051206,
-       -26.711
+       -27.423
       ],
       [
        1794355316311,
-       -27.851
+       -28.563
       ],
       [
        1794355341291,
-       -28.991
+       -29.703
       ],
       [
        1794355541253,
-       -27.398
+       -28.11
       ],
       [
        1794355546259,
-       -26.518
+       -27.23
       ],
       [
        1794355906260,
-       -26.113
+       -26.825
       ],
       [
        1794357066253,
-       -27.247
+       -27.959
       ],
       [
        1794357626210,
-       -28.335
-      ],
-      [
-       1794359426211,
-       -28.239
+       -29.047
       ]
      ]
     },
     "review": {
-     "n": 37,
-     "netCloser": 0.3243,
-     "losses": 27,
+     "n": 36,
+     "netCloser": 0.3056,
+     "losses": 26,
      "firstHalf": 0.2222,
-     "secondHalf": 0.4211
+     "secondHalf": 0.3889
     },
     "closed": [
-     {
-      "ts": "2026-11-10T23:30:00.000Z",
-      "ticker": "KXTEMPLAXHS-26NOV1019-T78.99",
-      "title": "Will the temp in Coastal Los Angeles be above 78.99° on Nov 10, 2026 at 7pm EST? — 79° or above",
-      "cat": "Climate and Weather",
-      "side": "no",
-      "price": 0.92,
-      "p": 0.0494,
-      "mid": 0.09,
-      "contracts": 0.12,
-      "fee": 0.01,
-      "stake": 0.1204,
-      "bankroll": 7.4814,
-      "betPct": 1.6093,
-      "evPerDollar": 0.0224,
-      "pnl": -0.0004,
-      "won": true,
-      "settledAt": "2026-11-11T01:10:26.211Z"
-     },
      {
       "ts": "2026-11-10T23:30:00.000Z",
       "ticker": "KXTEMPNYCHS-26NOV1019-T54.99",
@@ -2338,14 +2311,14 @@
       "cat": "Climate and Weather",
       "side": "yes",
       "price": 0.64,
-      "p": 0.8534,
+      "p": 0.8596,
       "mid": 0.615,
       "contracts": 0.17,
       "fee": 0.01,
       "stake": 0.1188,
-      "bankroll": 7.4914,
-      "betPct": 1.5858,
-      "evPerDollar": 0.3022,
+      "bankroll": 7.4102,
+      "betPct": 1.6032,
+      "evPerDollar": 0.3119,
       "pnl": -0.1188,
       "won": false,
       "settledAt": "2026-11-11T00:40:26.210Z"
@@ -2357,14 +2330,14 @@
       "cat": "Crypto",
       "side": "yes",
       "price": 0.07,
-      "p": 0.1681,
+      "p": 0.1754,
       "mid": 0.065,
       "contracts": 1.62,
       "fee": 0.01,
       "stake": 0.1234,
-      "bankroll": 7.5114,
-      "betPct": 1.6428,
-      "evPerDollar": 1.2586,
+      "bankroll": 7.4302,
+      "betPct": 1.6608,
+      "evPerDollar": 1.3629,
       "pnl": -0.1234,
       "won": false,
       "settledAt": "2026-11-11T00:31:06.253Z"
@@ -2376,14 +2349,14 @@
       "cat": "Crypto",
       "side": "no",
       "price": 0.73,
-      "p": 0.1929,
+      "p": 0.201,
       "mid": 0.28,
       "contracts": 0.15,
       "fee": 0.01,
       "stake": 0.1195,
-      "bankroll": 7.4414,
-      "betPct": 1.6059,
-      "evPerDollar": 0.0782,
+      "bankroll": 7.3702,
+      "betPct": 1.6214,
+      "evPerDollar": 0.0671,
       "pnl": 0.0305,
       "won": true,
       "settledAt": "2026-11-11T00:11:46.260Z"
@@ -2395,14 +2368,14 @@
       "cat": "Commodities",
       "side": "yes",
       "price": 0.56,
-      "p": 0.637,
+      "p": 0.6487,
       "mid": 0.53,
       "contracts": 0.2,
       "fee": 0.01,
       "stake": 0.122,
-      "bankroll": 7.4614,
-      "betPct": 1.6351,
-      "evPerDollar": 0.1018,
+      "bankroll": 7.3902,
+      "betPct": 1.6508,
+      "evPerDollar": 0.1227,
       "pnl": 0.078,
       "won": true,
       "settledAt": "2026-11-11T00:05:46.259Z"
@@ -2414,14 +2387,14 @@
       "cat": "Commodities",
       "side": "no",
       "price": 0.41,
-      "p": 0.4617,
+      "p": 0.4744,
       "mid": 0.625,
       "contracts": 0.27,
       "fee": 0.01,
       "stake": 0.1207,
-      "bankroll": 7.5014,
-      "betPct": 1.609,
-      "evPerDollar": 0.2641,
+      "bankroll": 7.4202,
+      "betPct": 1.6266,
+      "evPerDollar": 0.2332,
       "pnl": 0.1493,
       "won": true,
       "settledAt": "2026-11-11T00:05:41.253Z"
@@ -2433,14 +2406,14 @@
       "cat": "Crypto",
       "side": "no",
       "price": 0.57,
-      "p": 0.3719,
+      "p": 0.3839,
       "mid": 0.435,
       "contracts": 0.2,
       "fee": 0.01,
       "stake": 0.124,
-      "bankroll": 7.4514,
-      "betPct": 1.6641,
-      "evPerDollar": 0.0668,
+      "bankroll": 7.3802,
+      "betPct": 1.6802,
+      "evPerDollar": 0.0458,
       "pnl": -0.124,
       "won": false,
       "settledAt": "2026-11-11T00:02:21.291Z"
@@ -2452,14 +2425,14 @@
       "cat": "Crypto",
       "side": "no",
       "price": 0.6,
-      "p": 0.188,
+      "p": 0.1959,
       "mid": 0.41,
       "contracts": 0.19,
       "fee": 0.01,
       "stake": 0.124,
-      "bankroll": 7.4714,
-      "betPct": 1.6597,
-      "evPerDollar": 0.32,
+      "bankroll": 7.4002,
+      "betPct": 1.6756,
+      "evPerDollar": 0.3068,
       "pnl": -0.124,
       "won": false,
       "settledAt": "2026-11-11T00:01:56.311Z"
@@ -2471,14 +2444,14 @@
       "cat": "Climate and Weather",
       "side": "no",
       "price": 0.92,
-      "p": 0.0395,
+      "p": 0.0415,
       "mid": 0.1,
       "contracts": 0.12,
       "fee": 0.01,
       "stake": 0.1204,
-      "bankroll": 7.8306,
-      "betPct": 1.5376,
-      "evPerDollar": 0.0332,
+      "bankroll": 7.7494,
+      "betPct": 1.5537,
+      "evPerDollar": 0.031,
       "pnl": -0.0004,
       "won": true,
       "settledAt": "2026-11-10T23:40:51.206Z"
@@ -2490,24 +2463,43 @@
       "cat": "Crypto",
       "side": "yes",
       "price": 0.59,
-      "p": 0.7475,
+      "p": 0.757,
       "mid": 0.575,
       "contracts": 0.19,
       "fee": 0.01,
       "stake": 0.1221,
-      "bankroll": 7.8406,
-      "betPct": 1.5573,
-      "evPerDollar": 0.2331,
+      "bankroll": 7.7594,
+      "betPct": 1.5736,
+      "evPerDollar": 0.2492,
       "pnl": -0.1221,
       "won": false,
       "settledAt": "2026-11-10T23:31:16.257Z"
+     },
+     {
+      "ts": "2026-11-10T22:30:00.000Z",
+      "ticker": "KXHYPED-26NOV1018-T72.4999",
+      "title": "HYPE price on Nov 10, 2026? — $72.5 or above",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.51,
+      "p": 0.8206,
+      "mid": 0.49,
+      "contracts": 0.22,
+      "fee": 0.01,
+      "stake": 0.1222,
+      "bankroll": 7.7294,
+      "betPct": 1.581,
+      "evPerDollar": 0.5698,
+      "pnl": -0.1222,
+      "won": false,
+      "settledAt": "2026-11-10T23:02:41.314Z"
      }
     ],
     "monteCarlo": {
      "paths": 4000,
-     "conservativeShift": 0.0047,
-     "observedMeanReturn": -0.0089,
-     "growthPerBet": -0.0141,
+     "conservativeShift": 0.0049,
+     "observedMeanReturn": -0.0094,
+     "growthPerBet": -0.0148,
      "betsFor100x": null,
      "daysFor100x": null,
      "pBelowLowWater": 1,
@@ -2515,17 +2507,17 @@
       {
        "bets": 250,
        "pReachGoal": 0,
-       "medianEquity": 0.4943
+       "medianEquity": 0.4938
       },
       {
        "bets": 1000,
        "pReachGoal": 0,
-       "medianEquity": 0.4936
+       "medianEquity": 0.4933
       },
       {
        "bets": 3000,
        "pReachGoal": 0,
-       "medianEquity": 0.4936
+       "medianEquity": 0.4933
       }
      ]
     }
@@ -2535,22 +2527,22 @@
     "name": "Neural net, flat 2% bets",
     "predictor": "nn",
     "sizing": "fixed",
-    "equity": 7.7222,
-    "cash": 7.7222,
+    "equity": 7.6297,
+    "cash": 7.6297,
     "openPositions": 0,
-    "returnPct": -22.778,
-    "bets": 30,
+    "returnPct": -23.703,
+    "bets": 29,
     "shadowBets": 0,
-    "settled": 30,
-    "wins": 9,
-    "pnl": -2.2778,
-    "fees": 0.33,
-    "maxDrawdownPct": 22.906,
-    "lowest": 7.7094,
-    "avgBetPct": 1.9411,
-    "maxBetPct": 1.9973,
-    "worstLossPct": -1.9706,
-    "betsPerDay": 5.8537,
+    "settled": 29,
+    "wins": 8,
+    "pnl": -2.3703,
+    "fees": 0.32,
+    "maxDrawdownPct": 23.831,
+    "lowest": 7.6169,
+    "avgBetPct": 1.95,
+    "maxBetPct": 1.989,
+    "worstLossPct": -1.989,
+    "betsPerDay": 5.6585,
     "trustNow": null,
     "busted": null,
     "reachedGoal": null,
@@ -2569,115 +2561,111 @@
      ],
      [
       1794331931252,
-      9.4981
+      9.5081
      ],
      [
       1794331931254,
-      9.3121
-     ],
-     [
-      1794333701310,
-      9.4101
+      9.3221
      ],
      [
       1794333721315,
-      9.2301
+      9.1421
      ],
      [
       1794333746212,
-      9.0509
+      8.9629
      ],
      [
       1794333941259,
-      8.8739
+      8.78
      ],
      [
       1794334321258,
-      8.9075
+      8.8136
      ],
      [
       1794335451206,
-      8.6945
+      8.6006
      ],
      [
       1794336056250,
-      8.5217
+      8.4278
      ],
      [
       1794336076207,
-      9.4992
+      9.4053
      ],
      [
       1794337351266,
-      9.3347
+      9.2408
      ],
      [
       1794337361297,
-      9.1709
+      9.077
      ],
      [
       1794337366308,
-      9.0089
+      8.915
      ],
      [
       1794337876208,
-      8.8269
+      8.733
      ],
      [
       1794339086257,
-      8.6616
+      8.5677
      ],
      [
       1794348146257,
-      8.4343
+      8.3415
      ],
      [
       1794348156322,
-      8.4783
+      8.3855
      ],
      [
       1794348156326,
-      8.5959
+      8.4989
      ],
      [
       1794348156326,
-      8.7066
+      8.6096
      ],
      [
       1794348156328,
-      8.5475
+      8.4505
      ],
      [
       1794348161254,
-      8.3945
+      8.2948
      ],
      [
       1794349891255,
-      8.4549
+      8.3552
      ],
      [
       1794351721312,
-      8.3037
+      8.2112
      ],
      [
       1794351746321,
-      8.1533
+      8.0608
      ],
      [
       1794351756296,
-      8.0048
+      7.9123
      ],
      [
       1794351761314,
-      7.8569
+      7.7644
      ],
      [
       1794353476257,
-      7.7094
+      7.6169
      ],
      [
       1794354051206,
-      7.7222
+      7.6297
      ]
     ],
     "recent": [
@@ -2688,14 +2676,14 @@
       "cat": "Crypto",
       "side": "yes",
       "price": 0.45,
-      "p": 0.7727,
+      "p": 0.7815,
       "mid": 0.445,
       "contracts": 0.33,
       "fee": 0.01,
       "stake": 0.1585,
-      "bankroll": 8.3445,
-      "betPct": 1.8995,
-      "evPerDollar": 0.6727,
+      "bankroll": 8.2448,
+      "betPct": 1.9224,
+      "evPerDollar": 0.6922,
       "pnl": -0.1585,
       "won": false,
       "settledAt": "2026-11-10T23:02:36.296Z"
@@ -2707,14 +2695,14 @@
       "cat": "Crypto",
       "side": "yes",
       "price": 0.47,
-      "p": 0.8483,
+      "p": 0.8548,
       "mid": 0.45,
       "contracts": 0.32,
       "fee": 0.01,
       "stake": 0.1604,
-      "bankroll": 8.3545,
-      "betPct": 1.9199,
-      "evPerDollar": 0.7623,
+      "bankroll": 8.2548,
+      "betPct": 1.9431,
+      "evPerDollar": 0.7762,
       "pnl": -0.1604,
       "won": false,
       "settledAt": "2026-11-10T23:02:26.321Z"
@@ -2726,14 +2714,14 @@
       "cat": "Crypto",
       "side": "yes",
       "price": 0.51,
-      "p": 0.813,
+      "p": 0.8206,
       "mid": 0.49,
       "contracts": 0.29,
       "fee": 0.01,
       "stake": 0.1579,
-      "bankroll": 8.3645,
-      "betPct": 1.8877,
-      "evPerDollar": 0.5549,
+      "bankroll": 8.2648,
+      "betPct": 1.9105,
+      "evPerDollar": 0.5698,
       "pnl": -0.1579,
       "won": false,
       "settledAt": "2026-11-10T23:02:41.314Z"
@@ -2745,15 +2733,15 @@
       "cat": "Crypto",
       "side": "yes",
       "price": 0.72,
-      "p": 0.8231,
+      "p": 0.8304,
       "mid": 0.705,
-      "contracts": 0.21,
+      "contracts": 0.2,
       "fee": 0.01,
-      "stake": 0.1612,
-      "bankroll": 8.3745,
-      "betPct": 1.9249,
-      "evPerDollar": 0.1154,
-      "pnl": -0.1612,
+      "stake": 0.154,
+      "bankroll": 8.2748,
+      "betPct": 1.8611,
+      "evPerDollar": 0.1256,
+      "pnl": -0.154,
       "won": false,
       "settledAt": "2026-11-10T23:02:01.312Z"
      },
@@ -2764,14 +2752,14 @@
       "cat": "Climate and Weather",
       "side": "no",
       "price": 0.92,
-      "p": 0.0395,
+      "p": 0.0415,
       "mid": 0.1,
       "contracts": 0.16,
       "fee": 0.01,
       "stake": 0.1572,
-      "bankroll": 8.3845,
-      "betPct": 1.8749,
-      "evPerDollar": 0.0332,
+      "bankroll": 8.2848,
+      "betPct": 1.8975,
+      "evPerDollar": 0.031,
       "pnl": 0.0028,
       "won": true,
       "settledAt": "2026-11-10T23:40:51.206Z"
@@ -2783,14 +2771,14 @@
       "cat": "Crypto",
       "side": "yes",
       "price": 0.59,
-      "p": 0.7475,
+      "p": 0.757,
       "mid": 0.575,
       "contracts": 0.25,
       "fee": 0.01,
       "stake": 0.1575,
-      "bankroll": 8.3945,
-      "betPct": 1.8762,
-      "evPerDollar": 0.2331,
+      "bankroll": 8.2948,
+      "betPct": 1.8988,
+      "evPerDollar": 0.2492,
       "pnl": -0.1575,
       "won": false,
       "settledAt": "2026-11-10T23:31:16.257Z"
@@ -2802,14 +2790,14 @@
       "cat": "Crypto",
       "side": "no",
       "price": 0.43,
-      "p": 0.0875,
+      "p": 0.0886,
       "mid": 0.575,
       "contracts": 0.37,
       "fee": 0.01,
       "stake": 0.1691,
-      "bankroll": 8.6016,
-      "betPct": 1.9659,
-      "evPerDollar": 1.0756,
+      "bankroll": 8.5077,
+      "betPct": 1.9876,
+      "evPerDollar": 1.073,
       "pnl": -0.1691,
       "won": false,
       "settledAt": "2026-11-10T22:02:36.328Z"
@@ -2821,14 +2809,14 @@
       "cat": "Crypto",
       "side": "no",
       "price": 0.78,
-      "p": 0.1609,
+      "p": 0.1628,
       "mid": 0.225,
       "contracts": 0.2,
       "fee": 0.01,
       "stake": 0.166,
-      "bankroll": 8.6116,
-      "betPct": 1.9276,
-      "evPerDollar": 0.0501,
+      "bankroll": 8.5177,
+      "betPct": 1.9489,
+      "evPerDollar": 0.0477,
       "pnl": 0.034,
       "won": true,
       "settledAt": "2026-11-10T22:02:36.322Z"
@@ -2840,14 +2828,14 @@
       "cat": "Crypto",
       "side": "no",
       "price": 0.59,
-      "p": 0.1217,
+      "p": 0.1231,
       "mid": 0.435,
       "contracts": 0.27,
       "fee": 0.01,
       "stake": 0.1693,
-      "bankroll": 8.6216,
-      "betPct": 1.9637,
-      "evPerDollar": 0.4547,
+      "bankroll": 8.5277,
+      "betPct": 1.9853,
+      "evPerDollar": 0.4524,
       "pnl": 0.1007,
       "won": true,
       "settledAt": "2026-11-10T22:02:36.326Z"
@@ -2859,15 +2847,15 @@
       "cat": "Crypto",
       "side": "no",
       "price": 0.58,
-      "p": 0.1902,
+      "p": 0.1916,
       "mid": 0.43,
-      "contracts": 0.28,
+      "contracts": 0.27,
       "fee": 0.01,
-      "stake": 0.1724,
-      "bankroll": 8.6316,
-      "betPct": 1.9973,
-      "evPerDollar": 0.3617,
-      "pnl": 0.1076,
+      "stake": 0.1666,
+      "bankroll": 8.5377,
+      "betPct": 1.9513,
+      "evPerDollar": 0.3593,
+      "pnl": 0.1034,
       "won": true,
       "settledAt": "2026-11-10T22:02:36.326Z"
      },
@@ -2878,15 +2866,15 @@
       "cat": "Crypto",
       "side": "yes",
       "price": 0.09,
-      "p": 0.2396,
+      "p": 0.2418,
       "mid": 0.065,
-      "contracts": 1.7,
+      "contracts": 1.73,
       "fee": 0.01,
-      "stake": 0.163,
-      "bankroll": 8.6416,
-      "betPct": 1.8862,
-      "evPerDollar": 1.5511,
-      "pnl": -0.163,
+      "stake": 0.1657,
+      "bankroll": 8.5477,
+      "betPct": 1.9385,
+      "evPerDollar": 1.5756,
+      "pnl": -0.1657,
       "won": false,
       "settledAt": "2026-11-10T22:02:41.254Z"
      },
@@ -2897,15 +2885,15 @@
       "cat": "Crypto",
       "side": "no",
       "price": 0.11,
-      "p": 0.284,
+      "p": 0.2861,
       "mid": 0.915,
-      "contracts": 1.43,
+      "contracts": 1.42,
       "fee": 0.01,
-      "stake": 0.1673,
-      "bankroll": 8.6516,
-      "betPct": 1.9337,
-      "evPerDollar": 5.4182,
-      "pnl": -0.1673,
+      "stake": 0.1662,
+      "bankroll": 8.5577,
+      "betPct": 1.9421,
+      "evPerDollar": 5.3991,
+      "pnl": -0.1662,
       "won": false,
       "settledAt": "2026-11-10T22:02:26.257Z"
      },
@@ -2916,14 +2904,14 @@
       "cat": "Crypto",
       "side": "no",
       "price": 0.57,
-      "p": 0.1855,
+      "p": 0.1868,
       "mid": 0.465,
       "contracts": 0.28,
       "fee": 0.01,
       "stake": 0.1696,
-      "bankroll": 8.6616,
-      "betPct": 1.9581,
-      "evPerDollar": 0.3939,
+      "bankroll": 8.5677,
+      "betPct": 1.9795,
+      "evPerDollar": 0.3916,
       "pnl": 0.1104,
       "won": true,
       "settledAt": "2026-11-10T22:31:31.255Z"
@@ -2935,14 +2923,14 @@
       "cat": "Crypto",
       "side": "no",
       "price": 0.42,
-      "p": 0.5117,
+      "p": 0.5244,
       "mid": 0.585,
       "contracts": 0.39,
       "fee": 0.01,
       "stake": 0.1738,
-      "bankroll": 8.8775,
-      "betPct": 1.9578,
-      "evPerDollar": 0.115,
+      "bankroll": 8.7836,
+      "betPct": 1.9787,
+      "evPerDollar": 0.0848,
       "pnl": -0.1738,
       "won": false,
       "settledAt": "2026-11-10T19:02:41.297Z"
@@ -2954,37 +2942,37 @@
       "cat": "Crypto",
       "side": "no",
       "price": 0.47,
-      "p": 0.3968,
+      "p": 0.4091,
       "mid": 0.54,
       "contracts": 0.35,
       "fee": 0.01,
       "stake": 0.1745,
-      "bankroll": 8.8875,
-      "betPct": 1.9634,
-      "evPerDollar": 0.2409,
+      "bankroll": 8.7936,
+      "betPct": 1.9844,
+      "evPerDollar": 0.2147,
       "pnl": -0.1745,
       "won": false,
       "settledAt": "2026-11-10T19:02:31.266Z"
      }
     ],
     "stats": {
-     "trades": 30,
-     "wins": 9,
+     "trades": 29,
+     "wins": 8,
      "losses": 21,
-     "winRate": 0.3,
-     "grossProfit": 1.4419,
-     "grossLoss": 3.7197,
-     "net": -2.2778,
-     "profitFactor": 0.3876,
+     "winRate": 0.2759,
+     "grossProfit": 1.3497,
+     "grossLoss": 3.72,
+     "net": -2.3703,
+     "profitFactor": 0.3628,
      "best": 0.9575,
      "worst": -0.196,
-     "expectedPayoff": -0.0759,
-     "recoveryFactor": -0.9944,
-     "perBetSharpe": -0.3686,
-     "avgDailyPnl": -2.2778,
+     "expectedPayoff": -0.0817,
+     "recoveryFactor": -0.9946,
+     "perBetSharpe": -0.3953,
+     "avgDailyPnl": -2.3703,
      "lastDay": {
       "date": "2026-11-10",
-      "pnl": -2.2778
+      "pnl": -2.3703
      },
      "streak": {
       "kind": "win",
@@ -2993,7 +2981,7 @@
      "daily": [
       {
        "date": "2026-11-10",
-       "pnl": -2.2778
+       "pnl": -2.3703
       }
      ],
      "drawdown": [
@@ -3011,123 +2999,119 @@
       ],
       [
        1794331931252,
-       -5.019
+       -4.919
       ],
       [
        1794331931254,
-       -6.879
-      ],
-      [
-       1794333701310,
-       -5.899
+       -6.779
       ],
       [
        1794333721315,
-       -7.699
+       -8.579
       ],
       [
        1794333746212,
-       -9.491
+       -10.371
       ],
       [
        1794333941259,
-       -11.261
+       -12.2
       ],
       [
        1794334321258,
-       -10.925
+       -11.864
       ],
       [
        1794335451206,
-       -13.055
+       -13.994
       ],
       [
        1794336056250,
-       -14.783
+       -15.722
       ],
       [
        1794336076207,
-       -5.008
+       -5.947
       ],
       [
        1794337351266,
-       -6.653
+       -7.592
       ],
       [
        1794337361297,
-       -8.291
+       -9.23
       ],
       [
        1794337366308,
-       -9.911
+       -10.85
       ],
       [
        1794337876208,
-       -11.731
+       -12.67
       ],
       [
        1794339086257,
-       -13.384
+       -14.323
       ],
       [
        1794348146257,
-       -15.657
+       -16.585
       ],
       [
        1794348156322,
-       -15.217
+       -16.145
       ],
       [
        1794348156326,
-       -14.041
+       -15.011
       ],
       [
        1794348156326,
-       -12.934
+       -13.904
       ],
       [
        1794348156328,
-       -14.525
+       -15.495
       ],
       [
        1794348161254,
-       -16.055
+       -17.052
       ],
       [
        1794349891255,
-       -15.451
+       -16.448
       ],
       [
        1794351721312,
-       -16.963
+       -17.888
       ],
       [
        1794351746321,
-       -18.467
+       -19.392
       ],
       [
        1794351756296,
-       -19.952
+       -20.877
       ],
       [
        1794351761314,
-       -21.431
+       -22.356
       ],
       [
        1794353476257,
-       -22.906
+       -23.831
       ],
       [
        1794354051206,
-       -22.778
+       -23.703
       ]
      ]
     },
     "review": {
-     "n": 30,
-     "netCloser": 0.3,
+     "n": 29,
+     "netCloser": 0.2759,
      "losses": 21,
-     "firstHalf": 0.2667,
+     "firstHalf": 0.2143,
      "secondHalf": 0.3333
     },
     "closed": [
@@ -3138,14 +3122,14 @@
       "cat": "Climate and Weather",
       "side": "no",
       "price": 0.92,
-      "p": 0.0395,
+      "p": 0.0415,
       "mid": 0.1,
       "contracts": 0.16,
       "fee": 0.01,
       "stake": 0.1572,
-      "bankroll": 8.3845,
-      "betPct": 1.8749,
-      "evPerDollar": 0.0332,
+      "bankroll": 8.2848,
+      "betPct": 1.8975,
+      "evPerDollar": 0.031,
       "pnl": 0.0028,
       "won": true,
       "settledAt": "2026-11-10T23:40:51.206Z"
@@ -3157,14 +3141,14 @@
       "cat": "Crypto",
       "side": "yes",
       "price": 0.59,
-      "p": 0.7475,
+      "p": 0.757,
       "mid": 0.575,
       "contracts": 0.25,
       "fee": 0.01,
       "stake": 0.1575,
-      "bankroll": 8.3945,
-      "betPct": 1.8762,
-      "evPerDollar": 0.2331,
+      "bankroll": 8.2948,
+      "betPct": 1.8988,
+      "evPerDollar": 0.2492,
       "pnl": -0.1575,
       "won": false,
       "settledAt": "2026-11-10T23:31:16.257Z"
@@ -3176,14 +3160,14 @@
       "cat": "Crypto",
       "side": "yes",
       "price": 0.51,
-      "p": 0.813,
+      "p": 0.8206,
       "mid": 0.49,
       "contracts": 0.29,
       "fee": 0.01,
       "stake": 0.1579,
-      "bankroll": 8.3645,
-      "betPct": 1.8877,
-      "evPerDollar": 0.5549,
+      "bankroll": 8.2648,
+      "betPct": 1.9105,
+      "evPerDollar": 0.5698,
       "pnl": -0.1579,
       "won": false,
       "settledAt": "2026-11-10T23:02:41.314Z"
@@ -3195,14 +3179,14 @@
       "cat": "Crypto",
       "side": "yes",
       "price": 0.45,
-      "p": 0.7727,
+      "p": 0.7815,
       "mid": 0.445,
       "contracts": 0.33,
       "fee": 0.01,
       "stake": 0.1585,
-      "bankroll": 8.3445,
-      "betPct": 1.8995,
-      "evPerDollar": 0.6727,
+      "bankroll": 8.2448,
+      "betPct": 1.9224,
+      "evPerDollar": 0.6922,
       "pnl": -0.1585,
       "won": false,
       "settledAt": "2026-11-10T23:02:36.296Z"
@@ -3214,14 +3198,14 @@
       "cat": "Crypto",
       "side": "yes",
       "price": 0.47,
-      "p": 0.8483,
+      "p": 0.8548,
       "mid": 0.45,
       "contracts": 0.32,
       "fee": 0.01,
       "stake": 0.1604,
-      "bankroll": 8.3545,
-      "betPct": 1.9199,
-      "evPerDollar": 0.7623,
+      "bankroll": 8.2548,
+      "betPct": 1.9431,
+      "evPerDollar": 0.7762,
       "pnl": -0.1604,
       "won": false,
       "settledAt": "2026-11-10T23:02:26.321Z"
@@ -3233,15 +3217,15 @@
       "cat": "Crypto",
       "side": "yes",
       "price": 0.72,
-      "p": 0.8231,
+      "p": 0.8304,
       "mid": 0.705,
-      "contracts": 0.21,
+      "contracts": 0.2,
       "fee": 0.01,
-      "stake": 0.1612,
-      "bankroll": 8.3745,
-      "betPct": 1.9249,
-      "evPerDollar": 0.1154,
-      "pnl": -0.1612,
+      "stake": 0.154,
+      "bankroll": 8.2748,
+      "betPct": 1.8611,
+      "evPerDollar": 0.1256,
+      "pnl": -0.154,
       "won": false,
       "settledAt": "2026-11-10T23:02:01.312Z"
      },
@@ -3252,14 +3236,14 @@
       "cat": "Crypto",
       "side": "no",
       "price": 0.57,
-      "p": 0.1855,
+      "p": 0.1868,
       "mid": 0.465,
       "contracts": 0.28,
       "fee": 0.01,
       "stake": 0.1696,
-      "bankroll": 8.6616,
-      "betPct": 1.9581,
-      "evPerDollar": 0.3939,
+      "bankroll": 8.5677,
+      "betPct": 1.9795,
+      "evPerDollar": 0.3916,
       "pnl": 0.1104,
       "won": true,
       "settledAt": "2026-11-10T22:31:31.255Z"
@@ -3271,15 +3255,15 @@
       "cat": "Crypto",
       "side": "yes",
       "price": 0.09,
-      "p": 0.2396,
+      "p": 0.2418,
       "mid": 0.065,
-      "contracts": 1.7,
+      "contracts": 1.73,
       "fee": 0.01,
-      "stake": 0.163,
-      "bankroll": 8.6416,
-      "betPct": 1.8862,
-      "evPerDollar": 1.5511,
-      "pnl": -0.163,
+      "stake": 0.1657,
+      "bankroll": 8.5477,
+      "betPct": 1.9385,
+      "evPerDollar": 1.5756,
+      "pnl": -0.1657,
       "won": false,
       "settledAt": "2026-11-10T22:02:41.254Z"
      },
@@ -3290,14 +3274,14 @@
       "cat": "Crypto",
       "side": "no",
       "price": 0.43,
-      "p": 0.0875,
+      "p": 0.0886,
       "mid": 0.575,
       "contracts": 0.37,
       "fee": 0.01,
       "stake": 0.1691,
-      "bankroll": 8.6016,
-      "betPct": 1.9659,
-      "evPerDollar": 1.0756,
+      "bankroll": 8.5077,
+      "betPct": 1.9876,
+      "evPerDollar": 1.073,
       "pnl": -0.1691,
       "won": false,
       "settledAt": "2026-11-10T22:02:36.328Z"
@@ -3309,24 +3293,24 @@
       "cat": "Crypto",
       "side": "no",
       "price": 0.58,
-      "p": 0.1902,
+      "p": 0.1916,
       "mid": 0.43,
-      "contracts": 0.28,
+      "contracts": 0.27,
       "fee": 0.01,
-      "stake": 0.1724,
-      "bankroll": 8.6316,
-      "betPct": 1.9973,
-      "evPerDollar": 0.3617,
-      "pnl": 0.1076,
+      "stake": 0.1666,
+      "bankroll": 8.5377,
+      "betPct": 1.9513,
+      "evPerDollar": 0.3593,
+      "pnl": 0.1034,
       "won": true,
       "settledAt": "2026-11-10T22:02:36.326Z"
      }
     ],
     "monteCarlo": {
      "paths": 4000,
-     "conservativeShift": 0.0043,
-     "observedMeanReturn": -0.0085,
-     "growthPerBet": -0.0131,
+     "conservativeShift": 0.0044,
+     "observedMeanReturn": -0.0092,
+     "growthPerBet": -0.0139,
      "betsFor100x": null,
      "daysFor100x": null,
      "pBelowLowWater": 1,
@@ -3334,17 +3318,17 @@
       {
        "bets": 250,
        "pReachGoal": 0,
-       "medianEquity": 0.4959
+       "medianEquity": 0.495
       },
       {
        "bets": 1000,
        "pReachGoal": 0,
-       "medianEquity": 0.4946
+       "medianEquity": 0.4945
       },
       {
        "bets": 3000,
        "pReachGoal": 0,
-       "medianEquity": 0.4946
+       "medianEquity": 0.4945
       }
      ]
     }
@@ -5102,8 +5086,8 @@
   ]
  },
  "forward": {
-  "rows": 636,
-  "settled": 415,
+  "rows": 652,
+  "settled": 463,
   "portfolios": [
    {
     "id": "cash",
@@ -5185,7 +5169,7 @@
     "avgBetPct": 1.8949,
     "maxBetPct": 1.9798,
     "worstLossPct": -1.9766,
-    "betsPerDay": 113.9,
+    "betsPerDay": 112.1592,
     "trustNow": null,
     "busted": null,
     "reachedGoal": null,
@@ -6048,7 +6032,7 @@
     "avgBetPct": 2.3631,
     "maxBetPct": 2.502,
     "worstLossPct": -2.502,
-    "betsPerDay": 24.5667,
+    "betsPerDay": 24.1912,
     "trustNow": {
      "trust": 0,
      "why": "learning: 11/30 settled bets"
@@ -6617,7 +6601,7 @@
     "avgBetPct": 1.9538,
     "maxBetPct": 1.9788,
     "worstLossPct": -1.9659,
-    "betsPerDay": 29.0333,
+    "betsPerDay": 28.5896,
     "trustNow": null,
     "busted": null,
     "reachedGoal": null,
@@ -7224,10 +7208,10 @@
     "sizing": "learn",
     "equity": 7.0369,
     "cash": 7.0369,
-    "openPositions": 9,
+    "openPositions": 5,
     "returnPct": -29.631,
     "bets": 39,
-    "shadowBets": 27,
+    "shadowBets": 29,
     "settled": 39,
     "wins": 9,
     "pnl": -2.9631,
@@ -7237,11 +7221,11 @@
     "avgBetPct": 2.4867,
     "maxBetPct": 2.9969,
     "worstLossPct": -2.9969,
-    "betsPerDay": 87.1,
+    "betsPerDay": 85.7688,
     "trustNow": {
      "trust": 0,
      "pause": true,
-     "why": "losing even on the optimistic estimate (-0.102 per $): paused, tracking shadow bets"
+     "why": "losing even on the optimistic estimate (-0.1111 per $): paused, tracking shadow bets"
     },
     "busted": null,
     "reachedGoal": null,
@@ -7409,6 +7393,44 @@
     ],
     "recent": [
      {
+      "ts": "2026-11-11T04:05:13.852Z",
+      "ticker": "KXGOLDH-26NOV1100-T4049.99",
+      "title": "Will the gold close price be above 4049.99 USD/ounce on November 11, 2026 at 12:00 AM ET? — Above $4049.99",
+      "cat": "Commodities",
+      "side": "no",
+      "price": 0.62,
+      "p": 0.3231,
+      "mid": 0.405,
+      "contracts": 0.4032,
+      "fee": 0.01,
+      "shadow": true,
+      "stake": 0.26,
+      "bankroll": 7.0369,
+      "betPct": 0,
+      "evPerDollar": 0.0595,
+      "pnl": null,
+      "won": null
+     },
+     {
+      "ts": "2026-11-11T04:05:13.852Z",
+      "ticker": "KXGOLDH-26NOV1100-T4047.99",
+      "title": "Will the gold close price be above 4047.99 USD/ounce on November 11, 2026 at 12:00 AM ET? — Above $4047.99",
+      "cat": "Commodities",
+      "side": "no",
+      "price": 0.47,
+      "p": 0.4781,
+      "mid": 0.56,
+      "contracts": 0.5319,
+      "fee": 0.01,
+      "shadow": true,
+      "stake": 0.26,
+      "bankroll": 7.0369,
+      "betPct": 0,
+      "evPerDollar": 0.0679,
+      "pnl": null,
+      "won": null
+     },
+     {
       "ts": "2026-11-11T03:35:23.968Z",
       "ticker": "KXTEMPCHIHS-26NOV1023-T44.99",
       "title": "Will the temp in Chicago Metro Area be above 44.99° on Nov 10, 2026 at 11pm EST? — 45° or above",
@@ -7443,8 +7465,9 @@
       "bankroll": 7.0369,
       "betPct": 0,
       "evPerDollar": 0.3211,
-      "pnl": null,
-      "won": null
+      "pnl": -0.27,
+      "won": false,
+      "settledAt": "2026-11-11T04:00:00.000Z"
      },
      {
       "ts": "2026-11-11T03:25:24.673Z",
@@ -7462,8 +7485,9 @@
       "bankroll": 7.0369,
       "betPct": 0,
       "evPerDollar": 0.0357,
-      "pnl": null,
-      "won": null
+      "pnl": 0.0486,
+      "won": true,
+      "settledAt": "2026-11-11T04:00:00.000Z"
      },
      {
       "ts": "2026-11-11T03:25:24.673Z",
@@ -7481,8 +7505,9 @@
       "bankroll": 7.0369,
       "betPct": 0,
       "evPerDollar": 0.0224,
-      "pnl": null,
-      "won": null
+      "pnl": 0.0088,
+      "won": true,
+      "settledAt": "2026-11-11T04:02:31.335Z"
      },
      {
       "ts": "2026-11-11T03:25:24.673Z",
@@ -7500,8 +7525,9 @@
       "bankroll": 7.0369,
       "betPct": 0,
       "evPerDollar": 0.1927,
-      "pnl": null,
-      "won": null
+      "pnl": -0.27,
+      "won": false,
+      "settledAt": "2026-11-11T04:00:00.000Z"
      },
      {
       "ts": "2026-11-11T03:25:24.673Z",
@@ -7519,8 +7545,9 @@
       "bankroll": 7.0369,
       "betPct": 0,
       "evPerDollar": 0.0248,
-      "pnl": null,
-      "won": null
+      "pnl": 0.0376,
+      "won": true,
+      "settledAt": "2026-11-11T04:02:31.335Z"
      },
      {
       "ts": "2026-11-11T03:15:23.885Z",
@@ -7538,8 +7565,9 @@
       "bankroll": 7.0369,
       "betPct": 0,
       "evPerDollar": 0.0343,
-      "pnl": null,
-      "won": null
+      "pnl": 0.0971,
+      "won": true,
+      "settledAt": "2026-11-11T04:02:06.317Z"
      },
      {
       "ts": "2026-11-11T03:15:23.885Z",
@@ -7656,46 +7684,6 @@
       "betPct": 0,
       "evPerDollar": 0.0789,
       "pnl": -0.27,
-      "won": false,
-      "settledAt": "2026-11-11T03:00:00.000Z"
-     },
-     {
-      "ts": "2026-11-11T02:24:52.516Z",
-      "ticker": "KXGOLDH-26NOV1022-T4041.99",
-      "title": "Will the gold close price be above 4041.99 USD/ounce on November 10, 2026 at 10:00 PM ET? — Above $4041.99",
-      "cat": "Commodities",
-      "side": "no",
-      "price": 0.62,
-      "p": 0.3181,
-      "mid": 0.4,
-      "contracts": 0.4032,
-      "fee": 0.01,
-      "shadow": true,
-      "stake": 0.26,
-      "bankroll": 7.0369,
-      "betPct": 0,
-      "evPerDollar": 0.0676,
-      "pnl": -0.26,
-      "won": false,
-      "settledAt": "2026-11-11T03:05:16.310Z"
-     },
-     {
-      "ts": "2026-11-11T02:14:52.148Z",
-      "ticker": "KXTEMPCHIHS-26NOV1022-T44.99",
-      "title": "Will the temp in Chicago Metro Area be above 44.99° on Nov 10, 2026 at 10pm EST? — 45° or above",
-      "cat": "Climate and Weather",
-      "side": "yes",
-      "price": 0.66,
-      "p": 0.7021,
-      "mid": 0.635,
-      "contracts": 0.3788,
-      "fee": 0.01,
-      "shadow": true,
-      "stake": 0.26,
-      "bankroll": 7.0369,
-      "betPct": 0,
-      "evPerDollar": 0.0335,
-      "pnl": -0.26,
       "won": false,
       "settledAt": "2026-11-11T03:00:00.000Z"
      }
@@ -8127,25 +8115,25 @@
     "name": "Crypto fair value, learned bet size",
     "predictor": "crypto_fair",
     "sizing": "learn",
-    "equity": 10.6414,
-    "cash": 8.1404,
-    "openPositions": 18,
-    "returnPct": 6.414,
-    "bets": 33,
+    "equity": 8.8504,
+    "cash": 8.5141,
+    "openPositions": 3,
+    "returnPct": -11.496,
+    "bets": 36,
     "shadowBets": 0,
-    "settled": 15,
-    "wins": 3,
-    "pnl": 0.8414,
-    "fees": 0.47,
-    "maxDrawdownPct": 20.4601,
-    "lowest": 9.7032,
-    "avgBetPct": 1.6972,
+    "settled": 33,
+    "wins": 7,
+    "pnl": -1.1196,
+    "fees": 0.5,
+    "maxDrawdownPct": 34.7835,
+    "lowest": 8.8399,
+    "avgBetPct": 1.6705,
     "maxBetPct": 2.4894,
     "worstLossPct": -2.468,
-    "betsPerDay": 73.7,
+    "betsPerDay": 79.1712,
     "trustNow": {
      "trust": 0,
-     "why": "learning: 15/30 settled bets"
+     "why": "edge not proven yet (return per $ -0.2928, conservative -0.6565)"
     },
     "busted": null,
     "reachedGoal": null,
@@ -8213,9 +8201,135 @@
      [
       1794366706345,
       10.7814
+     ],
+     [
+      1794369726311,
+      10.4134
+     ],
+     [
+      1794369726311,
+      10.3
+     ],
+     [
+      1794369726311,
+      10.186
+     ],
+     [
+      1794369726311,
+      10.072
+     ],
+     [
+      1794369726317,
+      10.12
+     ],
+     [
+      1794369726317,
+      10.01
+     ],
+     [
+      1794369746312,
+      9.7838
+     ],
+     [
+      1794369746312,
+      9.6698
+     ],
+     [
+      1794369746312,
+      9.5558
+     ],
+     [
+      1794369746312,
+      9.4418
+     ],
+     [
+      1794369746318,
+      9.4778
+     ],
+     [
+      1794369746318,
+      9.5258
+     ],
+     [
+      1794369751335,
+      9.4148
+     ],
+     [
+      1794369751335,
+      9.3026
+     ],
+     [
+      1794369751335,
+      9.1887
+     ],
+     [
+      1794369751335,
+      9.0751
+     ],
+     [
+      1794369751337,
+      8.8399
+     ],
+     [
+      1794369751337,
+      8.8804
      ]
     ],
     "recent": [
+     {
+      "ts": "2026-11-11T04:05:13.852Z",
+      "ticker": "KXBTC-26NOV1100-B73750",
+      "title": "Bitcoin price range on Nov 11, 2026? — $73,700 to 73,799.99",
+      "cat": "Crypto",
+      "side": "no",
+      "price": 0.78,
+      "p": 0.1579,
+      "mid": 0.225,
+      "contracts": 0.14,
+      "fee": 0.01,
+      "stake": 0.1192,
+      "bankroll": 8.8604,
+      "betPct": 1.3453,
+      "evPerDollar": 0.054,
+      "pnl": null,
+      "won": null
+     },
+     {
+      "ts": "2026-11-11T04:05:13.852Z",
+      "ticker": "KXSOLD-26NOV1100-T82.9999",
+      "title": "SOL price on Nov 11, 2026? — $83 or above",
+      "cat": "Crypto",
+      "side": "no",
+      "price": 0.15,
+      "p": 0.7735,
+      "mid": 0.855,
+      "contracts": 0.76,
+      "fee": 0.01,
+      "stake": 0.124,
+      "bankroll": 8.8704,
+      "betPct": 1.3979,
+      "evPerDollar": 0.4433,
+      "pnl": null,
+      "won": null
+     },
+     {
+      "ts": "2026-11-11T04:05:13.852Z",
+      "ticker": "KXXRPD-26NOV1100-T1.0599",
+      "title": "Ripple price at Nov 11, 2026 at 12am EST? — $1.05991 or above",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.29,
+      "p": 0.3349,
+      "mid": 0.275,
+      "contracts": 0.39,
+      "fee": 0.01,
+      "stake": 0.1231,
+      "bankroll": 8.8804,
+      "betPct": 1.3862,
+      "evPerDollar": 0.0859,
+      "pnl": null,
+      "won": null
+     },
      {
       "ts": "2026-11-11T03:35:23.968Z",
       "ticker": "KXSOLD-26NOV1023-T82.9999",
@@ -8231,8 +8345,9 @@
       "bankroll": 10.6514,
       "betPct": 1.1642,
       "evPerDollar": 0.615,
-      "pnl": null,
-      "won": null
+      "pnl": -0.124,
+      "won": false,
+      "settledAt": "2026-11-11T04:02:06.311Z"
      },
      {
       "ts": "2026-11-11T03:35:23.968Z",
@@ -8249,8 +8364,9 @@
       "bankroll": 10.6614,
       "betPct": 1.1256,
       "evPerDollar": 0.2209,
-      "pnl": null,
-      "won": null
+      "pnl": -0.12,
+      "won": false,
+      "settledAt": "2026-11-11T04:02:06.317Z"
      },
      {
       "ts": "2026-11-11T03:25:24.673Z",
@@ -8267,8 +8383,9 @@
       "bankroll": 10.6714,
       "betPct": 1.162,
       "evPerDollar": 0.44,
-      "pnl": null,
-      "won": null
+      "pnl": -0.124,
+      "won": false,
+      "settledAt": "2026-11-11T04:02:26.312Z"
      },
      {
       "ts": "2026-11-11T03:25:24.673Z",
@@ -8285,8 +8402,9 @@
       "bankroll": 10.6814,
       "betPct": 1.1609,
       "evPerDollar": 0.1987,
-      "pnl": null,
-      "won": null
+      "pnl": -0.124,
+      "won": false,
+      "settledAt": "2026-11-11T04:02:06.311Z"
      },
      {
       "ts": "2026-11-11T03:25:24.673Z",
@@ -8303,8 +8421,9 @@
       "bankroll": 10.6914,
       "betPct": 1.1561,
       "evPerDollar": 0.655,
-      "pnl": null,
-      "won": null
+      "pnl": -0.1236,
+      "won": false,
+      "settledAt": "2026-11-11T04:02:31.335Z"
      },
      {
       "ts": "2026-11-11T03:25:24.673Z",
@@ -8321,8 +8440,9 @@
       "bankroll": 10.7014,
       "betPct": 1.1578,
       "evPerDollar": 0.4165,
-      "pnl": null,
-      "won": null
+      "pnl": -0.1239,
+      "won": false,
+      "settledAt": "2026-11-11T04:02:31.335Z"
      },
      {
       "ts": "2026-11-11T03:15:23.885Z",
@@ -8339,8 +8459,9 @@
       "bankroll": 10.7114,
       "betPct": 1.139,
       "evPerDollar": 0.1024,
-      "pnl": null,
-      "won": null
+      "pnl": 0.038,
+      "won": true,
+      "settledAt": "2026-11-11T04:02:26.318Z"
      },
      {
       "ts": "2026-11-11T03:15:23.885Z",
@@ -8357,8 +8478,9 @@
       "bankroll": 10.7214,
       "betPct": 1.1566,
       "evPerDollar": 0.0268,
-      "pnl": null,
-      "won": null
+      "pnl": 0.026,
+      "won": true,
+      "settledAt": "2026-11-11T04:02:26.318Z"
      },
      {
       "ts": "2026-11-11T03:15:23.885Z",
@@ -8375,8 +8497,9 @@
       "bankroll": 10.7314,
       "betPct": 1.1499,
       "evPerDollar": 0.1352,
-      "pnl": null,
-      "won": null
+      "pnl": -0.1234,
+      "won": false,
+      "settledAt": "2026-11-11T04:02:06.311Z"
      },
      {
       "ts": "2026-11-11T03:15:23.885Z",
@@ -8393,8 +8516,9 @@
       "bankroll": 10.7414,
       "betPct": 1.1358,
       "evPerDollar": 0.088,
-      "pnl": null,
-      "won": null
+      "pnl": 0.038,
+      "won": true,
+      "settledAt": "2026-11-11T04:02:06.317Z"
      },
      {
       "ts": "2026-11-11T03:15:23.885Z",
@@ -8411,8 +8535,9 @@
       "bankroll": 10.7514,
       "betPct": 1.1533,
       "evPerDollar": 0.2325,
-      "pnl": null,
-      "won": null
+      "pnl": -0.124,
+      "won": false,
+      "settledAt": "2026-11-11T04:02:26.312Z"
      },
      {
       "ts": "2026-11-11T03:15:23.885Z",
@@ -8429,91 +8554,38 @@
       "bankroll": 10.7614,
       "betPct": 1.1523,
       "evPerDollar": 0.3132,
-      "pnl": null,
-      "won": null
-     },
-     {
-      "ts": "2026-11-11T03:15:23.885Z",
-      "ticker": "KXBTCD-26NOV1023-T73899.99",
-      "title": "Bitcoin price on Nov 10, 2026? — $73,900 or above",
-      "cat": "Crypto",
-      "side": "yes",
-      "price": 0.22,
-      "p": 0.295,
-      "mid": 0.215,
-      "contracts": 0.51,
-      "fee": 0.01,
-      "stake": 0.1222,
-      "bankroll": 10.7714,
-      "betPct": 1.1345,
-      "evPerDollar": 0.25,
-      "pnl": null,
-      "won": null
-     },
-     {
-      "ts": "2026-11-11T03:15:23.885Z",
-      "ticker": "KXBTCD-26NOV1023-T73799.99",
-      "title": "Bitcoin price on Nov 10, 2026? — $73,800 or above",
-      "cat": "Crypto",
-      "side": "yes",
-      "price": 0.37,
-      "p": 0.4252,
-      "mid": 0.365,
-      "contracts": 0.3,
-      "fee": 0.01,
-      "stake": 0.121,
-      "bankroll": 10.7814,
-      "betPct": 1.1223,
-      "evPerDollar": 0.0951,
-      "pnl": null,
-      "won": null
-     },
-     {
-      "ts": "2026-11-11T03:05:24.408Z",
-      "ticker": "KXBTC-26NOV1023-B73750",
-      "title": "Bitcoin price range on Nov 10, 2026? — $73,700 to 73,799.99",
-      "cat": "Crypto",
-      "side": "no",
-      "price": 0.85,
-      "p": 0.1168,
-      "mid": 0.155,
-      "contracts": 0.27,
-      "fee": 0.01,
-      "stake": 0.2395,
-      "bankroll": 11.2444,
-      "betPct": 2.1299,
-      "evPerDollar": 0.0273,
-      "pnl": null,
-      "won": null
+      "pnl": -0.124,
+      "won": false,
+      "settledAt": "2026-11-11T04:02:26.312Z"
      }
     ],
     "stats": {
-     "trades": 15,
-     "wins": 3,
-     "losses": 12,
-     "winRate": 0.2,
-     "grossProfit": 3.8015,
-     "grossLoss": 2.9601,
-     "net": 0.8414,
-     "profitFactor": 1.2842,
+     "trades": 33,
+     "wins": 7,
+     "losses": 26,
+     "winRate": 0.2121,
+     "grossProfit": 3.934,
+     "grossLoss": 5.0536,
+     "net": -1.1196,
+     "profitFactor": 0.7785,
      "best": 2.2823,
      "worst": -0.248,
-     "expectedPayoff": 0.0561,
-     "recoveryFactor": 0.3034,
-     "perBetSharpe": 0.1349,
-     "avgDailyPnl": 0.8414,
+     "expectedPayoff": -0.0339,
+     "recoveryFactor": -0.2375,
+     "perBetSharpe": -0.0225,
+     "avgDailyPnl": -1.1196,
      "lastDay": {
       "date": "2026-11-11",
-      "pnl": 0.8414
+      "pnl": -1.1196
      },
      "streak": {
       "kind": "loss",
-      "n": 11
+      "n": 1
      },
      "daily": [
       {
        "date": "2026-11-11",
-       "pnl": 0.8414
+       "pnl": -1.1196
       }
      ],
      "drawdown": [
@@ -8580,209 +8652,306 @@
       [
        1794366706345,
        -20.4601
+      ],
+      [
+       1794369726311,
+       -23.175
+      ],
+      [
+       1794369726311,
+       -24.0116
+      ],
+      [
+       1794369726311,
+       -24.8526
+      ],
+      [
+       1794369726311,
+       -25.6937
+      ],
+      [
+       1794369726317,
+       -25.3396
+      ],
+      [
+       1794369726317,
+       -26.1511
+      ],
+      [
+       1794369746312,
+       -27.8199
+      ],
+      [
+       1794369746312,
+       -28.6609
+      ],
+      [
+       1794369746312,
+       -29.5019
+      ],
+      [
+       1794369746312,
+       -30.343
+      ],
+      [
+       1794369746318,
+       -30.0774
+      ],
+      [
+       1794369746318,
+       -29.7233
+      ],
+      [
+       1794369751335,
+       -30.5422
+      ],
+      [
+       1794369751335,
+       -31.3699
+      ],
+      [
+       1794369751335,
+       -32.2102
+      ],
+      [
+       1794369751335,
+       -33.0483
+      ],
+      [
+       1794369751337,
+       -34.7835
+      ],
+      [
+       1794369751337,
+       -34.4847
       ]
      ]
     },
     "review": {
-     "n": 15,
-     "netCloser": 0.2,
-     "losses": 12,
-     "firstHalf": 0.4286,
-     "secondHalf": 0
+     "n": 33,
+     "netCloser": 0.2121,
+     "losses": 26,
+     "firstHalf": 0.1875,
+     "secondHalf": 0.2353
     },
     "closed": [
      {
-      "ts": "2026-11-11T02:24:52.516Z",
-      "ticker": "KXBTCD-26NOV1022-T73199.99",
-      "title": "Bitcoin price on Nov 10, 2026? — $73,200 or above",
+      "ts": "2026-11-11T03:05:24.408Z",
+      "ticker": "KXBTC-26NOV1023-B73650",
+      "title": "Bitcoin price range on Nov 10, 2026? — $73,600 to 73,699.99",
       "cat": "Crypto",
       "side": "no",
-      "price": 0.26,
-      "p": 0.6159,
-      "mid": 0.745,
-      "contracts": 0.87,
-      "fee": 0.02,
-      "stake": 0.2462,
-      "bankroll": 12.3074,
-      "betPct": 2.0004,
-      "evPerDollar": 0.4004,
-      "pnl": -0.2462,
-      "won": false,
-      "settledAt": "2026-11-11T03:11:46.345Z"
-     },
-     {
-      "ts": "2026-11-11T02:24:52.516Z",
-      "ticker": "KXBTCD-26NOV1022-T73099.99",
-      "title": "Bitcoin price on Nov 10, 2026? — $73,100 or above",
-      "cat": "Crypto",
-      "side": "no",
-      "price": 0.14,
-      "p": 0.7658,
-      "mid": 0.865,
-      "contracts": 1.62,
-      "fee": 0.02,
-      "stake": 0.2468,
-      "bankroll": 12.2874,
-      "betPct": 2.0086,
-      "evPerDollar": 0.6014,
-      "pnl": -0.2468,
-      "won": false,
-      "settledAt": "2026-11-11T03:11:46.345Z"
-     },
-     {
-      "ts": "2026-11-11T02:04:52.490Z",
-      "ticker": "KXBTC-26NOV1022-B73550",
-      "title": "Bitcoin price range on Nov 10, 2026? — $73,500 to 73,599.99",
-      "cat": "Crypto",
-      "side": "no",
-      "price": 0.83,
-      "p": 0.1391,
-      "mid": 0.175,
+      "price": 0.84,
+      "p": 0.1236,
+      "mid": 0.165,
       "contracts": 0.28,
       "fee": 0.01,
-      "stake": 0.2424,
-      "bankroll": 12.3174,
-      "betPct": 1.9679,
-      "evPerDollar": 0.0252,
-      "pnl": -0.2424,
+      "stake": 0.2452,
+      "bankroll": 11.2744,
+      "betPct": 2.1748,
+      "evPerDollar": 0.0314,
+      "pnl": -0.2452,
       "won": false,
-      "settledAt": "2026-11-11T03:02:16.511Z"
+      "settledAt": "2026-11-11T04:02:31.337Z"
      },
      {
-      "ts": "2026-11-11T02:24:52.516Z",
-      "ticker": "KXBTC-26NOV1022-B73050",
-      "title": "Bitcoin price range on Nov 10, 2026? — $73,000 to 73,099.99",
-      "cat": "Crypto",
-      "side": "yes",
-      "price": 0.08,
-      "p": 0.1104,
-      "mid": 0.065,
-      "contracts": 2.85,
-      "fee": 0.02,
-      "stake": 0.248,
-      "bankroll": 12.2574,
-      "betPct": 2.0233,
-      "evPerDollar": 0.255,
-      "pnl": -0.248,
-      "won": false,
-      "settledAt": "2026-11-11T03:02:16.511Z"
-     },
-     {
-      "ts": "2026-11-11T02:24:52.516Z",
-      "ticker": "KXSOLD-26NOV1022-T82.9999",
-      "title": "SOL price on Nov 10, 2026? — $83 or above",
-      "cat": "Crypto",
-      "side": "no",
-      "price": 0.46,
-      "p": 0.4793,
-      "mid": 0.555,
-      "contracts": 0.51,
-      "fee": 0.01,
-      "stake": 0.2446,
-      "bankroll": 12.2674,
-      "betPct": 1.9939,
-      "evPerDollar": 0.0885,
-      "pnl": -0.2446,
-      "won": false,
-      "settledAt": "2026-11-11T03:01:46.417Z"
-     },
-     {
-      "ts": "2026-11-11T02:34:51.895Z",
-      "ticker": "KXSOLD-26NOV1022-T82.7499",
-      "title": "SOL price on Nov 10, 2026? — $82.75 or above",
-      "cat": "Crypto",
-      "side": "no",
-      "price": 0.08,
-      "p": 0.8707,
-      "mid": 0.93,
-      "contracts": 2.85,
-      "fee": 0.02,
-      "stake": 0.248,
-      "bankroll": 12.2374,
-      "betPct": 2.0266,
-      "evPerDollar": 0.4912,
-      "pnl": -0.248,
-      "won": false,
-      "settledAt": "2026-11-11T03:01:46.417Z"
-     },
-     {
-      "ts": "2026-11-11T01:29:45.157Z",
-      "ticker": "KXBNBD-26NOV1021-T679.99",
-      "title": "BNB price on Nov 10, 2026? — $680 or above",
-      "cat": "Crypto",
-      "side": "no",
-      "price": 0.23,
-      "p": 0.6615,
-      "mid": 0.775,
-      "contracts": 0.99,
-      "fee": 0.02,
-      "stake": 0.2477,
-      "bankroll": 12.7929,
-      "betPct": 1.9362,
-      "evPerDollar": 0.3848,
-      "pnl": -0.2477,
-      "won": false,
-      "settledAt": "2026-11-11T02:03:16.256Z"
-     },
-     {
-      "ts": "2026-11-11T01:29:45.157Z",
-      "ticker": "KXBTC-26NOV1021-B73750",
+      "ts": "2026-11-11T03:05:24.408Z",
+      "ticker": "KXBTC-26NOV1023-B73750",
       "title": "Bitcoin price range on Nov 10, 2026? — $73,700 to 73,799.99",
       "cat": "Crypto",
-      "side": "yes",
-      "price": 0.17,
-      "p": 0.2022,
-      "mid": 0.165,
-      "contracts": 1.34,
-      "fee": 0.02,
-      "stake": 0.2478,
-      "bankroll": 12.8129,
-      "betPct": 1.934,
-      "evPerDollar": 0.1306,
-      "pnl": -0.2478,
-      "won": false,
-      "settledAt": "2026-11-11T02:02:56.351Z"
+      "side": "no",
+      "price": 0.85,
+      "p": 0.1168,
+      "mid": 0.155,
+      "contracts": 0.27,
+      "fee": 0.01,
+      "stake": 0.2395,
+      "bankroll": 11.2444,
+      "betPct": 2.1299,
+      "evPerDollar": 0.0273,
+      "pnl": 0.0305,
+      "won": true,
+      "settledAt": "2026-11-11T04:02:31.337Z"
      },
      {
-      "ts": "2026-11-11T00:05:14.630Z",
-      "ticker": "KXBTCD-26NOV1020-T73799.99",
+      "ts": "2026-11-11T03:15:23.885Z",
+      "ticker": "KXBTCD-26NOV1023-T73799.99",
       "title": "Bitcoin price on Nov 10, 2026? — $73,800 or above",
       "cat": "Crypto",
       "side": "yes",
-      "price": 0.31,
-      "p": 0.3578,
-      "mid": 0.305,
-      "contracts": 0.73,
-      "fee": 0.02,
-      "stake": 0.2463,
-      "bankroll": 13.5547,
-      "betPct": 1.8171,
-      "evPerDollar": 0.0897,
-      "pnl": -0.2463,
+      "price": 0.37,
+      "p": 0.4252,
+      "mid": 0.365,
+      "contracts": 0.3,
+      "fee": 0.01,
+      "stake": 0.121,
+      "bankroll": 10.7814,
+      "betPct": 1.1223,
+      "evPerDollar": 0.0951,
+      "pnl": -0.121,
       "won": false,
-      "settledAt": "2026-11-11T01:03:11.286Z"
+      "settledAt": "2026-11-11T04:02:31.335Z"
      },
      {
-      "ts": "2026-11-11T00:15:14.082Z",
-      "ticker": "KXETHD-26NOV1020-T2044.99",
-      "title": "Ethereum price at Nov 10, 2026 at 8pm EST? — $2,045 or above",
+      "ts": "2026-11-11T03:15:23.885Z",
+      "ticker": "KXBTCD-26NOV1023-T73899.99",
+      "title": "Bitcoin price on Nov 10, 2026? — $73,900 or above",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.22,
+      "p": 0.295,
+      "mid": 0.215,
+      "contracts": 0.51,
+      "fee": 0.01,
+      "stake": 0.1222,
+      "bankroll": 10.7714,
+      "betPct": 1.1345,
+      "evPerDollar": 0.25,
+      "pnl": -0.1222,
+      "won": false,
+      "settledAt": "2026-11-11T04:02:31.335Z"
+     },
+     {
+      "ts": "2026-11-11T03:25:24.673Z",
+      "ticker": "KXBTCD-26NOV1023-T73499.99",
+      "title": "Bitcoin price on Nov 10, 2026? — $73,500 or above",
       "cat": "Crypto",
       "side": "no",
-      "price": 0.2,
-      "p": 0.7555,
-      "mid": 0.805,
-      "contracts": 1.14,
-      "fee": 0.02,
-      "stake": 0.248,
-      "bankroll": 13.5347,
-      "betPct": 1.8323,
-      "evPerDollar": 0.1225,
-      "pnl": -0.248,
+      "price": 0.17,
+      "p": 0.7492,
+      "mid": 0.835,
+      "contracts": 0.67,
+      "fee": 0.01,
+      "stake": 0.1239,
+      "bankroll": 10.7014,
+      "betPct": 1.1578,
+      "evPerDollar": 0.4165,
+      "pnl": -0.1239,
       "won": false,
-      "settledAt": "2026-11-11T01:02:56.271Z"
+      "settledAt": "2026-11-11T04:02:31.335Z"
+     },
+     {
+      "ts": "2026-11-11T03:25:24.673Z",
+      "ticker": "KXBTCD-26NOV1023-T73399.99",
+      "title": "Bitcoin price on Nov 10, 2026? — $73,400 or above",
+      "cat": "Crypto",
+      "side": "no",
+      "price": 0.08,
+      "p": 0.8576,
+      "mid": 0.925,
+      "contracts": 1.42,
+      "fee": 0.01,
+      "stake": 0.1236,
+      "bankroll": 10.6914,
+      "betPct": 1.1561,
+      "evPerDollar": 0.655,
+      "pnl": -0.1236,
+      "won": false,
+      "settledAt": "2026-11-11T04:02:31.335Z"
+     },
+     {
+      "ts": "2026-11-11T03:15:23.885Z",
+      "ticker": "KXETH-26NOV1023-B2067",
+      "title": "Ethereum price at Nov 10, 2026 at 11pm EST? — $2,065 to 2,069.99",
+      "cat": "Crypto",
+      "side": "no",
+      "price": 0.76,
+      "p": 0.1996,
+      "mid": 0.26,
+      "contracts": 0.15,
+      "fee": 0.01,
+      "stake": 0.124,
+      "bankroll": 10.7214,
+      "betPct": 1.1566,
+      "evPerDollar": 0.0268,
+      "pnl": 0.026,
+      "won": true,
+      "settledAt": "2026-11-11T04:02:26.318Z"
+     },
+     {
+      "ts": "2026-11-11T03:15:23.885Z",
+      "ticker": "KXETH-26NOV1023-B2062",
+      "title": "Ethereum price at Nov 10, 2026 at 11pm EST? — $2,060 to 2,064.99",
+      "cat": "Crypto",
+      "side": "no",
+      "price": 0.7,
+      "p": 0.2083,
+      "mid": 0.31,
+      "contracts": 0.16,
+      "fee": 0.01,
+      "stake": 0.122,
+      "bankroll": 10.7114,
+      "betPct": 1.139,
+      "evPerDollar": 0.1024,
+      "pnl": 0.038,
+      "won": true,
+      "settledAt": "2026-11-11T04:02:26.318Z"
+     },
+     {
+      "ts": "2026-11-11T03:05:24.408Z",
+      "ticker": "KXETHD-26NOV1023-T2064.99",
+      "title": "Ethereum price at Nov 10, 2026 at 11pm EST? — $2,065 or above",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.26,
+      "p": 0.3205,
+      "mid": 0.255,
+      "contracts": 0.87,
+      "fee": 0.02,
+      "stake": 0.2462,
+      "bankroll": 11.2944,
+      "betPct": 2.1798,
+      "evPerDollar": 0.1558,
+      "pnl": -0.2462,
+      "won": false,
+      "settledAt": "2026-11-11T04:02:26.312Z"
+     },
+     {
+      "ts": "2026-11-11T03:15:23.885Z",
+      "ticker": "KXETHD-26NOV1023-T2069.99",
+      "title": "Ethereum price at Nov 10, 2026 at 11pm EST? — $2,070 or above",
+      "cat": "Crypto",
+      "side": "yes",
+      "price": 0.19,
+      "p": 0.2695,
+      "mid": 0.16,
+      "contracts": 0.6,
+      "fee": 0.01,
+      "stake": 0.124,
+      "bankroll": 10.7614,
+      "betPct": 1.1523,
+      "evPerDollar": 0.3132,
+      "pnl": -0.124,
+      "won": false,
+      "settledAt": "2026-11-11T04:02:26.312Z"
      }
     ],
-    "monteCarlo": null
+    "monteCarlo": {
+     "paths": 4000,
+     "conservativeShift": 0.0087,
+     "observedMeanReturn": -0.0011,
+     "growthPerBet": -0.0109,
+     "betsFor100x": null,
+     "daysFor100x": null,
+     "pBelowLowWater": 1,
+     "byHorizon": [
+      {
+       "bets": 250,
+       "pReachGoal": 0,
+       "medianEquity": 0.6116
+      },
+      {
+       "bets": 1000,
+       "pReachGoal": 0,
+       "medianEquity": 0.4941
+      },
+      {
+       "bets": 3000,
+       "pReachGoal": 0,
+       "medianEquity": 0.4941
+      }
+     ]
+    }
    },
    {
     "id": "weather-learn",
@@ -8804,7 +8973,7 @@
     "avgBetPct": 2.2228,
     "maxBetPct": 3.018,
     "worstLossPct": -3.0107,
-    "betsPerDay": 67,
+    "betsPerDay": 65.976,
     "trustNow": {
      "trust": 0,
      "pause": true,
