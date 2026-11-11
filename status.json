@@ -1,18 +1,18 @@
 {
- "updated": "2026-11-11T03:06:14.410Z",
+ "updated": "2026-11-11T03:15:44.931Z",
  "trade": {
   "answer": "No — don't trade real money yet",
   "tone": "bad",
-  "why": "Nothing has proven an edge after fees. Live: 1084 markets resolved (353 events); a verdict needs 100+ and the 95% range must exclude zero. Network on unseen past markets: no measurable difference.",
+  "why": "Nothing has proven an edge after fees. Live: 1101 markets resolved (358 events); a verdict needs 100+ and the 95% range must exclude zero. Network on unseen past markets: no measurable difference.",
   "next": "Let it keep collecting. The answer changes automatically when a strategy reaches SUCCESS on the live record."
  },
  "learning": [
-  "Live record: 1084 of 1285 predictions resolved so far (353 separate events).",
+  "Live record: 1101 of 1308 predictions resolved so far (358 separate events).",
   "longshot: retired — 2026-11-10: FAILURE_RETIRE (no measurable edge after 832 resolved; backtest 1334, no difference). Owner approved.",
-  "memory: failure retire — no measurable edge after 534 resolved — recommend retiring this hypothesis",
-  "nn: failure retire — no measurable edge after 393 resolved — recommend retiring this hypothesis",
-  "crypto_fair: off track — not beating the market so far (+0.0018) — wait for 6 more resolved before judging",
-  "weather_nws: off track — not beating the market so far (+0.3576) — wait for 73 more resolved before judging",
+  "memory: failure retire — no measurable edge after 551 resolved — recommend retiring this hypothesis",
+  "nn: failure retire — no measurable edge after 410 resolved — recommend retiring this hypothesis",
+  "crypto_fair: off track — not beating the market so far (+0.0023) — wait for 0 more resolved before judging",
+  "weather_nws: off track — not beating the market so far (+0.3646) — wait for 64 more resolved before judging",
   "Neural network: tested on 1816 past markets it never saw → no measurable difference (Brier 0.1713 vs market 0.1711).",
   "Training history: 12 runs; data grew 736 → 2270 markets; gap vs market 0.0014 → 0.0002 (below 0 = better than market).",
   "Network learning check: gap vs market by amount of training data 454→+0.0004, 908→-0.0001, 1362→+0.0003, 1816→+0.0002 (shrinking = learning; ~0 = copying the market).",
@@ -63,13 +63,57 @@
    "price": 0.85,
    "ev": 0.0232,
    "url": "https://kalshi.com/markets/kxbtc"
+  },
+  {
+   "title": "Bitcoin price on Nov 10, 2026? — $73,800 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-11T04:00:00.000Z",
+   "predictor": "crypto_fair",
+   "status": "OFF_TRACK",
+   "side": "yes",
+   "price": 0.37,
+   "ev": 0.0352,
+   "url": "https://kalshi.com/markets/kxbtcd"
+  },
+  {
+   "title": "Will the temp in Miami be above 76.99° on Nov 10, 2026 at 11pm EST? — 77° or above",
+   "cat": "Climate and Weather",
+   "resolvesAt": "2026-11-11T04:00:00.000Z",
+   "predictor": "weather_nws",
+   "status": "OFF_TRACK",
+   "side": "yes",
+   "price": 0.68,
+   "ev": 0.2306,
+   "url": "https://kalshi.com/markets/kxtempmiah"
+  },
+  {
+   "title": "Bitcoin price on Nov 10, 2026? — $73,900 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-11T04:00:00.000Z",
+   "predictor": "crypto_fair",
+   "status": "OFF_TRACK",
+   "side": "yes",
+   "price": 0.22,
+   "ev": 0.055,
+   "url": "https://kalshi.com/markets/kxbtcd"
+  },
+  {
+   "title": "Will the temp in Chicago Metro Area be above 43.99° on Nov 10, 2026 at 11pm EST? — 44° or above",
+   "cat": "Climate and Weather",
+   "resolvesAt": "2026-11-11T04:00:00.000Z",
+   "predictor": "weather_nws",
+   "status": "OFF_TRACK",
+   "side": "yes",
+   "price": 0.32,
+   "ev": 0.655,
+   "url": "https://kalshi.com/markets/kxtempchihs"
   }
  ],
  "checks": [
   {
    "name": "Pipeline ran recently",
    "ok": true,
-   "detail": "last cloud run 1 min ago"
+   "detail": "last cloud run 0 min ago"
   },
   {
    "name": "Runs on schedule (every 10 min)",
@@ -79,17 +123,17 @@
   {
    "name": "New predictions are being logged",
    "ok": true,
-   "detail": "87 logged in the last hour"
+   "detail": "93 logged in the last hour"
   },
   {
    "name": "Outcomes are being collected",
    "ok": true,
-   "detail": "0/0 predictions due >24 h ago have an official result; 34 newer ones awaiting Kalshi's settlement"
+   "detail": "0/0 predictions due >24 h ago have an official result; 17 newer ones awaiting Kalshi's settlement"
   },
   {
    "name": "Scorecard matches the logs",
    "ok": true,
-   "detail": "scorecard counts 1285, log has 1285"
+   "detail": "scorecard counts 1308, log has 1308"
   },
   {
    "name": "No prediction logged after its market resolved",
@@ -109,7 +153,7 @@
   {
    "name": "Network trained in the last 2 h",
    "ok": true,
-   "detail": "trained 11 min ago on 2270 markets"
+   "detail": "trained 20 min ago on 2270 markets"
   },
   {
    "name": "Bet-size safety held (≤5% per bet)",
@@ -124,12 +168,12 @@
   {
    "name": "Outside data: Coinbase crypto agent",
    "ok": true,
-   "detail": "8/8 markets got an outside estimate, 1 min ago"
+   "detail": "12/12 markets got an outside estimate, 0 min ago"
   },
   {
    "name": "Outside data: NWS weather agent",
    "ok": true,
-   "detail": "0/0 markets got an outside estimate, 1 min ago"
+   "detail": "6/6 markets got an outside estimate, 0 min ago"
   },
   {
    "name": "Storage has room (archive + limits)",
@@ -140,7 +184,7 @@
  "problems": 1,
  "needs": [
   "Check: No duplicate predictions (7 duplicates). Ask Claude to run kalshi-ops-status.",
-  "Decision: memory — no measurable edge after 534 resolved — recommend retiring this hypothesis",
-  "Decision: nn — no measurable edge after 393 resolved — recommend retiring this hypothesis"
+  "Decision: memory — no measurable edge after 551 resolved — recommend retiring this hypothesis",
+  "Decision: nn — no measurable edge after 410 resolved — recommend retiring this hypothesis"
  ]
 }
