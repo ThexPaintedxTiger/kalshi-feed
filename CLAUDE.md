@@ -38,7 +38,7 @@ and count something as an improvement only when the scorecard shows it.
 - Scores: `scorecard.json` (rebuilt each run from the two files above). Progress: `progress.json`, `data/progress.jsonl`, run heartbeats `data/runs.jsonl`.
 - Settings: `config.json` (horizon, filters, predictors and their hypotheses, edge threshold). `cfg` in each row = config version;
   bump `version` whenever a setting that affects predictions changes.
-- Findings and lessons: `docs/findings.md`, `docs/lessons.md`. Architecture and setup: `docs/architecture.md`.
+- Findings and lessons: `docs/findings.md`, `docs/lessons.md`. Architecture and setup: `docs/architecture.md`. Owner's manual: `docs/manual.md`.
 - **Storage tiers** (`archive.mjs`, `storage.mjs`): hot logs (this + last month) → `data/archive/<kind>/YYYY-MM[.partN].jsonl.gz`
   (older months or any hot file > 40 MB; gzip verified by row count + SHA-256 before the hot file is removed; index in `data/archive/index.json`)
   → uncompressed copy of everything on the owner's computer in `local/archive/` (streamer, never deleted). Readers use `lib.mjs → allMonthFiles`,
