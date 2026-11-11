@@ -1,19 +1,19 @@
 {
- "updated": "2026-11-11T04:05:39.707Z",
+ "updated": "2026-11-11T04:15:41.921Z",
  "goal": "IN_PROGRESS",
- "resolved": 1154,
+ "resolved": 1164,
  "health": {
   "ok": true,
   "warmingUp": true,
   "checks": {
    "runsLast24h": {
-    "value": 57,
-    "target": 49,
+    "value": 58,
+    "target": 50,
     "ok": true
    },
    "newPredictionsLast24h": {
-    "value": 1355,
-    "target": 24,
+    "value": 1377,
+    "target": 25,
     "ok": true
    },
    "leakage": {
@@ -53,15 +53,15 @@
   },
   "memory": {
    "status": "FAILURE_RETIRE",
-   "rec": "no measurable edge after 604 resolved — recommend retiring this hypothesis",
-   "n": 604,
-   "brierVsMarket": 0.0032,
-   "picks": 108,
-   "trend": "+604 resolved",
+   "rec": "no measurable edge after 614 resolved — recommend retiring this hypothesis",
+   "n": 614,
+   "brierVsMarket": 0.0031,
+   "picks": 111,
+   "trend": "+614 resolved",
    "snap": {
-    "n": 604,
-    "mean": 0.0032,
-    "width": 0.0093
+    "n": 614,
+    "mean": 0.0031,
+    "width": 0.0091
    },
    "backtest": {
     "n": 1805,
@@ -73,15 +73,15 @@
   },
   "nn": {
    "status": "FAILURE_RETIRE",
-   "rec": "no measurable edge after 463 resolved — recommend retiring this hypothesis",
-   "n": 463,
+   "rec": "no measurable edge after 473 resolved — recommend retiring this hypothesis",
+   "n": 473,
    "brierVsMarket": -0.0002,
    "picks": 25,
    "trend": "first snapshot",
    "snap": {
-    "n": 463,
+    "n": 473,
     "mean": -0.0002,
-    "width": 0.0039
+    "width": 0.0038
    },
    "backtest": null
   },
@@ -107,15 +107,15 @@
   },
   "weather_nws": {
    "status": "OFF_TRACK",
-   "rec": "not beating the market so far (+0.3646) — wait for 64 more resolved before judging",
-   "n": 36,
-   "brierVsMarket": 0.3646,
-   "picks": 30,
+   "rec": "not beating the market so far (+0.3352) — wait for 54 more resolved before judging",
+   "n": 46,
+   "brierVsMarket": 0.3352,
+   "picks": 39,
    "trend": "first snapshot",
    "snap": {
-    "n": 36,
-    "mean": 0.3646,
-    "width": 0.3181
+    "n": 46,
+    "mean": 0.3352,
+    "width": 0.259
    },
    "backtest": null
   }

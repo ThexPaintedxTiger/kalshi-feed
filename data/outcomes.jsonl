@@ -1152,3 +1152,13 @@
 {"ticker":"KXSOLD-26NOV1023-T82.9999","result":"yes","raw":"yes","status":"finalized","settledAt":"2026-11-11T04:02:06.311832Z","closedAt":"2026-11-11T04:00:00Z","checkedAt":"2026-11-11T04:05:13.266Z"}
 {"ticker":"KXBTC-26NOV1023-B73450","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-11T04:02:31.337851Z","closedAt":"2026-11-11T04:00:00Z","checkedAt":"2026-11-11T04:05:13.266Z"}
 {"ticker":"KXBTC-26NOV1023-B73850","result":"no","raw":"no","status":"finalized","settledAt":"2026-11-11T04:02:31.337851Z","closedAt":"2026-11-11T04:00:00Z","checkedAt":"2026-11-11T04:05:13.266Z"}
+{"ticker":"KXTEMPMIAH-26NOV1023-T76.99","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-11T04:00:00Z","checkedAt":"2026-11-11T04:15:12.770Z"}
+{"ticker":"KXTEMPCHIHS-26NOV1023-T43.99","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-11T04:00:00Z","checkedAt":"2026-11-11T04:15:12.770Z"}
+{"ticker":"KXTEMPCHIHS-26NOV1023-T42.99","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-11T04:00:00Z","checkedAt":"2026-11-11T04:15:12.770Z"}
+{"ticker":"KXTEMPLAXHS-26NOV1023-T70.99","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-11T04:00:00Z","checkedAt":"2026-11-11T04:15:12.770Z"}
+{"ticker":"KXTEMPNYCHS-26NOV1023-T51.99","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-11T04:00:00Z","checkedAt":"2026-11-11T04:15:12.770Z"}
+{"ticker":"KXTEMPMIAH-26NOV1023-T77.99","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-11T04:00:00Z","checkedAt":"2026-11-11T04:15:12.770Z"}
+{"ticker":"KXTEMPNYCHS-26NOV1023-T52.99","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-11T04:00:00Z","checkedAt":"2026-11-11T04:15:12.770Z"}
+{"ticker":"KXTEMPLAXHS-26NOV1023-T69.99","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-11T04:00:00Z","checkedAt":"2026-11-11T04:15:12.770Z"}
+{"ticker":"KXTEMPCHIHS-26NOV1023-T44.99","result":"no","raw":"no","status":"determined","settledAt":null,"closedAt":"2026-11-11T04:00:00Z","checkedAt":"2026-11-11T04:15:12.770Z"}
+{"ticker":"KXTEMPNYCHS-26NOV1023-T50.99","result":"yes","raw":"yes","status":"determined","settledAt":null,"closedAt":"2026-11-11T04:00:00Z","checkedAt":"2026-11-11T04:15:12.770Z"}
