@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T03:25:44.255Z",
+ "updated": "2026-11-11T03:37:39.856Z",
  "goal": "IN_PROGRESS",
  "resolved": 1106,
  "health": {
@@ -7,13 +7,13 @@
   "warmingUp": true,
   "checks": {
    "runsLast24h": {
-    "value": 53,
-    "target": 47,
+    "value": 54,
+    "target": 48,
     "ok": true
    },
    "newPredictionsLast24h": {
-    "value": 1324,
-    "target": 23,
+    "value": 1336,
+    "target": 24,
     "ok": true
    },
    "leakage": {
@@ -64,11 +64,11 @@
     "width": 0.0099
    },
    "backtest": {
-    "n": 1665,
-    "brierVsMarket": -0.0001,
+    "n": 1805,
+    "brierVsMarket": 0.0001,
     "verdict": "no measurable difference",
-    "picks": 28,
-    "pnlPerContract": -0.0136
+    "picks": 30,
+    "pnlPerContract": -0.0573
    }
   },
   "nn": {
@@ -98,11 +98,11 @@
     "width": 0.0169
    },
    "backtest": {
-    "n": 184,
-    "brierVsMarket": 0.0139,
-    "verdict": "no measurable difference",
-    "picks": 104,
-    "pnlPerContract": -0.0127
+    "n": 233,
+    "brierVsMarket": 0.0165,
+    "verdict": "worse than market (Brier)",
+    "picks": 129,
+    "pnlPerContract": -0.045
    }
   },
   "weather_nws": {

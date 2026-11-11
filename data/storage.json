@@ -1,8 +1,8 @@
 {
- "at": "2026-11-11T03:25:45.132Z",
+ "at": "2026-11-11T03:37:48.546Z",
  "hotMB": {
-  "predictions": 0.939,
-  "backtest": 0.747,
+  "predictions": 0.9535,
+  "backtest": 0.8183,
   "snapshots": 0
  },
  "archiveMB": {
@@ -15,13 +15,13 @@
  "archiveSavedMB": 0,
  "archiveFailures": [],
  "oversizeHot": [],
- "repoMB": 4.0137,
- "repoGrowthMBPerDay": -4.5073,
+ "repoMB": 4.9668,
+ "repoGrowthMBPerDay": -3.6466,
  "daysToRepoLimit": null,
  "repoLimitMB": 1024,
  "localCopyMB": 0,
  "ticksMB": 0,
- "freeDiskGB": 87.3754,
+ "freeDiskGB": 87.3746,
  "limits": {
   "maxHotMB": 40,
   "repoLimitMB": 1024,

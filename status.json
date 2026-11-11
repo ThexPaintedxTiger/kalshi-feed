@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T03:25:45.430Z",
+ "updated": "2026-11-11T03:37:48.844Z",
  "trade": {
   "answer": "No — don't trade real money yet",
   "tone": "bad",
@@ -7,7 +7,7 @@
   "next": "Let it keep collecting. The answer changes automatically when a strategy reaches SUCCESS on the live record."
  },
  "learning": [
-  "Live record: 1106 of 1324 predictions resolved so far (359 separate events).",
+  "Live record: 1106 of 1336 predictions resolved so far (359 separate events).",
   "longshot: retired — 2026-11-10: FAILURE_RETIRE (no measurable edge after 832 resolved; backtest 1334, no difference). Owner approved.",
   "memory: failure retire — no measurable edge after 556 resolved — recommend retiring this hypothesis",
   "nn: failure retire — no measurable edge after 415 resolved — recommend retiring this hypothesis",
@@ -16,7 +16,7 @@
   "Neural network: tested on 1816 past markets it never saw → no measurable difference (Brier 0.1713 vs market 0.1711).",
   "Training history: 12 runs; data grew 736 → 2270 markets; gap vs market 0.0014 → 0.0002 (below 0 = better than market).",
   "Network learning check: gap vs market by amount of training data 454→+0.0004, 908→-0.0001, 1362→+0.0003, 1816→+0.0002 (shrinking = learning; ~0 = copying the market).",
-  "Backtest: 1665 past markets scored.",
+  "Backtest: 1805 past markets scored.",
   "Network data: 666 live + 1604 backtest markets — it reads the whole history, nothing is dropped."
  ],
  "watchlist": [
@@ -113,7 +113,7 @@
   {
    "name": "Pipeline ran recently",
    "ok": true,
-   "detail": "last cloud run 0 min ago"
+   "detail": "last cloud run 2 min ago"
   },
   {
    "name": "Runs on schedule (every 10 min)",
@@ -123,7 +123,7 @@
   {
    "name": "New predictions are being logged",
    "ok": true,
-   "detail": "88 logged in the last hour"
+   "detail": "87 logged in the last hour"
   },
   {
    "name": "Outcomes are being collected",
@@ -133,7 +133,7 @@
   {
    "name": "Scorecard matches the logs",
    "ok": true,
-   "detail": "scorecard counts 1324, log has 1324"
+   "detail": "scorecard counts 1336, log has 1336"
   },
   {
    "name": "No prediction logged after its market resolved",
@@ -142,23 +142,23 @@
   },
   {
    "name": "No duplicate predictions",
-   "ok": false,
-   "detail": "7 duplicates"
+   "ok": true,
+   "detail": "7 repeat rows ignored (first logged row counts)"
   },
   {
    "name": "Backtest sample unbiased",
    "ok": true,
-   "detail": "YES 0.4619 vs price 0.4676"
+   "detail": "YES 0.4571 vs price 0.4617"
   },
   {
    "name": "Network trained in the last 2 h",
    "ok": true,
-   "detail": "trained 30 min ago on 2270 markets"
+   "detail": "trained 42 min ago on 2270 markets"
   },
   {
    "name": "Bet-size safety held (≤5% per bet)",
    "ok": true,
-   "detail": "largest bet 3.0777%"
+   "detail": "largest bet 3.0228%"
   },
   {
    "name": "Paper money adds up",
@@ -168,22 +168,21 @@
   {
    "name": "Outside data: Coinbase crypto agent",
    "ok": true,
-   "detail": "5/5 markets got an outside estimate, 0 min ago"
+   "detail": "5/5 markets got an outside estimate, 2 min ago"
   },
   {
    "name": "Outside data: NWS weather agent",
    "ok": true,
-   "detail": "2/2 markets got an outside estimate, 0 min ago"
+   "detail": "2/2 markets got an outside estimate, 2 min ago"
   },
   {
    "name": "Storage has room (archive + limits)",
    "ok": true,
-   "detail": "4.0137 MB in GitHub · 0 files archived"
+   "detail": "4.9668 MB in GitHub · 0 files archived"
   }
  ],
- "problems": 1,
+ "problems": 0,
  "needs": [
-  "Check: No duplicate predictions (7 duplicates). Ask Claude to run kalshi-ops-status.",
   "Decision: memory — no measurable edge after 556 resolved — recommend retiring this hypothesis",
   "Decision: nn — no measurable edge after 415 resolved — recommend retiring this hypothesis"
  ]
