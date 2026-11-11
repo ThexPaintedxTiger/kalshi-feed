@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T02:36:49.925Z",
+ "updated": "2026-11-11T02:45:11.619Z",
  "start": 10,
  "goal": 1000,
  "safety": {
@@ -4953,7 +4953,7 @@
   ]
  },
  "forward": {
-  "rows": 553,
+  "rows": 555,
   "settled": 351,
   "portfolios": [
    {
@@ -5036,7 +5036,7 @@
     "avgBetPct": 1.9027,
     "maxBetPct": 1.9798,
     "worstLossPct": -1.9766,
-    "betsPerDay": 119.9112,
+    "betsPerDay": 117.8233,
     "trustNow": null,
     "busted": null,
     "reachedGoal": null,
@@ -5859,7 +5859,7 @@
     "avgBetPct": 2.3631,
     "maxBetPct": 2.502,
     "worstLossPct": -2.502,
-    "betsPerDay": 28.0643,
+    "betsPerDay": 27.5757,
     "trustNow": {
      "trust": 0,
      "why": "learning: 11/30 settled bets"
@@ -6428,7 +6428,7 @@
     "avgBetPct": 1.9538,
     "maxBetPct": 1.9788,
     "worstLossPct": -1.9659,
-    "betsPerDay": 33.1669,
+    "betsPerDay": 32.5894,
     "trustNow": null,
     "busted": null,
     "reachedGoal": null,
@@ -7048,7 +7048,7 @@
     "avgBetPct": 2.4867,
     "maxBetPct": 2.9969,
     "worstLossPct": -2.9969,
-    "betsPerDay": 99.5008,
+    "betsPerDay": 97.7683,
     "trustNow": {
      "trust": 0,
      "pause": true,
@@ -7950,7 +7950,7 @@
     "avgBetPct": 2.0834,
     "maxBetPct": 2.4894,
     "worstLossPct": -2.468,
-    "betsPerDay": 38.2695,
+    "betsPerDay": 37.6032,
     "trustNow": {
      "trust": 0,
      "why": "learning: 9/30 settled bets"
@@ -8554,7 +8554,7 @@
     "avgBetPct": 2.2228,
     "maxBetPct": 3.018,
     "worstLossPct": -3.0107,
-    "betsPerDay": 76.5391,
+    "betsPerDay": 75.2064,
     "trustNow": {
      "trust": 0,
      "why": "learning: 23/30 settled bets"
