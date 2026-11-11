@@ -17,3 +17,4 @@ data/nn/*.json merge=keep
 data/paper/*.json merge=keep
 data/memory/*.json merge=keep
 data/backtest/state.json merge=keep
+data/storage.json merge=keep
