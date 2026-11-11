@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T04:25:43.229Z",
+ "updated": "2026-11-11T04:35:47.396Z",
  "trade": {
   "answer": "No — don't trade real money yet",
   "tone": "bad",
@@ -7,7 +7,7 @@
   "next": "Let it keep collecting. The answer changes automatically when a strategy reaches SUCCESS on the live record."
  },
  "learning": [
-  "Live record: 1164 of 1394 predictions resolved so far (375 separate events).",
+  "Live record: 1164 of 1403 predictions resolved so far (375 separate events).",
   "longshot: retired — 2026-11-10: FAILURE_RETIRE (no measurable edge after 832 resolved; backtest 1334, no difference). Owner approved.",
   "memory: failure retire — no measurable edge after 614 resolved — recommend retiring this hypothesis",
   "nn: failure retire — no measurable edge after 473 resolved — recommend retiring this hypothesis",
@@ -113,7 +113,7 @@
   {
    "name": "Pipeline ran recently",
    "ok": true,
-   "detail": "last cloud run 0 min ago"
+   "detail": "last cloud run 1 min ago"
   },
   {
    "name": "Runs on schedule (every 10 min)",
@@ -123,7 +123,7 @@
   {
    "name": "New predictions are being logged",
    "ok": true,
-   "detail": "77 logged in the last hour"
+   "detail": "67 logged in the last hour"
   },
   {
    "name": "Outcomes are being collected",
@@ -133,7 +133,7 @@
   {
    "name": "Scorecard matches the logs",
    "ok": true,
-   "detail": "scorecard counts 1394, log has 1394"
+   "detail": "scorecard counts 1403, log has 1403"
   },
   {
    "name": "No prediction logged after its market resolved",
@@ -153,7 +153,7 @@
   {
    "name": "Network trained in the last 2 h",
    "ok": true,
-   "detail": "trained 32 min ago on 2329 markets"
+   "detail": "trained 42 min ago on 2329 markets"
   },
   {
    "name": "Bet-size safety held (≤5% per bet)",
@@ -168,12 +168,12 @@
   {
    "name": "Outside data: Coinbase crypto agent",
    "ok": true,
-   "detail": "10/10 markets got an outside estimate, 0 min ago"
+   "detail": "8/8 markets got an outside estimate, 1 min ago"
   },
   {
    "name": "Outside data: NWS weather agent",
    "ok": true,
-   "detail": "2/2 markets got an outside estimate, 0 min ago"
+   "detail": "0/0 markets got an outside estimate, 1 min ago"
   },
   {
    "name": "Storage has room (archive + limits)",
