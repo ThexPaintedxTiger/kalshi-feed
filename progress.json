@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T02:25:12.114Z",
+ "updated": "2026-11-11T02:36:49.852Z",
  "goal": "IN_PROGRESS",
  "resolved": 1042,
  "health": {
@@ -7,12 +7,12 @@
   "warmingUp": true,
   "checks": {
    "runsLast24h": {
-    "value": 47,
+    "value": 48,
     "target": 43,
     "ok": true
    },
    "newPredictionsLast24h": {
-    "value": 1236,
+    "value": 1256,
     "target": 21,
     "ok": true
    },
@@ -64,11 +64,11 @@
     "width": 0.0105
    },
    "backtest": {
-    "n": 1560,
+    "n": 1665,
     "brierVsMarket": -0.0001,
     "verdict": "no measurable difference",
-    "picks": 27,
-    "pnlPerContract": 0.0048
+    "picks": 28,
+    "pnlPerContract": -0.0136
    }
   },
   "nn": {
@@ -98,11 +98,11 @@
     "width": 0.018
    },
    "backtest": {
-    "n": 138,
-    "brierVsMarket": 0.0084,
+    "n": 184,
+    "brierVsMarket": 0.0139,
     "verdict": "no measurable difference",
-    "picks": 77,
-    "pnlPerContract": 0.0142
+    "picks": 104,
+    "pnlPerContract": -0.0127
    }
   },
   "weather_nws": {

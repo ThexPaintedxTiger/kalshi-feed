@@ -1357,6 +1357,14 @@
   "KXECONSTATU3": "Economics",
   "KXAHEMOM": "Economics",
   "KXISLTOTAL": "Sports",
-  "KXISLSPREAD": "Sports"
+  "KXISLSPREAD": "Sports",
+  "KXGENERALMOV": "Elections",
+  "KXFAOFPI": "Economics",
+  "KXLPGAR2LEAD": "Sports",
+  "KXPRESSSECANNOUNCE": "Politics",
+  "KXGPT": "Science and Technology",
+  "KXLNBPGAME": "Sports",
+  "KXLNBPTOTAL": "Sports",
+  "KXLNBPSPREAD": "Sports"
  }
 }
