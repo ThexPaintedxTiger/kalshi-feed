@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T01:32:31.713Z",
+ "updated": "2026-11-11T01:55:14.469Z",
  "trade": {
   "answer": "No — don't trade real money yet",
   "tone": "bad",
@@ -7,17 +7,17 @@
   "next": "Let it keep collecting. The answer changes automatically when a strategy reaches SUCCESS on the live record."
  },
  "learning": [
-  "Live record: 999 of 1180 predictions resolved so far (327 separate events).",
+  "Live record: 999 of 1184 predictions resolved so far (327 separate events).",
   "longshot: retired — 2026-11-10: FAILURE_RETIRE (no measurable edge after 832 resolved; backtest 1334, no difference). Owner approved.",
   "memory: failure retire — no measurable edge after 460 resolved — recommend retiring this hypothesis",
   "nn: failure retire — no measurable edge after 320 resolved — recommend retiring this hypothesis",
   "crypto_fair: on track — leaning better than the market (-0.0001) — wait for 41 more resolved",
   "weather_nws: off track — not beating the market so far (+0.291) — wait for 80 more resolved before judging",
-  "Neural network: tested on 1585 past markets it never saw → no measurable difference (Brier 0.1732 vs market 0.1733).",
-  "Training history: 10 runs; data grew 736 → 1982 markets; gap vs market 0.0014 → -0.0001 (below 0 = better than market).",
-  "Network learning check: gap vs market by amount of training data 397→-0.0004, 794→-0.001, 1191→+0.0008, 1588→+0 (shrinking = learning; ~0 = copying the market).",
+  "Neural network: tested on 1707 past markets it never saw → no measurable difference (Brier 0.1719 vs market 0.1718).",
+  "Training history: 11 runs; data grew 736 → 2134 markets; gap vs market 0.0014 → 0.0001 (below 0 = better than market).",
+  "Network learning check: gap vs market by amount of training data 427→-0.0003, 854→-0.0003, 1281→+0.0003, 1708→+0.0006 (shrinking = learning; ~0 = copying the market).",
   "Backtest: 1560 past markets scored.",
-  "Network data: 564 live + 1418 backtest markets — it reads the whole history, nothing is dropped."
+  "Network data: 623 live + 1511 backtest markets — it reads the whole history, nothing is dropped."
  ],
  "watchlist": [
   {
@@ -113,17 +113,17 @@
   {
    "name": "Pipeline ran recently",
    "ok": true,
-   "detail": "last cloud run 3 min ago"
+   "detail": "last cloud run 0 min ago"
   },
   {
    "name": "Runs on schedule (every 10 min)",
    "ok": true,
-   "detail": "15 cloud runs in the last 3 h (expect ~18)"
+   "detail": "13 cloud runs in the last 3 h (expect ~18)"
   },
   {
    "name": "New predictions are being logged",
    "ok": true,
-   "detail": "68 logged in the last hour"
+   "detail": "40 logged in the last hour"
   },
   {
    "name": "Outcomes are being collected",
@@ -133,7 +133,7 @@
   {
    "name": "Scorecard matches the logs",
    "ok": true,
-   "detail": "scorecard counts 1180, log has 1180"
+   "detail": "scorecard counts 1184, log has 1184"
   },
   {
    "name": "No prediction logged after its market resolved",
@@ -153,12 +153,12 @@
   {
    "name": "Network trained in the last 2 h",
    "ok": true,
-   "detail": "trained 47 min ago on 1982 markets"
+   "detail": "trained 0 min ago on 2134 markets"
   },
   {
    "name": "Bet-size safety held (≤5% per bet)",
    "ok": true,
-   "detail": "largest bet 4.9322%"
+   "detail": "largest bet 3.0228%"
   },
   {
    "name": "Paper money adds up",
@@ -168,12 +168,12 @@
   {
    "name": "Outside data: Coinbase crypto agent",
    "ok": true,
-   "detail": "12/12 markets got an outside estimate, 3 min ago"
+   "detail": "0/0 markets got an outside estimate, 0 min ago"
   },
   {
    "name": "Outside data: NWS weather agent",
    "ok": true,
-   "detail": "7/7 markets got an outside estimate, 3 min ago"
+   "detail": "0/0 markets got an outside estimate, 0 min ago"
   },
   {
    "name": "Storage has room (archive + limits)",

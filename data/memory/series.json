@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-11T01:29:45.118Z",
- "samples": 2407,
+ "updated": "2026-11-11T01:54:52.801Z",
+ "samples": 2500,
  "note": "Derived summary (rebuilt each run). bias = average (outcome − market price); > 0 means YES was underpriced in this series.",
  "series": {
   "KXAAAGASD": {
@@ -487,6 +487,17 @@
    "live": 0,
    "backtest": 1
   },
+  "KXAHEMOM": {
+   "cat": "Economics",
+   "n": 1,
+   "yesRate": 1,
+   "avgPrice": 0.285,
+   "bias": 0.715,
+   "brierMarket": 0.5112,
+   "last": "2026-11-06T14:30:52.048Z",
+   "live": 0,
+   "backtest": 1
+  },
   "KXAHLGAME": {
    "cat": "Sports",
    "n": 4,
@@ -561,6 +572,17 @@
    "bias": 0.035,
    "brierMarket": 0.0012,
    "last": "2026-11-09T16:45:37.062Z",
+   "live": 0,
+   "backtest": 1
+  },
+  "KXAPRPOTUS": {
+   "cat": "Politics",
+   "n": 1,
+   "yesRate": 1,
+   "avgPrice": 0.96,
+   "bias": 0.04,
+   "brierMarket": 0.0016,
+   "last": "2026-11-06T17:00:32.062Z",
    "live": 0,
    "backtest": 1
   },
@@ -676,25 +698,25 @@
   },
   "KXBNB": {
    "cat": "Crypto",
-   "n": 19,
-   "yesRate": 0.4737,
-   "avgPrice": 0.5547,
-   "bias": -0.0811,
-   "brierMarket": 0.1002,
+   "n": 21,
+   "yesRate": 0.4762,
+   "avgPrice": 0.5655,
+   "bias": -0.0893,
+   "brierMarket": 0.1029,
    "last": "2026-11-10T22:02:46.257Z",
    "live": 1,
-   "backtest": 18
+   "backtest": 20
   },
   "KXBNBD": {
    "cat": "Crypto",
-   "n": 24,
-   "yesRate": 0.5,
-   "avgPrice": 0.4796,
-   "bias": 0.0204,
-   "brierMarket": 0.2467,
+   "n": 28,
+   "yesRate": 0.5357,
+   "avgPrice": 0.4882,
+   "bias": 0.0475,
+   "brierMarket": 0.2265,
    "last": "2026-11-11T01:03:31.254Z",
    "live": 3,
-   "backtest": 21
+   "backtest": 25
   },
   "KXBRENTD": {
    "cat": "Commodities",
@@ -720,25 +742,36 @@
   },
   "KXBTC": {
    "cat": "Crypto",
-   "n": 140,
-   "yesRate": 0.2786,
-   "avgPrice": 0.2839,
-   "bias": -0.0054,
-   "brierMarket": 0.1675,
+   "n": 144,
+   "yesRate": 0.2708,
+   "avgPrice": 0.2801,
+   "bias": -0.0092,
+   "brierMarket": 0.1635,
    "last": "2026-11-11T01:03:11.289Z",
    "live": 46,
-   "backtest": 94
+   "backtest": 98
   },
   "KXBTCD": {
    "cat": "Crypto",
-   "n": 147,
-   "yesRate": 0.5238,
-   "avgPrice": 0.4904,
-   "bias": 0.0334,
-   "brierMarket": 0.2113,
+   "n": 151,
+   "yesRate": 0.5166,
+   "avgPrice": 0.4914,
+   "bias": 0.0252,
+   "brierMarket": 0.2129,
    "last": "2026-11-11T01:03:11.286Z",
    "live": 54,
-   "backtest": 93
+   "backtest": 97
+  },
+  "KXBTCMINMON": {
+   "cat": "Crypto",
+   "n": 1,
+   "yesRate": 1,
+   "avgPrice": 0.94,
+   "bias": 0.06,
+   "brierMarket": 0.0036,
+   "last": "2026-11-06T16:00:57.007Z",
+   "live": 0,
+   "backtest": 1
   },
   "KXCABOUT": {
    "cat": "Politics",
@@ -1048,6 +1081,17 @@
    "live": 0,
    "backtest": 1
   },
+  "KXECONSTATU3": {
+   "cat": "Economics",
+   "n": 1,
+   "yesRate": 0,
+   "avgPrice": 0.44,
+   "bias": -0.44,
+   "brierMarket": 0.1936,
+   "last": "2026-11-06T14:40:57.053Z",
+   "live": 0,
+   "backtest": 1
+  },
   "KXEFLTROPHYGAME": {
    "cat": "Sports",
    "n": 36,
@@ -1070,6 +1114,17 @@
    "live": 0,
    "backtest": 1
   },
+  "KXEMPLOYMENTCOMBO": {
+   "cat": "Economics",
+   "n": 1,
+   "yesRate": 0,
+   "avgPrice": 0.135,
+   "bias": -0.135,
+   "brierMarket": 0.0182,
+   "last": "2026-11-06T14:36:47.054Z",
+   "live": 0,
+   "backtest": 1
+  },
   "KXESOCCERGAME": {
    "cat": "Sports",
    "n": 13,
@@ -1083,25 +1138,25 @@
   },
   "KXETH": {
    "cat": "Crypto",
-   "n": 56,
-   "yesRate": 0.3571,
-   "avgPrice": 0.3895,
-   "bias": -0.0323,
-   "brierMarket": 0.1711,
+   "n": 58,
+   "yesRate": 0.3448,
+   "avgPrice": 0.3809,
+   "bias": -0.0361,
+   "brierMarket": 0.1659,
    "last": "2026-11-11T01:02:56.260Z",
    "live": 10,
-   "backtest": 46
+   "backtest": 48
   },
   "KXETHD": {
    "cat": "Crypto",
-   "n": 129,
-   "yesRate": 0.4729,
-   "avgPrice": 0.4895,
-   "bias": -0.0166,
-   "brierMarket": 0.1904,
+   "n": 134,
+   "yesRate": 0.4627,
+   "avgPrice": 0.4893,
+   "bias": -0.0266,
+   "brierMarket": 0.1929,
    "last": "2026-11-11T01:02:56.271Z",
    "live": 37,
-   "backtest": 92
+   "backtest": 97
   },
   "KXEUROCUPGAME": {
    "cat": "Sports",
@@ -1215,14 +1270,14 @@
   },
   "KXGOLDH": {
    "cat": "Commodities",
-   "n": 76,
-   "yesRate": 0.3684,
-   "avgPrice": 0.4953,
-   "bias": -0.1268,
-   "brierMarket": 0.2376,
+   "n": 81,
+   "yesRate": 0.3704,
+   "avgPrice": 0.4947,
+   "bias": -0.1243,
+   "brierMarket": 0.2379,
    "last": "2026-11-11T01:09:16.255Z",
    "live": 29,
-   "backtest": 47
+   "backtest": 52
   },
   "KXGOLDW": {
    "cat": "Commodities",
@@ -1292,25 +1347,25 @@
   },
   "KXHYPE": {
    "cat": "Crypto",
-   "n": 48,
-   "yesRate": 0.3125,
-   "avgPrice": 0.3825,
-   "bias": -0.07,
-   "brierMarket": 0.2074,
+   "n": 50,
+   "yesRate": 0.32,
+   "avgPrice": 0.3779,
+   "bias": -0.0579,
+   "brierMarket": 0.2124,
    "last": "2026-11-11T01:03:16.263Z",
    "live": 7,
-   "backtest": 41
+   "backtest": 43
   },
   "KXHYPED": {
    "cat": "Crypto",
-   "n": 58,
-   "yesRate": 0.5,
-   "avgPrice": 0.4936,
-   "bias": 0.0064,
-   "brierMarket": 0.2075,
+   "n": 64,
+   "yesRate": 0.4844,
+   "avgPrice": 0.4937,
+   "bias": -0.0093,
+   "brierMarket": 0.2119,
    "last": "2026-11-11T01:03:16.257Z",
    "live": 27,
-   "backtest": 31
+   "backtest": 37
   },
   "KXINX": {
    "cat": "Financials",
@@ -1336,14 +1391,14 @@
   },
   "KXINXU": {
    "cat": "Financials",
-   "n": 68,
-   "yesRate": 0.6029,
-   "avgPrice": 0.5319,
-   "bias": 0.071,
-   "brierMarket": 0.14,
+   "n": 70,
+   "yesRate": 0.6143,
+   "avgPrice": 0.5309,
+   "bias": 0.0834,
+   "brierMarket": 0.1433,
    "last": "2026-11-11T00:01:56.264Z",
    "live": 52,
-   "backtest": 16
+   "backtest": 18
   },
   "KXITFDOUBLES": {
    "cat": "Sports",
@@ -1389,6 +1444,17 @@
    "live": 24,
    "backtest": 0
   },
+  "KXJOBREVISIONS": {
+   "cat": "Economics",
+   "n": 1,
+   "yesRate": 1,
+   "avgPrice": 0.705,
+   "bias": 0.295,
+   "brierMarket": 0.087,
+   "last": "2026-11-06T14:43:12.054Z",
+   "live": 0,
+   "backtest": 1
+  },
   "KXKHLGAME": {
    "cat": "Sports",
    "n": 4,
@@ -1399,6 +1465,17 @@
    "last": "2026-11-10T19:41:11.205Z",
    "live": 4,
    "backtest": 0
+  },
+  "KXLASTWORDMENTION": {
+   "cat": "Mentions",
+   "n": 1,
+   "yesRate": 0,
+   "avgPrice": 0.215,
+   "bias": -0.215,
+   "brierMarket": 0.0462,
+   "last": "2026-11-06T15:24:32.054Z",
+   "live": 0,
+   "backtest": 1
   },
   "KXLIGAPROMATCH": {
    "cat": "Sports",
@@ -1468,14 +1545,14 @@
   },
   "KXNASDAQ100U": {
    "cat": "Financials",
-   "n": 66,
-   "yesRate": 0.6515,
-   "avgPrice": 0.4956,
-   "bias": 0.1559,
-   "brierMarket": 0.1998,
+   "n": 68,
+   "yesRate": 0.6618,
+   "avgPrice": 0.4997,
+   "bias": 0.1621,
+   "brierMarket": 0.1984,
    "last": "2026-11-10T21:02:06.282Z",
    "live": 49,
-   "backtest": 17
+   "backtest": 19
   },
   "KXNASDAQDUD": {
    "cat": "Financials",
@@ -1576,6 +1653,17 @@
    "live": 0,
    "backtest": 1
   },
+  "KXOPENSOURCESHARE": {
+   "cat": "Science and Technology",
+   "n": 1,
+   "yesRate": 0,
+   "avgPrice": 0.035,
+   "bias": -0.035,
+   "brierMarket": 0.0012,
+   "last": "2026-11-06T16:45:37.051Z",
+   "live": 0,
+   "backtest": 1
+  },
   "KXOPENVREQ": {
    "cat": "Science and Technology",
    "n": 1,
@@ -1617,6 +1705,17 @@
    "bias": 0.047,
    "brierMarket": 0.0022,
    "last": "2026-11-06T22:26:27.052Z",
+   "live": 0,
+   "backtest": 1
+  },
+  "KXPAYROLLS": {
+   "cat": "Economics",
+   "n": 1,
+   "yesRate": 1,
+   "avgPrice": 0.46,
+   "bias": 0.54,
+   "brierMarket": 0.2916,
+   "last": "2026-11-06T14:14:52.064Z",
    "live": 0,
    "backtest": 1
   },
@@ -1710,14 +1809,14 @@
   },
   "KXSILVERH": {
    "cat": "Commodities",
-   "n": 44,
-   "yesRate": 0.4318,
-   "avgPrice": 0.4877,
-   "bias": -0.0559,
-   "brierMarket": 0.2082,
+   "n": 49,
+   "yesRate": 0.4082,
+   "avgPrice": 0.4883,
+   "bias": -0.0801,
+   "brierMarket": 0.2112,
    "last": "2026-11-11T01:04:56.204Z",
    "live": 9,
-   "backtest": 35
+   "backtest": 40
   },
   "KXSILVERW": {
    "cat": "Commodities",
@@ -1754,25 +1853,25 @@
   },
   "KXSOLD": {
    "cat": "Crypto",
-   "n": 129,
-   "yesRate": 0.5349,
-   "avgPrice": 0.5087,
-   "bias": 0.0262,
-   "brierMarket": 0.1957,
+   "n": 134,
+   "yesRate": 0.5373,
+   "avgPrice": 0.5085,
+   "bias": 0.0288,
+   "brierMarket": 0.1985,
    "last": "2026-11-11T01:02:36.316Z",
    "live": 35,
-   "backtest": 94
+   "backtest": 99
   },
   "KXSOLE": {
    "cat": "Crypto",
-   "n": 74,
-   "yesRate": 0.3649,
-   "avgPrice": 0.4078,
-   "bias": -0.0429,
-   "brierMarket": 0.2027,
+   "n": 76,
+   "yesRate": 0.3553,
+   "avgPrice": 0.404,
+   "bias": -0.0488,
+   "brierMarket": 0.1993,
    "last": "2026-11-11T01:02:36.307Z",
    "live": 13,
-   "backtest": 61
+   "backtest": 63
   },
   "KXSTATELEG": {
    "cat": "Elections",
@@ -1798,47 +1897,58 @@
   },
   "KXTEMPCHIHS": {
    "cat": "Climate and Weather",
-   "n": 103,
-   "yesRate": 0.5437,
-   "avgPrice": 0.4482,
-   "bias": 0.0955,
-   "brierMarket": 0.1705,
+   "n": 107,
+   "yesRate": 0.5327,
+   "avgPrice": 0.4446,
+   "bias": 0.0881,
+   "brierMarket": 0.165,
    "last": "2026-11-11T01:00:00.000Z",
    "live": 20,
-   "backtest": 83
+   "backtest": 87
+  },
+  "KXTEMPHELP": {
+   "cat": "Economics",
+   "n": 1,
+   "yesRate": 1,
+   "avgPrice": 0.96,
+   "bias": 0.04,
+   "brierMarket": 0.0016,
+   "last": "2026-11-06T16:18:52.050Z",
+   "live": 0,
+   "backtest": 1
   },
   "KXTEMPLAXHS": {
    "cat": "Climate and Weather",
-   "n": 104,
-   "yesRate": 0.5,
-   "avgPrice": 0.5017,
-   "bias": -0.0017,
-   "brierMarket": 0.1964,
+   "n": 109,
+   "yesRate": 0.4862,
+   "avgPrice": 0.4883,
+   "bias": -0.0021,
+   "brierMarket": 0.1903,
    "last": "2026-11-11T01:00:00.000Z",
    "live": 15,
-   "backtest": 89
+   "backtest": 94
   },
   "KXTEMPMIAH": {
    "cat": "Climate and Weather",
-   "n": 105,
-   "yesRate": 0.4476,
-   "avgPrice": 0.4865,
-   "bias": -0.0389,
-   "brierMarket": 0.1316,
+   "n": 110,
+   "yesRate": 0.4455,
+   "avgPrice": 0.4871,
+   "bias": -0.0417,
+   "brierMarket": 0.132,
    "last": "2026-11-11T01:00:00.000Z",
    "live": 13,
-   "backtest": 92
+   "backtest": 97
   },
   "KXTEMPNYCHS": {
    "cat": "Climate and Weather",
-   "n": 97,
-   "yesRate": 0.433,
-   "avgPrice": 0.4689,
-   "bias": -0.0359,
-   "brierMarket": 0.1222,
+   "n": 102,
+   "yesRate": 0.451,
+   "avgPrice": 0.4705,
+   "bias": -0.0196,
+   "brierMarket": 0.1307,
    "last": "2026-11-11T01:00:00.000Z",
    "live": 11,
-   "backtest": 86
+   "backtest": 91
   },
   "KXTHEWEEKNIGHTMENTION": {
    "cat": "Mentions",
@@ -1938,6 +2048,17 @@
    "last": "2026-11-10T15:15:21.205Z",
    "live": 0,
    "backtest": 4
+  },
+  "KXU3": {
+   "cat": "Economics",
+   "n": 1,
+   "yesRate": 0,
+   "avgPrice": 0.665,
+   "bias": -0.665,
+   "brierMarket": 0.4422,
+   "last": "2026-11-06T14:17:17.062Z",
+   "live": 0,
+   "backtest": 1
   },
   "KXUCLWBTTS": {
    "cat": "Sports",
@@ -2117,14 +2238,14 @@
   },
   "KXWORLDNEWSMENTION": {
    "cat": "Mentions",
-   "n": 2,
-   "yesRate": 0.5,
-   "avgPrice": 0.365,
-   "bias": 0.135,
-   "brierMarket": 0.0524,
-   "last": "2026-11-10T00:49:41.255Z",
+   "n": 3,
+   "yesRate": 0.6667,
+   "avgPrice": 0.33,
+   "bias": 0.3367,
+   "brierMarket": 0.2175,
+   "last": "2026-11-11T00:54:11.205Z",
    "live": 0,
-   "backtest": 2
+   "backtest": 3
   },
   "KXWTACHALLENGERMATCH": {
    "cat": "Sports",
@@ -2150,36 +2271,36 @@
   },
   "KXWTIH": {
    "cat": "Commodities",
-   "n": 73,
-   "yesRate": 0.4658,
-   "avgPrice": 0.4947,
-   "bias": -0.029,
-   "brierMarket": 0.1864,
+   "n": 78,
+   "yesRate": 0.4615,
+   "avgPrice": 0.4962,
+   "bias": -0.0347,
+   "brierMarket": 0.1907,
    "last": "2026-11-11T01:04:51.254Z",
    "live": 28,
-   "backtest": 45
+   "backtest": 50
   },
   "KXXRP": {
    "cat": "Crypto",
-   "n": 28,
-   "yesRate": 0.6429,
-   "avgPrice": 0.5877,
-   "bias": 0.0552,
-   "brierMarket": 0.1731,
+   "n": 31,
+   "yesRate": 0.6129,
+   "avgPrice": 0.5727,
+   "bias": 0.0402,
+   "brierMarket": 0.1687,
    "last": "2026-11-11T01:00:00.000Z",
    "live": 9,
-   "backtest": 19
+   "backtest": 22
   },
   "KXXRPD": {
    "cat": "Crypto",
-   "n": 99,
-   "yesRate": 0.4444,
-   "avgPrice": 0.4739,
-   "bias": -0.0294,
+   "n": 103,
+   "yesRate": 0.4563,
+   "avgPrice": 0.479,
+   "bias": -0.0227,
    "brierMarket": 0.1505,
    "last": "2026-11-11T01:00:00.000Z",
    "live": 13,
-   "backtest": 86
+   "backtest": 90
   },
   "KXZECMINMON": {
    "cat": "Crypto",
