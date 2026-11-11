@@ -4,7 +4,7 @@
 //  1. Walk-forward test (the honest score): train on the earliest blocks, predict the next block it has never seen, repeat.
 //  2. Holdout curve: train/validation loss per epoch with early stopping (shown on the dashboard).
 //  3. Final model: retrain on all data for the best number of epochs → data/nn/model.json, used by live predictions.
-import { config, readJson, writeJson, appendJsonl, readJsonl, r4, allMonthFiles } from "./lib.mjs";
+import { config, readJson, writeJson, appendJsonl, readJsonl, r4, allMonthFiles, mean } from "./lib.mjs";
 import { features, train, predict, logLoss, FEATURES, learningEvidence } from "./nnlib.mjs";
 import { loadSamples, makeRecall, backtestRows, allPredictions, snapshotRows } from "./memory.mjs";
 
@@ -51,7 +51,6 @@ for (let i = 1; i < K; i++) {
 }
 const tested = data.filter(d => d.ticker in oos);
 const diffs = tested.map(d => (oos[d.ticker] - d.y) ** 2 - (d.mid - d.y) ** 2);
-const mean = a => a.reduce((s, x) => s + x, 0) / (a.length || 1);
 const dm = mean(diffs), sd = Math.sqrt(mean(diffs.map(x => (x - dm) ** 2)) * diffs.length / Math.max(1, diffs.length - 1)), se = sd / Math.sqrt(diffs.length || 1);
 const ci = { mean: r4(dm), lo: r4(dm - 1.96 * se), hi: r4(dm + 1.96 * se) };
 const verdict = tested.length < config.goals.edge.minResolved ? "insufficient data"

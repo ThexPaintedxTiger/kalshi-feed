@@ -6,10 +6,9 @@
 import { readFileSync, writeFileSync, existsSync, readdirSync, statSync, unlinkSync, mkdirSync } from "node:fs";
 import { gzipSync, gunzipSync } from "node:zlib";
 import { createHash } from "node:crypto";
-import { config, readJson, writeJson, MONTH_FILE } from "./lib.mjs";
+import { config, readJson, writeJson, MONTH_FILE, LOG_KINDS } from "./lib.mjs";
 
 const sha = b => createHash("sha256").update(b).digest("hex");
-const KINDS = ["predictions", "backtest", "snapshots"];
 
 // Move one hot file into the archive. Returns the index entry, or throws (hot file untouched).
 export function archiveFile(src, kind, ym, root = ".") {
@@ -30,7 +29,7 @@ export function archiveFile(src, kind, ym, root = ".") {
 // Which hot files are due: month before last or older, or bigger than maxMB.
 export function due(root = ".", now = new Date(), maxMB = config.storage?.maxHotMB ?? 40) {
   const prev = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1)).toISOString().slice(0, 7), out = [];
-  for (const kind of KINDS) {
+  for (const kind of LOG_KINDS) {
     const d = `${root}/data/${kind}`; if (!existsSync(d)) continue;
     for (const f of readdirSync(d)) {
       const m = f.match(MONTH_FILE); if (!m || f.endsWith(".gz")) continue;

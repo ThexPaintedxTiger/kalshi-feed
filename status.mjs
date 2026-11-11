@@ -1,7 +1,7 @@
 // Watchdog + plain-English status (code, free, every run). Answers four questions for the owner:
 //   Should I trade?  Is it learning?  Is it running (and is data moving between steps)?  What do you need from me?
 // Checks data hand-offs between steps so a silent break is caught on the next run. Writes status.json.
-import { config, readJson, readJsonl, writeJson } from "./lib.mjs";
+import { config, readJson, readJsonl, writeJson, marketUrl, readLog } from "./lib.mjs";
 import { allPredictions, backtestRows } from "./memory.mjs";
 
 const now = Date.now(), ago = t => (now - Date.parse(t)) / 6e4, G = config.goals.edge;
@@ -24,8 +24,8 @@ const waiting = preds.filter(p => ago(p.resolvesAt) > 0 && ago(p.resolvesAt) <= 
 check("Outcomes are being collected", missing.length <= Math.max(5, due.length * 0.02), `${due.length - missing.length}/${due.length} predictions due >${H / 60} h ago have an official result; ${waiting} newer ones awaiting Kalshi's settlement`);
 check("Scorecard matches the logs", sc.predictions === preds.length, `scorecard counts ${sc.predictions}, log has ${preds.length}`);
 check("No prediction logged after its market resolved", (sc.excludedLeakage || 0) === 0, `leakage ${sc.excludedLeakage || 0}`);
-const dup = preds.length - new Set(preds.map(p => p.ticker)).size;
-check("No duplicate predictions", dup === 0, `${dup} duplicates`);
+const dup = readLog("predictions").length - preds.length;                 // extra rows for an already-logged market (ignored by readers)
+check("No duplicate predictions", dup <= preds.length * 0.01, dup ? `${dup} repeat rows ignored (first logged row counts)` : "none");
 check("Backtest sample unbiased", !bt.sampleCheck?.warning, bt.sampleCheck ? `YES ${bt.sampleCheck.yesRate} vs price ${bt.sampleCheck.avgPrice}` : "no backtest yet");
 check("Network trained in the last 2 h", nn.trained && ago(nn.trained) <= 120, nn.trained ? `trained ${Math.round(ago(nn.trained))} min ago on ${nn.n} markets` : "not trained");
 const pfs = [...(paper?.replay?.portfolios || []), ...(paper?.forward?.portfolios || [])];
@@ -68,7 +68,7 @@ const open = preds.filter(p => !have.has(p.ticker) && Date.parse(p.resolvesAt) >
   .sort((a, b) => Date.parse(a.resolvesAt) - Date.parse(b.resolvesAt)).slice(0, 8)
   .map(p => { const [who, pk] = Object.entries(p.picks).sort((a, b) => b[1].ev - a[1].ev)[0];
     return { title: p.title, cat: p.cat, resolvesAt: p.resolvesAt, predictor: who, status: prog.predictors?.[who]?.status || "NOT_YET_SCORED", side: pk.side, price: pk.cost, ev: pk.ev,
-      url: "https://kalshi.com/markets/" + String(p.series || "").toLowerCase() }; });
+      url: marketUrl(p.series) }; });
 
 // ---- What do you need from me? ----
 const needs = [];

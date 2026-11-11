@@ -8,12 +8,11 @@
 // only in proportion to how much of the predicted edge the strategy has actually delivered (conservatively measured).
 // Modes: replay (past settled markets; the network only trades markets it never trained on) and forward (live predictions).
 // SIMULATION ONLY. Nothing is traded. Rebuilt from the logs each run → data/paper/portfolios.json.
-import { config, readJson, readJsonl, writeJson, r4, hash } from "./lib.mjs";
+import { config, readJson, readJsonl, writeJson, r4, hash, mean } from "./lib.mjs";
 import { allPredictions, backtestRows } from "./memory.mjs";
 import { rng } from "./nnlib.mjs";
 
 const P = config.paper, SAFE = P.safety, LEARN = P.learning, excluded = new Set(config.scan.excludeCategories || []);
-const mean = a => a.reduce((s, x) => s + x, 0) / (a.length || 1);
 export const orderFee = (price, contracts) => Math.ceil(0.07 * contracts * price * (1 - price) * 100 - 1e-9) / 100;
 // Kelly fraction for a binary contract bought at price c with win probability q, after the per-contract fee.
 export const kellyFraction = (q, c, feePer = 0) => Math.max(0, (q - c - feePer) / (1 - c));

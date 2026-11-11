@@ -5,7 +5,7 @@
 import { existsSync, readdirSync, statSync, readFileSync, writeFileSync, mkdirSync, statfsSync } from "node:fs";
 import { gunzipSync } from "node:zlib";
 import { spawnSync } from "node:child_process";
-import { config, readJson, writeJson, readJsonl, appendJsonl, r4 } from "./lib.mjs";
+import { config, readJson, writeJson, readJsonl, appendJsonl, r4, LOG_KINDS } from "./lib.mjs";
 
 const S = { maxHotMB: 40, repoLimitMB: 1024, warnDays: 90, minFreeGB: 5, ...(config.storage || {}) };
 const MB = b => r4(b / 1048576);
@@ -15,13 +15,12 @@ function dirBytes(d) {
   for (const e of readdirSync(d, { withFileTypes: true })) t += e.isDirectory() ? dirBytes(`${d}/${e.name}`) : statSync(`${d}/${e.name}`).size;
   return t;
 }
-const KINDS = ["predictions", "backtest", "snapshots"];
 
 // Uncompressed local copy: archived months as their own names, hot files as hot-YYYY-MM.jsonl (refreshed as they grow).
 export function mirrorLocal(root = ".") {
   let wrote = 0;
   const put = (dst, buf) => { if (existsSync(dst) && statSync(dst).size === buf.length) return; mkdirSync(dst.slice(0, dst.lastIndexOf("/")), { recursive: true }); writeFileSync(dst, buf); wrote++; };
-  for (const k of KINDS) {
+  for (const k of LOG_KINDS) {
     const a = `${root}/data/archive/${k}`, h = `${root}/data/${k}`;
     if (existsSync(a)) for (const f of readdirSync(a).filter(f => f.endsWith(".jsonl.gz"))) {
       const dst = `${root}/local/archive/${k}/${f.replace(/\.gz$/, "")}`;
@@ -35,7 +34,7 @@ export function mirrorLocal(root = ".") {
 
 export function measure(root = ".", now = Date.now(), githubKB = null) {
   const hot = {}, arch = {}, big = [];
-  for (const k of KINDS) {
+  for (const k of LOG_KINDS) {
     hot[k] = dirBytes(`${root}/data/${k}`); arch[k] = dirBytes(`${root}/data/archive/${k}`);
     if (existsSync(`${root}/data/${k}`)) for (const f of readdirSync(`${root}/data/${k}`)) { const s = statSync(`${root}/data/${k}/${f}`).size; if (s > S.maxHotMB * 1048576) big.push(`data/${k}/${f} ${MB(s)} MB`); }
   }
@@ -53,7 +52,7 @@ export function measure(root = ".", now = Date.now(), githubKB = null) {
   const daysToLimit = perDay > 0 ? Math.round((S.repoLimitMB - repoMB) / perDay) : null;
   return {
     at: new Date(now).toISOString(),
-    hotMB: Object.fromEntries(KINDS.map(k => [k, MB(hot[k])])), archiveMB: Object.fromEntries(KINDS.map(k => [k, MB(arch[k])])),
+    hotMB: Object.fromEntries(LOG_KINDS.map(k => [k, MB(hot[k])])), archiveMB: Object.fromEntries(LOG_KINDS.map(k => [k, MB(arch[k])])),
     archivedFiles: idx.files.length, archiveRows: idx.files.reduce((s, f) => s + f.rows, 0), archiveSavedMB: MB(idx.files.reduce((s, f) => s + f.bytes - f.gzBytes, 0)),
     archiveFailures: idx.failures || [], oversizeHot: big,
     repoMB, repoGrowthMBPerDay: perDay, daysToRepoLimit: daysToLimit, repoLimitMB: S.repoLimitMB,

@@ -1,10 +1,10 @@
 // Kalshi feed: pulls ALL open Kalshi events (public data, read-only), keeps only what matters,
 // and writes a small bets.json that Agent Flow reads for free. Runs on GitHub Actions — no AI, no cost.
 import { writeFileSync, readFileSync, existsSync } from "node:fs";
-const API = "https://api.elections.kalshi.com/trade-api/v2/events?status=open&with_nested_markets=true&limit=200";
+import { kalshi, sleep, fee, marketUrl } from "./lib.mjs";
+const EVENTS = "/events?status=open&with_nested_markets=true&limit=200";
 const MAX_DAYS = 120, MIN_VOL = 50, now = Date.now();
-const fee = p => Math.ceil(0.07 * p * (1 - p) * 100 - 1e-9) / 100;
-const link = e => "https://kalshi.com/markets/" + String(e.series_ticker || e.event_ticker || "").toLowerCase();
+const link = e => marketUrl(e.series_ticker || e.event_ticker);
 const days = t => (Date.parse(t) - now) / 864e5;
 const r2 = x => Math.round(x * 100) / 100;
 // Efficiency: this feed only serves the Agent Flow page; refresh it at most every 25 minutes (FORCE=1 to run anyway).
@@ -12,12 +12,10 @@ try { const prev = JSON.parse(readFileSync("bets.json", "utf8")); if (process.en
 
 let events = [], cursor = "";
 for (let p = 0; p < 100; p++) {
-  const res = await fetch(API + (cursor ? "&cursor=" + encodeURIComponent(cursor) : ""), { headers: { accept: "application/json" } });
-  if (res.status === 429) { await new Promise(r => setTimeout(r, 2000)); p--; continue; }
-  if (!res.ok) throw new Error("Kalshi HTTP " + res.status);
-  const j = await res.json(); events.push(...(j.events || [])); cursor = j.cursor;
+  const j = await kalshi(EVENTS + (cursor ? "&cursor=" + encodeURIComponent(cursor) : ""));   // backs off on 429/5xx
+  events.push(...(j.events || [])); cursor = j.cursor;
   if (!cursor) break;
-  await new Promise(r => setTimeout(r, 250));
+  await sleep(250);
 }
 
 const markets = [], sets = [];
@@ -55,7 +53,7 @@ for (const m of markets) {
 }
 for (const k of Object.keys(hist)) { hist[k] = hist[k].filter(p => p[0] * 1000 >= keep); if (!hist[k].length) delete hist[k]; }
 writeFileSync("history.json", JSON.stringify(hist));
- sets.sort((a, b) => b.profit - a.profit);
+sets.sort((a, b) => b.profit - a.profit);
 let old = {}; try { old = JSON.parse(readFileSync("bets.json", "utf8")); } catch {}
 const out = { picks: old.picks || [], picksUpdated: old.picksUpdated, picksAgents: old.picksAgents, feed: "kalshi", updated: new Date().toISOString(), events: events.length, liquid: markets.length, sets: sets.slice(0, 25), markets: markets.slice(0, 150) };
 writeFileSync("bets.json", JSON.stringify(out));

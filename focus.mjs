@@ -1,7 +1,7 @@
 // Focus markets: live price action for the markets the agent is watching right now (open live predictions, the ones
 // a strategy would paper-bet first, then the soonest to resolve). One batch call for the last 3 hours of 1-minute
 // candles. Feeds the Trading tab's ticker tape and price chart. Free; no AI.
-import { config, kalshi, readJsonl, writeJson, r4 } from "./lib.mjs";
+import { config, kalshi, readJsonl, writeJson, r4, marketUrl } from "./lib.mjs";
 import { allPredictions } from "./memory.mjs";
 
 const now = Date.now(), nowS = Math.floor(now / 1000);
@@ -25,7 +25,7 @@ if (pick.length) {
       out.markets.push({ ticker: p.ticker, title: p.title, cat: p.cat, resolvesAt: p.resolvesAt, loggedPrice: p.mid, est: p.est, picks: p.picks,
         price: last ? last[1] : null, chg30m: last && m30 ? r4(last[1] - m30[1]) : null, chg3h: last && m3h ? r4(last[1] - m3h[1]) : null,
         series: pts.length > 180 ? pts.filter((_, i) => i % Math.ceil(pts.length / 180) === 0) : pts,
-        url: "https://kalshi.com/markets/" + String(p.series || "").toLowerCase() });
+        url: marketUrl(p.series) });
     }
   } catch (e) { out.error = e.message; }
 }

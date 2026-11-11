@@ -1,6 +1,6 @@
 // Offline checks for the math and the leakage guard. Run: node test.mjs
 import assert from "node:assert/strict";
-import { fee, ev, resolvesAt, hash, r4 } from "./lib.mjs";
+import { fee, ev, resolvesAt, hash, r4, firstPerTicker } from "./lib.mjs";
 import { brier, logLoss, pnl, score } from "./score.mjs";
 import { predictorStatus, health, trend, evaluate } from "./progress.mjs";
 import { makeRecall } from "./memory.mjs";
@@ -218,4 +218,6 @@ assert.equal(r4(kellyFraction(0.6, 0.5)), 0.2); assert.equal(kellyFraction(0.4, 
   const w = sn.map(() => 1 / sn.length).reduce((a, b) => a + b, 0); assert.ok(Math.abs(w - 1) < 1e-9);
   assert.equal(nnFeatures({ ...sn[0], at: Date.parse(sn[0].ts) }, null).length, NN_FEATURES.length);
 }
+// One prediction per market: the first logged row counts, later repeats are ignored (log untouched).
+assert.deepEqual(firstPerTicker([{ ticker: "A", n: 1 }, { ticker: "B", n: 2 }, { ticker: "A", n: 3 }]).map(r => r.n), [1, 2]);
 console.log("all tests passed");

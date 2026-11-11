@@ -7,17 +7,16 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
-import { gunzipSync } from "node:zlib";
 import { fileURLToPath } from "node:url";
+import { readJsonl, allMonthFiles } from "../lib.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+process.chdir(ROOT);                                                      // lib.mjs reads paths relative to the repo
 const p = f => join(ROOT, f);
 const json = (f, d = null) => { try { return JSON.parse(readFileSync(p(f), "utf8")); } catch { return d; } };
-// Hot months (data/<kind>/) plus gzipped archived months (data/archive/<kind>/), oldest first.
-const jsonl = dir => [dir.replace("data/", "data/archive/"), dir].filter(d => existsSync(p(d)))
-  .flatMap(d => readdirSync(p(d)).filter(f => /^\d{4}-\d{2}(\.part\d+)?\.jsonl(\.gz)?$/.test(f)).sort().map(f => `${d}/${f}`))
-  .flatMap(f => { const b = readFileSync(p(f)); return (f.endsWith(".gz") ? gunzipSync(b) : b).toString("utf8").split("\n").filter(Boolean).map(l => JSON.parse(l)); });
-const outcomes = () => existsSync(p("data/outcomes.jsonl")) ? Object.fromEntries(readFileSync(p("data/outcomes.jsonl"), "utf8").split("\n").filter(Boolean).map(l => JSON.parse(l)).map(o => [o.ticker, o.result])) : {};
+// Every month of a log, hot + gzipped archive, oldest first (same reader as the pipeline).
+const jsonl = kind => allMonthFiles(kind).flatMap(f => readJsonl(f));
+const outcomes = () => Object.fromEntries(readJsonl("data/outcomes.jsonl").map(o => [o.ticker, o.result]));
 const reply = obj => ({ content: [{ type: "text", text: JSON.stringify(obj, null, 1) }] });
 
 const server = new McpServer({ name: "kalshi-agent", version: "1.0.0" });
@@ -50,7 +49,7 @@ server.registerTool("search_predictions", {
   },
 }, async ({ query, series, category, outcome, source, limit }) => {
   const out = outcomes();
-  let rows = (source === "live" ? jsonl("data/predictions") : jsonl("data/backtest"))
+  let rows = (source === "live" ? jsonl("predictions") : jsonl("backtest"))
     .map(r => ({ ...r, outcome: source === "live" ? (out[r.ticker] || "pending") : (r.y ? "yes" : "no") }));
   if (query) { const q = query.toLowerCase(); rows = rows.filter(r => r.title.toLowerCase().includes(q)); }
   if (series) rows = rows.filter(r => r.series === series.toUpperCase());
@@ -67,8 +66,8 @@ server.registerTool("recall_series", {
 }, async ({ series }) => {
   const s = series.toUpperCase(), mem = json("data/memory/series.json", { series: {} });
   const out = outcomes();
-  const examples = [...jsonl("data/predictions").filter(r => r.series === s && out[r.ticker]).map(r => ({ ...r, y: out[r.ticker] === "yes" ? 1 : 0, src: "live" })),
-    ...jsonl("data/backtest").filter(r => r.series === s).map(r => ({ ...r, src: "backtest" }))]
+  const examples = [...jsonl("predictions").filter(r => r.series === s && out[r.ticker]).map(r => ({ ...r, y: out[r.ticker] === "yes" ? 1 : 0, src: "live" })),
+    ...jsonl("backtest").filter(r => r.series === s).map(r => ({ ...r, src: "backtest" }))]
     .sort((a, b) => b.ts.localeCompare(a.ts)).slice(0, 10).map(r => ({ src: r.src, ts: r.ts, title: r.title, marketPrice: r.mid, outcome: r.y ? "yes" : "no" }));
   return reply({ series: s, memory: mem.series[s] || null, examples, note: mem.note });
 });

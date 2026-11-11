@@ -1,7 +1,7 @@
 // Self-check: are we moving toward the goal? Reads the scorecard and logs, compares them with the goals in
 // config.json, and writes progress.json with a status and a plain-English recommendation per goal.
 // It never changes config.json: recommendations need the owner's approval.
-import { config, readJsonl, readJson, writeJson, appendJsonl, predictionFiles, r4 } from "./lib.mjs";
+import { config, readJsonl, readJson, writeJson, appendJsonl, predictionFiles, firstPerTicker, r4 } from "./lib.mjs";
 
 // Status of one predictor against the edge goal.
 export function predictorStatus(p, g) {
@@ -71,7 +71,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const now = Date.now(), today = new Date(now).toISOString().slice(0, 10);
   const snaps = readJsonl("data/progress.jsonl");
   const prev = [...snaps].reverse().find(s => s.date < today);
-  const preds = predictionFiles().flatMap(f => readJsonl(f));
+  const preds = firstPerTicker(predictionFiles().flatMap(f => readJsonl(f)));
   const out = evaluate(readJson("scorecard.json", {}), readJsonl("data/runs.jsonl"), preds, readJsonl("data/outcomes.jsonl"), config.goals, now, prev, readJson("backtest-scorecard.json", null));
   writeJson("progress.json", out);
   if (!snaps.some(s => s.date === today) && Object.keys(out.predictors).length)

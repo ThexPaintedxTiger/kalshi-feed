@@ -38,6 +38,9 @@ export function resolvesAt(m) {
 }
 
 export const series = m => String(m.event_ticker || m.ticker || "").split("-")[0];
+export const marketUrl = s => "https://kalshi.com/markets/" + String(s || "").toLowerCase();
+export const mean = a => a.reduce((s, x) => s + x, 0) / (a.length || 1);
+export const LOG_KINDS = ["predictions", "backtest", "snapshots"];                    // month-file logs (hot + archive)
 export const clip = (p, e = 0.01) => Math.min(1 - e, Math.max(e, p));
 export const r4 = x => Math.round(x * 1e4) / 1e4;
 
@@ -75,6 +78,13 @@ export function allMonthFiles(kind, months = null) {
   return out.sort((a, b) => a.ym.localeCompare(b.ym) || a.tier - b.tier || a.part - b.part).map(x => x.path);
 }
 // This month's and last month's prediction files (hot + any archived parts): enough for de-duplication and resolving.
+// Every row of a month-file log (hot + archive), oldest first.
+export const readLog = kind => allMonthFiles(kind).flatMap(f => readJsonl(f));
+// One prediction per market: the first logged row counts. A later row for the same ticker (two runs overlapping) is
+// ignored by every reader; the log itself is never edited. The watchdog reports how many were ignored.
+export function firstPerTicker(rows) { const seen = new Set(); return rows.filter(r => !seen.has(r.ticker) && seen.add(r.ticker)); }
+export const predictionRows = () => firstPerTicker(readLog("predictions"));
+
 export function predictionFiles(now = new Date()) {
   const prev = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1));
   return allMonthFiles("predictions", [ymOf(prev), ymOf(now)]);

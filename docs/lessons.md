@@ -47,3 +47,7 @@ What we changed because the data (or a mistake) taught us something. Newest firs
 - 2026-11-10: Network inputs 20 → 23 (config v8): minute volatility over 30 min (+ flag) from the same 1-minute candles already fetched, and time
   left to resolution. Minute snapshots from the streamer join training only. No result claimed; the walk-forward verdict decides.
 - 2026-11-10: Dashboard trimmed from 8 tabs to 5 (Profit & loss → Trading, Trades → Agent, Skills → Data). Old links (#pnl, #trades, #skills) still work.
+- 2026-11-11: Cleanup. Shared helpers moved to `lib.mjs` (`marketUrl`, `mean`, `LOG_KINDS`, `readLog`, `predictionRows`); `scan.mjs` and the
+  MCP server now use the pipeline's own Kalshi fetch and log readers instead of copies. Found 7 markets logged twice (a local streamer test overlapped a
+  cloud run, 2026-11-10 23:45 UTC). Rows were not deleted; every reader now counts the first logged row per market and the watchdog reports repeats.
+  Lesson: a local test run must not log predictions while the cloud is running (use `SKIP_SAVE=1`/a copy), and readers must not trust "one row per ticker".

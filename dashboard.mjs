@@ -1,10 +1,10 @@
 // Builds dashboard.json: one small file with everything dashboard.html shows (agent pipeline, skills,
 // simulated trades, data, goals). Code only, no API or AI calls.
 import { readdirSync, readFileSync, existsSync } from "node:fs";
-import { config, readJsonl, readJson, writeJson, fee, r4, allMonthFiles } from "./lib.mjs";
+import { config, readJsonl, readJson, writeJson, fee, r4, marketUrl, predictionRows } from "./lib.mjs";
 
 const now = Date.now();
-const preds = allMonthFiles("predictions").flatMap(f => readJsonl(f));
+const preds = predictionRows();
 const out = Object.fromEntries(readJsonl("data/outcomes.jsonl").map(o => [o.ticker, o]));
 const runs = readJsonl("data/runs.jsonl");
 const progress = readJson("progress.json", {}), scorecard = readJson("scorecard.json", {}), bets = readJson("bets.json", {});
@@ -13,7 +13,7 @@ const catMap = readJson("data/series.json", { map: {} }).map;
 for (const p of preds) if (!p.cat) p.cat = catMap[p.series] || ""; // fill categories learned after the row was logged (display only)
 const outcome = p => { const o = out[p.ticker]; return o ? o.result : Date.parse(p.resolvesAt) < now ? "awaiting" : "open"; };
 const slim = p => ({ ts: p.ts, ticker: p.ticker, title: p.title, cat: p.cat, resolvesAt: p.resolvesAt, ask: p.ask, bid: p.bid,
-  mid: p.mid, est: p.est, outcome: outcome(p), url: "https://kalshi.com/markets/" + String(p.series || "").toLowerCase() });
+  mid: p.mid, est: p.est, outcome: outcome(p), url: marketUrl(p.series) });
 
 // Simulated trades: one row per predictor pick. Outcome and P&L after fees once resolved.
 const trades = [];

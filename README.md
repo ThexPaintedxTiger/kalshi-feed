@@ -19,11 +19,11 @@ https://thexpaintedxtiger.github.io/kalshi-feed/dashboard.html (refreshes every 
 ## Research agent (v1: measurement loop)
 Every 10 minutes it logs predictions for Kalshi markets resolving within 6 hours (`predict.mjs`), checks official results
 (`resolve.mjs`) and scores each predictor against the market price (`score.mjs` → `scorecard.json`).
-Simulation only. Settings: `config.json`. How it works: `docs/architecture.md`. Findings: `docs/findings.md`.
+Simulation only. Settings: `config.json`. How it works: `docs/manual.md` (owner's manual), `docs/architecture.md`. Findings: `docs/findings.md`.
 
 ## Dashboard feed
 
-- `scan.mjs` — every 15 minutes a free GitHub Action reads Kalshi's public market data, keeps the most liquid markets
+- `scan.mjs` — at most every 25 minutes (each pipeline cycle) reads Kalshi's public market data, keeps the most liquid markets
   (closing within 120 days) and possible profit sets, remembers 48h of prices (`history.json`) to add 1h/24h price moves
   and trading activity, and writes a small `bets.json`.
 - `index.html` — Agent Flow with the **Kalshi Neural Forecaster** workflow:
