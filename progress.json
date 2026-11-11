@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T00:35:34.698Z",
+ "updated": "2026-11-11T00:45:36.598Z",
  "goal": "IN_PROGRESS",
  "resolved": 940,
  "health": {
@@ -7,13 +7,13 @@
   "warmingUp": true,
   "checks": {
    "runsLast24h": {
-    "value": 41,
-    "target": 35,
+    "value": 42,
+    "target": 36,
     "ok": true
    },
    "newPredictionsLast24h": {
-    "value": 1132,
-    "target": 17,
+    "value": 1144,
+    "target": 18,
     "ok": true
    },
    "leakage": {
