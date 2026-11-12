@@ -59,3 +59,4 @@
 {"ts":"2026-11-11T04:25:13.660Z","run":"f42d852","scanned":49175,"candidates":1074,"logged":17}
 {"ts":"2026-11-11T04:35:14.102Z","run":"f42d852","scanned":48292,"candidates":922,"logged":9}
 {"ts":"2026-11-12T02:07:37.950Z","run":"local","scanned":67465,"candidates":2986,"logged":70}
+{"ts":"2026-11-12T02:31:57.536Z","run":"local","scanned":66690,"candidates":2761,"logged":39}

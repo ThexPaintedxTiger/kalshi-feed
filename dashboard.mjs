@@ -51,7 +51,7 @@ ctx.emit("dashboard", {
     top: Object.entries(m.series).sort((a, b) => b[1].n - a[1].n).slice(0, 12).map(([k, v]) => ({ series: k, ...v })) }; })(),
   mcpTools: ["get_status", "get_scorecard", "search_predictions", "recall_series", "list_skills"],
   nn: (() => { const m = ctx.get("nn-model", "state"); return m ? { ...m, log: readJsonl("data/nn/train-log.jsonl").slice(-48) } : null; })(),
-  paper: ctx.get("paper"),
+  paper: ctx.get("paper"), evals: ctx.get("evals"),
   status: ctx.get("status"),
   external: ctx.get("external", "state"),
   stream: ctx.get("heartbeat"),

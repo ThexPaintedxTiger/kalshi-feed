@@ -99,6 +99,7 @@ export async function logPredictions(ctx, chosen, now = Date.now(), cats = {}, f
       est, picks, src: `${feat ? "ws+" : ""}GET /trade-api/v2/markets @ ${runId}`,
     };
   });
+  const loggedAt = new Date().toISOString(); for (const r of rows) r.loggedAt = loggedAt;      // when the row was really written (leakage eval: no input may be newer)
   ctx.store.append("predictions", rows, new Date(now));
   return rows;
 }

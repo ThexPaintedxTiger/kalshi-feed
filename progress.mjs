@@ -70,7 +70,14 @@ export function evaluate(sc, runs, preds, outcomes, goals, now, prevSnap, bt = n
 export function run(ctx) {
   const now = Date.now(), today = new Date(now).toISOString().slice(0, 10), snaps = readJsonl("data/progress.jsonl");
   const prev = [...snaps].reverse().find(s => s.date < today), st = ctx.store;
-  const out = ctx.emit("progress", evaluate(ctx.get("scorecard") || {}, st.runs, st.preds, st.outcomes, config.goals, now, prev, ctx.get("backtest-scorecard")));
+  const out = evaluate(ctx.get("scorecard") || {}, st.runs, st.preds, st.outcomes, config.goals, now, prev, ctx.get("backtest-scorecard"));
+  // The referee (evals/report.mjs, peeking-safe) owns the verdicts; this file keeps health, trend and the daily snapshot.
+  const ev = ctx.get("evals");
+  for (const [k, m] of Object.entries(ev?.models || {})) { const p = (out.predictors[k] ||= { n: m.n, picks: m.picks, trend: "first snapshot", snap: { n: m.n, mean: m.vsMarket.snapshot95.diff, width: null }, backtest: null }); p.status = m.status; p.rec = m.why; p.sequence = m.vsMarket.sequence; }
+  const sts = Object.values(out.predictors).map(p => p.status).filter(s => s !== "RETIRED");
+  out.goal = sts.includes("SUCCESS") ? "SUCCESS" : sts.length && sts.every(s => /^FAILURE|NO_EDGE/.test(s)) ? "NO MODEL HAS AN EDGE — keep collecting, add new hypotheses" : "IN_PROGRESS";
+  out.definitions = "SUCCESS = peeking-safe sequence on Brier vs market entirely below 0 (≥ minResolved live markets) AND picks' P&L sequence above 0 (≥ minPicks). FAILURE_WORSE = sequence entirely above 0. NO_EDGE = nothing measurable after retireAfter resolved. The agent acts on these itself (docs/lessons.md); only real money needs the owner.";
+  ctx.emit("progress", out);
   if (!snaps.some(s => s.date === today) && Object.keys(out.predictors).length)
     appendJsonl("data/progress.jsonl", [{ date: today, resolved: out.resolved, predictors: Object.fromEntries(Object.entries(out.predictors).map(([k, p]) => [k, p.snap])) }]);
   return `goal: ${out.goal}; health ${out.health.ok ? "OK" : "PROBLEM"}${out.health.warmingUp ? " (warming up)" : ""}; ` + Object.entries(out.predictors).map(([k, p]) => `${k}: ${p.status}`).join("; ");

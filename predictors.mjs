@@ -3,6 +3,8 @@
 // using only information available at time c.at (no future information).
 import { config, ev, r4, readJson, writeJson, appendJsonl } from "./lib.mjs";
 import { features, predict } from "./nnlib.mjs";
+import { features as calibFeatures, predict as calibPredict, FEATURES as CFEATS } from "./models/calib.mjs";
+import { predict as ensPredict } from "./models/ensemble.mjs";
 
 // Trained network (data/nn/model.json), loaded once. Safety gate: while its walk-forward test on unseen markets says
 // "worse than market", it stands down and returns the market price (no picks); it keeps retraining hourly and comes back
@@ -21,7 +23,15 @@ export const PRED = {
 // Outside-data predictors: only where an outside estimate exists for this market (null = not scored here).
 PRED.crypto_fair = c => c.ext?.crypto?.p ?? null;
 PRED.weather_nws = c => c.ext?.weather?.p ?? null;
+PRED.ensemble = () => null;                                   // computed in estimate() from the other models
 
+// calib and ensemble read their weights from state/ (set in memory after each refit in a long-running process).
+let CALIB, ENS;
+export const setCalib = f => { CALIB = f?.w?.length === CFEATS.length ? f : null; };
+export const setEnsemble = f => { ENS = f?.w ? f : null; };
+const calibW = () => (CALIB === undefined ? (setCalib(readJson("state/calib.json", null)), CALIB) : CALIB);
+const ensW = () => (ENS === undefined ? (setEnsemble(readJson("state/ensemble.json", null)), ENS) : ENS);
+PRED.calib = (c, ctx) => { const m = calibW(); return m ? calibPredict(m.w, calibFeatures(c, ctx?.recall), c.mid, m.maxDev) : c.mid; };
 PRED.nn = (c, ctx) => { const m = model(), x = features(c, ctx?.recall); return m && m.W[0][0].length === x.length ? predict(m, x, c.mid) : c.mid; };
 
 // Runtime switch-offs made by the anomaly guard (data/overrides.json, committed with the logs so every runner sees them).
@@ -40,8 +50,11 @@ export const enabled = () => Object.keys(PRED).filter(k => config.predictors[k]?
 // All enabled estimates for one snapshot, plus a simulated pick when expected value after fees clears the threshold.
 export function estimate(c, ctx, skip = []) {
   const est = {}, picks = {};
-  for (const k of enabled().filter(k => !skip.includes(k))) {
-    const raw = PRED[k](c, ctx); if (raw == null) continue;
+  const names = enabled().filter(k => !skip.includes(k)), raws = {};
+  for (const k of names) if (k !== "ensemble") raws[k] = PRED[k](c, ctx);
+  if (names.includes("ensemble")) { const E = ensW(); raws.ensemble = E ? ensPredict(E, Object.fromEntries(Object.entries(raws).filter(([, v]) => v != null)), c.mid) : c.mid; }
+  for (const k of names) {
+    const raw = raws[k]; if (raw == null) continue;
     const p = r4(raw), e = ev(p, c.ask, c.bid);
     est[k] = p;
     const side = e.yes >= e.no ? "yes" : "no", edge = Math.max(e.yes, e.no);

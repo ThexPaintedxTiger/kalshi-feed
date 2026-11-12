@@ -263,4 +263,5 @@ assert.deepEqual(firstPerTicker([{ ticker: "A", n: 1 }, { ticker: "B", n: 2 }, {
 }
 await import("./tests/core.test.mjs");
 await import("./tests/live.test.mjs");
+await import("./tests/models.test.mjs");
 console.log("all tests passed");

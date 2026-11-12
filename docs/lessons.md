@@ -92,3 +92,20 @@ What we changed because the data (or a mistake) taught us something. Newest firs
   can only ever send `subscribe` / `update_subscription`.
 - 2026-11-12 (**anomaly guard may switch a predictor OFF by itself**): Brier worse than the market by > 0.10 over ≥ 20 resolved (the weather
   bug's signature) → `data/overrides.json` + a row in `data/decisions.jsonl` + an alert. It can only turn things off. Undo: delete the entry.
+- 2026-11-12 (**config v11: `calib` and `ensemble` go live as scored challengers; no edge claimed**). `calib` = logistic correction of the
+  market price, refit on every settlement (43 ms). Its L2 penalty was chosen by walk-forward on markets settled before the freeze
+  (`config.evals.frozenAt`); 5 values tried (5, 20, 50, 200, 1000) and **all were slightly worse than the market** (+0.0016 … +0.0007 Brier
+  over 2,522 unseen markets, 1,743 events). 200 kept. The ensemble (calib + nn + crypto_fair + market) was +0.0016 worse (0.0003…0.0028):
+  blending models that carry no edge adds noise. Expectation stated before live data: these will not beat the market until the daemon's
+  microstructure inputs (microprice, flow, minute snapshots) exist; the referee decides. Undo: `predictors.calib.on = false`.
+- 2026-11-12 (**verdicts are now peeking-safe**). `evals/seq.mjs`: an empirical-Bernstein confidence sequence on per-event Brier differences.
+  Simulated under "no difference" and checked after every result: an ordinary 95% interval gave a false "edge" in 46–49% of runs; the
+  sequence in 0.3–0.5%. Price of honesty: it is slower. With values that can be anywhere in ±1, a 0.01 Brier edge needs ~1,400 events;
+  capping a model's distance from the market at ±0.10 bounds the difference at ±0.20 and brings that to ~400 events. So `calib` and
+  `ensemble` are capped at ±0.10 (also a risk limit). alpha 0.05 is split across every predictor and variant ever tried (13 today).
+  The old fixed-n interval stays on the dashboard, labelled "snapshot, not peeking-safe".
+- 2026-11-12 (**the referee acts**): FAILURE_WORSE on the sequence → the daemon switches the model off (`data/overrides.json`, decision row,
+  alert). SUCCESS → alert + it keeps its paper portfolio. `progress.mjs` no longer only "recommends". Real money is still the owner's call.
+- 2026-11-12 (**leakage eval**, `evals/leakage.mjs`): 7 automated checks (prediction before resolution; outside data not newer than the row;
+  backtest/minute snapshots before resolution; walk-forward training rows known before the test block; retrieved memory and news facts dated
+  before the estimate). Today: 0 violations over 1,473 predictions, 236 outside-data stamps, 1,928 backtest rows. Rows now carry `loggedAt`.

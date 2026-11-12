@@ -8,7 +8,8 @@ import * as resolve from "./resolve.mjs";
 import * as memory from "./memory.mjs";
 import * as predict from "./predict.mjs";
 import * as backtest from "./backtest.mjs";
-import * as nn from "./nn.mjs";
+import * as train from "./models/train.mjs";
+import * as evals from "./evals/report.mjs";
 import * as score from "./score.mjs";
 import * as progress from "./progress.mjs";
 import * as paper from "./paper.mjs";
@@ -19,6 +20,7 @@ import * as dashboard from "./dashboard.mjs";
 // Rebuild every derived file from the logs in memory (no network). Cheap enough to run each minute.
 export async function derive(ctx, { mirror = false, full = true } = {}) {
   await ctx.step("score", score.run, { need: true });
+  await ctx.step("evals", c => { evals.run(c); return null; }, { need: true });
   await ctx.step("progress", progress.run, { need: true });
   if (full) { await ctx.step("memory", memory.run); await ctx.step("paper", paper.run, { need: true }); await ctx.step("storage", c => storage.run(c, { mirror })); }
   await ctx.step("status", status.run, { need: true });
@@ -29,10 +31,12 @@ export async function cycle(ctx, { force = false, mirror = false } = {}) {
   const t0 = performance.now(); ctx.timings = [];
   await ctx.step("archive", () => { const { moved, failed } = archive.run(); ctx.store.refresh(); return moved.length || failed.length ? `archive: moved ${moved.length}, failed ${failed.length}` : null; });
   await ctx.step("resolve", resolve.run, { need: true });
-  if (!ctx.get("nn-model", "state")?.model) await ctx.step("nn (cold start)", c => nn.run(c, { force: true }));   // fresh clone: no cached model yet
+  // Models before predictions: a fresh clone has no cached weights, and anything that just settled should count.
+  if (!ctx.get("ensemble", "state")) await ctx.step("models (cold start)", c => train.hourly(c, { force: true }));
+  else await ctx.step("models (settled)", train.onSettle);
   await ctx.step("predict", predict.run, { need: true });
   await ctx.step("backtest", c => backtest.run(c, { force }));
-  await ctx.step("nn", c => nn.run(c, { force }));
+  await ctx.step("models", c => train.hourly(c, { force }));
   await derive(ctx, { mirror });
   return perf(ctx, "cycle", t0);
 }

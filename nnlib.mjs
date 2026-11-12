@@ -109,7 +109,7 @@ export function train(data, o = {}) {
   // opt.extra: training-only rows (minute snapshots). Only those whose market resolved before the held-out part begins.
   const va = data.slice(cut), vaStart = va.length ? va[0].t : Infinity;
   const tr = [...data.slice(0, cut), ...(opt.extra || []).filter(e => e.resolvedT < vaStart)];
-  let m = init([nIn, ...opt.hidden, 1], rand);
+  let m = opt.init ? clone(opt.init) : init([nIn, ...opt.hidden, 1], rand);          // opt.init: warm start from an existing model
   const M = zeros(m), V = zeros(m); let t = 0;
   const curve = []; let best = { loss: Infinity, model: clone(m), epoch: 0 };
   for (let ep = 1; ep <= opt.epochs; ep++) {

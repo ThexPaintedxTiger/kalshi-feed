@@ -18,7 +18,7 @@ import { derive, perf } from "../cycle.mjs";
 import * as resolveStep from "../resolve.mjs";
 import * as predictStep from "../predict.mjs";
 import * as backtestStep from "../backtest.mjs";
-import * as nnStep from "../nn.mjs";
+import * as train from "../models/train.mjs";
 import * as archive from "../archive.mjs";
 import { estimate, disable } from "../predictors.mjs";
 import { pushMain, pushSite } from "../publish.mjs";
@@ -107,7 +107,7 @@ export function createDaemon({ ctx = makeCtx(), connect = null, now = Date.now, 
   // ---- serialized background jobs (a long scan never overlaps a rescore).
   const job = async (name, fn) => { if (D.busy) return false; D.busy = true; try { await fn(); } catch (e) { log(`${name}: ${e.message}`); } finally { D.busy = false; } return true; };
   const due = (name, everyMs) => { const t = now(); if (t - (D.last[name] || 0) < everyMs) return false; D.last[name] = t; return true; };
-  const rescore = async (full) => { const t0 = performance.now(); ctx.timings = []; await derive(ctx, { full, mirror: full }); D.dirty = false; server?.push("derived", { at: new Date().toISOString() }); return perf(ctx, full ? "derive" : "settle", t0); };
+  const rescore = async (full) => { const t0 = performance.now(); ctx.timings = []; if (D.fresh) { D.fresh = 0; await ctx.step("models (settled)", train.onSettle); } await derive(ctx, { full, mirror: full }); D.dirty = false; server?.push("derived", { at: new Date().toISOString() }); return perf(ctx, full ? "derive" : "settle", t0); };
 
   D.tick = async () => {                                       // called every ~10 s; each part has its own schedule
     const t = now();
@@ -116,8 +116,8 @@ export function createDaemon({ ctx = makeCtx(), connect = null, now = Date.now, 
       const feat = {}; for (const [k, mk] of engine.markets) if (mk.synced) { const f = mk.features(now()); if (f?.mid != null) feat[k] = f; }
       ctx.liveFeat = feat; log(await ctx.step("predict", predictStep.run)); log(`watching ${D.rescope()} markets`); D.dirty = true; }) || (D.last.scan = 0);
     if (due("outcomes", 5 * 6e4)) await job("outcomes", async () => { const before = ctx.store.out.size; await ctx.step("resolve", resolveStep.run);
-      if (ctx.store.out.size > before) { labelSnaps([...ctx.store.out.keys()].filter(k => pending.has(k))); D.dirty = true; } });
-    if (due("hourly", 60 * 6e4)) await job("hourly", async () => { const a = archive.run(); if (a.moved.length) ctx.store.refresh(); if (!offline) log(await ctx.step("backtest", backtestStep.run)); log(await ctx.step("nn", nnStep.run)); await rescore(true); });
+      if (ctx.store.out.size > before) { labelSnaps([...ctx.store.out.keys()].filter(k => pending.has(k))); D.dirty = true; D.fresh = (D.fresh || 0) + ctx.store.out.size - before; D.rescope(); } });
+    if (due("hourly", 60 * 6e4)) await job("hourly", async () => { const a = archive.run(); if (a.moved.length) ctx.store.refresh(); if (!offline) log(await ctx.step("backtest", backtestStep.run)); log(await ctx.step("models", train.hourly)); await rescore(true); });
     if (D.dirty && due("settle", 2000)) await job("rescore", () => rescore(false));
     if (due("minute", 6e4)) {
       D.minute++; ticks.flush(); feats.flush(); raw?.flush();
@@ -130,9 +130,11 @@ export function createDaemon({ ctx = makeCtx(), connect = null, now = Date.now, 
     if (due("main", config.publish.mainEveryMinutes * 6e4) && D.minute > 1) log(pushMain(`daemon minute ${D.minute}`));
   };
   async function raiseAlerts() {
-    const sc = ctx.get("scorecard"), pr = ctx.get("progress"), paper = ctx.get("paper"), h = ws?.health();
+    const ev = ctx.get("evals"), paper = ctx.get("paper");
+    // The agent's own decisions: a model the referee calls clearly worse than the market is switched off (logged, reversible).
+    for (const m of Object.values(ev?.models || {})) if (m.status === "FAILURE_WORSE" && disable(m.model, `peeking-safe test: worse than the market (${m.vsMarket.sequence.lo}…${m.vsMarket.sequence.hi} over ${m.n} resolved)`, now())) log(`decision: ${m.model} switched off (worse than the market)`);
     const snap = { streamDownSec: ws && ws.state !== "live" ? (now() - (ws.stats.downSince ?? now())) / 1000 : null, downMin: D.downMin ?? null,
-      predictors: Object.fromEntries(Object.entries(sc?.predictors || {}).filter(([k]) => k !== "market").map(([k, p]) => [k, { on: config.predictors[k]?.on, n: p.n, vsMarket: p.brierVsMarket?.mean, status: pr?.predictors?.[k]?.status }])),
+      predictors: Object.fromEntries(Object.values(ev?.models || {}).map(m => [m.model, { on: config.predictors[m.model]?.on, n: m.n, vsMarket: m.vsMarket.snapshot95.diff, status: m.status }])),
       portfolios: paper?.forward?.portfolios || [], llm: ctx.get("llm-usage", "state") };
     D.downMin = null;
     for (const a of alertRules(snap, config.alerts)) { if (a.action?.disable) disable(a.action.disable, a.body, now()); if (await alerts.raise(a.key, a.title, a.body, a)) log(`ALERT: ${a.title} — ${a.body}`); }
@@ -145,6 +147,7 @@ export function createDaemon({ ctx = makeCtx(), connect = null, now = Date.now, 
     if (prev?.at) { const gap = (now() - Date.parse(prev.at)) / 6e4; if (gap > 2 && gap < 7 * 1440) D.downMin = gap; }
     if (serve) await new Promise(res => { server = startServer({ port, state: () => ({ health: D.health(), markets: [...engine.meta.keys()].map(k => engine.view(k, now())).filter(Boolean) }), market: k => engine.view(k, now(), true),
       onListen: (err, p) => { if (err) { log(`live page not started: ${err.message}`); server = null; } else { D.port = p; log(`live page: http://localhost:${p}`); } res(); } }); });
+    if (!ctx.get("ensemble", "state")) { log("first start: training models from the logs…"); log(await ctx.step("models", c => train.hourly(c, { force: true }))); }
     D.rescope(); ws?.start();
   };
   D.stop = () => { ws?.stop(); ticks.flush(); feats.flush(); raw?.flush(); savePending(); server?.close(); };

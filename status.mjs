@@ -23,7 +23,7 @@ const due = preds.filter(p => ago(p.resolvesAt) > H), missing = due.filter(p => 
 const waiting = preds.filter(p => ago(p.resolvesAt) > 0 && ago(p.resolvesAt) <= H && !have.has(p.ticker)).length;
 check("Outcomes are being collected", missing.length <= Math.max(5, due.length * 0.02), `${due.length - missing.length}/${due.length} predictions due >${H / 60} h ago have an official result; ${waiting} newer ones awaiting Kalshi's settlement`);
 check("Scorecard matches the logs", sc.predictions === preds.length, `scorecard counts ${sc.predictions}, log has ${preds.length}`);
-check("No prediction logged after its market resolved", (sc.excludedLeakage || 0) === 0, `leakage ${sc.excludedLeakage || 0}`);
+{ const lk = ctx.get("evals")?.leakage; check("Leakage eval is 0 (no future data in predictions or training)", lk ? lk.total === 0 : (sc.excludedLeakage || 0) === 0, lk ? `${lk.total} violations across ${lk.checks.length} checks` : `leakage ${sc.excludedLeakage || 0}`); }
 const dup = st0.dupes;                 // extra rows for an already-logged market (ignored by readers)
 check("No duplicate predictions", dup <= preds.length * 0.01, dup ? `${dup} repeat rows ignored (first logged row counts)` : "none");
 check("Backtest sample unbiased", !bt.sampleCheck?.warning, bt.sampleCheck ? `YES ${bt.sampleCheck.yesRate} vs price ${bt.sampleCheck.avgPrice}` : "no backtest yet");
@@ -48,14 +48,14 @@ const trade = success.length
   ? { answer: "Paper-trade candidate", tone: "good", why: `${success.join(", ")} beat the market and made money after fees over ${G.minResolved}+ live markets.`,
       next: "Keep paper trading it with the safety rules for another 100 bets before any real money, and only with your explicit decision." }
   : { answer: "No — don't trade real money yet", tone: "bad",
-      why: `Nothing has proven an edge after fees. Live: ${sc.resolved || 0} markets resolved (${events} events); a verdict needs ${G.minResolved}+ and the 95% range must exclude zero. Network on unseen past markets: ${nn.oos?.verdict || "not tested yet"}.`,
+      why: (ctx.get("evals")?.headline || "Nothing has proven an edge after fees.") + ` Missing evidence: a model whose peeking-safe range stays below zero on ${G.minResolved}+ live markets (${sc.resolved || 0} resolved so far, ${events} events) with picks profitable after fees over ${G.minPicks}+ picks.`,
       next: "Let it keep collecting. The answer changes automatically when a strategy reaches SUCCESS on the live record." };
 
 // ---- Is it learning? ----
 const firstLog = trainLog[0], lastLog = trainLog.at(-1);
 const learning = [
   `Live record: ${sc.resolved || 0} of ${sc.predictions || 0} predictions resolved so far (${events} separate events).`,
-  ...preds2.map(([k, p]) => `${k}: ${p.status.replace(/_/g, " ").toLowerCase()} — ${p.rec}`),
+  ...preds2.map(([k, p]) => `${k}: ${String(p.status).replace(/_/g, " ").toLowerCase()} — ${p.rec}`),
   nn.oos ? `Neural network: tested on ${nn.oos.n} past markets it never saw → ${nn.oos.verdict} (Brier ${nn.oos.brierNN} vs market ${nn.oos.brierMarket}).` : "Neural network: not trained yet.",
   firstLog && lastLog && trainLog.length > 1 ? `Training history: ${trainLog.length} runs; data grew ${firstLog.n} → ${lastLog.n} markets; gap vs market ${firstLog.oosDiff} → ${lastLog.oosDiff} (below 0 = better than market).` : "Training history: first run, no trend yet.",
   nn.oos?.folds?.length ? `Network learning check: gap vs market by amount of training data ${nn.oos.folds.map(f => `${f.trainN}→${f.gap >= 0 ? "+" : ""}${f.gap}`).join(", ")} (shrinking = learning; ~0 = copying the market).` : "Network learning check: not available yet.",
@@ -74,7 +74,7 @@ const open = preds.filter(p => !have.has(p.ticker) && Date.parse(p.resolvesAt) >
 const needs = [];
 if (!daemon) needs.push("The live daemon isn't running on your computer. Start it with start.sh (Mac/Linux) or start.cmd (Windows); see docs/manual.md. Until then only the 10-minute cloud fallback runs.");
 for (const p of problems.filter(c => !/schedule|ran recently|heartbeat/i.test(c.name))) needs.push(`Check: ${p.name} (${p.detail}). Ask Claude to run kalshi-ops-status.`);
-preds2.filter(([, p]) => p.status.startsWith("FAILURE")).forEach(([k, p]) => needs.push(`FYI: ${k} — ${p.rec} (the agent decides; see docs/lessons.md)`));
+preds2.filter(([, p]) => /^FAILURE/.test(p.status || "")).forEach(([k, p]) => needs.push(`FYI: ${k} — ${p.rec} (the agent decides; see docs/lessons.md)`));
 
 ctx.emit("status", { updated: new Date(now).toISOString(), trade, learning, watchlist: open, checks, problems: problems.length, needs });
 return (`status: ${trade.answer}; watchdog ${checks.length - problems.length}/${checks.length} ok${problems.length ? " — " + problems.map(p => p.name).join("; ") : ""}; needs ${needs.length}`);

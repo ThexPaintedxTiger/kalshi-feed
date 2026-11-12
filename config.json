@@ -1,5 +1,5 @@
 {
- "version": 10,
+ "version": 11,
  "scan": {
   "windowDays": 16,
   "horizonHours": 6,
@@ -43,6 +43,14 @@
    "on": false,
    "hypothesis": "Outside data: the latest NWS station observation plus the forecast's change to the target hour prices Kalshi hourly temperature markets better than the market.",
    "retired": "2026-11-12: turned OFF (config v10), not retired. +0.335 Brier vs market, 4/30 paper wins: it read one NWS airport station while Kalshi settles on a Synoptic Data metro index. Comes back only after a rebuild against the settlement methodology passes its regression test."
+  },
+  "calib": {
+   "on": true,
+   "hypothesis": "A logistic correction of the market price (price, time left, spread, microprice, book imbalance, trade flow, volatility, outside data, series history, category) refit on every settlement beats the price. Capped at ±10 points from the market."
+  },
+  "ensemble": {
+   "on": true,
+   "hypothesis": "A logistic blend of the active models (calib, nn, crypto_fair) and the market, trained only on their out-of-sample estimates, beats the price. Capped at ±10 points from the market."
   }
  },
  "picks": {
@@ -146,6 +154,20 @@
     "predictor": "crypto_fair",
     "sizing": "learn",
     "minEdge": 0.02
+   },
+   {
+    "id": "calib-learn",
+    "name": "Calib model, learned bet size",
+    "predictor": "calib",
+    "sizing": "learn",
+    "minEdge": 0.02
+   },
+   {
+    "id": "ensemble-learn",
+    "name": "Ensemble, learned bet size",
+    "predictor": "ensemble",
+    "sizing": "learn",
+    "minEdge": 0.02
    }
   ],
   "safety": {
@@ -199,5 +221,40 @@
   "spendFrac": 0.8,
   "offBrier": 0.1,
   "offMinN": 20
+ },
+ "models": {
+  "calib": {
+   "l2": 200,
+   "maxDev": 0.1,
+   "variantsTried": 5,
+   "note": "l2 chosen 2026-11-12 by walk-forward on data settled before the freeze (5 values tried: 5, 20, 50, 200, 1000). All were slightly WORSE than the market (+0.0007…+0.0016 Brier); 200 kept as strong shrinkage."
+  },
+  "ensemble": {
+   "l2": 20,
+   "maxDev": 0.1,
+   "members": [
+    "calib",
+    "nn",
+    "crypto_fair"
+   ],
+   "minRows": 200,
+   "variantsTried": 1
+  },
+  "nn": {
+   "variantsTried": 3,
+   "note": "three architectures/input sets were tried on 2026-11-10 (see lessons.md)"
+  }
+ },
+ "evals": {
+  "alpha": 0.05,
+  "frozenAt": "2026-11-12T03:00:00Z",
+  "note": "Verdicts come only from live predictions (logged before resolution by a model trained on earlier-settled markets), judged by a confidence sequence that stays valid under constant peeking. alpha is split across every predictor and variant ever tried (Bonferroni). Settings were chosen on data settled before frozenAt; nothing after it is used for tuning.",
+  "leadBuckets": [
+   30,
+   60,
+   120,
+   240
+  ],
+  "minForVerdict": 100
  }
 }
