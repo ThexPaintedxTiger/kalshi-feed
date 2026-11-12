@@ -16,17 +16,20 @@ and count something as an improvement only when the scorecard shows it.
 - Never edit or delete logged predictions or outcomes. Never draw conclusions from a handful of results:
   `scorecard.json` says "insufficient data" until `config.json → score.minResolved` markets have resolved.
 - Keep market price, our estimate and the actual outcome clearly separate. High payout or confidence ≠ profit.
-- Process: requirements → inspect → propose → owner approves → smallest useful version → test → document → improve.
+- **Autonomy (owner decision 2026-11-12):** only real money needs the owner's approval (placing or enabling orders, order or withdrawal endpoints, raising
+  the Claude spend cap). Everything else (strategy, predictors on or off, declaring edge from the evals, code, cleanup, schedules, data sources) the AI
+  decides and does itself, logging each decision in `docs/lessons.md` + `data/decisions.jsonl`. Details: `docs/FABLE-PROMPT.md` → "Your authority".
+- Process: requirements → inspect → decide → smallest useful version → test → document → improve.
 
 ## Goals: what success and failure mean (`config.json → goals`, checked by `progress.mjs` → `progress.json`)
 - **SUCCESS** (per predictor): Brier better than the market price (95% interval < 0) over ≥ 100 resolved markets
   **and** simulated picks profitable after fees (95% interval > 0) over ≥ 100 picks. Even then: paper-trade review only.
-- **FAILURE**: clearly worse than the market (interval > 0) at ≥ 100 resolved → recommend turning it off;
-  no measurable edge after 300 resolved → recommend retiring the hypothesis.
+- **FAILURE**: clearly worse than the market (interval > 0) at ≥ 100 resolved → turn it off (AI decides, logs it);
+  no measurable edge after 300 resolved → retire the hypothesis (AI decides, logs it).
 - In between: ON_TRACK / OFF_TRACK (leaning better / not better, n < 100), ACCURATE_NOT_PROFITABLE, INSUFFICIENT (n < 20).
 - Pipeline health: ≥ 100 runs/day, ≥ 50 new predictions/day, 0 leakage, nothing unresolved > 24 h past resolution.
 - Progress = more resolved data and narrowing intervals, tracked daily in `data/progress.jsonl`.
-- `progress.mjs` only recommends. Strategy changes need the owner's approval, then a dated entry in `docs/lessons.md`.
+- `progress.mjs` recommends; the AI acts on it without waiting for approval and writes a dated entry in `docs/lessons.md`. SUCCESS → paper portfolio + owner alert; real money still needs the owner.
 
 ## Skills (`.claude/skills/`, reviewed in `docs/skills.md`)
 `kalshi-run-cycle` (run now) · `kalshi-check-progress` (judge results) · `kalshi-add-predictor` (new hypothesis) ·
