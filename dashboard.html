@@ -120,8 +120,16 @@ const LOCAL = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
 const J = async (u, ms = 8000) => { const c = new AbortController(), t = setTimeout(() => c.abort(), ms); try { const r = await fetch(u, { cache: "no-store", signal: c.signal }); if (!r.ok) throw new Error(u + " → " + r.status); return await r.json(); } finally { clearTimeout(t); } };
 
 // ---------- data sources: localhost stream (sub-second) → published live.json (≤ 2 min) ----------
+// Published data: the copy next to the page, or the same file straight from the site branch — whichever is newer
+// (GitHub Pages can lag a push by minutes; the raw file is at most ~5 minutes behind).
+const RAW = "https://raw.githubusercontent.com/ThexPaintedxTiger/kalshi-feed/site/";
+async function newest(name, stamp) {
+  const got = (await Promise.allSettled([J(name), LOCAL ? Promise.reject() : J(RAW + name + "?t=" + Math.floor(Date.now() / 6e4))])).filter(r => r.status === "fulfilled").map(r => r.value);
+  if (!got.length) throw new Error("not reachable");
+  return got.sort((a, b) => Date.parse(stamp(b)) - Date.parse(stamp(a)))[0];
+}
 async function loadApp() {
-  try { S.app = await J("app.json"); S.err = null; } catch (e) { S.err = "Couldn't load app.json (" + e.message + ")"; }
+  try { S.app = await newest("app.json", j => j.generated); S.err = null; } catch (e) { S.err = "Couldn't load app.json (" + e.message + ")"; }
   render();
 }
 function takeMarkets(list) {
@@ -143,7 +151,7 @@ function connectLive() {
     S.mode = "published"; pollLive(); header();
   })();
 }
-async function pollLive() { if (S.mode !== "published") return; try { const l = await J("live.json"); S.live = l; if (l.health) { S.health = l.health; S.healthAt = Date.parse(l.at); } takeMarkets(l.markets); liveDirty = true; header(); } catch {} }
+async function pollLive() { if (S.mode !== "published") return; try { const l = await newest("live.json", j => j.at); S.live = l; if (l.health) { S.health = l.health; S.healthAt = Date.parse(l.at); } takeMarkets(l.markets); liveDirty = true; header(); } catch {} }
 
 // ---------- header ----------
 function header() {

@@ -1,6 +1,6 @@
 // Service worker: makes the dashboard installable and lets it open offline with the last data it saw.
 // Page shell: cache first, refreshed in the background. Data (.json): network first, cached copy only when offline.
-const C = "kalshi-v2";
+const C = "kalshi-v3";
 self.addEventListener("install", e => { e.waitUntil(caches.open(C).then(c => c.addAll(["./", "index.html", "icon.svg", "manifest.webmanifest"]).catch(() => {})).then(() => self.skipWaiting())); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== C).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
 self.addEventListener("fetch", e => {
