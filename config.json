@@ -1,5 +1,5 @@
 {
- "version": 9,
+ "version": 10,
  "scan": {
   "windowDays": 16,
   "horizonHours": 6,
@@ -21,15 +21,15 @@
   },
   "longshot": {
    "on": false,
-   "slope": 1.1,
    "hypothesis": "Favorite-longshot bias: cheap contracts are overpriced, so true probabilities are more extreme than prices.",
    "retired": "2026-11-10: FAILURE_RETIRE (no measurable edge after 832 resolved; backtest 1334, no difference). Owner approved."
   },
   "memory": {
-   "on": true,
+   "on": false,
    "minN": 10,
    "shrink": 20,
-   "hypothesis": "Series memory: a series' own past gap between outcome and price persists, so shifting the price by that gap (shrunk when history is short) beats the price."
+   "hypothesis": "Series memory: a series' own past gap between outcome and price persists, so shifting the price by that gap (shrunk when history is short) beats the price.",
+   "retired": "2026-11-12: turned off (config v10). 1,164 resolved live markets: Brier vs market +0.0031 (worse), no pick edge. memory.mjs stays as a feature source for the models."
   },
   "nn": {
    "on": true,
@@ -40,8 +40,9 @@
    "hypothesis": "Outside data: a coin's Coinbase spot price and recent volatility (random-walk model) price Kalshi crypto strikes better than the market."
   },
   "weather_nws": {
-   "on": true,
-   "hypothesis": "Outside data: the latest NWS station observation plus the forecast's change to the target hour prices Kalshi hourly temperature markets better than the market."
+   "on": false,
+   "hypothesis": "Outside data: the latest NWS station observation plus the forecast's change to the target hour prices Kalshi hourly temperature markets better than the market.",
+   "retired": "2026-11-12: turned OFF (config v10), not retired. +0.335 Brier vs market, 4/30 paper wins: it read one NWS airport station while Kalshi settles on a Synoptic Data metro index. Comes back only after a rebuild against the settlement methodology passes its regression test."
   }
  },
  "picks": {
@@ -140,23 +141,9 @@
     "minEdge": 0.02
    },
    {
-    "id": "memory-learn",
-    "name": "Series memory, learned bet size",
-    "predictor": "memory",
-    "sizing": "learn",
-    "minEdge": 0.02
-   },
-   {
     "id": "crypto-learn",
     "name": "Crypto fair value, learned bet size",
     "predictor": "crypto_fair",
-    "sizing": "learn",
-    "minEdge": 0.02
-   },
-   {
-    "id": "weather-learn",
-    "name": "Weather forecast, learned bet size",
-    "predictor": "weather_nws",
     "sizing": "learn",
     "minEdge": 0.02
    }
@@ -183,18 +170,17 @@
    "probeMinDollars": 0.25
   }
  },
- "live": {
-  "artifactUrl": "https://claude.ai/artifact/YWELuS2iUX9Y62DHMX737v",
-  "triggerId": "trig_01VBpUdvVfLrxySgxCPLceHk",
-  "devSession": "session_017aScWtmMzeyXzzwrarJEyL",
-  "cyclesPerHour": 6,
-  "schedule": "hourly at :54 UTC"
- },
  "storage": {
   "maxHotMB": 40,
   "repoLimitMB": 1024,
   "warnDays": 90,
   "minFreeGB": 5,
   "note": "archive.mjs moves hot logs older than last month (or over maxHotMB) to data/archive/ as verified gzip; storage.mjs watches sizes."
+ },
+ "publish": {
+  "mainEveryMinutes": 15,
+  "siteEveryMinutes": 2,
+  "siteBranch": "site",
+  "note": "main = code + append-only logs; site = derived files, one force-pushed commit (GitHub Pages)."
  }
 }

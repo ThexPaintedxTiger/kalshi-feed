@@ -64,11 +64,12 @@ export const MONTH_FILE = /^(\d{4}-\d{2})(?:\.part(\d+))?\.jsonl(?:\.gz)?$/;
 const ymOf = d => d.toISOString().slice(0, 7);
 export const hotFile = (kind, now = new Date()) => `data/${kind}/${ymOf(now)}.jsonl`;
 // Every file of a kind, oldest month first (archived parts before the hot file). `months` limits to those YYYY-MM.
-export function allMonthFiles(kind, months = null) {
+export function allMonthFiles(kind, months = null, root = ".") {
   const out = [], arch = new Set();
   for (const [d, tier] of [[`data/archive/${kind}`, 0], [`data/${kind}`, 1]]) {
-    if (!existsSync(d)) continue;
-    for (const f of readdirSync(d)) {
+    const dir = root === "." ? d : `${root}/${d}`;
+    if (!existsSync(dir)) continue;
+    for (const f of readdirSync(dir)) {
       const m = f.match(MONTH_FILE); if (!m || (months && !months.includes(m[1]))) continue;
       if (tier === 0) arch.add(f.replace(/\.gz$/, ""));
       else if (arch.has(f)) continue;                                   // archived copy verified identical; hot copy left by an interrupted move

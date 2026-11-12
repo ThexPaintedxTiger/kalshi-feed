@@ -66,7 +66,7 @@ export function verdict(m, onOwnerComputer = false) {
   const p = [];
   if (m.oversizeHot.length) p.push(`hot file over ${m.limits.maxHotMB} MB: ${m.oversizeHot.join(", ")}`);
   if (m.archiveFailures.length) p.push(`archive failed: ${m.archiveFailures.map(f => f.src).join(", ")}`);
-  if (m.daysToRepoLimit != null && m.daysToRepoLimit < m.limits.warnDays) p.push(`repo reaches ${m.limits.repoLimitMB} MB in ~${m.daysToRepoLimit} days: commit dashboard.json/history.json hourly instead of every cycle (owner approves)`);
+  if (m.daysToRepoLimit != null && m.daysToRepoLimit < m.limits.warnDays) p.push(`repo reaches ${m.limits.repoLimitMB} MB in ~${m.daysToRepoLimit} days: check which log is growing (derived files are no longer committed)`);
   if (onOwnerComputer && m.freeDiskGB != null && m.freeDiskGB < m.limits.minFreeGB) p.push(`only ${m.freeDiskGB} GB free on this computer`);
   return { ok: p.length === 0, problems: p };
 }
@@ -78,15 +78,14 @@ async function githubSizeKB() {
   try { const r = await fetch(`https://api.github.com/repos/${m[1]}`, { headers: { accept: "application/vnd.github+json", "user-agent": "kalshi-feed-storage" } }); return r.ok ? (await r.json()).size ?? null : null; } catch { return null; }
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
-  const local = process.argv.includes("--mirror");
-  const copied = local ? mirrorLocal() : 0;
-  const m = measure(".", Date.now(), await githubSizeKB()), v = verdict(m, local);
-  m.ok = v.ok; m.problems = v.problems; m.host = local ? "local" : (process.env.GITHUB_ACTIONS ? "cloud" : "other");
-  writeJson("data/storage.json", m);
+export async function run(ctx, { mirror = false } = {}) {
+  const copied = mirror ? mirrorLocal() : 0, last = ctx.ghSize ||= { at: 0, kb: null };
+  if (Date.now() - last.at > 6 * 36e5) { last.kb = await githubSizeKB(); last.at = Date.now(); }       // GitHub's figure: a few times a day is plenty
+  const m = measure(".", Date.now(), last.kb), v = verdict(m, mirror);
+  m.ok = v.ok; m.problems = v.problems; m.host = mirror ? "local" : (process.env.GITHUB_ACTIONS ? "cloud" : "other");
+  ctx.emit("storage", m);
   const today = m.at.slice(0, 10);
   if (!readJsonl("data/storage-history.jsonl").some(h => h.date === today)) appendJsonl("data/storage-history.jsonl", [{ date: today, repoMB: m.repoMB, hotMB: m.hotMB, archiveMB: m.archiveMB }]);
-  console.log(`storage: repo ${m.repoMB} MB${m.repoGrowthMBPerDay != null ? ` (+${m.repoGrowthMBPerDay} MB/day, ~${m.daysToRepoLimit ?? "∞"} days to ${m.repoLimitMB} MB)` : ""} · ` +
-    `hot ${Object.values(m.hotMB).reduce((a, b) => a + b, 0).toFixed(1)} MB · archive ${m.archivedFiles} files (${m.archiveRows} rows)` +
-    (local ? ` · local copy ${m.localCopyMB} MB (${copied} files updated) · ${m.freeDiskGB} GB free` : "") + (v.ok ? " · ok" : ` · CHECK: ${v.problems.join("; ")}`));
+  return `storage: repo ${m.repoMB} MB · hot ${Object.values(m.hotMB).reduce((a, b) => a + b, 0).toFixed(1)} MB · archive ${m.archivedFiles} files` + (mirror ? ` · local copy ${m.localCopyMB} MB (${copied} updated) · ${m.freeDiskGB} GB free` : "") + (v.ok ? " · ok" : ` · CHECK: ${v.problems.join("; ")}`);
 }
+if (import.meta.url === `file://${process.argv[1]}`) { const { makeCtx } = await import("./core/ctx.mjs"); console.log(await run(makeCtx(), { mirror: process.argv.includes("--mirror") })); }

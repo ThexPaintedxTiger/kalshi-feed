@@ -4,14 +4,14 @@
 import { readJsonl, writeJson, readJson, r4, readLog, predictionRows } from "./lib.mjs";
 
 // Samples = settled markets with the market price we logged and the result.
-export function loadSamples() {
-  const out = Object.fromEntries(readJsonl("data/outcomes.jsonl").map(o => [o.ticker, o]));
+export function loadSamples(store = null) {
+  const out = store ? Object.fromEntries(store.out) : Object.fromEntries(readJsonl("data/outcomes.jsonl").map(o => [o.ticker, o]));
   const s = [];
-  for (const p of allPredictions()) {
+  for (const p of store ? store.preds : allPredictions()) {
     const o = out[p.ticker]; if (!o || (o.result !== "yes" && o.result !== "no")) continue;
     s.push({ series: p.series, cat: p.cat, ticker: p.ticker, mid: p.mid, y: o.result === "yes" ? 1 : 0, t: Date.parse(o.settledAt || p.resolvesAt), src: "live" });
   }
-  for (const r of backtestRows()) s.push({ series: r.series, cat: r.cat, ticker: r.ticker, mid: r.mid, y: r.y, t: Date.parse(r.settledAt || r.resolvesAt), src: "backtest" });
+  for (const r of store ? store.backtest : backtestRows()) s.push({ series: r.series, cat: r.cat, ticker: r.ticker, mid: r.mid, y: r.y, t: Date.parse(r.settledAt || r.resolvesAt), src: "backtest" });
   // One sample per ticker (live wins over backtest).
   const seen = new Set();
   return s.sort((a, b) => (a.src === "live" ? -1 : 1) - (b.src === "live" ? -1 : 1)).filter(x => !seen.has(x.ticker) && seen.add(x.ticker));
@@ -35,14 +35,14 @@ export const allPredictions = predictionRows;
 export const backtestRows = () => readLog("backtest");
 export const snapshotRows = () => readLog("snapshots");
 
-if (import.meta.url === `file://${process.argv[1]}`) {
-  const samples = loadSamples(), recall = makeRecall(samples), cats = readJson("data/series.json", { map: {} }).map;
-  const series = {};
-  for (const t of [...new Set(samples.map(x => x.series))].sort()) {
-    const r = recall(t), src = samples.filter(x => x.series === t);
-    series[t] = { cat: cats[t] || src[0]?.cat || "", ...r, live: src.filter(x => x.src === "live").length, backtest: src.filter(x => x.src === "backtest").length };
-  }
-  writeJson("data/memory/series.json", { updated: new Date().toISOString(), samples: samples.length,
-    note: "Derived summary (rebuilt each run). bias = average (outcome − market price); > 0 means YES was underpriced in this series.", series });
-  console.log(`memory: ${samples.length} settled samples across ${Object.keys(series).length} series`);
+// Human/MCP-readable summary per series (derived; rebuilt when the logs change).
+export function run(ctx) {
+  const samples = ctx.samples(), cats = readJson("data/series.json", { map: {} }).map, series = {}, by = {};
+  for (const x of samples) (by[x.series] ||= []).push(x);
+  for (const t of Object.keys(by).sort()) { const src = by[t];
+    series[t] = { cat: cats[t] || src[0]?.cat || "", ...ctx.recall(t), live: src.filter(x => x.src === "live").length, backtest: src.filter(x => x.src === "backtest").length }; }
+  ctx.emit("memory", { updated: new Date().toISOString(), samples: samples.length,
+    note: "Derived summary. bias = average (outcome − market price); > 0 means YES was underpriced in this series.", series }, "state");
+  return `memory: ${samples.length} settled samples across ${Object.keys(series).length} series`;
 }
+if (import.meta.url === `file://${process.argv[1]}`) { const { makeCtx } = await import("./core/ctx.mjs"); console.log(run(makeCtx())); }

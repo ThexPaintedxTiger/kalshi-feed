@@ -5,27 +5,25 @@
 // Kept separate from the live record (data/backtest/, backtest-scorecard.json). The neural network is NOT estimated
 // here (it trains on these rows); its honest test is the walk-forward run in nn.mjs.
 import { minuteStats } from "./nnlib.mjs";
-import { config, kalshi, sleep, series, r4, readJson, writeJson, appendJsonl, categories } from "./lib.mjs";
+import { config, kalshi, sleep, series, r4, readJson, writeJson, categories } from "./lib.mjs";
 import { estimate } from "./predictors.mjs";
 import * as crypto from "./external/crypto.mjs";
-import { loadSamples, makeRecall, backtestRows } from "./memory.mjs";
 import { score } from "./score.mjs";
 
+export async function run(ctx, { force = process.env.FORCE === "1" } = {}) {
 const B = { ...config.backtest, ...(process.env.BT_CALLS ? { maxCandleCalls: +process.env.BT_CALLS, maxPerRun: +process.env.BT_CALLS } : {}) };
 const S = config.scan, now = Date.now(), excluded = new Set(B.excludeCategories || []);
 const STATE = "data/backtest/state.json";
 const state = readJson(STATE, { newest: 0, oldest: 0, lastRun: 0 });
-if (process.env.FORCE !== "1" && now - state.lastRun < B.everyMinutes * 6e4) {
-  console.log(`backtest: ran ${Math.round((now - state.lastRun) / 6e4)} min ago, next in ≤${B.everyMinutes} min — skipped`); process.exit(0);
-}
+if (!force && now - state.lastRun < B.everyMinutes * 6e4) return rescore(ctx, state, B), `backtest: ran ${Math.round((now - state.lastRun) / 6e4)} min ago — skipped`;
 const end = now - B.settleDelayHours * 36e5, floor = now - B.days * 864e5, slice = B.sliceHours * 36e5;
 const slices = [];
 if (!state.newest) state.newest = state.oldest = end;
 for (let a = state.newest; a < end; a += slice) slices.push([a, Math.min(a + slice, end), "fwd"]);
 for (let b = state.oldest; b > floor; b -= slice) slices.push([Math.max(b - slice, floor), b, "back"]);
 
-const doneEvents = new Set(backtestRows().map(r => r.event));
-const recall = makeRecall(loadSamples());
+const doneEvents = new Set(ctx.store.backtest.map(r => r.event));
+const recall = ctx.recall;
 const rows = []; let calls = 0, listed = 0; const rejected = {};
 const skip = why => { rejected[why] = (rejected[why] || 0) + 1; };
 
@@ -90,20 +88,24 @@ for (const [a, b, dir] of slices) {
   if (complete) { if (dir === "fwd") state.newest = Math.max(state.newest, b); else state.oldest = Math.min(state.oldest, a); }
 }
 
-const byMonth = {};
-for (const r of rows) (byMonth[r.ts.slice(0, 7)] ||= []).push(r);
-for (const [ym, rs] of Object.entries(byMonth)) appendJsonl(`data/backtest/${ym}.jsonl`, rs);
+ctx.store.append("backtest", rows);
 state.lastRun = now; writeJson(STATE, state);
+const sc = rescore(ctx, state, B);
+return `backtest: listed ${listed} settled, added ${rows.length} (candle calls ${calls}), total ${ctx.store.backtest.length}; skipped ${JSON.stringify(rejected)}; ` +
+  Object.entries(sc.predictors).map(([k, v]) => `${k} vs mkt ${v.brierVsMarket.mean} (${v.verdict})`).join("; ");
+}
 
-const all = backtestRows();
-const sc = score(all, all.map(r => ({ ticker: r.ticker, result: r.y ? "yes" : "no", settledAt: r.settledAt, closedAt: r.resolvesAt })));
-sc.note = "BACKTEST on already-settled markets (prices from Kalshi candles " + B.leadMinutes + " min before resolution). Supports, never replaces, the live record. " + sc.note;
-sc.window = { from: new Date(state.oldest).toISOString(), to: new Date(state.newest).toISOString() };
-// Sample check: in an unbiased sample YES wins about as often as prices implied. A big gap suggests selection leaked outcomes.
-const yes = all.reduce((t, r) => t + r.y, 0) / (all.length || 1), price = all.reduce((t, r) => t + r.mid, 0) / (all.length || 1);
-sc.sampleCheck = { yesRate: r4(yes), avgPrice: r4(price), gap: r4(yes - price),
-  warning: all.length >= 200 && Math.abs(yes - price) > 0.05 ? "YES rate differs from average price by more than 5 points: check the sample for selection bias before trusting results" : null };
-writeJson("backtest-scorecard.json", sc);
-if (sc.sampleCheck.warning) console.log("WARNING:", sc.sampleCheck.warning, JSON.stringify(sc.sampleCheck));
-console.log(`backtest: listed ${listed} settled, added ${rows.length} (candle calls ${calls}), total ${all.length}; skipped ${JSON.stringify(rejected)}; ` +
-  Object.entries(sc.predictors).map(([k, v]) => `${k} brier ${v.brier.mean} vs mkt ${v.brierVsMarket.mean} (${v.verdict})`).join("; "));
+// Backtest scorecard from the rows in memory (cheap; also run when the hourly fetch is skipped so a fresh process has it).
+function rescore(ctx, state, B) {
+  if (ctx.out["backtest-scorecard"] && ctx.btV === ctx.store.backtest.length) return ctx.out["backtest-scorecard"];
+  const all = ctx.store.backtest; ctx.btV = all.length;
+  const sc = score(all, all.map(r => ({ ticker: r.ticker, result: r.y ? "yes" : "no", settledAt: r.settledAt, closedAt: r.resolvesAt })));
+  sc.note = "BACKTEST on already-settled markets (prices from Kalshi candles " + B.leadMinutes + " min before resolution). Supports, never replaces, the live record. " + sc.note;
+  sc.window = { from: new Date(state.oldest).toISOString(), to: new Date(state.newest).toISOString() };
+  // Sample check: in an unbiased sample YES wins about as often as prices implied. A big gap suggests selection leaked outcomes.
+  const yes = all.reduce((t, r) => t + r.y, 0) / (all.length || 1), price = all.reduce((t, r) => t + r.mid, 0) / (all.length || 1);
+  sc.sampleCheck = { yesRate: r4(yes), avgPrice: r4(price), gap: r4(yes - price),
+    warning: all.length >= 200 && Math.abs(yes - price) > 0.05 ? "YES rate differs from average price by more than 5 points: check the sample for selection bias before trusting results" : null };
+  return ctx.emit("backtest-scorecard", sc);
+}
+if (import.meta.url === `file://${process.argv[1]}`) { const { makeCtx } = await import("./core/ctx.mjs"); console.log(await run(makeCtx())); }

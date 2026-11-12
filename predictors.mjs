@@ -8,20 +8,13 @@ import { features, predict } from "./nnlib.mjs";
 // "worse than market", it stands down and returns the market price (no picks); it keeps retraining hourly and comes back
 // on its own once that stops being true.
 let MODEL;
-const model = () => (MODEL ??= (() => { const f = readJson("data/nn/model.json", null); return f?.model && !/^worse/.test(f.oos?.verdict || "") ? f.model : null; })() || null);
+const gate = f => (f?.model && !/^worse/.test(f.oos?.verdict || "") ? f.model : null);
+const model = () => (MODEL === undefined ? (MODEL = gate(readJson("state/nn-model.json", null))) : MODEL);
+export const setModel = f => { MODEL = gate(f); };              // called after each training run (long-running process)
 
-const logit = p => Math.log(p / (1 - p)), sigm = x => 1 / (1 + Math.exp(-x));
-const clamp = p => Math.min(0.99, Math.max(0.01, p));
 
 export const PRED = {
   market: c => c.mid,
-  longshot: c => sigm(config.predictors.longshot.slope * logit(c.mid)),
-  // Memory: shift the price by this series' own past (outcome − price) gap, shrunk toward 0 when there's little history.
-  memory: (c, ctx) => {
-    const P = config.predictors.memory, s = ctx?.recall?.(c.series, c.at);
-    if (!s || s.n < P.minN) return c.mid;
-    return clamp(c.mid + (s.n / (s.n + P.shrink)) * s.bias);
-  },
 };
 
 // nn needs c.cat and c.resolvesAt as well.

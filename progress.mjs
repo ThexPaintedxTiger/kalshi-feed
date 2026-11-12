@@ -1,7 +1,7 @@
 // Self-check: are we moving toward the goal? Reads the scorecard and logs, compares them with the goals in
 // config.json, and writes progress.json with a status and a plain-English recommendation per goal.
 // It never changes config.json: recommendations need the owner's approval.
-import { config, readJsonl, readJson, writeJson, appendJsonl, predictionFiles, firstPerTicker, r4 } from "./lib.mjs";
+import { config, readJsonl, appendJsonl, r4 } from "./lib.mjs";
 
 // Status of one predictor against the edge goal.
 export function predictorStatus(p, g) {
@@ -67,15 +67,12 @@ export function evaluate(sc, runs, preds, outcomes, goals, now, prevSnap, bt = n
       "FAILURE = clearly worse than market, or no edge after retireAfter resolved. Recommendations only; nothing changes without owner approval." };
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
-  const now = Date.now(), today = new Date(now).toISOString().slice(0, 10);
-  const snaps = readJsonl("data/progress.jsonl");
-  const prev = [...snaps].reverse().find(s => s.date < today);
-  const preds = firstPerTicker(predictionFiles().flatMap(f => readJsonl(f)));
-  const out = evaluate(readJson("scorecard.json", {}), readJsonl("data/runs.jsonl"), preds, readJsonl("data/outcomes.jsonl"), config.goals, now, prev, readJson("backtest-scorecard.json", null));
-  writeJson("progress.json", out);
+export function run(ctx) {
+  const now = Date.now(), today = new Date(now).toISOString().slice(0, 10), snaps = readJsonl("data/progress.jsonl");
+  const prev = [...snaps].reverse().find(s => s.date < today), st = ctx.store;
+  const out = ctx.emit("progress", evaluate(ctx.get("scorecard") || {}, st.runs, st.preds, st.outcomes, config.goals, now, prev, ctx.get("backtest-scorecard")));
   if (!snaps.some(s => s.date === today) && Object.keys(out.predictors).length)
     appendJsonl("data/progress.jsonl", [{ date: today, resolved: out.resolved, predictors: Object.fromEntries(Object.entries(out.predictors).map(([k, p]) => [k, p.snap])) }]);
-  console.log(`goal: ${out.goal}; health ${out.health.ok ? "OK" : "PROBLEM"}${out.health.warmingUp ? " (warming up)" : ""}; ` +
-    (Object.entries(out.predictors).map(([k, p]) => `${k}: ${p.status} — ${p.rec}${p.backtest ? ` [backtest n=${p.backtest.n}: ${p.backtest.verdict}]` : ""}`).join("; ") || "no resolved predictions yet"));
+  return `goal: ${out.goal}; health ${out.health.ok ? "OK" : "PROBLEM"}${out.health.warmingUp ? " (warming up)" : ""}; ` + Object.entries(out.predictors).map(([k, p]) => `${k}: ${p.status}`).join("; ");
 }
+if (import.meta.url === `file://${process.argv[1]}`) { const { makeCtx } = await import("./core/ctx.mjs"); console.log(run(makeCtx())); }

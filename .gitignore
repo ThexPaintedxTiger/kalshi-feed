@@ -1,3 +1,6 @@
 private/
 node_modules/
 local/
+# Derived files: rebuilt from the logs, published to the `site` branch, never committed to main.
+site/
+state/

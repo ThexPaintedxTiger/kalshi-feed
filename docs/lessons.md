@@ -55,3 +55,28 @@ What we changed because the data (or a mistake) taught us something. Newest firs
   GET allowlist + market-data channels; orders throw before signing; tests check this, Ed25519 and RSA signatures, and that no private key is tracked).
   Network inputs 23 → 27 (config v9): order-book imbalance and 30-min trade flow. Live rows get them from public endpoints (no key) so the
   walk-forward test can judge them; the keyed stream adds them to minute snapshots. Expectation before data: small chance of a real edge (~10%, estimated).
+
+## v2 decisions (the agent decides everything except real money; owner's rule of 2026-11-12). Newest last.
+
+- 2026-11-12 (**config v10: weather_nws OFF**). What: `predictors.weather_nws.on = false`; `weather-learn` paper portfolio removed.
+  Why: +0.335 Brier vs market, 4 of 30 paper wins. The rows show one NWS airport station (e.g. KMDW 60.8°F) while the forecast said 54°F and
+  the market priced "≥53°" at 0.14: the station is not what Kalshi settles on. The rules name **Synoptic Data, "Kalshi Weather Index
+  Methodology"** for a metro area (contract `CHIMETROWINDEX`), i.e. an index, not one airport. σ ≈ 1.2°F and a 0.995 clamp turned that
+  source error into near-certain wrong bets. Undo: set `on: true` (do not, until the rebuild passes its regression test on the logged rows).
+- 2026-11-12 (**config v10: memory predictor OFF**). Why: 1,164 resolved live markets, Brier vs market +0.0031 (worse), backtest +0.0001.
+  `memory.mjs` stays: its per-series history is an input to the models. `memory-learn` portfolio removed. Undo: `on: true` + restore `PRED.memory` from git.
+- 2026-11-12 (**network interval per event**). The walk-forward 95% interval in `nn.mjs` treated every market as independent. It now uses
+  `score.mjs → clustered()` (per-event means). On 2,257 unseen markets in 1,478 events: diff 0.0000, −0.0002…+0.0002 → no measurable difference
+  (the network is copying the market). Undo: none needed; the old interval was wrong.
+- 2026-11-12 (**one process, logs loaded once**). `core/store.mjs` reads only bytes appended since the last look; every step exports
+  `run(ctx)` and shares memory (`cycle.mjs`). Measured: derived steps (score, progress, memory, paper, storage, status, dashboard) 0.6 s in one
+  process vs ~15 Node launches each re-parsing every log. The network retrains hourly and only when a new settled market exists (fixed seed →
+  same data gives the same model). Undo: `git revert` of the v2 step-1 commit.
+- 2026-11-12 (**derived files left main**). `scorecard.json`, `status.json`, `progress.json`, `dashboard.json`, `backtest-scorecard.json`,
+  model/paper/memory caches are no longer committed (they were rewritten every 5 minutes: ~0.8 MB of churn per commit). They are built into
+  `site/` and force-pushed as ONE commit to the `site` branch (GitHub Pages); local caches live in `state/`. `main` = code + append-only logs,
+  pushed every 15 minutes. Undo: remove `site/`, `state/` from `.gitignore`.
+- 2026-11-12 (**removed, unscored or dead**): `scan.mjs`, `agents.mjs`, `index.html`, `bets.json`, `history.json` (Gemini / Agent Flow feed:
+  never scored against outcomes); `live.sh`, `live.yml`, skill `kalshi-live-agent` (the hourly Claude dev agent that restarted the pipeline;
+  replaced by the supervisor `start.sh` / `start.cmd`); `focus.mjs` (replaced by the live daemon's own prices); `longshot` and `memory` predictor
+  code. All still in git history. The `GEMINI_API_KEY` repo secret is no longer read and can be deleted by the owner.

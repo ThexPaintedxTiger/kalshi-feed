@@ -13,12 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
-      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       FORCE: ${{ github.event_name == 'workflow_dispatch' && '1' || '0' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - name: One pipeline cycle (see cycle.sh)
         run: bash cycle.sh

@@ -91,9 +91,8 @@ assert.equal(mem("S", 1000), null);                 // nothing settled yet
 assert.equal(mem("S", 1020).n, 20);                 // only the first 20
 assert.equal(mem("S", 1020).bias, 0.5);             // all YES at 50¢ so far
 assert.equal(mem("S").n, 30); assert.equal(mem("X"), null);
-// Memory predictor: no change below minN, shrunk shift above it.
-assert.equal(PRED.memory({ mid: 0.5, series: "S", at: 1005 }, { recall: mem }), 0.5);       // n=5 < minN
-assert.equal(Math.round(PRED.memory({ mid: 0.5, series: "S", at: 1020 }, { recall: mem }) * 1e4), 5000 + 2500); // 0.5 + 20/40×0.5
+// Retired predictors are gone from the code (their logged rows stay scored as history).
+assert.ok(!("memory" in PRED) && !("longshot" in PRED));
 const e2 = estimate({ mid: 0.5, ask: 0.51, bid: 0.49, series: "S", at: 1005 }, { recall: mem });
 assert.equal(e2.est.market, 0.5); assert.deepEqual(e2.picks, {});              // fair price → no pick
 // Trade CSV import: quoted fields, cents, aliases, sells, junk rows.
@@ -262,4 +261,5 @@ assert.deepEqual(firstPerTicker([{ ticker: "A", n: 1 }, { ticker: "B", n: 2 }, {
   assert.deepEqual(fromFill({ ticker: "kx-a", side: "no", action: "buy", no_price_dollars: "0.3500", count_fp: "4.00", created_time: "t" }),
     { ticker: "KX-A", side: "no", sell: false, price: 0.35, count: 4, fees: null, time: "t" });
 }
+await import("./tests/core.test.mjs");
 console.log("all tests passed");

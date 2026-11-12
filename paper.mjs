@@ -8,8 +8,7 @@
 // only in proportion to how much of the predicted edge the strategy has actually delivered (conservatively measured).
 // Modes: replay (past settled markets; the network only trades markets it never trained on) and forward (live predictions).
 // SIMULATION ONLY. Nothing is traded. Rebuilt from the logs each run → data/paper/portfolios.json.
-import { config, readJson, readJsonl, writeJson, r4, hash, mean } from "./lib.mjs";
-import { allPredictions, backtestRows } from "./memory.mjs";
+import { config, r4, hash, mean } from "./lib.mjs";
 import { rng } from "./nnlib.mjs";
 
 const P = config.paper, SAFE = P.safety, LEARN = P.learning, excluded = new Set(config.scan.excludeCategories || []);
@@ -170,11 +169,11 @@ export function monteCarlo(returns, o = P.monteCarlo, betsPerDay = null) {
     byHorizon: horizons.map(h => ({ bets: h, pReachGoal: r4(mean(hitAt.map(x => (x && x <= h ? 1 : 0)))), medianEquity: r4(med(finals[h])) })) };
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
-  const oos = readJson("data/nn/oos.json", {}), out = Object.fromEntries(readJsonl("data/outcomes.jsonl").map(o => [o.ticker, o]));
-  const replay = backtestRows().filter(r => !excluded.has(r.cat)).map(r => ({ ...r, est: { ...r.est, nn: oos[r.ticker] } }))
+export function run(ctx) {
+  const oos = ctx.get("nn-oos", "state") || {}, out = Object.fromEntries(ctx.store.out);
+  const replay = ctx.store.backtest.filter(r => !excluded.has(r.cat)).map(r => ({ ...r, est: { ...r.est, nn: oos[r.ticker] } }))
     .sort((a, b) => Date.parse(a.ts) - Date.parse(b.ts));
-  const forward = allPredictions().filter(p => p.cfg >= 4 && !excluded.has(p.cat)).map(p => {
+  const forward = ctx.store.preds.filter(p => p.cfg >= 4 && !excluded.has(p.cat)).map(p => {
     const o = out[p.ticker], y = o?.result === "yes" ? 1 : o?.result === "no" ? 0 : null;
     return { ...p, y, settledAt: o?.settledAt || p.resolvesAt };
   }).sort((a, b) => Date.parse(a.ts) - Date.parse(b.ts));
@@ -185,7 +184,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     replay: { rows: replay.length, from: replay[0]?.ts || null, to: replay.at(-1)?.ts || null, portfolios: run(replay) },
     forward: { rows: forward.length, settled: forward.filter(r => r.y != null).length, portfolios: run(forward) },
   };
-  writeJson("data/paper/portfolios.json", res);
-  for (const m of ["replay", "forward"]) console.log(`paper ${m} (${res[m].rows} markets): ` + res[m].portfolios.map(p =>
-    `${p.id} $${p.equity} (${p.bets} bets, max bet ${p.maxBetPct}%, worst loss ${p.worstLossPct}%${p.busted ? ", BUST" : ""}${p.monteCarlo ? `, P($1000 in ${p.monteCarlo.byHorizon.at(-1).bets} bets) ${(p.monteCarlo.byHorizon.at(-1).pReachGoal * 100).toFixed(1)}%` : ""})`).join("; "));
+  ctx.emit("paper", res);
+  return ["replay", "forward"].map(m => `paper ${m} (${res[m].rows} markets): ` + res[m].portfolios.map(p =>
+    `${p.id} $${p.equity} (${p.bets} bets, max bet ${p.maxBetPct}%, worst loss ${p.worstLossPct}%${p.busted ? ", BUST" : ""}${p.monteCarlo ? `, P($1000 in ${p.monteCarlo.byHorizon.at(-1).bets} bets) ${(p.monteCarlo.byHorizon.at(-1).pReachGoal * 100).toFixed(1)}%` : ""})`).join("; ")).join("\n");
 }
+if (import.meta.url === `file://${process.argv[1]}`) { const { makeCtx } = await import("./core/ctx.mjs"); console.log(run(makeCtx())); }

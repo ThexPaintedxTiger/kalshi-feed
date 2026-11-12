@@ -1,20 +1,7 @@
-# Two pipeline runs can push data at the same time. Append-only logs merge line by line (no conflict);
-# derived files are rebuilt every cycle, so on a clash the already-pushed version is kept ("keep" driver, set up in cycle.sh).
+# Two writers (the owner's daemon and the cloud fallback) can push logs at the same time.
+# Append-only logs merge line by line (no conflict); small state files keep the already-pushed version.
 *.jsonl merge=union
-scorecard.json merge=keep
-backtest-scorecard.json merge=keep
-progress.json merge=keep
-status.json merge=keep
-dashboard.json merge=keep
-bets.json merge=keep
-history.json merge=keep
 data/series.json merge=keep
-data/focus.json merge=keep
-data/external/*.json merge=keep
-data/live.json merge=keep
-data/stream.json merge=keep
-data/nn/*.json merge=keep
-data/paper/*.json merge=keep
-data/memory/*.json merge=keep
 data/backtest/state.json merge=keep
-data/storage.json merge=keep
+data/archive/index.json merge=keep
+data/external/*.json merge=keep
