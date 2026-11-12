@@ -1,2 +1,3 @@
 {"date":"2026-11-10","resolved":0,"predictors":{"longshot":{"n":0,"mean":null,"width":null},"memory":{"n":0,"mean":null,"width":null}}}
 {"date":"2026-11-11","resolved":921,"predictors":{"longshot":{"n":921,"mean":0.0006,"width":0.0024},"memory":{"n":383,"mean":0.0041,"width":0.0129},"nn":{"n":243,"mean":-0.0016,"width":0.0076},"crypto_fair":{"n":23,"mean":-0.0041,"width":0.0435}}}
+{"date":"2026-11-12","resolved":1391,"predictors":{"longshot":{"n":1011,"mean":0.0005,"width":0.0021},"memory":{"n":841,"mean":0.0023,"width":0.0067},"nn":{"n":700,"mean":-0.0002,"width":0.0024},"crypto_fair":{"n":167,"mean":0.0029,"width":0.0153},"weather_nws":{"n":56,"mean":0.2571,"width":0.2653}}}
