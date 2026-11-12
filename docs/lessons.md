@@ -152,3 +152,9 @@ What we changed because the data (or a mistake) taught us something. Newest firs
   what it costs. Undo: `scan.shadowPerRun = 0`.
 - 2026-11-12 (**index/commodity quotes not added**): the free quote source tried (stooq) resets connections from the cloud, and unofficial
   APIs conflict with "respect site terms". Left open in `docs/handoff.md`; needs a source the owner is happy with.
+- 2026-11-12 (**cloud fallback really running; how the page stays fresh**). The "Kalshi feed" workflow had been disabled by hand
+  (`disabled_manually`); re-enabled through the API and it now runs on its 10-minute timer and after code pushes. Finding: a push made
+  with the workflow's own token updates the `site` branch but does **not** start a GitHub Pages build (and asking for one through the
+  API with that token did nothing). So the page now loads its data from both places — next to the page and straight from the `site`
+  branch (raw.githubusercontent.com, ≤ ~5 min cache) — and uses whichever is newer. Pages only needs rebuilding when the page's own
+  code changes, which happens on any push made by a person or the laptop daemon.
