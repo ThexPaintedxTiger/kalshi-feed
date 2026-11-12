@@ -1,7 +1,7 @@
 // Predictors shared by the live pipeline (predict.mjs) and the backtest (backtest.mjs), so both test the same ideas.
 // Each takes a market snapshot c = { mid, ask, bid, series, at } and context ctx = { recall } and returns P(YES),
 // using only information available at time c.at (no future information).
-import { config, ev, r4, readJson } from "./lib.mjs";
+import { config, ev, r4, readJson, writeJson, appendJsonl } from "./lib.mjs";
 import { features, predict } from "./nnlib.mjs";
 
 // Trained network (data/nn/model.json), loaded once. Safety gate: while its walk-forward test on unseen markets says
@@ -24,7 +24,18 @@ PRED.weather_nws = c => c.ext?.weather?.p ?? null;
 
 PRED.nn = (c, ctx) => { const m = model(), x = features(c, ctx?.recall); return m && m.W[0][0].length === x.length ? predict(m, x, c.mid) : c.mid; };
 
-export const enabled = () => Object.keys(PRED).filter(k => config.predictors[k]?.on);
+// Runtime switch-offs made by the anomaly guard (data/overrides.json, committed with the logs so every runner sees them).
+// config.json stays the reviewed setting; an override only ever turns something OFF, and is logged in data/decisions.jsonl.
+const OVR = "data/overrides.json";
+let overrides = readJson(OVR, { off: {} });
+export function disable(k, why, now = Date.now()) {
+  if (overrides.off[k] || !config.predictors[k]?.on) return false;
+  overrides.off[k] = { at: new Date(now).toISOString(), why };
+  writeJson(OVR, overrides);
+  appendJsonl("data/decisions.jsonl", [{ ts: new Date(now).toISOString(), cfg: config.version, decision: `${k} switched off automatically`, why, evidence: "anomaly guard (live scorecard)", undo: `remove "${k}" from data/overrides.json` }]);
+  return true;
+}
+export const enabled = () => Object.keys(PRED).filter(k => config.predictors[k]?.on && !overrides.off[k]);
 
 // All enabled estimates for one snapshot, plus a simulated pick when expected value after fees clears the threshold.
 export function estimate(c, ctx, skip = []) {

@@ -6,7 +6,7 @@
 import { readFileSync, writeFileSync, existsSync, readdirSync, statSync, unlinkSync, mkdirSync } from "node:fs";
 import { gzipSync, gunzipSync } from "node:zlib";
 import { createHash } from "node:crypto";
-import { config, readJson, writeJson, MONTH_FILE, LOG_KINDS } from "./lib.mjs";
+import { config, readJson, writeJson, MONTH_FILE, ARCHIVE_KINDS as LOG_KINDS } from "./lib.mjs";
 
 const sha = b => createHash("sha256").update(b).digest("hex");
 

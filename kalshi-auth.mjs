@@ -17,7 +17,7 @@ export const KEY_ID_FILE = "private/kalshi-key-id.txt", KEY_FILE = "private/kals
 const HOST = "https://api.elections.kalshi.com", WS_HOST = "wss://api.elections.kalshi.com";
 export const WS_PATH = "/trade-api/ws/v2";
 const READ_PATHS = [/^\/trade-api\/v2\/portfolio\/(fills|positions|settlements)$/];  // read-only account history
-export const WS_CHANNELS = ["orderbook_delta", "trade", "ticker"];                     // market data only
+export const WS_CHANNELS = ["orderbook_delta", "trade", "ticker", "market_lifecycle_v2", "cfbenchmarks_value"];   // read-only market data: books, trades, prices, settlements, index values
 
 // Throws unless this exact request is on the read-only allowlist.
 export function assertReadOnly(method, path) {
@@ -55,15 +55,8 @@ export async function keyedGet(path) {
   return r.json();
 }
 
-// Market-data WebSocket for the given tickers. onMsg gets each parsed message. Returns { close }.
-export function openStream(tickers, onMsg, onClose = () => {}) {
-  const ws = new WebSocket(WS_HOST + WS_PATH, { headers: signedHeaders("GET", WS_PATH) });   // Node 22 built-in WebSocket
-  ws.onopen = () => ws.send(JSON.stringify({ id: 1, cmd: "subscribe", params: { channels: assertChannels(["orderbook_delta", "trade"]), market_tickers: tickers } }));
-  ws.onmessage = e => { try { onMsg(JSON.parse(e.data)); } catch {} };
-  ws.onclose = e => onClose(e.code);
-  ws.onerror = () => {};
-  return { close: () => { try { ws.close(); } catch {} } };
-}
+// A signed market-data WebSocket (Node 22 built-in WebSocket). live/ws.mjs drives it; it only ever sends market-data subscriptions.
+export const connectStream = () => new WebSocket(WS_HOST + WS_PATH, { headers: signedHeaders("GET", WS_PATH) });
 
 // Check: node kalshi-auth.mjs  → says whether the key works (one read-only call). Never prints the key.
 if (import.meta.url === `file://${process.argv[1]}`) {

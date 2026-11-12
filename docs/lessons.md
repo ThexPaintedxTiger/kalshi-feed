@@ -80,3 +80,15 @@ What we changed because the data (or a mistake) taught us something. Newest firs
   never scored against outcomes); `live.sh`, `live.yml`, skill `kalshi-live-agent` (the hourly Claude dev agent that restarted the pipeline;
   replaced by the supervisor `start.sh` / `start.cmd`); `focus.mjs` (replaced by the live daemon's own prices); `longshot` and `memory` predictor
   code. All still in git history. The `GEMINI_API_KEY` repo secret is no longer read and can be deleted by the owner.
+- 2026-11-12 (**live daemon**). `live/daemon.mjs` replaces the minute-polling streamer: authenticated Kalshi WebSocket (`orderbook_delta`,
+  `trade`, `ticker`, `market_lifecycle_v2`), sequence-gap check → `get_snapshot`, reconnect with backoff (1 s → 60 s), silent-socket
+  watchdog (30 s), REST prices every 30 s whenever the stream is down or there is no key. Settlements arrive on the lifecycle channel
+  (REST lookup every 5 min as the fallback). Engine (`live/engine.mjs`) is pure and clocked from outside, so `live/replay.mjs` reproduces
+  its output exactly (test fixture built from public data; a real `RECORD_RAW=1` recording can replace it). Verified in the cloud: tests
+  with a fake socket (forced disconnect recovers; SSE delivers a price change in < 1 s), and a 3-minute real run in REST mode.
+  **Not verified here**: the real authenticated stream — the key exists only on the owner's computer. Undo: `git revert`; `stream.mjs` history.
+- 2026-11-12 (**kalshi-auth.mjs allowlist**): added the read-only channels `market_lifecycle_v2` (settlements) and `cfbenchmarks_value`
+  (index values; Kalshi's own feed of the crypto settlement reference). Still GET-only, still no order code; the tests assert the client
+  can only ever send `subscribe` / `update_subscription`.
+- 2026-11-12 (**anomaly guard may switch a predictor OFF by itself**): Brier worse than the market by > 0.10 over ≥ 20 resolved (the weather
+  bug's signature) → `data/overrides.json` + a row in `data/decisions.jsonl` + an alert. It can only turn things off. Undo: delete the entry.

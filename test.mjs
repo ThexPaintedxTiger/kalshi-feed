@@ -262,4 +262,5 @@ assert.deepEqual(firstPerTicker([{ ticker: "A", n: 1 }, { ticker: "B", n: 2 }, {
     { ticker: "KX-A", side: "no", sell: false, price: 0.35, count: 4, fees: null, time: "t" });
 }
 await import("./tests/core.test.mjs");
+await import("./tests/live.test.mjs");
 console.log("all tests passed");

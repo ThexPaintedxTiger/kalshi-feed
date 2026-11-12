@@ -17,8 +17,8 @@ export function makeCtx({ root = ".", store = null, log = console.log } = {}) {
   // Run one step, timing it. `need` steps throw; others log and continue.
   ctx.step = async (name, fn, { need = false } = {}) => {
     const t0 = performance.now();
-    try { const r = await fn(ctx); ctx.timings.push({ name, ms: Math.round(performance.now() - t0), ok: true }); if (typeof r === "string") log(r); return r; }
-    catch (e) { ctx.timings.push({ name, ms: Math.round(performance.now() - t0), ok: false, error: e.message }); log(`${name} failed: ${e.message}`); if (need) throw e; return null; }
+    try { const r = await fn(ctx); ctx.timings.push({ name, ms: Math.round(performance.now() - t0), ok: true }); if (typeof r === "string" && !ctx.quiet) ctx.log(r); return r; }
+    catch (e) { ctx.timings.push({ name, ms: Math.round(performance.now() - t0), ok: false, error: e.message }); ctx.log(`${name} failed: ${e.message}`); if (need) throw e; return null; }
   };
   return ctx;
 }

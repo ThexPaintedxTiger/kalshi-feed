@@ -5,7 +5,7 @@
 import { existsSync, readdirSync, statSync, readFileSync, writeFileSync, mkdirSync, statfsSync } from "node:fs";
 import { gunzipSync } from "node:zlib";
 import { spawnSync } from "node:child_process";
-import { config, readJson, writeJson, readJsonl, appendJsonl, r4, LOG_KINDS } from "./lib.mjs";
+import { config, readJson, writeJson, readJsonl, appendJsonl, r4, ARCHIVE_KINDS as LOG_KINDS } from "./lib.mjs";
 
 const S = { maxHotMB: 40, repoLimitMB: 1024, warnDays: 90, minFreeGB: 5, ...(config.storage || {}) };
 const MB = b => r4(b / 1048576);

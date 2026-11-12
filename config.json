@@ -182,5 +182,22 @@
   "siteEveryMinutes": 2,
   "siteBranch": "site",
   "note": "main = code + append-only logs; site = derived files, one force-pushed commit (GitHub Pages)."
+ },
+ "live": {
+  "port": 8787,
+  "maxMarkets": 800,
+  "restPollSec": 30,
+  "scanEveryMin": 10,
+  "updateMove": 0.03,
+  "updateEveryMin": 15,
+  "updateMinGapSec": 60,
+  "staleSec": 90
+ },
+ "alerts": {
+  "downMin": 2,
+  "drawdownPct": 20,
+  "spendFrac": 0.8,
+  "offBrier": 0.1,
+  "offMinN": 20
  }
 }

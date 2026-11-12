@@ -106,7 +106,10 @@ export async function logPredictions(ctx, chosen, now = Date.now(), cats = {}, f
 export async function run(ctx) {
   const now = Date.now(), { markets, pages } = await discover(now), cand = candidates(markets, now), seen = new Set(ctx.store.pred.keys());
   const cats = await categories([...cand.filter(c => !seen.has(c.m.ticker)).map(c => series(c.m)), ...ctx.store.preds.slice(-500).map(p => p.series)]);
-  const rows = await logPredictions(ctx, select(cand, seen, cats), now, cats);
+  const chosen = select(cand, seen, cats), lf = ctx.liveFeat || {};
+  // Markets the live stream already has a synced book for use its features; the rest use the public endpoints.
+  const viaWs = chosen.filter(c => lf[c.m.ticker]), viaRest = chosen.filter(c => !lf[c.m.ticker]);
+  const rows = [...(viaWs.length ? await logPredictions(ctx, viaWs, now, cats, lf) : []), ...(viaRest.length ? await logPredictions(ctx, viaRest, now, cats) : [])];
   ctx.store.append("runs", [{ ts: new Date(now).toISOString(), run: rows[0]?.run || (process.env.GITHUB_SHA || ctx.host || "local").slice(0, 7), scanned: markets.length, candidates: cand.length, logged: rows.length }]);
   ctx.scan = { at: now, scanned: markets.length, cand };                                          // reused by the daemon (what is in scope right now)
   return `predict: scanned ${markets.length} markets (${pages} pages), ${cand.length} resolve in ${S.minLeadMinutes}m–${S.horizonHours}h, logged ${rows.length} new`;
