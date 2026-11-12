@@ -140,6 +140,8 @@ select{font:inherit;color:inherit;background:var(--card);border:1px solid var(--
 .acard[data-s=running]{border-color:color-mix(in srgb,var(--info) 55%,var(--line-soft))}
 .ahead{font-weight:600;margin:10px 0 6px}
 button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+a.btn{font:inherit;color:inherit;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 12px;white-space:nowrap}
+a.btn:hover{border-color:var(--muted)}
 #nnLearn .grid2>div,#nnLearn .tgrid3>div{min-width:0}
 .kpi .pill{white-space:normal}
 #toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 14px;font-size:13px}
@@ -153,6 +155,7 @@ button.primary{background:var(--accent);border-color:var(--accent);color:#fff;fo
     <div class="sp"></div>
     <span id="src" class="src">Loading data…</span>
     <button id="refresh" type="button">Refresh</button>
+    <a class="btn" href="https://github.com/ThexPaintedxTiger/kalshi-feed/archive/refs/heads/main.zip" download>Download project (zip)</a>
   </div>
   <nav class="wrap" aria-label="Views">
     <a href="#live">Live agents &amp; devs</a><a href="#agent">Agent</a><a href="#trading">Trading</a><a href="#nn">Neural net</a><a href="#data">Data</a>
