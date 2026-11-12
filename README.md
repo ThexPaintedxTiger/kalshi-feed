@@ -1,43 +1,27 @@
-# Kalshi feed + Agent Flow
+# kalshi-feed
 
-**Read-only. Never trades. Public data by default; an optional read-only Kalshi key stays on your computer.**
+A read-only research system for short-duration [Kalshi](https://kalshi.com) markets. It logs a prediction for each market before
+it resolves, collects the official outcome, and judges every model against the market price with tests that stay honest even when
+you check the dashboard all day. **It never trades.**
 
-## Run it 24/7 on your computer
-Needs [Node.js 20+](https://nodejs.org) and git, signed in to GitHub with push access to this repo.
+**Status (2026-11-12): nothing beats the market.** The dashboard says so, and says what evidence is missing.
+
+- Dashboard: https://thexpaintedxtiger.github.io/kalshi-feed/ (published data, ≤ 2 minutes old while the daemon runs)
+- At home: http://localhost:8787 (live, sub-second)
+
+## Run it (owner's computer, Node 22+)
+```bash
+./start.sh
 ```
-git clone https://github.com/ThexPaintedxTiger/kalshi-feed
-cd kalshi-feed
-node stream.mjs
+Windows: double-click `start.cmd`. Details, the read-only key, alerts, the local model and running it as a service: `docs/manual.md`.
+
+## Try it anywhere (public data, no keys)
+```bash
+node test.mjs
 ```
-Every minute: live prices for watched markets, new outcomes, and an immediate network retrain when outcomes arrive. Full scan every
-10 minutes; pushes every 5. Ctrl+C stops it; the cloud schedule takes over when it isn't running. Keep the computer from sleeping
-(power settings). Minute-by-minute prices stay on your computer in `local/ticks/` (not pushed).
+```bash
+NO_PUSH=1 node cycle.mjs
+```
 
-### Optional: Kalshi key (read-only, stays on your computer)
-Adds a real-time order book + trade stream and automatic import of your own fills. Steps: `docs/manual.md` → "Kalshi key".
-Make the key **inside `private/`** (git-ignored), upload only the `.pub` file to Kalshi, never share the private key.
-
-## Live dashboard
-https://thexpaintedxtiger.github.io/kalshi-feed/dashboard.html (refreshes every 5 minutes; header shows how fresh the data is).
-
-## Research agent (v1: measurement loop)
-Every 10 minutes it logs predictions for Kalshi markets resolving within 6 hours (`predict.mjs`), checks official results
-(`resolve.mjs`) and scores each predictor against the market price (`score.mjs` → `scorecard.json`).
-Simulation only. Settings: `config.json`. How it works: `docs/manual.md` (owner's manual), `docs/architecture.md`. Findings: `docs/findings.md`.
-
-## Dashboard feed
-
-- `scan.mjs` — at most every 25 minutes (each pipeline cycle) reads Kalshi's public market data, keeps the most liquid markets
-  (closing within 120 days) and possible profit sets, remembers 48h of prices (`history.json`) to add 1h/24h price moves
-  and trading activity, and writes a small `bets.json`.
-- `index.html` — Agent Flow with the **Kalshi Neural Forecaster** workflow:
-  `📈 Kalshi Data (free) → 📉 Momentum · 📚 Base-Rate · 💧 Liquidity & Rules analysts → 🧠 Ensemble Forecaster → 🛡️ Risk Checker`.
-  Open the dashboard for bet cards with win %, data and an "Open in Kalshi" link.
-
-- `agents.mjs` — once an hour, 3 free Gemini agents (momentum, base-rate, rules) rate the top 15 liquid markets in parallel;
-  code combines them (confidence-weighted), finds the edge and side, filters risk, and adds `picks` to `bets.json`.
-  Needs a free Gemini key saved as the repo secret `GEMINI_API_KEY`. Costs no Claude usage.
-
-Feed: https://raw.githubusercontent.com/ThexPaintedxTiger/kalshi-feed/main/bets.json
-
-Prices move fast and forecasts are estimates, not promises. Check the price and rules in Kalshi before betting.
+## Read more
+`CLAUDE.md` (rules and layout) · `docs/architecture.md` · `docs/manual.md` · `docs/lessons.md` · `docs/findings.md` · `docs/handoff.md`

@@ -11,6 +11,7 @@ node live\daemon.mjs
 if %ERRORLEVEL%==0 (echo daemon stopped cleanly & exit /b 0)
 echo %DATE% %TIME% daemon exited (%ERRORLEVEL%); restarting in %WAIT%s >> local\daemon.log
 echo daemon exited; restarting in %WAIT%s
+node live\alerts.mjs "Kalshi daemon exited" "Restarting in %WAIT%s." >nul 2>nul
 timeout /t %WAIT% /nobreak >nul
 if %WAIT% LSS 60 set /a WAIT=WAIT*2
 goto loop

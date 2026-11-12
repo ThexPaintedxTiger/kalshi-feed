@@ -1,147 +1,103 @@
-# Architecture (v1: measurement loop)
+# Architecture (v2)
 
-Goal of v1: build an honest track record. Every prediction is logged before its market resolves, scored against
-the official result, and compared with the simplest possible baseline: the market price itself.
+One long-running process on the owner's computer does everything; a free cloud job covers for it when it is off.
 
 ```
-every 10 min (GitHub Actions)
- test.mjs      offline math + leakage checks; a failure stops the run
- predict.mjs   Kalshi /markets (single markets closing within 16 days, ~46 pages, ~25 s)
-               → keep: resolves in 20 min–6 h, bid>0, spread ≤10¢, volume ≥50, price 3–97¢
-               → skip tickers already logged; ≤2 per event (nearest 50¢); round-robin across categories; ≤80 per run
-               → predictors: market (mid price), memory, nn, crypto_fair, weather_nws (longshot retired in v7)
-               → EV after fees for YES at ask / NO at 1−bid; simulated pick if EV ≥ 2¢
-               → append data/predictions/YYYY-MM.jsonl
- resolve.mjs   tickers past resolution → /markets?tickers= (200 per call) → append data/outcomes.jsonl
-               (yes/no only; still unsettled after 7 days → "void", never scored)
- score.mjs     join → scorecard.json
- progress.mjs  scorecard + run heartbeats (data/runs.jsonl) vs config.json goals → progress.json;
-               daily snapshot → data/progress.jsonl (trend). Recommends only; never edits config.
- scan.mjs, agents.mjs   dashboard feed (bets.json), unchanged
- dashboard.mjs everything above → dashboard.json (~70 KB) for dashboard.html
-
-Order in the Action: test → resolve → memory → predict → backtest (hourly) → score → progress → scan/agents → dashboard.
-
-## History and memory (added 2026-11-10)
-- **backtest.mjs (dev agent)**: lists settled markets (`/markets?status=settled`), takes bid/ask from 1-minute candles
-  (`/series/{s}/markets/{t}/candlesticks`) `leadMinutes` before resolution (earliest of close and settlement), applies the same filters
-  and predictors (`predictors.mjs`), stores rows with the official result. Walks close-time slices forward to now−1 h and back to
-  `days` ago; ≤300 candle calls per hourly run. One market per event (two-sided games are near-duplicates). Never mixed into the live record.
-- **memory.mjs**: samples = live outcomes + backtest rows. `recall(series, at)` uses only markets settled before `at` (leak-safe, tested).
-  Why no RAG/vector DB: the knowledge is numeric and keyed by series; an exact lookup is cheaper and more reliable than embeddings.
-  Revisit semantic search when there are many free-text research notes.
-- **memory predictor**: price + (n/(n+shrink)) × the series' past (outcome − price) gap; inactive below `minN` settled samples.
-- **import-trades.mjs**: owner's CSV export → `private/my-trades-report.json` (git-ignored). Column names matched by aliases.
-
-## Neural network and paper trading (config v4)
-- **nnlib.mjs**: MLP 23 inputs (config v8: price, spread, time, category, series memory, 30-min move, outside estimate, minute volatility, time left) → hidden layers (config.nn.hidden) → 1 (tanh), P(YES) = sigmoid(logit(price) + output). Output layer starts at 0, so untrained = market.
-  Adam, L2 1e-3, mini-batch 32, early stopping. Inputs: price (logit), spread, distance from 50¢, hour of day, category, series memory as of the
-  prediction time. Volume is NOT an input: backtest rows only know final volume, which includes trades after the prediction.
-- **nn.mjs** (hourly): dataset = backtest rows + resolved live predictions (non-excluded categories). (1) walk-forward: 5 time blocks, train on
-  earlier blocks, predict the next unseen block → `data/nn/oos.json` and the honest verdict; (2) holdout curve (early-stopping set — optimistic);
-  (3) final model on all data → `data/nn/model.json` (used live by the `nn` predictor). History in `data/nn/train-log.jsonl`.
-- **paper.mjs**: goal = grow $10 toward $1,000 over time without risking the account on one bet. Portfolios in `config.json → paper.portfolios`
-  (controls: hold cash, coin flip 2%; neural net learned-size and flat 2%; memory, crypto and weather learned-size).
-  Safety for all (`paper.safety`): ≤5% of bankroll per bet including the fee, ≤25% in open bets, halve bets after a 20% drop from peak,
-  quarter after 40%. Learned sizing (`paper.learning`): probe bets (1% or $0.25) until 30 bets settle; then up to quarter Kelly × trust, where
-  trust = (realized return per $ − 1 SE) ÷ predicted return per $, clipped 0…1; if even realized + 1 SE < 0, the strategy pauses and records
-  shadow bets (no money) so it can recover. Buy at ask / 1−bid, per-order fee rounded up, cash locked until settlement.
-  Replay never lets the network trade a market it trained on. Monte Carlo: 4,000 bootstrap paths → chance of $1,000 within 250/1,000/3,000 bets,
-  chance of ever dropping below $5, bets (and days at the current pace) to 100× from the average growth per bet.
-- **Backtest v4**: snapshot 30 min before resolution (hourly markets open only ~1 h before close); one batch candle call prices every market
-  in an event; the market nearest 50¢ at the snapshot is kept (same rule as live, no outcome leakage). Sports excluded.
-
-## Watchdog and plain-English status (status.mjs, every run)
-Code, not an AI agent: free, exact, same answer every time. Checks every hand-off: recent cloud run, schedule pace (~18 runs/3 h),
-predictions logged, outcomes collected, scorecard counts = log, leakage 0, no duplicates, backtest sample unbiased, network trained,
-bet-size safety held, paper money adds up. Writes `status.json`: Should I trade? Is it learning? Is it running? What I need from you,
-plus a paper watchlist (what the strategies would bet next; not advice). Shown at the top of the dashboard's Agent tab.
-Claude subagents are not used in the pipeline (cost and non-repeatable answers); deeper reviews run on request via the skills.
-
-## Trading tab and live focus (config v5)
-- `focus.mjs`: one batch candle call → last 3 h of 1-minute mid prices for up to 12 open, watched markets (one per event, strategies' picks
-  first) → `data/focus.json` (ticker tape, price chart). `paper.mjs → tradeStats()`: profit factor, gross profit/loss, best/worst, expected
-  payoff, recovery factor, per-bet Sharpe, daily P&L, drawdown curve, streak, last 10 closed trades per portfolio.
-- `chg30` = mid now − mid ~30 min earlier (live: one batch candle call per run; backtest: earliest candle in the 30-min window before the
-  snapshot). Network inputs grew to 18 ("price move 30 min", "has 30-min history"); a model trained on a different input list is never used.
-
-## Is the network learning from its losses? (Neural net tab)
-- It learns from every settled market's prediction error (log loss punishes confident wrong calls most), not from paper P&L.
-- Evidence written by `nn.mjs` each run (unseen markets only): `oos.folds` (gap vs market per walk-forward block: if learning, blocks
-  trained on more data show a smaller gap), `oos.calibration` (said vs happened), `oos.misses` (worst log-loss misses beside the
-  market's loss on the same market). Misses are never re-scored with a model trained on them (that would show memorization).
-- `paper.mjs → disagreementReview()`: on settled network bets (each one a disagreement with the market), how often the network was
-  closer to the outcome, first half vs second half.
-
-## Outside-data agents (config v6)
-- `external/crypto.mjs`: Coinbase 1-minute candles (last 2 h) → spot S and per-minute volatility σ; P(YES) = Φ(ln(S/K)/(σ√τ)) for
-  `greater`, 1 − that for `less`, difference for `between` (Kalshi's `strike_type`, `floor_strike`, `cap_strike`). Approximation: Kalshi
-  settles on CF Benchmarks' index. HYPE excluded (Coinbase's HYPE is a different asset). Mismatch guard skips near-certain answers on
-  uncertain markets with far strikes. Backtest uses historical candles at the snapshot time.
-- `external/weather.mjs`: NWS latest observation at the nearest station + the hourly forecast's change to the target hour; normal error
-  σ = 1°F + 0.3°F/h (2°F + 0.15°F/h without an observation), max 5°F. Kalshi settles on Synoptic Data. Live only.
-- Predictors `crypto_fair`, `weather_nws` (scored only on their markets); rows keep the evidence in `ext`; network inputs
-  "outside estimate − price" and "has outside data"; paper strategies with learned bet size; watchdog checks freshness.
-
-## 24/7 streamer (stream.mjs)
-Host-agnostic Node loop on the owner's computer. Minute path: tick (batch `/markets?tickers=` for unresolved logged predictions) →
-`resolve.mjs` → if new outcomes: `memory` → `nn` (FORCE) → `score` → `progress` → `paper` → `status` → `dashboard`. Ten-minute path: the
-full step list of `cycle.sh`, with the same forced retrain when outcomes are new. Retraining without new outcomes would reproduce the
-same model (deterministic seed), so "constant learning" = retrain on every new outcome, checked every minute.
-
-## MCP server (read-only)
-`mcp/server.mjs` (official MCP SDK, stdio). Tools: `get_status`, `get_scorecard` (live|backtest), `search_predictions`, `recall_series`, `list_skills`.
-- Claude Code: `npm --prefix mcp install`, then it's picked up from `.mcp.json` (approve the project server once).
-- Claude Desktop: add to its config `{"mcpServers":{"kalshi-agent":{"command":"node","args":["<full path>/kalshi-feed/mcp/server.mjs"]}}}`.
-- Smoke test: `node mcp/test-client.mjs`. Never writes, never calls Kalshi, never reads `private/`.
+                         Kalshi WebSocket (read-only key, private/)
+   orderbook_delta · trade · ticker · market_lifecycle_v2 · cfbenchmarks_value
+                                     │  no key / stream down → public REST prices every 30 s
+                                     ▼
+ live/ws.mjs ──► live/engine.mjs (books, microprice, imbalance, flow, volatility 1/5/30 min; pure, clocked from outside)
+                    │ every second
+                    ├─ ticks, minute feature rows ─► local/ticks, local/features (gzip, append-only, never pushed)
+                    ├─ re-estimate on a 3¢ move or 15 min ─► data/updates/ (never scored)
+                    ├─ snapshots at 60/30/15/5 min ─► wait for the outcome ─► data/snapshots/ (training only)
+                    └─ settlement message ─► data/outcomes.jsonl ─► refit calib (ms) ─► rescore ─► dashboard
+ live/daemon.mjs timers:  scan new markets 10 min · scorecard/dashboard 1 min · outcomes by REST 5 min (fallback)
+                          hourly: backtest, walk-forward (nn, calib), ensemble, maker, news/RAG/LLM evals, archive
+ live/server.mjs  http://localhost:8787  dashboard + Server-Sent Events (tick 250 ms, health 1 s)
+ publish.mjs      main ← data/ every 15 min        site ← site/ every 2 min (one force-pushed commit → GitHub Pages)
 ```
 
-## Why this shape
-- **Plain scripts + JSONL in git**: free, auditable, append-only by convention, history in git. No database server.
-- **No RAG / vector DB**: knowledge is numeric and keyed by series (`memory.mjs`); exact lookup beats embeddings here. Agent notes from
-  the board's Claude team are kept in its database. Revisit semantic search if free-text research notes pile up.
-- **MCP only at the edges**: a read-only MCP server exposes the agent's data to Claude; the pipeline itself stays deterministic scripts.
-- **Code baselines before AI**: if the market price can't be beaten by simple rules, an LLM has to prove it can,
-  on the same markets, before it costs anything.
+## One process, shared memory
+- `core/store.mjs` loads every log once and afterwards reads only the bytes appended since its last look. A file that shrank or
+  vanished (archived, or rewritten by a pull) triggers one clean reload.
+- Every step exports `run(ctx)`. `ctx.emit(name, obj)` writes `site/<name>.json` (or `state/`) and keeps the object in memory for
+  the next step; `ctx.step` times each step (`state/perf.jsonl`).
+- `cycle.mjs → cycle()` is the full sequence (cloud fallback, manual). `derive()` rebuilds every derived file from memory in well
+  under a second: score → evals → progress → memory → paper → storage → status → app.json.
 
-## Prediction row (`data/predictions/*.jsonl`)
-`ts` (logged at), `run` (git sha), `cfg` (config version), `ticker`, `event`, `series`, `cat`, `title`, `rules` (first 300 chars),
-`resolvesAt`, `leadMin`, `ask`, `bid`, `mid`, `spread`, `askSize`, `bidSize` (raw Kalshi `_fp` sizes), `vol`, `v24`, `oi`,
-`est` {predictor: P(YES)}, `picks` {predictor: {side, ev, cost}}, `src` (endpoint @ time). Hypotheses: `config.json` at that `cfg`.
+## Live layer
+- `live/ws.mjs`: one connection; `subscribe` creates one subscription per channel; markets are added/removed with
+  `update_subscription` in chunks of 100 as they enter or leave scope. `seq` must rise by one per subscription; a gap on the book
+  subscription asks for fresh snapshots (`get_snapshot`). Reconnect with backoff 1 s → 60 s; a socket silent for 30 s is replaced.
+  It can only send `subscribe` / `update_subscription` on channels allowed by `kalshi-auth.mjs`.
+- `live/engine.mjs`: no I/O and no clock of its own. `onMessage(m, t)`, `onClock(t)`. That makes `live/replay.mjs` exact: the same
+  recorded messages and timestamps give the same rows (tested against `tests/fixtures/replay.jsonl.gz`).
+- Scope = open logged predictions + the most active unlogged candidates, up to `live.maxMarkets`.
+- Health: `site/heartbeat.json` (host, mode `ws`/`rest`, message rate, reconnects, gaps, markets, stale count, `staleTotalSec` =
+  seconds with neither the stream nor a recent REST poll feeding prices).
+- Alerts (`live/alerts.mjs`): daemon was down > 2 min (raised on restart, and by `start.sh` when the daemon exits), stream down,
+  predictor wildly off, model reached SUCCESS, paper drawdown > 20%, LLM spend ≥ 80% of the cap. Sent to ntfy or Discord if
+  `private/alerts.json` exists; always recorded in `data/alerts.jsonl`. A switched-off computer cannot alert: the dashboard header
+  turns red instead.
 
-## Scorecard (`scorecard.json`)
-Per predictor: Brier and log loss (lower is better), `brierVsMarket` (<0 = better than the market, on the same markets),
-calibration table, simulated picks (count, wins, P&L per contract after fees). Every mean has a 95% interval computed
-over **events**, not markets (markets in one event are correlated). Verdicts stay "insufficient data" below
-`score.minResolved` resolved predictions. `excludedLeakage` counts rows logged after their market resolved (should be 0).
+## Predictions
+`predict.mjs`: discover open markets → filter (resolves in 20 min–6 h, two-sided, spread ≤ 10¢, volume ≥ 50, 3–97¢) → skip logged
+tickers → ≤ 2 per event nearest 50¢ → round-robin across categories → features (from the stream when the book is synced, else
+public endpoints) → outside data → every enabled predictor → append. Rows carry `ts`, `loggedAt`, `cfg`, quotes, features, `ext`
+(outside data with timestamps), `est`, `picks`.
 
-## Configuration (`config.json`)
-`scan.*` filters, `predictors.*` (on/off, parameters, hypothesis), `picks.minEdge`, `score.*`. Bump `version` on any change
-that affects predictions so results can be split by version.
+## Models
+| Model | What | Trained |
+|---|---|---|
+| `market` | The mid price. The baseline everything is compared with. | – |
+| `calib` | `σ(a·logit(mid) + b + w·x)`, ~15 numbers, L2 toward the market, capped ±0.10 from it. Primary model. | Newton refit on every settlement (ms, warm start); walk-forward hourly. |
+| `nn` | Small network, residual on the market, **gated**: returns the market while its walk-forward test says "worse". Challenger. | Fine-tune on settlement; full walk-forward hourly; interval per event. |
+| `ensemble` | Logistic blend of calib, nn, crypto_fair and the market; capped ±0.10. | Hourly, only on members' out-of-sample estimates. |
+| `crypto_fair` | Random-walk fair value from the settlement reference (CF Benchmarks via the stream, else 3-exchange median) and 1-min volatility. | – |
+| `weather_idx` | Average of the settlement index's own airport stations + last-hour trend; σ ≥ 2.5°F; clamp 3–97%. | – |
+| `ladder` | Isotonic fit across an event's strikes; differs from the market only where a strike is off the curve. | – |
+| `llm` | Local language model reading rules, dated facts and similar past markets; capped ±0.15; ≤ 5 markets per scan. | – |
 
-## Running locally
-Node 20+. `node test.mjs && node predict.mjs && node resolve.mjs && node score.mjs`. No keys needed.
+Training data: resolved live predictions, backtest rows, and minute snapshots; all rows of one market share a total weight of 1;
+a row may train a model only for estimates made after its outcome was known (`known < test start`, counted by the leakage eval).
+
+## Evals (the referee)
+- `evals/report.mjs` uses the **live record only**. Per model: Brier and log loss vs the market on the same markets, per event;
+  by category and lead time; calibration; biggest misses; picks' P&L after fees vs a coin-flip control and cash; a model card.
+- `evals/seq.mjs`: empirical-Bernstein confidence sequence (Waudby-Smith & Ramdas 2023). Valid at every moment simultaneously, so
+  watching the dashboard cannot create a false SUCCESS. Alpha 0.05 is split across every predictor and variant ever tried.
+  Capping a model at ±δ from the market bounds its Brier difference at ±2δ, which makes the test several times faster.
+- `evals/leakage.mjs`: seven checks; the total must be 0.
+- `evals/llm-eval.mjs`: fixed cases (rules reading, fact extraction incl. a planted prompt injection, the `llm` predictor's Brier);
+  reruns when the model or a prompt changes.
+- Pipeline tests: `node test.mjs` (all modules; fake socket, fake clock, fake LLM; replay must match exactly).
+
+## Paper trading
+`paper.mjs`: $10 taker portfolios with safety caps (≤ 5% per bet, ≤ 25% open, drawdown brakes), learned bet size, cash and coin-flip
+controls. `maker.mjs`: one contract resting on each side at the logged best bid/offer, filled only when a later real trade crosses
+(queue ahead respected), held to settlement, maker fee always charged. Simulation only.
+
+## LLM and memory
+- `llm.mjs`: Ollama by default. Claude (`claude-opus-5-5`, official SDK, optional dependency) only when a caller marks a case as hard
+  and valuable, with a key in `private/anthropic-key.txt`, and only while today's spend plus the worst-case cost of the call is under
+  `llm.dailyCapUsd`. Calls are cached by input hash and logged in `data/llm-usage.jsonl`.
+- `rag.mjs`: local JSONL index (rules, resolved markets, lessons, findings, facts). Every item has `at`; `search(…, { before })`
+  returns only earlier items; retrievals for predictions are logged for the leakage eval.
+- `agent.mjs`: rules → structure, news → facts, the `llm` predictor, miss explanations, the daily briefing (numbers from code).
+
+## Storage and git
+- `main`: code + append-only logs. `site`: derived files, one commit, force-pushed. `state/`, `local/`, `private/`: never pushed.
+- `.gitattributes`: `*.jsonl` merge as a union, so the daemon and the cloud fallback can both append.
+- `archive.mjs` gzips old months (verified by row count and SHA-256); `storage.mjs` watches sizes and mirrors logs to `local/archive/`.
 
 ## Costs
-GitHub Actions minutes are free for public repos. Kalshi public API: ~50 requests per run, plus ≤300 per hour for the backtest. No AI calls in the scored pipeline.
-Storage: ~700 bytes per prediction; expect a few MB per month. If it grows too large, gzip old months.
+GitHub Actions and Pages: free for a public repo. Kalshi, NWS, exchange and RSS data: free. Local model: free. Claude: at most
+`llm.dailyCapUsd` per day (default $1), and $0 unless a key is added.
 
-## Limitations (v1)
-- Schedule can start 5–30 min late; markets resolving in under ~20 min are skipped on purpose.
-- Only price-based predictors so far: no news, sports or weather data yet.
-- `resolvesAt` for sports is Kalshi's expected time; games can run long (fine: outcome is checked later).
-- One prediction per market (the first time it's seen), so later price moves aren't scored.
-- Simulated picks assume you get filled at the quoted ask/bid for 1 contract (depth not modeled).
-
-## Storage tiers (config.storage)
-1. **Hot** `data/<kind>/YYYY-MM.jsonl` (kind = predictions, backtest, snapshots): appended to; this month and last month.
-2. **Archive** `data/archive/<kind>/YYYY-MM[.partN].jsonl.gz`: `archive.mjs` (each cycle, after tests) moves months older than last month, or a hot
-   file over `maxHotMB`, after checking that the gzip decompresses to the same rows and SHA-256. Index: `data/archive/index.json`.
-3. **Owner's computer** `local/archive/` (git-ignored): `storage.mjs --mirror` from the streamer keeps an uncompressed copy of every log; `local/ticks/`
-   keeps the minute price log. Neither is ever deleted by code.
-- `lib.mjs → allMonthFiles(kind)` / `readJsonl` read hot + archive as one history (`.gz` transparently). Memory, nn, paper, score, dashboard and MCP use it.
-- `storage.mjs` → `data/storage.json` (+ daily `data/storage-history.jsonl`): tier sizes, GitHub's repo size (public API, no key), growth per day,
-  days to `repoLimitMB`, free disk. Watchdog check "Storage has room". If the repo nears its limit, the recommended fix is to commit the large
-  derived files (dashboard.json, history.json) hourly instead of every cycle — an owner decision.
-- `snapshots.mjs` (streamer): minute ticks of resolved markets → `data/snapshots/` training rows at 60/30/15/5 min before resolution (ticks up to that
-  moment only). `nn.mjs` adds them to training (weight 1 per market in total, only markets resolved before the fold's test window, never tested on).
+## Limits to know
+- Fills in paper trading assume the quoted price for small size; the maker simulation ignores cancellations ahead in the queue.
+- NWS observations are up to an hour old; the weather index is per-minute. A Synoptic token would close that gap.
+- The neural-network walk-forward takes ~3 s and runs on the main thread hourly; prices keep buffering and catch up.
+- GitHub Pages can lag a force-push by a minute or two and limits build frequency; the header shows the real data age.

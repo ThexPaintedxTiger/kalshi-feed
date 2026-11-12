@@ -17,7 +17,6 @@ import { gzipSync } from "node:zlib";
 import { readJsonl as rj, allMonthFiles } from "./lib.mjs";
 import { archiveFile, due } from "./archive.mjs";
 import { minuteStats, features as nnFeatures, FEATURES as NN_FEATURES } from "./nnlib.mjs";
-import { buildSnapshots } from "./snapshots.mjs";
 import { bookImbalance, tradeFlow, takerSide } from "./nnlib.mjs";
 import { assertReadOnly, assertChannels, signedHeaders, privateIgnored, KEY_FILE } from "./kalshi-auth.mjs";
 import { fromFill } from "./import-trades.mjs";
@@ -206,22 +205,11 @@ assert.equal(r4(kellyFraction(0.6, 0.5)), 0.2); assert.equal(kellyFraction(0.4, 
   try { assert.deepEqual(allMonthFiles("predictions").flatMap(f => rj(f)).map(r => r.a), [1, 2, 3, 5, 4]); }   // nothing forgotten, in order
   finally { process.chdir(cwd); rmSync(root, { recursive: true, force: true }); }
 }
-// Minute data: volatility math, and snapshots never use a tick after their own time (leakage).
+// Minute data: volatility math (snapshot leakage is tested on the live engine, tests/live.test.mjs).
 {
   const pts = [0, 60, 120, 180, 240, 300, 360].map((t, i) => ({ t: 1000 + t, mid: 0.5 + (i % 2 ? 0.01 : 0) }));
   assert.equal(minuteStats(pts, 1400).vol30, 0.01);                                // alternating ±1¢ → std 1¢
   assert.equal(minuteStats(pts.slice(0, 3), 1400).vol30, null);                     // too few points
-  const res = Date.parse("2026-11-10T12:00:00Z"), iso = s => new Date(res - s * 1000).toISOString();
-  const ticks = [];
-  for (let s = 3600; s >= 0; s -= 60) ticks.push({ t: iso(s), k: "K1", b: s > 600 ? 0.40 : 0.90, a: s > 600 ? 0.42 : 0.92 });   // jumps 10 min before close
-  const meta = { K1: { ticker: "K1", resolvesAt: new Date(res).toISOString(), series: "KX", cat: "Crypto", title: "t" } };
-  const sn = buildSnapshots(ticks, meta, { K1: "yes" });
-  assert.deepEqual(sn.map(r => r.leadMin).sort((a, b) => a - b), [5, 15, 30, 60]);
-  for (const r of sn) assert.equal(r.mid, r.leadMin > 10 ? 0.41 : 0.91);            // the jump is invisible before it happened
-  assert.equal(buildSnapshots(ticks, meta, {}).length, 0);                           // unresolved → no rows
-  assert.equal(buildSnapshots(ticks, meta, { K1: "yes" }, new Set(["K1|5", "K1|15", "K1|30", "K1|60"])).length, 0);   // no duplicates
-  const w = sn.map(() => 1 / sn.length).reduce((a, b) => a + b, 0); assert.ok(Math.abs(w - 1) < 1e-9);
-  assert.equal(nnFeatures({ ...sn[0], at: Date.parse(sn[0].ts) }, null).length, NN_FEATURES.length);
 }
 // One prediction per market: the first logged row counts, later repeats are ignored (log untouched).
 assert.deepEqual(firstPerTicker([{ ticker: "A", n: 1 }, { ticker: "B", n: 2 }, { ticker: "A", n: 3 }]).map(r => r.n), [1, 2]);
@@ -254,11 +242,6 @@ assert.deepEqual(firstPerTicker([{ ticker: "A", n: 1 }, { ticker: "B", n: 2 }, {
   assert.deepEqual(tradeFlow([], 1000), { flow30: null, vol30t: 0 });
   assert.equal(takerSide({ taker_book_side: "bid", taker_side: "no" }), "yes");                       // newer field wins
   assert.equal(takerSide({ taker_outcome_side: "no" }), "no"); assert.equal(takerSide({ taker_side: "yes" }), "yes"); assert.equal(takerSide({}), null);
-  const res = Date.parse("2026-11-10T12:00:00Z"), iso = s => new Date(res - s * 1000).toISOString(), ticks = [];
-  for (let s = 3600; s >= 0; s -= 60) ticks.push({ t: iso(s), k: "K2", b: 0.4, a: 0.42, im: s > 600 ? 0.1 : -0.9, ty: s > 600 ? 1 : 0, tn: s > 600 ? 0 : 50 });
-  const sn = buildSnapshots(ticks, { K2: { ticker: "K2", resolvesAt: new Date(res).toISOString() } }, { K2: "yes" });
-  for (const r of sn.filter(r => r.leadMin >= 15)) { assert.equal(r.imb5, 0.1); assert.equal(r.flow30, 1); }   // late selling invisible earlier
-  assert.equal(nnFeatures({ ...sn[0], at: Date.parse(sn[0].ts) }, null).length, NN_FEATURES.length);
   assert.deepEqual(fromFill({ ticker: "kx-a", side: "no", action: "buy", no_price_dollars: "0.3500", count_fp: "4.00", created_time: "t" }),
     { ticker: "KX-A", side: "no", sell: false, price: 0.35, count: 4, fees: null, time: "t" });
 }

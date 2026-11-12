@@ -143,3 +143,6 @@ What we changed because the data (or a mistake) taught us something. Newest firs
 - 2026-11-12 (**news facts**, `external/news.mjs`): four official/public RSS feeds (Fed, EIA, NHC, BBC business), ≤ 1 fetch per feed per
   30 min, facts need a source URL and publish time or they are dropped. Facts are stored and retrievable; they are **not** yet an input
   to `calib` (no evidence they help; adding an input is a variant to count).
+- 2026-11-12 (**cleanup**): removed `snapshots.mjs` (the engine takes training snapshots at the moment they happen, so they cannot use
+  later ticks by construction) and the ops skill's `status.sh`. Docs rewritten for v2 (`CLAUDE.md`, `docs/architecture.md`,
+  `docs/manual.md`, `docs/skills.md`, `docs/handoff.md`). `start.sh` / `start.cmd` send an alert when the daemon exits.

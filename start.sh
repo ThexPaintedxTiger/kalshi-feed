@@ -17,5 +17,6 @@ while true; do
   [ "$code" = "0" ] && { echo "daemon stopped cleanly"; exit 0; }
   [ $(( $(date +%s) - started )) -gt 300 ] && wait_s=5                      # it ran fine for a while: reset the pause
   echo "$(date -u +%FT%TZ) daemon exited ($code); restarting in ${wait_s}s" | tee -a local/daemon.log
+  node live/alerts.mjs "Kalshi daemon exited" "Exit code $code. Restarting in ${wait_s}s." >/dev/null 2>&1 || true
   sleep "$wait_s"; wait_s=$(( wait_s * 2 > 60 ? 60 : wait_s * 2 ))
 done
