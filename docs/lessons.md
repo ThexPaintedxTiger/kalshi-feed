@@ -161,4 +161,5 @@ What we changed because the data (or a mistake) taught us something. Newest firs
 - 2026-11-12 (**Pages deploys through a workflow**). GitHub's branch-based Pages build only starts for pushes made as the owner; pushes by
   the cloud workflow or by this cloud session do not start it, so the page froze at 04:07 UTC while the `site` branch kept updating.
   `.github/workflows/pages.yml` now deploys the `site` branch itself after every "Kalshi feed" run and on every push to `site`.
-  Owner step (once): Settings → Pages → Source = "GitHub Actions". Undo: delete the workflow and set Source back to the `site` branch.
+  Verified 08:34 UTC: it deployed with the Pages settings as they were (no owner step) and the page showed data 1 minute old.
+  Undo: delete the workflow.

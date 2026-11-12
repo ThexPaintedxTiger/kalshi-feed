@@ -7,8 +7,8 @@
   - `calib`, `ensemble`: 20 resolved each (too early). Walk-forward on 2,700 past markets: calib +0.0006, ensemble +0.0015 (slightly worse).
   - `weather_idx`, `ladder`, `llm`: no resolved rows yet.
   - Maker paper portfolio: 118 of 160 resting orders filled, 44 won, −8.5¢ per fill after fees. Being filled is bad news on these markets.
-- Published: `site` branch exists and is updated by every run. **GitHub Pages is not enabled yet** (URL returns 404): owner step in
-  `docs/manual.md` §1.5.
+- Published: `site` branch exists and is updated by every run. GitHub Pages is live (https://thexpaintedxtiger.github.io/kalshi-feed/), deployed by `.github/workflows/pages.yml` after every
+  cloud run and every push to `site`. The cloud fallback (`feed.yml`) was disabled by hand and is enabled again.
 
 ## Verified here vs not verified
 | Claim | Status |
