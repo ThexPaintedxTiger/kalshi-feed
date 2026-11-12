@@ -1,0 +1,34 @@
+name: Publish dashboard
+# Deploys the `site` branch to GitHub Pages. Needed because a push made by a workflow (or by an app) does not start
+# GitHub's own branch-based Pages build. Requires: Settings → Pages → Source = "GitHub Actions".
+on:
+  workflow_run:
+    workflows: ["Kalshi feed"]
+    types: [completed]
+  push:
+    branches: [site]          # the laptop daemon's pushes
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: site
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deploy
+        uses: actions/deploy-pages@v4

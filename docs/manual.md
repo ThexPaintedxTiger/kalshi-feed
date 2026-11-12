@@ -23,7 +23,7 @@ ollama pull nomic-embed-text
    With 16 GB of RAM or more a 7–8B model reads better: pull it and set `config.json → llm.local` (for example `qwen2.5:7b`).
    Check: `node llm.mjs`. Without Ollama everything else still runs; the news, `llm` predictor and LLM evals are skipped.
 5. Turn on the public page once: GitHub → the repo → **Settings → Pages → Build and deployment → Source: Deploy from a branch →
-   Branch: `site`, folder `/ (root)` → Save**. The page is https://thexpaintedxtiger.github.io/kalshi-feed/.
+   Source: **GitHub Actions**** (the `Publish dashboard` workflow deploys the `site` branch). The page is https://thexpaintedxtiger.github.io/kalshi-feed/.
 
 ## 2. Start it
 ```bash
