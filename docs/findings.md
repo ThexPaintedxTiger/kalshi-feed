@@ -29,3 +29,15 @@ Dated, sourced observations. Facts here are verified unless marked *hypothesis*.
 - *Series memory*: a series' past gap between outcome and price persists. Predictor `memory` (minN 10, shrink 20). Needs history to activate.
 - *Favorite-longshot bias*: cheap contracts win less often than their price implies. Predictor `longshot` (slope 1.1).
   Published research on Kalshi reports this bias; our own data will confirm or reject it for short markets.
+
+## 2026-11-12 — v2 checks
+- Kalshi WebSocket (docs.kalshi.com/websockets, read 2026-11-12): one endpoint `wss://api.elections.kalshi.com/trade-api/ws/v2`, auth headers on the
+  handshake. `subscribe` returns one `subscribed` (with a `sid`) per channel; `update_subscription` with `add_markets` / `delete_markets` /
+  `get_snapshot` changes or re-syncs a subscription; `seq` counts messages per subscription and must be contiguous. Prices arrive as
+  fixed-point dollar strings (`yes_dollars_fp`, `price_dollars`, `delta_fp`). Kalshi pings every 10 s. `market_lifecycle_v2` carries
+  `event_type` created / activated / deactivated / close_date_updated / determined / settled, with `result` once determined.
+  A `cfbenchmarks_value` channel streams the CF Benchmarks index values (e.g. BRTI) with 60-second averages: the crypto settlement reference.
+- A browser cannot call Kalshi's API from another site: a request carrying an `Origin` header gets HTTP 403 (no CORS). So the dashboard's
+  fallbacks are: localhost stream → published `live.json` (≤ 2 min). There is no direct browser-to-Kalshi fallback.
+- Hourly temperature markets: rules say "as reported by Synoptic Data … Kalshi Weather Index Methodology" for a metro area
+  (contract terms `CHIMETROWINDEX.pdf`). `api.synopticdata.com` needs a token (HTTP 401 without one).

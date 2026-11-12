@@ -34,7 +34,7 @@ const L = { port: 8787, maxMarkets: 800, restPollSec: 30, scanEveryMin: 10, ...(
 const PENDING = "local/pending-snaps.jsonl";
 
 export function createDaemon({ ctx = makeCtx(), connect = null, now = Date.now, log = console.log, alerts = new Alerts({ now }), kalshiFn = kalshi, port = L.port, serve = true, record = false, offline = false } = {}) {
-  const D = { ctx, started: now(), minute: 0, staleSec: 0, lastRest: 0, lastOutcomeCheck: 0, dirty: false, busy: false, last: {}, msgRate: 0, _msgs: 0 };
+  const D = { ctx, started: now(), minute: 0, staleSec: 0, lastRest: now(), lastOutcomeCheck: 0, dirty: false, busy: false, last: {}, msgRate: 0, _msgs: 0 };
   ctx.host = "daemon"; ctx.log = log; ctx.quiet = true;                  // steps return their summary line; the daemon logs the ones worth reading
   const engine = D.engine = new Engine({ estimate: c => estimate(c, { recall: ctx.recall }), cfg: L });
   const ticks = new GzLog("local/ticks"), feats = new GzLog("local/features", { flushRows: 5000 }), raw = record ? new GzLog("local/raw", { flushRows: 5000 }) : null;
@@ -148,7 +148,7 @@ export function createDaemon({ ctx = makeCtx(), connect = null, now = Date.now, 
     if (serve) await new Promise(res => { server = startServer({ port, state: () => ({ health: D.health(), markets: [...engine.meta.keys()].map(k => engine.view(k, now())).filter(Boolean) }), market: k => engine.view(k, now(), true),
       onListen: (err, p) => { if (err) { log(`live page not started: ${err.message}`); server = null; } else { D.port = p; log(`live page: http://localhost:${p}`); } res(); } }); });
     if (!ctx.get("ensemble", "state")) { log("first start: training models from the logs…"); log(await ctx.step("models", c => train.hourly(c, { force: true }))); }
-    D.rescope(); ws?.start();
+    D.rescope(); ws?.start(); ctx.emit("heartbeat", D.health());
   };
   D.stop = () => { ws?.stop(); ticks.flush(); feats.flush(); raw?.flush(); savePending(); server?.close(); };
   return D;

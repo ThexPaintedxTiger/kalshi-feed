@@ -1,1037 +1,349 @@
 <!doctype html>
-<title>Kalshi Agent Board</title>
+<html lang="en">
+<head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kalshi Research</title>
+<meta name="theme-color" content="#0d0d0d">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
 <style>
-/* Layout: sticky toolbar + tabbed views (Live agents & devs · Agent · Trading · Neural net · Data); the Agent view is an Agent Flow-style node canvas. */
-:root{
-  --bg:#14151a; --panel:#191a20; --card:#22242c; --line:#353844; --line-soft:#262832; --dot:#2b2e38;
-  --fg:#e6e7eb; --muted:#9a9daa; --faint:#6f7280;
-  --accent:#ff6d5a; --info:#7dd3fc; --good:#4ade80; --bad:#f87171; --warn:#fbbf24; --violet:#a78bfa; --pink:#f472b6; --teal:#2dd4bf;
-  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
-  color-scheme:dark;
-}
+:root{--plane:#f9f9f7;--surface:#fcfcfb;--line:#e4e3de;--ink:#0b0b0b;--ink2:#52514e;--mute:#898781;--track:#eceae4;
+--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s4:#eda100;--s5:#e87ba4;--s6:#008300;--s7:#6250d6;--s8:#e34948;
+--good:#0ca30c;--warn:#fab219;--serious:#ec835a;--crit:#d03b3b;--goodink:#006300;--critink:#a32020;--warnink:#7a5200}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--plane:#0d0d0d;--surface:#1a1a19;--line:#2e2e2b;--ink:#f0efec;--ink2:#c3c2b7;--mute:#898781;--track:#2a2a27;
+--s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;--s5:#d55181;--s6:#008300;--s7:#9085e9;--s8:#e66767;--goodink:#4fd24f;--critink:#f08a8a;--warnink:#fab219}}
+:root[data-theme=dark]{--plane:#0d0d0d;--surface:#1a1a19;--line:#2e2e2b;--ink:#f0efec;--ink2:#c3c2b7;--mute:#898781;--track:#2a2a27;
+--s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;--s5:#d55181;--s6:#008300;--s7:#9085e9;--s8:#e66767;--goodink:#4fd24f;--critink:#f08a8a;--warnink:#fab219}
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--fg);font:14px/1.45 var(--sans)}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--panel)}
-button{font:inherit;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 12px;cursor:pointer}
-button:hover{border-color:var(--muted)}
-button:focus-visible,a:focus-visible,.node:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-a{color:var(--info)}
-.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--panel);border-bottom:1px solid var(--line-soft)}
-.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-block:10px}
-.logo{font-weight:700;letter-spacing:.02em;white-space:nowrap}.logo span{color:var(--accent)}
-.sp{flex:1}
-.src{font-size:12px;color:var(--muted)}
-nav{display:flex;gap:4px;overflow-x:auto;padding-block:0 8px}
-nav a{color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:8px;white-space:nowrap;font-weight:600}
-nav a[aria-current=page]{color:var(--fg);background:var(--card)}
-main{padding-block:16px 40px;display:grid;grid-template-columns:minmax(0,1fr);gap:16px;max-width:1500px;margin:0 auto}
-main>section{min-width:0}
-h2{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 10px;font-weight:600}
-.panel{background:var(--panel);border:1px solid var(--line-soft);border-radius:12px;padding:14px;min-width:0}
-.grid2{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:16px}
-@media (max-width:900px){.grid2{grid-template-columns:minmax(0,1fr)}}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
-.kpi{background:var(--panel);border:1px solid var(--line-soft);border-radius:12px;padding:12px 14px}
-.kpi b{display:block;font:600 24px/1.2 var(--mono);font-variant-numeric:tabular-nums}
-.kpi span{font-size:12px;color:var(--muted)}
-.pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
-.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
-.c-good{color:var(--good)}.c-bad{color:var(--bad)}.c-warn{color:var(--warn)}.c-info{color:var(--info)}.c-muted{color:var(--muted)}
-.muted{color:var(--muted)}.small{font-size:12px}
-.sim{border:1px dashed var(--warn);color:var(--warn);border-radius:10px;padding:8px 12px;font-size:13px}
-/* Flow canvas */
-.canvas-scroll{overflow-x:auto;border-radius:12px;border:1px solid var(--line-soft)}
-.canvas{position:relative;width:1920px;height:620px;background-color:var(--bg);background-image:radial-gradient(var(--dot) 1px,transparent 1px);background-size:22px 22px}
-.canvas svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.edge{fill:none;stroke:var(--faint);stroke-width:2.5}
-.edge.live{stroke:var(--info);stroke-dasharray:6 5;animation:dash .8s linear infinite}
-.edge.dim{stroke:var(--line);stroke-dasharray:4 5}
-.edge.loop{stroke:var(--accent);stroke-dasharray:3 6;stroke-width:2}
-.edge-label{fill:var(--accent);font:600 11px var(--sans)}
-@keyframes dash{to{stroke-dashoffset:-11}}
-@media (prefers-reduced-motion:reduce){.edge.live{animation:none}}
-.node{position:absolute;width:200px;background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer;box-shadow:0 6px 20px rgb(0 0 0 / .35)}
-.node:hover{border-color:var(--muted)}
-.node.sel{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 20%,transparent),0 6px 20px rgb(0 0 0 / .35)}
-.node.dim{opacity:.55}
-.nh{display:flex;align-items:center;gap:9px}
-.ic{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 25%,transparent);font-size:16px;flex:none}
-.nm{font-weight:600;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.st{width:10px;height:10px;border-radius:50%;background:var(--line);flex:none}
-.node[data-s=done] .st{background:var(--good)}
-.node[data-s=wait] .st{background:var(--warn)}
-.node[data-s=run] .st{background:var(--info);animation:pulse 1.2s infinite}
-.node[data-s=bad] .st{background:var(--bad)}
-@keyframes pulse{50%{opacity:.35}}
-.nsub{font-size:11px;color:var(--faint);margin-top:6px;font-family:var(--mono);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.nstat{font-size:12px;color:var(--muted);margin-top:4px}
-.tag{position:absolute;top:-10px;right:10px;font-size:10px;background:var(--line-soft);border:1px solid var(--line);border-radius:6px;padding:1px 6px;color:var(--muted)}
-.detail dl{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 14px;margin:10px 0 0}
-.detail dt{color:var(--muted);font-size:12px}.detail dd{margin:0}
-code{font-family:var(--mono);font-size:12px;background:var(--line-soft);padding:1px 5px;border-radius:4px}
-/* Predictor + health */
-.cards{display:grid;gap:10px}
-.pcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px}
-.prow{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-.meter{height:6px;background:var(--line-soft);border-radius:4px;margin:10px 0 6px;overflow:hidden}
-.meter i{display:block;height:100%;background:var(--accent);border-radius:4px}
-.checks{display:grid;gap:6px;margin:0;padding:0;list-style:none}
-.checks li{display:flex;justify-content:space-between;gap:10px;font-size:13px;border-bottom:1px solid var(--line-soft);padding-bottom:6px}
-.checks b{font-family:var(--mono);font-variant-numeric:tabular-nums}
-/* Tables */
-.tscroll{overflow-x:auto}
-table{border-collapse:collapse;width:100%;font-size:13px}
-th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;padding:6px 8px;border-bottom:1px solid var(--line)}
-td{padding:7px 8px;border-bottom:1px solid var(--line-soft);vertical-align:top}
-td.n,th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
-td.t{min-width:220px}
-.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
-.chip{font-size:12px;padding:4px 10px;border-radius:999px;background:var(--card);border:1px solid var(--line);cursor:pointer}
-.chip[aria-pressed=true]{border-color:var(--accent);color:var(--accent)}
-input[type=search]{font:inherit;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 10px;width:min(320px,100%)}
-.bars{display:grid;gap:8px}
-.barrow{display:grid;grid-template-columns:minmax(90px,150px) minmax(0,1fr) 70px;gap:10px;align-items:center;font-size:13px}
-.track{height:10px;background:var(--line-soft);border-radius:5px;position:relative;overflow:hidden}
-.track i{position:absolute;inset:0 auto 0 0;background:var(--violet);border-radius:5px}
-.track em{position:absolute;inset:0 auto 0 0;background:var(--good);border-radius:5px}
-.empty{color:var(--muted);font-size:13px;padding:14px;border:1px dashed var(--line);border-radius:10px}
-.skill h3{margin:0;font:600 15px var(--mono)}
-.skill p{margin:8px 0 0;font-size:13px}
-.skill .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);display:block;margin-top:10px}
-.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
-.agents{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
-.acard{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--c,var(--line));border-radius:12px;padding:12px;min-width:0}
-.acard .nm{white-space:normal}
-.acard .what{font-size:13px;margin:8px 0 0}
-.acard .meta{font-size:12px;color:var(--muted);margin-top:8px}
-.acard[data-s=done] .st{background:var(--good);animation:pulse 2s infinite}
-.acard[data-s=wait] .st{background:var(--warn)}
-.acard[data-s=bad] .st{background:var(--bad)}
-@media (prefers-reduced-motion:reduce){.acard .st{animation:none!important}}
-.devagent{border-color:color-mix(in srgb,var(--teal) 45%,var(--line-soft))}
-.row2{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
-.today{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
-.today .q h2{margin-bottom:6px}
-.big{font:700 18px/1.3 var(--sans);margin:2px 0 8px}
-.tight{margin:0;padding-left:18px;display:grid;gap:4px}
-.checks2{list-style:none;padding-left:0}
-.tbar{display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap;margin-bottom:12px}
-.tstat{display:flex;gap:8px;align-items:center;margin-top:2px}.tstat b{font:600 15px var(--mono)}
-.ticker-wrap{overflow:hidden;padding:10px 0;margin-bottom:12px}
-.ticker{white-space:nowrap;overflow:hidden;padding-inline:14px}
-.tape-inner{display:inline-flex;gap:34px;animation:tape 90s linear infinite}
-.ticker:hover .tape-inner{animation-play-state:paused}
-@keyframes tape{to{transform:translateX(-50%)}}
-@media (prefers-reduced-motion:reduce){.tape-inner{animation:none;flex-wrap:wrap;white-space:normal}}
-.tick{font-size:12px;font-family:var(--mono)}.tick b{font-family:var(--sans);font-weight:600;color:var(--fg)}
-.tgrid8{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:12px}
-.tgrid3{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr);gap:12px;margin-bottom:12px}
-@media (max-width:1000px){.tgrid3{grid-template-columns:minmax(0,1fr)}}
-.kpi.tk{display:flex;flex-direction:column-reverse;gap:4px}.kpi.tk b{font-size:20px}
-select{font:inherit;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:5px 8px;max-width:60%}
-.closed{display:grid;gap:8px}.crow{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;border-bottom:1px solid var(--line-soft);padding-bottom:8px}
-.crow .t{min-width:0}.crow b{font-size:13px}.crow>b{white-space:nowrap}
-.agrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
-.acard.team{--c:var(--info)}
-.acard[data-s=running]{border-color:color-mix(in srgb,var(--info) 55%,var(--line-soft))}
-.ahead{font-weight:600;margin:10px 0 6px}
-button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
-a.btn{font:inherit;color:inherit;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 12px;white-space:nowrap}
-a.btn:hover{border-color:var(--muted)}
-#nnLearn .grid2>div,#nnLearn .tgrid3>div{min-width:0}
-.kpi .pill{white-space:normal}
-#toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 14px;font-size:13px}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--plane);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:env(safe-area-inset-bottom)}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+header{position:sticky;top:0;z-index:5;background:var(--plane);border-bottom:1px solid var(--line)}
+.top{display:flex;align-items:center;gap:10px;padding:10px 0;flex-wrap:wrap}
+h1{font-size:16px;margin:0;font-weight:650;letter-spacing:.01em}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12.5px;color:var(--ink2);background:var(--surface);white-space:nowrap}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--mute);flex:none}
+.dot.good{background:var(--good)}.dot.warn{background:var(--warn)}.dot.crit{background:var(--crit)}
+.grow{flex:1}
+button{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:5px 10px;cursor:pointer}
+button:hover{border-color:var(--mute)}
+nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{padding:9px 12px;text-decoration:none;color:var(--ink2);border-bottom:2px solid transparent;white-space:nowrap;font-size:14px}
+nav a.on{color:var(--ink);border-color:var(--ink);font-weight:600}
+main{padding:16px 0 48px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:14px}
+.card h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute);margin:0 0 10px;font-weight:600}
+.card h3{font-size:15px;margin:0 0 2px}
+.verdict{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:start}
+.verdict .ans{font-size:22px;font-weight:700;line-height:1.2}
+.verdict p{margin:0;color:var(--ink2)}
+.tone-bad .ans::before{content:"✕ ";color:var(--crit)}.tone-good .ans::before{content:"✓ ";color:var(--good)}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.kpi b{display:block;font-size:20px;font-variant-numeric:tabular-nums}
+.kpi span{color:var(--mute);font-size:12.5px}
+.mut{color:var(--mute)}.sec{color:var(--ink2)}.small{font-size:12.5px}
+.num{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{font-weight:600;color:var(--mute);text-align:left;font-size:12px;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap;position:sticky;top:0;background:var(--surface)}
+td{padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+tr.row{cursor:pointer}tr.row:hover td{background:var(--track)}
+.title{max-width:340px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tag{display:inline-block;font-size:11.5px;border:1px solid var(--line);border-radius:6px;padding:0 6px;color:var(--ink2);white-space:nowrap}
+.tag.good{color:var(--goodink);border-color:var(--good)}.tag.crit{color:var(--critink);border-color:var(--crit)}.tag.warn{color:var(--warnink);border-color:var(--warn)}
+.up{color:var(--goodink)}.down{color:var(--critink)}
+.flash{animation:fl .6s}@keyframes fl{from{background:var(--track)}to{background:transparent}}
+/* interval bar: track = possible range, band = peeking-safe interval, tick = zero, dot = current mean */
+.ivl{position:relative;height:22px;background:var(--track);border-radius:4px;margin:6px 0 2px}
+.ivl .zero{position:absolute;top:-3px;bottom:-3px;left:50%;width:2px;background:var(--ink2)}
+.ivl .band{position:absolute;top:6px;bottom:6px;border-radius:4px;background:var(--s1);opacity:.85}
+.ivl .band.good{background:var(--good)}.ivl .band.crit{background:var(--crit)}
+.ivl .pt{position:absolute;top:5px;width:12px;height:12px;border-radius:50%;background:var(--ink);border:2px solid var(--surface);transform:translateX(-6px)}
+.axis{display:flex;justify-content:space-between;font-size:11px;color:var(--mute)}
+.depth{display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12.5px}
+.lvl{position:relative;display:flex;justify-content:space-between;padding:1px 6px;font-variant-numeric:tabular-nums}
+.lvl i{position:absolute;inset:0 auto 0 0;background:var(--s3);opacity:.18;border-radius:3px}
+.lvl.no i{background:var(--s2);inset:0 0 0 auto}
+.lvl span{position:relative}
+.chart{position:relative;height:260px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--ink2);margin:6px 0}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+details{margin-top:8px}summary{cursor:pointer;color:var(--ink2);font-size:13px}
+.alert{border-left:4px solid var(--warn);padding:6px 10px;margin:6px 0;background:var(--surface);border-radius:4px;font-size:13.5px}
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:4px 16px;font-size:13.5px}
+.hide{display:none!important}
+#drill{position:fixed;inset:0;z-index:20;background:var(--plane);overflow:auto;padding:14px 0 40px}
+.spark{vertical-align:middle}
+@media (max-width:640px){.title{max-width:170px}.verdict{grid-template-columns:1fr}.verdict .ans{font-size:19px}.hm{display:none}body{font-size:14.5px}.chart{height:220px}}
 </style>
-
-<header>
-  <div class="wrap bar">
-    <div class="logo">Kalshi <span>Research Agent</span></div>
-    <span id="goalPill" class="pill c-muted">loading</span>
-    <span id="healthPill" class="pill c-muted">health</span>
-    <div class="sp"></div>
-    <span id="src" class="src">Loading data…</span>
-    <button id="refresh" type="button">Refresh</button>
-    <a class="btn" href="https://github.com/ThexPaintedxTiger/kalshi-feed/archive/refs/heads/main.zip" download>Download project (zip)</a>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="top">
+    <h1>Kalshi Research</h1>
+    <span class="pill" id="run" title="Is the live daemon running?"><span class="dot" id="runDot"></span><span id="runTxt">loading…</span></span>
+    <span class="pill hm" id="srcPill"></span>
+    <span class="grow"></span>
+    <button id="theme" title="Dark / light" aria-label="Switch dark or light mode">◐</button>
   </div>
-  <nav class="wrap" aria-label="Views">
-    <a href="#live">Live agents &amp; devs</a><a href="#agent">Agent</a><a href="#trading">Trading</a><a href="#nn">Neural net</a><a href="#data">Data</a>
-  </nav>
-</header>
-
-<main class="wrap">
-  <section id="v-live" data-view>
-    <div class="kpis" id="liveKpis"></div>
-    <div style="height:16px"></div>
-    <div id="devPanel"></div>
-    <div style="height:16px"></div>
-    <div class="panel"><h2>Pipeline agents · run every 10-minute cycle</h2><div class="agents" id="liveAgents"></div></div>
-    <div style="height:16px"></div>
-    <div class="panel"><h2>Dev agents · run hourly, keep the system healthy and learning</h2><div class="agents" id="devAgents"></div>
-      <p class="small muted">Green dot = the agent did its job within its expected interval. Amber = late, red = stalled. Times come from the data the pipeline pushes, so they're as fresh as the header says.</p></div>
-    <div style="height:16px"></div>
-    <h2 style="margin:4px 0 10px">Claude agent team · run on demand</h2>
-    <div class="panel"><div class="prow"><h2 style="margin:0">Live agents</h2><span class="small muted" id="laWhen">—</span></div>
-      <p class="small muted" style="margin:6px 0 10px">A team of Claude agents reads the board's live data and reports. Four specialists run side by side, then the lead analyst combines them. Research and paper trading only. Each run uses Claude usage on your account.</p>
-      <div class="row2"><button type="button" id="laRun" class="primary">Run live agents</button><button type="button" id="laStop" hidden>Stop</button>
-        <select id="laHist" aria-label="Earlier runs"></select><span class="small muted" id="laMsg"></span></div></div>
-    <div style="height:12px"></div>
-    <div class="agrid" id="laCards"></div>
-    <div style="height:12px"></div>
-    <div class="panel" id="laLead"></div>
-  </section>
-
-  <section id="v-agent" data-view hidden>
-    <div id="today"></div>
-    <div style="height:16px"></div>
-    <div class="kpis" id="kpis"></div>
-    <div style="height:16px"></div>
-    <div class="canvas-scroll"><div class="canvas" id="canvas"><svg id="edges" aria-hidden="true"></svg></div></div>
-    <div style="height:16px"></div>
-    <div class="grid2">
-      <div class="panel detail" id="detail"></div>
-      <div class="panel"><h2>Goal: beat the market</h2><div class="cards" id="predictors"></div></div>
-    </div>
-    <div style="height:16px"></div>
-    <div class="panel"><h2>Backtest: past settled markets (supporting evidence, not the live record)</h2><div id="bt"></div></div>
-    <div style="height:16px"></div>
-    <div class="grid2">
-      <div class="panel"><h2>Predictions logged per run</h2><div id="spark"></div></div>
-      <div class="panel"><h2>Pipeline health</h2><ul class="checks" id="health"></ul></div>
-    </div>
-    <div style="height:24px"></div>
-    <h2 style="margin:4px 0 10px">Scored trades</h2>
-    <p class="sim">Simulation only. These are paper trades for scoring. No money is placed, and nothing here is a recommendation to bet.</p>
-    <div style="height:12px"></div>
-    <div class="kpis" id="tkpis"></div>
-    <div style="height:16px"></div>
-    <div class="panel"><h2>Simulated trades (scored)</h2><div id="trades"></div></div>
-    <div style="height:16px"></div>
-    <div class="panel"><h2>Gemini picks (dashboard feed, not scored yet)</h2><div id="gemini"></div></div>
-  </section>
-
-  <section id="v-trading" data-view hidden>
-    <div class="tbar">
-      <div><span class="small muted">Paper account</span><div class="tstat"><span class="pill c-warn">simulation</span> <b id="tAcct">—</b></div></div>
-      <div><span class="small muted">Starting capital</span><div class="tstat"><b id="tStart">$10.00</b></div></div>
-      <div class="chips" id="tMode" style="margin:0"></div>
-      <div class="chips" id="tPf" style="margin:0"></div>
-    </div>
-    <div class="panel ticker-wrap"><div class="ticker" id="tTape"></div></div>
-    <div class="tgrid8" id="tK1"></div>
-    <div class="tgrid3">
-      <div class="panel"><div class="prow"><h2 style="margin:0">Price action (live, 1-minute)</h2><select id="tMkt" aria-label="Focus market"></select></div><div id="tPrice"></div></div>
-      <div class="panel"><h2>Profit curve</h2><div id="tEq"></div></div>
-      <div class="panel"><h2>Daily P&amp;L</h2><div id="tDaily"></div></div>
-    </div>
-    <div class="tgrid8" id="tK2"></div>
-    <div class="tgrid3">
-      <div class="panel"><h2>Drawdown curve</h2><div id="tDD"></div></div>
-      <div class="panel"><h2>Win / loss ratio</h2><div id="tDonut"></div></div>
-      <div class="panel"><h2>Recent closed trades</h2><div id="tClosed"></div></div>
-    </div>
-    <div class="panel" id="askPanel" hidden><h2>Ask the agent</h2>
-      <p class="small muted" style="margin-top:0">Claude answers from the numbers on this board (scorecard, paper trades, live focus markets). Each question uses Claude usage.</p>
-      <div class="row2"><input type="search" id="askQ" placeholder="e.g. Which strategy is closest to proving an edge?" aria-label="Question" style="flex:1;min-width:0;width:auto"><button type="button" id="askBtn">Ask</button></div>
-      <div id="askA" class="small" style="margin-top:10px;white-space:pre-wrap"></div></div>
-    <div style="height:24px"></div>
-    <h2 style="margin:4px 0 10px">Profit &amp; loss · all portfolios</h2>
-    <p class="sim">Simulation only. $10 of paper money per portfolio, real Kalshi prices and fees, nothing is traded. Replay uses past settled markets; Forward uses live predictions and is the record that counts.</p>
-    <div style="height:12px"></div>
-    <div class="chips" id="modeChips"></div>
-    <div class="panel"><h2>Equity: $10 → $1,000? (log scale)</h2><div id="eqChart"></div><div class="chips" id="eqLegend" style="margin-top:8px"></div></div>
-    <div style="height:16px"></div>
-    <div class="panel"><h2>Portfolios</h2><div class="tscroll" id="pfTable"></div></div>
-    <div style="height:16px"></div>
-    <div class="grid2">
-      <div class="panel"><h2>How do you get $10 to $1,000?</h2><div id="howTo"></div></div>
-      <div class="panel"><h2>Recent paper bets</h2><div class="chips" id="pfChips"></div><div class="tscroll" id="pfBets"></div></div>
-    </div>
-  </section>
-
-  <section id="v-nn" data-view hidden>
-    <div class="kpis" id="nnKpis"></div>
-    <div style="height:16px"></div>
-    <div class="panel" id="nnLearn"></div>
-    <div style="height:16px"></div>
-    <div class="panel"><h2>The network (drawn from its trained weights)</h2>
-      <p class="small muted" style="margin-top:0">Each line is a weight: <span class="c-good">green</span> pushes up, <span class="c-bad">red</span> pushes down, brighter = stronger. The output is a correction added to the market price, so an untrained network equals the market.</p>
-      <div class="canvas-scroll"><div id="nnNet"></div></div></div>
-    <div style="height:16px"></div>
-    <div class="grid2">
-      <div class="panel"><h2>Training curve (latest run)</h2><div id="nnCurve"></div></div>
-      <div class="panel"><h2>What the network relies on</h2><div class="bars" id="nnImp"></div></div>
-    </div>
-    <div style="height:16px"></div>
-    <div class="panel"><h2>Training history (each hourly run)</h2><div class="tscroll" id="nnLog"></div>
-      <p class="small muted">How it learns: every hour it retrains on all settled markets so far. The honest score is the walk-forward test: train on older markets, predict newer ones it has never seen, repeat. Only that score counts.</p></div>
-  </section>
-
-
-
-  <section id="v-data" data-view hidden>
-    <div class="grid2">
-      <div class="panel"><h2>Predictions by category</h2><div class="bars" id="cats"></div>
-        <p class="small muted">Violet = logged · green = resolved and scored</p></div>
-      <div class="panel"><h2>Resolving next</h2><div id="next"></div></div>
-    </div>
-    <div style="height:16px"></div>
-    <div class="panel"><h2>Recent predictions</h2>
-      <div class="chips" id="catChips"></div>
-      <input type="search" id="q" placeholder="Search markets" aria-label="Search markets">
-      <div style="height:10px"></div>
-      <div class="tscroll" id="preds"></div>
-    </div>
-    <div style="height:16px"></div>
-    <div class="panel"><h2>Memory: what each series taught us</h2><div class="tscroll" id="mem"></div></div>
-    <div style="height:16px"></div>
-    <div class="panel"><h2>Storage · where the data lives and what the network learns from</h2><div id="storage"></div></div>
-    <div style="height:24px"></div>
-    <h2 style="margin:4px 0 10px">Skills &amp; tools</h2>
-    <div class="panel"><h2>Skills Claude uses for this agent</h2>
-      <p class="small muted">Ask Claude in plain words, or type <code>/skill-name</code> in Claude Code. Saved in <code>.claude/skills/</code>; reviewed in <code>docs/skills.md</code>.</p>
-      <div class="sg" id="skills"></div>
-    </div>
-    <div style="height:16px"></div>
-    <div class="panel"><h2>Tools Claude can call (MCP server, read-only)</h2>
-      <p class="small muted">Start with <code>npm --prefix mcp install</code>; Claude Code picks it up from <code>.mcp.json</code>. Setup for Claude Desktop: <code>docs/architecture.md</code>.</p>
-      <div class="chips" id="mcp"></div>
-    </div>
-  </section>
-
-</main>
-<div id="toast" hidden></div>
-
+  <nav id="nav"></nav>
+</div></header>
+<main class="wrap" id="main"><div class="card">Loading…</div></main>
+<div id="drill" class="hide"><div class="wrap" id="drillBody"></div></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" integrity="sha512-CQBWl4fJHWbryGE+Pc7UAxWMUMNMWzWxF4SQo9CgkJIN1kx6djDQZjh3Y8SZ1d+6I+1zze6Z7kHXO7q3UyZAWw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-const SOURCES = [
-  ["live", "dashboard.json"],
-  ["live from GitHub", "https://raw.githubusercontent.com/ThexPaintedxTiger/kalshi-feed/site/dashboard.json"],
-];
-let D = null, sel = "progress", catFilter = "All", showAll = false;
-const $ = s => document.querySelector(s);
-const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const cents = p => p == null ? "–" : Math.round(p * 100) + "¢";
-const pct = p => p == null ? "–" : (Math.round(p * 1000) / 10) + "%";
-const money = x => x == null ? "–" : (x >= 0 ? "+$" : "−$") + Math.abs(x).toFixed(2);
-const sgn = x => x == null ? "–" : (x > 0 ? "+" : "") + x.toFixed(4);
-const when = ts => { if (!ts) return "–"; const d = new Date(ts); return d.toLocaleString([], { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }); };
-const rel = ts => { const m = Math.round((Date.parse(ts) - Date.now()) / 6e4), a = Math.abs(m), s = a < 60 ? a + "m" : Math.floor(a / 60) + "h " + String(a % 60).padStart(2, "0") + "m"; return m >= 0 ? "in " + s : s + " ago"; };
-const toast = t => { const el = $("#toast"); el.textContent = t; el.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => el.hidden = true, 2500); };
+"use strict";
+// ---------- helpers ----------
+const $ = s => document.querySelector(s), esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const pct = (x, d = 0) => x == null ? "–" : (x * 100).toFixed(d) + "¢", n4 = x => x == null ? "–" : (x > 0 ? "+" : "") + (+x).toFixed(4), usd = x => x == null ? "–" : "$" + (+x).toFixed(2);
+const ago = t => { if (!t) return "never"; const s = (Date.now() - Date.parse(t)) / 1000; return s < 0 ? "now" : s < 90 ? Math.round(s) + " s ago" : s < 5400 ? Math.round(s / 60) + " min ago" : s < 172800 ? Math.round(s / 3600) + " h ago" : Math.round(s / 86400) + " d ago"; };
+const until = t => { const s = (Date.parse(t) - Date.now()) / 1000; if (s <= 0) return "closed"; const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = Math.floor(s % 60); return h ? `${h}h ${String(m).padStart(2, "0")}m` : `${m}:${String(x).padStart(2, "0")}`; };
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const fee = p => Math.ceil(0.07 * p * (1 - p) * 100 - 1e-9) / 100;
+const STATUS = { SUCCESS: ["Passed", "good"], FAILURE_WORSE: ["Worse than market", "crit"], NO_EDGE: ["No edge", ""], RETIRED: ["Off", ""], INSUFFICIENT: ["Too early", ""], SAME_AS_MARKET: ["Same as market", ""], ON_TRACK: ["Leaning better", ""], OFF_TRACK: ["Not better", ""], ACCURATE_NOT_PROFITABLE: ["Accurate, not profitable", "warn"] };
+// Series colors follow the entity (fixed order), never its rank.
+const PF_COLOR = { cash: "--mute", coin: "--s4", "nn-learn": "--s1", "nn-2": "--s7", "crypto-learn": "--s2", "calib-learn": "--s3", "ensemble-learn": "--s5", maker: "--s8" };
+const MODEL_ORDER = ["calib", "ensemble", "nn", "crypto_fair", "ladder", "llm", "weather_nws", "memory", "longshot"];
 
-// Freshness: how old the newest data is. The pipeline runs every 10 minutes; older than 30 min means it has stalled.
-let src = "";
-function freshness() {
-  if (!D) return;
-  const age = Math.round((Date.now() - Date.parse(D.generated)) / 6e4), el = $("#src");
-  const ageTxt = age < 1 ? "just now" : age < 90 ? `${age} min ago` : `${Math.round(age / 60)} h ago`;
-  const live = src.startsWith("live");
-  el.innerHTML = `<span class="pill ${age <= 30 ? "c-good" : age <= 120 ? "c-warn" : "c-bad"}">${age <= 30 ? "fresh" : "stale"}</span> ` +
-    `${esc(live ? "Live" : src === "snapshot" ? "Snapshot" : "Pasted")} · updated ${ageTxt}${live ? " · auto-refresh 5 min" : ""}`;
-  el.title = age > 30 ? "The pipeline hasn't produced new data for over 30 minutes. Scheduled runs may not be firing: check the repo's Actions tab." : "";
+// ---------- state ----------
+const S = { app: null, live: null, health: null, markets: new Map(), spark: new Map(), mode: "…", tab: (location.hash.match(/^#(\w+)$/) || [])[1] || "live", charts: {}, sse: null, err: null };
+const LOCAL = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+const J = async (u, ms = 8000) => { const c = new AbortController(), t = setTimeout(() => c.abort(), ms); try { const r = await fetch(u, { cache: "no-store", signal: c.signal }); if (!r.ok) throw new Error(u + " → " + r.status); return await r.json(); } finally { clearTimeout(t); } };
+
+// ---------- data sources: localhost stream (sub-second) → published live.json (≤ 2 min) ----------
+async function loadApp() {
+  try { S.app = await J("app.json"); S.err = null; } catch (e) { S.err = "Couldn't load app.json (" + e.message + ")"; }
+  render();
 }
-setInterval(freshness, 60e3);
-
-async function load(manual) {
-  for (const [label, url] of SOURCES) {
-    try {
-      const r = await fetch(url + (url.startsWith("http") ? "?t=" + Date.now() : ""), { cache: "no-store" });
-      if (!r.ok) continue;
-      D = await r.json();
-    } catch { continue; }
-    try { render(); } catch (e) { console.error("render failed:", e); $("#src").textContent = "Data loaded but a view failed to draw: " + e.message; return; }
-    src = label; freshness();
-    if (manual) toast("Data refreshed"); return;
-  }
-  $("#src").textContent = "Couldn't load data. Paste dashboard.json here (Ctrl+V).";
+function takeMarkets(list) {
+  for (const m of list || []) { if (!m) continue; const old = S.markets.get(m.k); m._chg = old && old.mid != null && m.mid != null ? Math.sign(m.mid - old.mid) : 0; m._at = Date.now(); S.markets.set(m.k, m);
+    if (m.mid != null) { const a = S.spark.get(m.k) || S.spark.set(m.k, []).get(m.k); if (!a.length || a[a.length - 1] !== m.mid) { a.push(m.mid); if (a.length > 80) a.shift(); } } }
 }
-document.addEventListener("paste", e => {
-  try { const j = JSON.parse(e.clipboardData.getData("text")); if (j.generated && j.totals) { D = j; render(); $("#src").textContent = `Data pasted · built ${when(D.generated)}`; toast("Pasted data loaded"); } } catch {}
-});
-$("#refresh").onclick = () => load(true);
+function connectLive() {
+  const bases = LOCAL ? [""] : ["http://localhost:8787", "http://127.0.0.1:8787"];
+  (async () => {
+    for (const b of bases) {
+      try { const st = await J(b + "/api/state", 2500); S.health = st.health; takeMarkets(st.markets); S.mode = "stream"; S.base = b;
+        const es = S.sse = new EventSource(b + "/events");
+        es.addEventListener("tick", e => { takeMarkets(JSON.parse(e.data)); liveDirty = true; });
+        es.addEventListener("health", e => { S.health = JSON.parse(e.data); S.healthAt = Date.now(); header(); });
+        es.addEventListener("derived", () => loadApp());
+        es.onerror = () => { if (es.readyState === 2) { S.mode = "published"; S.sse = null; setTimeout(connectLive, 5000); header(); } };
+        render(); return; } catch {}
+    }
+    S.mode = "published"; pollLive(); header();
+  })();
+}
+async function pollLive() { if (S.mode !== "published") return; try { const l = await J("live.json"); S.live = l; S.health = l.health; S.healthAt = Date.parse(l.at); takeMarkets(l.markets); liveDirty = true; header(); } catch {} }
 
-const statusTone = s => ({ SUCCESS: "c-good", IN_PROGRESS: "c-info", ON_TRACK: "c-info", ACCURATE_NOT_PROFITABLE: "c-info", OFF_TRACK: "c-warn",
-  INSUFFICIENT: "c-muted", FAILURE_WORSE: "c-bad", FAILURE_RETIRE: "c-bad" }[s] || (String(s).startsWith("ALL_") ? "c-bad" : "c-muted"));
-const label = s => String(s || "").split(" — ")[0].replace(/_/g, " ").toLowerCase();
-const outPill = o => `<span class="pill ${o === "yes" ? "c-good" : o === "no" ? "c-bad" : o === "awaiting" ? "c-warn" : "c-muted"}">${esc(o)}</span>`;
-
-function predictorRows() {
-  const G = D.config.goals.edge, P = D.progress.predictors || {};
-  return Object.entries(D.config.predictors).filter(([k, v]) => k !== "market" && v.on).map(([k, v]) =>
-    ({ k, hyp: v.hypothesis, ...(P[k] || { status: "INSUFFICIENT", n: 0, rec: `wait: 0/${G.minForTrend} resolved before any trend is readable`, picks: 0, trend: "no data yet" }) }));
+// ---------- header ----------
+function header() {
+  const h = S.health, a = S.app, hbAt = S.mode === "stream" ? Date.now() : h ? Date.parse(h.at) : 0, age = h ? (Date.now() - hbAt) / 1000 : Infinity;
+  const running = age < 180, ws = h?.ws?.state || "off";
+  $("#runDot").className = "dot " + (running ? (h.mode === "ws" ? "good" : "warn") : "crit");
+  $("#runTxt").textContent = !h ? "daemon: no heartbeat" : running ? `running on ${h.host} · ${h.mode === "ws" ? "stream live" : ws === "off" ? "REST prices (no key)" : "stream " + ws} · ${h.msgRate || 0} msg/s` : `daemon stopped · last seen ${ago(h.at)}`;
+  $("#srcPill").textContent = S.mode === "stream" ? "live from this computer" : `published data · ${a ? ago(a.generated) : "…"}`;
+  $("#run").title = h ? `host ${h.host}\nstarted ${h.startedAt}\nstream: ${ws}, reconnects ${h.ws?.reconnects ?? 0}, gaps ${h.ws?.gaps ?? 0}\nmarkets watched ${h.markets}, stale ${h.stale}\nstale seconds since start ${h.staleTotalSec}` : "";
 }
 
-// ---------- Agent view ----------
-function nodes() {
-  const last = D.runs[D.runs.length - 1] || {}, h = D.progress.health?.checks || {}, sc = D.scorecard, G = D.config.goals.edge;
-  const pr = Object.fromEntries(predictorRows().map(p => [p.k, p]));
-  const goal = D.progress.goal || "IN_PROGRESS";
-  return [
-    { id: "sched", x: 20, y: 200, c: "var(--violet)", ic: "⏱", nm: "Schedule", sub: ".github/workflows/feed.yml", stat: `${h.runsLast24h?.value ?? D.runs.length} runs in 24h`, s: h.runsLast24h?.ok === false ? "wait" : "done",
-      what: "Starts the whole pipeline every 10 minutes on GitHub Actions. Runs can start 5–30 minutes late; that's why markets closing in under 20 minutes are skipped.", cost: "Free (public repo)", skill: "kalshi-run-cycle (run it now instead of waiting)" },
-    { id: "tests", x: 250, y: 200, c: "var(--good)", ic: "🧪", nm: "Tests", sub: "test.mjs", stat: "fees, EV, scores, leakage, goals", s: "done",
-      what: "Checks the math (fees, expected value, Brier, log loss), the leakage guard and every goal status. A failure stops the run so bad numbers never get logged.", cost: "Free", skill: "kalshi-run-cycle" },
-    { id: "discover", x: 480, y: 200, c: "var(--info)", ic: "🔎", nm: "Discover markets", sub: "predict.mjs · Kalshi API", stat: last.scanned ? `${last.scanned.toLocaleString()} scanned · ${last.candidates} short` : "waiting for first run", s: last.logged ? "done" : "wait",
-      what: `Reads open Kalshi markets (public data) and keeps those resolving in ${D.config.scan.minLeadMinutes} min–${D.config.scan.horizonHours} h with bid > 0, spread ≤ ${cents(D.config.scan.maxSpread)} and volume ≥ ${D.config.scan.minVolume}. Logs up to ${D.config.scan.maxNewPerRun} new markets per run, rotating across categories.`, cost: "Free · ~50 API requests per run", skill: "kalshi-run-cycle" },
-    { id: "market", x: 750, y: 30, c: "var(--muted)", ic: "⚖️", nm: "Market baseline", sub: "predictor · market", stat: "P = mid price · the bar to beat", s: "done", tag: "baseline",
-      what: D.config.predictors.market.hypothesis + " Every other predictor is scored against it on the same markets. It can never show a profitable pick, by design.", cost: "Free", skill: "kalshi-check-progress" },
-    { id: "longshot", x: 750, y: 135, c: "var(--accent)", ic: "🎯", nm: "Longshot bias", sub: `predictor · slope ${D.config.predictors.longshot?.slope}`, stat: D.config.predictors.longshot?.on === false ? `retired · ${pr.longshot?.n || 0} scored` : `${label(pr.longshot?.status)} · ${pr.longshot?.n || 0}/${G.minResolved}`, s: D.config.predictors.longshot?.on === false ? "wait" : "run", dim: D.config.predictors.longshot?.on === false, tag: D.config.predictors.longshot?.on === false ? "retired" : "hypothesis",
-      what: (D.config.predictors.longshot?.hypothesis || "") + " Status: " + (pr.longshot?.rec || ""), cost: "Free", skill: "kalshi-add-predictor (to add more ideas)" },
-    { id: "gemini", x: 750, y: 450, c: "var(--violet)", ic: "🤖", nm: "Gemini analysts", sub: "agents.mjs · hourly", stat: `${D.gemini.picks.length} picks · not scored yet`, s: "idle", dim: true, tag: "dashboard only",
-      what: "Three AI analysts (momentum, base rate, rules) rate the dashboard's top markets once an hour in one free Gemini call. Their picks are not part of the scored pipeline yet; they must beat the code predictors before they cost anything.", cost: "Free Gemini tier (1 call/hour)", skill: "kalshi-add-predictor (to score it)" },
-    { id: "memoryP", x: 750, y: 240, c: "var(--good)", ic: "🧠", nm: "Series memory", sub: `predictor · min ${D.config.predictors.memory?.minN} past`, stat: `${label(pr.memory?.status)} · ${pr.memory?.n || 0}/${G.minResolved}`, s: "run", tag: "hypothesis",
-      what: (D.config.predictors.memory?.hypothesis || "") + " It only uses markets that settled before the moment of prediction. Status: " + (pr.memory?.rec || ""), cost: "Free", skill: "kalshi-add-predictor" },
-    { id: "memstore", x: 480, y: 500, c: "var(--good)", ic: "🗂", nm: "Memory", sub: "memory.mjs → data/memory/", stat: `${D.memory?.samples || 0} settled · ${D.memory?.series || 0} series`, s: D.memory?.samples ? "done" : "wait",
-      what: "What the agent knows about each Kalshi series: how many settled markets it has seen, how often YES won, the average price and the price-vs-outcome gap. Built from live outcomes and the backtest. Retrieval is a direct lookup by series (no vector database needed at this size). Claude can query it through the MCP tool recall_series.", cost: "Free · rebuilt each run", skill: "kalshi-history" },
-    { id: "backtest", x: 1010, y: 500, c: "var(--violet)", ic: "⏪", nm: "Backtest agent", sub: "backtest.mjs · hourly", stat: `${D.backtest?.resolved || 0} past markets scored`, s: D.backtest?.resolved ? "done" : "wait", tag: "dev agent",
-      what: `Rebuilds predictions for markets that already settled: takes the bid/ask from Kalshi's 1-minute price history ${D.config.backtest?.leadMinutes} min before resolution, runs the same predictors, and scores them against the official result. Kept separate from the live record: it supports, never replaces, live evidence.`, cost: `Free · ≤${D.config.backtest?.maxCandleCalls} API calls per hour`, skill: "kalshi-history" },
-    { id: "nnP", x: 750, y: 345, c: "var(--pink)", ic: "🕸", nm: "Neural network", sub: `predictor · ${(D.nn?.architecture || []).join("→") || "not trained"}`, stat: D.nn?.oos ? `out-of-sample: ${label(D.nn.oos.verdict)}` : (D.nn?.status || "waiting for data"), s: D.nn?.model ? "run" : "wait", tag: "learns hourly",
-      what: "A small neural network that learns corrections to the market price from settled markets (price, spread, time of day, category, series memory). It retrains every hour; only its walk-forward score on markets it never saw counts. Open the Neural net tab for the network, training curve and history.", cost: "Free · trains in seconds", skill: "kalshi-history" },
-    { id: "paper", x: 1490, y: 400, c: "var(--teal)", ic: "💵", nm: "Paper portfolios", sub: "paper.mjs · $10 each", stat: (() => { const f = D.paper?.replay?.portfolios || []; const b = f.filter(p => p.predictor).sort((a, b) => b.equity - a.equity)[0]; return b ? `best replay: $${b.equity}` : "waiting"; })(), s: D.paper ? "done" : "wait",
-      what: "Several $10 paper portfolios, each a different strategy (controls, neural net at different bet sizes, memory, crypto, weather), trading the predictions with real prices and fees. A Monte Carlo estimates each one's chance of reaching $1,000. See the Trading tab.", cost: "Free", skill: "kalshi-check-progress" },
-    { id: "mcp", x: 1730, y: 400, c: "var(--info)", ic: "🔌", nm: "MCP server", sub: "mcp/server.mjs · read-only", stat: `${(D.mcpTools || []).length} tools for Claude`, s: "done",
-      what: "Lets Claude (Desktop or Code) answer questions from the agent's real files: status, scorecards, predictions, series memory, skills. Read-only: it never writes, never calls Kalshi, never trades, and never exposes your private trade report.", cost: "Free · runs locally", skill: "kalshi-history" },
-    { id: "log", x: 1010, y: 200, c: "var(--warn)", ic: "📒", nm: "Prediction log", sub: "data/predictions/*.jsonl", stat: `${D.totals.predictions.toLocaleString()} predictions`, s: "done",
-      what: "Append-only record of every prediction, written before the market resolves: time, prices, spread, liquidity, rules, each predictor's estimate and expected value after fees. Never edited afterwards.", cost: "~700 bytes per prediction in git", skill: "kalshi-check-progress" },
-    { id: "resolve", x: 1250, y: 200, c: "var(--good)", ic: "✅", nm: "Check outcomes", sub: "resolve.mjs", stat: `${D.totals.outcomes} official results`, s: D.totals.outcomes ? "done" : "wait",
-      what: "Asks Kalshi for the official yes/no result of markets past their resolution time (200 per request) and appends it to data/outcomes.jsonl. Unsettled after 7 days = void, never scored.", cost: "Free", skill: "kalshi-run-cycle" },
-    { id: "score", x: 1490, y: 200, c: "var(--info)", ic: "📊", nm: "Scorecard", sub: "score.mjs → scorecard.json", stat: `${sc.resolved || 0} resolved · leakage ${sc.excludedLeakage || 0}`, s: sc.resolved ? "done" : "wait",
-      what: "Brier score and log loss per predictor, compared with the market on the same markets, calibration, and simulated P&L after fees. 95% intervals are counted per event. Predictions logged after their market resolved are thrown out.", cost: "Free", skill: "kalshi-check-progress" },
-    { id: "progress", x: 1730, y: 200, c: "var(--accent)", ic: "🏁", nm: "Progress vs goals", sub: "progress.mjs → progress.json", stat: label(goal), s: goal === "SUCCESS" ? "done" : goal.startsWith("ALL_") ? "bad" : "run",
-      what: D.progress.definitions || "", cost: "Free", skill: "kalshi-check-progress" },
-  ];
-}
-const EDGES = [["sched", "tests", "live"], ["tests", "discover", "live"], ["discover", "market", "live"], ["discover", "longshot", "dim"], ["discover", "gemini", "dim"],
-  ["market", "log", "live"], ["longshot", "log", "dim"], ["memoryP", "log", "live"], ["log", "resolve", "live"], ["resolve", "score", "live"], ["score", "progress", "live"],
-  ["discover", "memoryP", "live"], ["memstore", "memoryP", "live"], ["backtest", "score", "live"], ["resolve", "memstore", "under"], ["backtest", "memstore", "under"], ["progress", "mcp", "down"],
-  ["discover", "nnP", "live"], ["nnP", "log", "live"], ["memstore", "nnP", "live"], ["log", "paper", "live"], ["backtest", "paper", "live"]];
+// ---------- views ----------
+const TABS = [["live", "Live"], ["models", "Models"], ["break", "Breakdowns"], ["paper", "Paper"], ["ops", "Ops"]];
+function nav() { $("#nav").innerHTML = TABS.map(([k, n]) => `<a href="#${k}" class="${S.tab === k ? "on" : ""}">${n}</a>`).join(""); }
 
-function renderAgent() {
-  const N = nodes(), byId = Object.fromEntries(N.map(n => [n.id, n])), W = 200, H = 86;
-  const cv = $("#canvas");
-  cv.querySelectorAll(".node").forEach(n => n.remove());
-  for (const n of N) {
-    const el = document.createElement("div");
-    el.className = "node" + (n.dim ? " dim" : "") + (sel === n.id ? " sel" : ""); el.tabIndex = 0; el.dataset.s = n.s; el.dataset.id = n.id;
-    el.style.cssText = `left:${n.x}px;top:${n.y}px;--c:${n.c}`;
-    el.setAttribute("role", "button"); el.setAttribute("aria-label", n.nm);
-    el.innerHTML = `${n.tag ? `<span class="tag">${esc(n.tag)}</span>` : ""}<div class="nh"><div class="ic">${n.ic}</div><div class="nm">${esc(n.nm)}</div><div class="st"></div></div><div class="nsub">${esc(n.sub)}</div><div class="nstat">${esc(n.stat)}</div>`;
-    el.onclick = el.onkeydown = e => { if (e.type === "keydown" && e.key !== "Enter" && e.key !== " ") return; e.preventDefault?.(); sel = n.id; renderAgent(); };
-    cv.appendChild(el);
-  }
-  const path = (a, b, k) => {
-    if (k === "under") { const x1 = a.x + W / 2, x2 = b.x + W / 2, y = Math.max(a.y, b.y) + H + 28; return `M${x1},${a.y + H} C${x1},${y} ${x2},${y} ${x2},${b.y + H}`; }
-    if (k === "down") { const x = a.x + W / 2; return `M${x},${a.y + H} L${x},${b.y}`; }
-    const x1 = a.x + W, y1 = a.y + 30, x2 = b.x, y2 = b.y + 30, dx = Math.max(40, (x2 - x1) / 2); return `M${x1},${y1} C${x1 + dx},${y1} ${x2 - dx},${y2} ${x2},${y2}`; };
-  const p = byId.progress, l = byId.market;
-  $("#edges").innerHTML = EDGES.map(([a, b, k]) => `<path class="edge ${k === "under" ? "dim" : k === "down" ? "live" : k}" d="${path(byId[a], byId[b], k)}"/>`).join("") +
-    `<path class="edge loop" d="M${p.x + W / 2},${p.y} C${p.x + W / 2},${40} ${l.x + W / 2 + 60},${40} ${l.x + W / 2 + 60},${l.y - 2}"/>` +
-    `<text class="edge-label" x="${(p.x + l.x) / 2 + 100}" y="14" text-anchor="middle">learning loop: recommendations → owner approves → predictors change</text>`;
-  const n = byId[sel] || p;
-  $("#detail").innerHTML = `<h2>Selected step</h2><div class="nh"><div class="ic" style="--c:${n.c}">${n.ic}</div><div class="nm" style="white-space:normal">${esc(n.nm)}</div></div>
-    <p>${esc(n.what)}</p><dl><dt>File</dt><dd><code>${esc(n.sub)}</code></dd><dt>Now</dt><dd>${esc(n.stat)}</dd><dt>Cost</dt><dd>${esc(n.cost)}</dd><dt>Skill</dt><dd><code>${esc(n.skill)}</code></dd></dl>
-    <p class="small muted">Click any step on the canvas.</p>`;
+function verdictCard() {
+  const a = S.app, t = a?.status?.trade; if (!t) return "";
+  const alerts = (a.ops?.alerts?.recent || []).filter(x => Date.now() - Date.parse(x.ts) < 864e5).slice(-3).reverse();
+  const needs = (a.status.needs || []).slice(0, 3);
+  return `<div class="card tone-${t.tone}"><h2>Should I trade?</h2><div class="verdict"><div class="ans">${esc(t.answer)}</div><div><p><b>Why${t.tone === "good" ? "" : " not yet"}:</b> ${esc(t.why)}</p><p class="small mut" style="margin-top:4px">${esc(t.next)}</p></div></div>
+  ${alerts.map(x => `<div class="alert"><b>${esc(x.title)}</b> — ${esc(x.body)} <span class="mut small">${ago(x.ts)}${x.sent ? "" : " · not sent (no webhook set)"}</span></div>`).join("")}
+  ${needs.map(x => `<div class="alert" style="border-color:var(--s1)">${esc(x)}</div>`).join("")}</div>`;
 }
 
-function renderGoals() {
-  const G = D.config.goals.edge;
-  $("#predictors").innerHTML = predictorRows().map(p => `<div class="pcard">
-    <div class="prow"><b>${esc(p.k)}</b><span class="pill ${statusTone(p.status)}">${esc(label(p.status))}</span></div>
-    <div class="meter" role="img" aria-label="${p.n} of ${G.minResolved} resolved"><i style="width:${Math.min(100, p.n / G.minResolved * 100)}%"></i></div>
-    <div class="prow small muted"><span>${p.n}/${G.minResolved} resolved · ${p.picks} picks</span><span>Brier vs market ${sgn(p.brierVsMarket)}</span></div>
-    <p class="small" style="margin:8px 0 0">${esc(p.rec)}</p><p class="small muted" style="margin:4px 0 0">Trend: ${esc(p.trend)}</p></div>`).join("") +
-    `<p class="small muted" style="margin:0">Success = more accurate than the market price over ${G.minResolved}+ resolved markets <b>and</b> profitable simulated picks after fees over ${G.minPicks}+ picks. Failure = clearly worse, or no edge after ${G.retireAfter}.</p>`;
-  const h = D.progress.health || { checks: {} }, names = { runsLast24h: "Runs in last 24h", newPredictionsLast24h: "New predictions in 24h", leakage: "Logged after resolution (leakage)", unresolvedBacklog: "Overdue outcomes (>24h)" };
-  $("#health").innerHTML = Object.entries(h.checks).map(([k, c]) => `<li><span>${names[k] || k}</span><span><b>${c.value}</b> <span class="muted small">${c.max ? "≤" : "≥"} ${c.target}</span> <span class="pill ${c.ok ? "c-good" : "c-bad"}">${c.ok ? "ok" : "check"}</span></span></li>`).join("") +
-    (h.warmingUp ? `<li class="muted small">Targets scale up over the first 24 hours.</li>` : "");
-  // Sparkline of logged per run
-  const r = D.runs.slice(-72), w = 600, ht = 110, max = Math.max(1, ...r.map(x => x.logged));
-  if (!r.length) { $("#spark").innerHTML = `<div class="empty">Appears after the first run.</div>`; return; }
-  const bw = w / Math.max(r.length, 12);
-  $("#spark").innerHTML = `<svg viewBox="0 0 ${w} ${ht + 22}" style="width:100%;height:auto" role="img" aria-label="Predictions logged per run">
-    <line x1="0" y1="${ht}" x2="${w}" y2="${ht}" stroke="var(--line)"/>
-    <line x1="0" y1="${ht - ht * 0.5}" x2="${w}" y2="${ht - ht * 0.5}" stroke="var(--line-soft)" stroke-dasharray="3 4"/>
-    ${r.map((x, i) => `<rect x="${i * bw + 1}" y="${ht - x.logged / max * ht}" width="${Math.max(2, bw - 2)}" height="${x.logged / max * ht}" rx="2" fill="${i === r.length - 1 ? "var(--accent)" : "var(--violet)"}"><title>${when(x.ts)}: ${x.logged} logged of ${x.candidates}</title></rect>`).join("")}
-    <text x="0" y="${ht + 16}" fill="var(--muted)" font-size="11">${esc(when(r[0].ts))}</text><text x="${w}" y="${ht + 16}" fill="var(--muted)" font-size="11" text-anchor="end">latest: ${r[r.length - 1].logged}</text>
-    <text x="${w}" y="12" fill="var(--muted)" font-size="11" text-anchor="end">max ${max} per run</text></svg>`;
+function spark(k) { const a = S.spark.get(k); if (!a || a.length < 2) return ""; const lo = Math.min(...a), hi = Math.max(...a), r = hi - lo || 0.01, w = 64, h = 18;
+  return `<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true"><polyline fill="none" stroke="${css("--s1")}" stroke-width="2" stroke-linejoin="round" points="${a.map((v, i) => `${(i / (a.length - 1) * w).toFixed(1)},${(h - 2 - (v - lo) / r * (h - 4)).toFixed(1)}`).join(" ")}"/></svg>`; }
+function edge(m, est) { if (est == null || m.a == null || m.b == null) return null; const y = est - m.a - fee(m.a), nc = 1 - m.b, n = (1 - est) - nc - fee(nc); return y >= n ? ["YES", y] : ["NO", n]; }
+function liveRows() {
+  const a = S.app, logged = new Map((a?.predictions || []).map(p => [p.k, p])), rows = [...S.markets.values()].filter(m => Date.parse(m.res) > Date.now() - 6e4).sort((x, y) => Date.parse(x.res) - Date.parse(y.res));
+  if (!rows.length) { const open = (a?.predictions || []).filter(p => p.out === "open"); return open.length ? open.slice(0, 80).map(p => rowHtml({ k: p.k, title: p.title, cat: p.cat, res: p.res, b: p.b, a: p.a, mid: p.mid, est: p.est, stale: true })).join("") : `<tr><td colspan="9" class="mut">No open markets being watched right now.</td></tr>`; }
+  return rows.slice(0, 150).map(m => rowHtml({ ...m, est: m.est || logged.get(m.k)?.est })).join("");
+}
+function rowHtml(m) {
+  const best = ["ensemble", "calib", "nn"].map(k => [k, m.est?.[k]]).find(x => x[1] != null), e = best ? edge(m, best[1]) : null;
+  return `<tr class="row ${m._chg && Date.now() - m._at < 700 ? "flash" : ""}" data-k="${esc(m.k)}"><td><div class="title" title="${esc(m.title)}">${esc(m.title)}</div><div class="small mut">${esc(m.cat || "")}${m.logged === false ? " · watching" : ""}</div></td>
+  <td class="num">${until(m.res)}</td><td class="num">${pct(m.b)}</td><td class="num">${pct(m.a)}</td><td class="num"><b class="${m._chg > 0 ? "up" : m._chg < 0 ? "down" : ""}">${pct(m.mid, 1)}</b></td>
+  <td class="hm">${spark(m.k)}</td><td class="num">${m.est?.calib != null ? pct(m.est.calib, 1) : "–"}</td><td class="num hm">${m.est?.ensemble != null ? pct(m.est.ensemble, 1) : "–"}</td>
+  <td class="num">${e ? `<span class="${e[1] > 0.02 ? "up" : "mut"}">${e[0]} ${(e[1] * 100).toFixed(1)}¢</span>` : "–"}</td></tr>`;
+}
+function viewLive() {
+  const h = S.health, a = S.app;
+  return verdictCard() + `<div class="kpis" style="margin-bottom:14px">
+  <div class="kpi"><b>${S.markets.size || (a?.predictions || []).filter(p => p.out === "open").length}</b><span>markets watched</span></div>
+  <div class="kpi"><b>${a?.evals?.market?.n ?? "–"}</b><span>live markets resolved</span></div>
+  <div class="kpi"><b>${a?.evals?.market?.brier ?? "–"}</b><span>market's own Brier</span></div>
+  <div class="kpi"><b>${h ? h.staleTotalSec + " s" : "–"}</b><span>stale time since start</span></div>
+  <div class="kpi"><b>${a?.evals?.leakage?.total ?? "–"}</b><span>leakage violations</span></div></div>
+  <div class="card"><h2>Live markets <span class="mut" style="text-transform:none;letter-spacing:0">· ${S.mode === "stream" ? "streaming" : "published snapshot, updates every 2 min"} · tap a row for the book and history</span></h2>
+  <div class="scroll"><table><thead><tr><th>Market</th><th class="num">Closes in</th><th class="num">Bid</th><th class="num">Ask</th><th class="num">Mid</th><th class="hm">Trend</th><th class="num">Calib</th><th class="num hm">Ensemble</th><th class="num">Edge after fees</th></tr></thead><tbody id="liveBody">${liveRows()}</tbody></table></div>
+  <p class="small mut" style="margin:8px 0 0">Edge = expected value per $1 contract after Kalshi's fee, buying at the quoted price, if the model were right. No model has passed the test, so this is not advice.</p></div>`;
 }
 
-function renderKpis() {
-  const sc = D.scorecard, h = D.progress.health?.checks || {};
-  const k = [[D.totals.predictions.toLocaleString(), "predictions logged"], [sc.resolved || 0, "resolved & scored"], [D.totals.trades, "simulated trades"],
-    [h.runsLast24h?.value ?? D.runs.length, "runs in 24h"], [sc.excludedLeakage || 0, "leakage (must be 0)"]];
-  $("#kpis").innerHTML = k.map(([v, l]) => `<div class="kpi"><b>${esc(v)}</b><span>${l}</span></div>`).join("");
+function interval(seq, snap, status) {
+  if (!seq || seq.lo == null) return `<div class="small mut">No resolved live markets yet.</div>`;
+  const B = Math.max(0.02, Math.min(seq.bound || 1, Math.max(Math.abs(seq.lo), Math.abs(seq.hi)) * 1.25)), x = v => Math.max(0, Math.min(100, 50 + v / B * 50));
+  const cls = seq.hi < 0 ? "good" : seq.lo > 0 ? "crit" : "";
+  return `<div class="ivl" role="img" aria-label="Peeking-safe range ${n4(seq.lo)} to ${n4(seq.hi)}"><div class="band ${cls}" style="left:${x(seq.lo)}%;width:${Math.max(1, x(seq.hi) - x(seq.lo))}%"></div><div class="zero"></div>${snap?.diff != null ? `<div class="pt" style="left:${x(snap.diff)}%" title="current average ${n4(snap.diff)}"></div>` : ""}</div>
+  <div class="axis"><span>◀ better than market ${n4(-B)}</span><span>0</span><span>${n4(B)} worse ▶</span></div>
+  <div class="small sec">Peeking-safe range <b>${n4(seq.lo)} … ${n4(seq.hi)}</b> · average now ${n4(snap?.diff)}</div>`;
+}
+function trendOf(k) { const t = (S.app.trend || []).map(d => d.predictors?.[k]).filter(x => x && x.mean != null); if (t.length < 2) return "first day of data"; const a = t[t.length - 2], b = t[t.length - 1]; return `${b.n - a.n >= 0 ? "+" : ""}${b.n - a.n} resolved since yesterday · average ${n4(a.mean)} → ${n4(b.mean)}`; }
+function modelCard(k) {
+  const e = S.app.evals, m = e.models[k], c = e.cards[k] || {}, [lab, tone] = STATUS[m.status] || [m.status, ""], dev = c.development;
+  return `<div class="card"><div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline"><h3>${esc(k)}</h3><span class="tag ${tone}">${esc(lab)}</span></div>
+  <div class="small mut">${esc(c.kind || "")}</div>
+  ${interval(m.vsMarket.sequence, m.vsMarket.snapshot95, m.status)}
+  <div class="small sec" style="margin-top:6px">${m.n} resolved in ${m.events} events · ${m.money.n} picks${m.money.n ? `, ${usd(m.money.total)} after fees` : ""} · ${trendOf(k)}</div>
+  <div class="small" style="margin-top:6px">${esc(m.why)}</div>
+  <details><summary>Model card</summary><div class="small sec" style="margin-top:6px">
+    <p style="margin:4px 0"><b>Idea:</b> ${esc(c.hypothesis || "")}</p>
+    <p style="margin:4px 0"><b>Data:</b> ${c.data ? esc(typeof c.data === "string" ? c.data : Object.entries(c.data).map(([a, b]) => `${b} ${a}`).join(", ")) : "–"}${c.trained ? ` · trained ${ago(c.trained)}` : ""}</p>
+    <p style="margin:4px 0"><b>Inputs:</b> ${esc((c.features || []).join(", ") || "–")}</p>
+    ${c.limits ? `<p style="margin:4px 0"><b>Limits:</b> ${esc(c.limits)}</p>` : ""}${c.gate ? `<p style="margin:4px 0"><b>Gate:</b> ${esc(c.gate)}</p>` : ""}
+    ${dev ? `<p style="margin:4px 0"><b>Past markets it never trained on:</b> ${n4(dev.brierVsMarket)} Brier vs market (${n4(dev.lo)} … ${n4(dev.hi)}, ${dev.n} markets). Development evidence, not the verdict.</p>` : ""}
+    <p style="margin:4px 0"><b>What would change the verdict:</b> ${esc(c.wouldChange || "")}</p>
+    <p style="margin:4px 0" class="mut">Ordinary 95% snapshot (not peeking-safe): ${n4(m.vsMarket.snapshot95.lo)} … ${n4(m.vsMarket.snapshot95.hi)}. Log loss vs market: ${n4(m.vsMarket.logLoss.diff)}.</p>
+  </div></details></div>`;
+}
+function viewModels() {
+  const a = S.app, e = a.evals; if (!e) return `<div class="card">No evaluation yet.</div>`;
+  const names = Object.keys(e.models).sort((x, y) => (MODEL_ORDER.indexOf(x) + 99) % 99 - (MODEL_ORDER.indexOf(y) + 99) % 99), on = names.filter(k => e.models[k].status !== "RETIRED"), off = names.filter(k => e.models[k].status === "RETIRED");
+  const w = a.ensemble?.weights;
+  return `<div class="card"><h2>Referee</h2><p style="margin:0 0 6px"><b>${esc(e.headline)}</b></p>
+  <p class="small sec" style="margin:0">Each bar is a range that stays valid however often it is checked (chance of a false "edge" ≤ ${(e.alpha * 100).toFixed(0)}% in total, split across ${e.family} models and variants tried). Left of zero = better than the market price. A model passes only when its whole bar is left of zero on ${a.goals.minResolved}+ live markets <i>and</i> its picks make money after fees over ${a.goals.minPicks}+ picks. Coin-flip control: ${n4(e.controls.coinFlip.perPick)} per $1 pick after fees.</p></div>
+  <div class="grid g2">${on.map(modelCard).join("")}</div>
+  ${w ? `<div class="card"><h2>Ensemble weights</h2><div class="scroll"><table><thead><tr><th>Member</th><th class="num">Weight</th><th></th></tr></thead><tbody>${Object.entries(w).map(([k, v]) => `<tr><td>${esc(k)}</td><td class="num">${(+v).toFixed(3)}</td><td style="width:60%"><div style="height:10px;border-radius:4px;background:var(--s1);width:${Math.min(100, Math.abs(v) * 80)}%;opacity:${v < 0 ? .35 : 1}"></div></td></tr>`).join("")}</tbody></table></div><p class="small mut" style="margin:6px 0 0">market = 1 and the rest = 0 means "just the price". Negative (faded) weights mean the blend leans away from that member. Trained on ${a.ensemble.n} out-of-sample rows.</p></div>` : ""}
+  ${off.length ? `<div class="card"><h2>Switched off</h2><div class="scroll"><table><thead><tr><th>Model</th><th class="num">Resolved</th><th class="num">Brier vs market</th><th>Why</th></tr></thead><tbody>${off.map(k => `<tr><td>${esc(k)}</td><td class="num">${e.models[k].n}</td><td class="num">${n4(e.models[k].vsMarket.snapshot95.diff)}</td><td class="small sec">${esc(a.predictors[k]?.retired || "")}</td></tr>`).join("")}</tbody></table></div></div>` : ""}`;
 }
 
-// ---------- Trades ----------
-function renderTrades() {
-  const T = D.trades, done = T.filter(t => t.pnl != null), pnl = done.reduce((s, t) => s + t.pnl, 0), wins = done.filter(t => t.pnl > 0).length;
-  $("#tkpis").innerHTML = [[T.length, "simulated trades"], [T.filter(t => t.pnl == null).length, "open"], [done.length ? `${wins}/${done.length}` : "–", "won"],
-    [done.length ? money(pnl) : "–", "P&L after fees (1 contract each)"]].map(([v, l]) => `<div class="kpi"><b>${esc(v)}</b><span>${l}</span></div>`).join("");
-  $("#trades").innerHTML = T.length ? `<div class="tscroll"><table><thead><tr><th>Logged</th><th>Market</th><th>Predictor</th><th>Side</th><th class="n">Cost</th><th class="n">Fee</th><th class="n">EV</th><th>Resolves</th><th>Outcome</th><th class="n">P&amp;L</th></tr></thead><tbody>${
-    T.map(t => `<tr><td>${when(t.ts)}</td><td class="t">${esc(t.title)}<div class="small muted">${esc(t.cat)}</div></td><td>${esc(t.predictor)}</td><td>${esc(t.side.toUpperCase())}</td><td class="n">${cents(t.cost)}</td><td class="n">${cents(t.fee)}</td><td class="n">${cents(t.ev)}</td><td>${rel(t.resolvesAt)}</td><td>${outPill(t.outcome)}</td><td class="n ${t.pnl > 0 ? "c-good" : t.pnl < 0 ? "c-bad" : ""}">${money(t.pnl)}</td></tr>`).join("")}</tbody></table></div>`
-    : `<div class="empty">No simulated trades yet. One is recorded only when a predictor's expected value is at least ${cents(D.config.picks.minEdge)} per contract after the spread and fees. The market baseline can never qualify, and Longshot hasn't found one so far. That's expected: it means prices have been fair after costs.</div>`;
-  const g = D.gemini;
-  $("#gemini").innerHTML = g.picks.length ? `<div class="tscroll"><table><thead><tr><th>Market</th><th>Side</th><th class="n">AI estimate</th><th class="n">Edge</th><th class="n">Cost</th><th>Closes</th></tr></thead><tbody>${
-    g.picks.map(p => `<tr><td class="t"><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.t)}</a></td><td>${esc(p.side)}</td><td class="n">${esc(p.pc)}%</td><td class="n">${esc(p.edge)} pts</td><td class="n">${esc(p.cost)}¢</td><td>${esc(p.close)}</td></tr>`).join("")}</tbody></table></div>`
-    : `<div class="empty">Gemini's last run (${when(g.updated)}, agents: ${esc(g.agents.join(", ") || "none")}) found no market with an edge of 5 points or more.</div>`;
+function breakTable(rows, key, label) {
+  return `<div class="scroll"><table><thead><tr><th>${label}</th><th class="num">Markets</th><th class="num">Brier vs market</th><th class="num hm">95% snapshot</th></tr></thead><tbody>${rows.map(r => `<tr><td>${esc(r[key])}</td><td class="num">${r.n}</td><td class="num ${r.hi < 0 ? "up" : r.lo > 0 ? "down" : ""}">${n4(r.diff)}</td><td class="num hm mut">${n4(r.lo)} … ${n4(r.hi)}</td></tr>`).join("") || `<tr><td colspan="4" class="mut">No data yet.</td></tr>`}</tbody></table></div>`;
+}
+function viewBreak() {
+  const e = S.app.evals; if (!e) return ""; const names = Object.keys(e.models).filter(k => e.models[k].n > 0); S.bm = names.includes(S.bm) ? S.bm : names.find(k => e.models[k].status !== "RETIRED") || names[0];
+  const m = e.models[S.bm]; if (!m) return `<div class="card">Nothing resolved yet.</div>`;
+  return `<div class="card"><label class="small sec">Model <select id="bm" style="font:inherit;padding:4px 8px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink)">${names.map(k => `<option ${k === S.bm ? "selected" : ""}>${esc(k)}</option>`).join("")}</select></label>
+  <span class="small mut"> · ${m.n} resolved live markets · intervals here are ordinary snapshots (many slices: read as description, not proof)</span></div>
+  <div class="grid g2"><div class="card"><h2>By category</h2>${breakTable(m.byCategory, "cat", "Category")}</div><div class="card"><h2>By time to resolution</h2>${breakTable(m.byLead, "lead", "Lead time")}</div></div>
+  <div class="card"><h2>Calibration — ${esc(S.bm)}: what it said vs what happened</h2><div class="chart"><canvas id="calChart" role="img" aria-label="Calibration chart"></canvas></div>
+  <details><summary>Table</summary><div class="scroll"><table><thead><tr><th>Said</th><th class="num">Markets</th><th class="num">Average estimate</th><th class="num">YES happened</th></tr></thead><tbody>${m.calibration.map(c => `<tr><td>${c.bin}</td><td class="num">${c.n}</td><td class="num">${(c.said * 100).toFixed(1)}%</td><td class="num">${(c.happened * 100).toFixed(1)}%</td></tr>`).join("")}</tbody></table></div></details></div>
+  <div class="card"><h2>Biggest misses vs the market — ${esc(S.bm)}</h2><div class="scroll"><table><thead><tr><th>Market</th><th class="num">Model</th><th class="num">Market</th><th>Outcome</th><th class="num">Extra log loss</th></tr></thead><tbody>${m.misses.map(x => `<tr class="row" data-k="${esc(x.ticker)}"><td><div class="title">${esc(x.title || x.ticker)}</div></td><td class="num">${pct(x.said, 1)}</td><td class="num">${pct(x.market, 1)}</td><td>${x.outcome.toUpperCase()}</td><td class="num">${n4(x.worseBy)}</td></tr>`).join("") || `<tr><td colspan="5" class="mut">None yet.</td></tr>`}</tbody></table></div></div>
+  <div class="card"><h2>Leakage eval</h2><div class="checks">${e.leakage.checks.map(c => `<div><span class="dot ${c.violations ? "crit" : "good"}" style="display:inline-block;margin-right:6px"></span>${esc(c.name)} <span class="mut">${c.violations} of ${c.of}</span></div>`).join("")}</div></div>`;
 }
 
-// ---------- Data ----------
-function renderData() {
-  const C = Object.entries(D.categories).sort((a, b) => b[1].logged - a[1].logged), max = Math.max(1, ...C.map(([, c]) => c.logged));
-  $("#cats").innerHTML = C.map(([k, c]) => `<div class="barrow"><span>${esc(k)}</span><div class="track" role="img" aria-label="${c.logged} logged, ${c.resolved} resolved"><i style="width:${c.logged / max * 100}%"></i><em style="width:${c.resolved / max * 100}%"></em></div><span class="n small muted" style="text-align:right">${c.resolved}/${c.logged}</span></div>`).join("") || `<div class="empty">No predictions yet.</div>`;
-  const nx = D.predictions.filter(p => p.outcome === "open").sort((a, b) => Date.parse(a.resolvesAt) - Date.parse(b.resolvesAt)).slice(0, 8);
-  $("#next").innerHTML = nx.length ? `<table><tbody>${nx.map(p => `<tr><td class="t">${esc(p.title)}<div class="small muted">${esc(p.cat)} · market ${cents(p.mid)}</div></td><td class="n">${rel(p.resolvesAt)}</td></tr>`).join("")}</tbody></table>` : `<div class="empty">Nothing open in the latest window.</div>`;
-  const cats = ["All", ...C.map(([k]) => k)];
-  $("#catChips").innerHTML = cats.map(c => `<button type="button" class="chip" aria-pressed="${c === catFilter}" data-c="${esc(c)}">${esc(c)}</button>`).join("");
-  $("#catChips").querySelectorAll(".chip").forEach(b => b.onclick = () => { catFilter = b.dataset.c; showAll = false; renderData(); });
-  const q = $("#q").value.toLowerCase(), est = Object.keys(D.config.predictors).filter(k => k !== "market");
-  const rows = D.predictions.filter(p => (catFilter === "All" || p.cat === catFilter) && (!q || p.title.toLowerCase().includes(q)));
-  const shown = showAll ? rows : rows.slice(0, 50);
-  $("#preds").innerHTML = rows.length ? `<table><thead><tr><th>Logged</th><th>Market</th><th class="n">Market price</th>${est.map(k => `<th class="n">${esc(k)}</th>`).join("")}<th class="n">Spread</th><th>Resolves</th><th>Outcome</th></tr></thead><tbody>${
-    shown.map(p => `<tr><td>${when(p.ts)}</td><td class="t"><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a><div class="small muted">${esc(p.cat)}</div></td><td class="n">${pct(p.mid)}</td>${est.map(k => `<td class="n">${pct(p.est?.[k])}</td>`).join("")}<td class="n">${cents(p.ask - p.bid)}</td><td>${rel(p.resolvesAt)}</td><td>${outPill(p.outcome)}</td></tr>`).join("")}</tbody></table>` +
-      (rows.length > shown.length ? `<p><button type="button" id="more">Show all ${rows.length}</button></p>` : `<p class="small muted">Showing the latest ${rows.length} predictions.</p>`)
-    : `<div class="empty">No predictions match.</div>`;
-  const more = $("#more"); if (more) more.onclick = () => { showAll = true; renderData(); };
-}
-$("#q").oninput = () => renderData();
-
-// ---------- Skills ----------
-function renderSkills() {
-  const part = (d, a, b) => { const i = a ? d.indexOf(a) : 0; if (i < 0) return ""; const j = b ? d.indexOf(b, i + 1) : -1; return d.slice(a ? i + a.length : 0, j < 0 ? undefined : j).trim().replace(/^[:,.\s]+/, ""); };
-  $("#skills").innerHTML = D.skills.map(s => {
-    const d = s.description, what = part(d, "", "Use when").replace(/\.$/, ""), use = part(d, "Use when", "Not for"), not = part(d, "Not for", "");
-    return `<div class="pcard skill"><h3>/${esc(s.name)}</h3><p>${esc(what || d)}.</p>${use ? `<span class="lbl">Use when</span><p style="margin-top:2px">${esc(use)}</p>` : ""}${not ? `<span class="lbl">Not for</span><p style="margin-top:2px">${esc(not)}</p>` : ""}<p class="small muted"><code>${esc(s.path)}</code></p></div>`;
-  }).join("") || `<div class="empty">No skills found.</div>`;
+function viewPaper() {
+  const p = S.app.paper; if (!p) return `<div class="card">No paper portfolios yet.</div>`; const f = p.forward.portfolios, mk = p.maker;
+  return `<div class="card"><h2>Paper portfolios — forward (live predictions, $${p.start} each)</h2>
+  <div class="legend" id="eqLegend">${f.map(x => `<span><i style="background:var(${PF_COLOR[x.id] || "--mute"})"></i>${esc(x.name)}</span>`).join("")}</div>
+  <div class="chart"><canvas id="eqChart" role="img" aria-label="Equity curves of the paper portfolios"></canvas></div>
+  <div class="scroll" style="margin-top:8px"><table><thead><tr><th>Portfolio</th><th class="num">Equity</th><th class="num">Return</th><th class="num">Bets</th><th class="num hm">Wins</th><th class="num hm">Fees</th><th class="num">Max drawdown</th><th class="hm">Sizing state</th></tr></thead>
+  <tbody>${f.map(x => `<tr><td><i style="display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;background:var(${PF_COLOR[x.id] || "--mute"})"></i>${esc(x.name)}</td><td class="num"><b>${usd(x.equity)}</b></td><td class="num ${x.returnPct > 0 ? "up" : x.returnPct < 0 ? "down" : ""}">${x.returnPct > 0 ? "+" : ""}${(+x.returnPct).toFixed(1)}%</td><td class="num">${x.bets}</td><td class="num hm">${x.wins}/${x.settled}</td><td class="num hm">${usd(x.fees)}</td><td class="num">${(+x.maxDrawdownPct).toFixed(1)}%</td><td class="small sec hm">${esc(x.why || "")}</td></tr>`).join("")}</tbody></table></div>
+  <p class="small mut" style="margin:8px 0 0">${esc(p.note)} Controls: "Hold cash" earns 0; "Coin flip" shows what fees and spread alone cost.</p></div>
+  ${mk ? `<div class="card"><h2>Maker paper portfolio (resting limit orders, filled only when a later trade crosses)</h2><div class="kpis"><div class="kpi"><b>${usd(mk.equity)}</b><span>equity (start ${usd(mk.start)})</span></div><div class="kpi"><b>${mk.fills}</b><span>fills of ${mk.orders} orders</span></div><div class="kpi"><b>${usd(mk.pnl)}</b><span>settled P&L after fees</span></div><div class="kpi"><b>${mk.settled}</b><span>settled positions</span></div><div class="kpi"><b>${n4(mk.perFill)}</b><span>P&L per filled contract</span></div></div><p class="small mut" style="margin:8px 0 0">${esc(mk.note || "")}</p></div>` : ""}
+  <div class="card"><h2>Replay on past settled markets (supporting evidence only)</h2><div class="scroll"><table><thead><tr><th>Portfolio</th><th class="num">Equity</th><th class="num">Bets</th><th class="num">Max drawdown</th></tr></thead><tbody>${p.replay.portfolios.map(x => `<tr><td>${esc(x.name)}</td><td class="num">${usd(x.equity)}</td><td class="num">${x.bets}</td><td class="num">${(+x.maxDrawdownPct).toFixed(1)}%</td></tr>`).join("")}</tbody></table></div></div>`;
 }
 
-function renderHistory() {
-  const b = D.backtest;
-  $("#bt").innerHTML = b && b.resolved ? `<p class="small muted" style="margin-top:0">${b.resolved} past markets in ${b.events} events, ${when(b.window?.from)} – ${when(b.window?.to)}. Prices taken ${D.config.backtest?.leadMinutes ?? 60} min before resolution.</p>
-    <div class="tscroll"><table><thead><tr><th>Predictor</th><th class="n">Markets</th><th class="n">Brier</th><th class="n">vs market</th><th class="n">95% range</th><th>Verdict</th><th class="n">Picks</th><th class="n">P&amp;L / contract</th></tr></thead><tbody>${
-    Object.entries(b.predictors).map(([k, v]) => `<tr><td>${esc(k)}</td><td class="n">${v.n}</td><td class="n">${v.brier.mean}</td><td class="n">${k === "market" ? "–" : sgn(v.brierVsMarket.mean)}</td><td class="n">${k === "market" ? "–" : `${sgn(v.brierVsMarket.lo)} … ${sgn(v.brierVsMarket.hi)}`}</td><td><span class="pill ${/beats/.test(v.verdict) ? "c-good" : /worse/.test(v.verdict) ? "c-bad" : "c-muted"}">${esc(v.verdict)}</span></td><td class="n">${v.picks.n}</td><td class="n">${v.picks.n ? money(v.picks.pnlPerContract.mean) : "–"}</td></tr>`).join("")}</tbody></table></div>
-    <p class="small muted">Lower Brier is better. "vs market" below 0 means more accurate than the price. A verdict needs ${D.config.goals.edge.minResolved}+ markets and a 95% range that excludes 0.</p>`
-    : `<div class="empty">The backtest agent hasn't scored any past markets yet. It runs hourly.</div>`;
-  const m = D.memory?.top || [];
-  $("#mem").innerHTML = m.length ? `<table><thead><tr><th>Series</th><th>Category</th><th class="n">Settled seen</th><th class="n">YES won</th><th class="n">Avg price</th><th class="n">Gap (outcome − price)</th><th class="n">Market Brier</th></tr></thead><tbody>${
-    m.map(x => `<tr><td><code>${esc(x.series)}</code></td><td>${esc(x.cat)}</td><td class="n">${x.n}</td><td class="n">${pct(x.yesRate)}</td><td class="n">${pct(x.avgPrice)}</td><td class="n ${x.bias > 0.05 ? "c-good" : x.bias < -0.05 ? "c-bad" : ""}">${sgn(x.bias)}</td><td class="n">${x.brierMarket}</td></tr>`).join("")}</tbody></table>
-    <p class="small muted">Top ${m.length} of ${D.memory.series} series by sample size. Small samples are noisy; the memory predictor ignores series with fewer than ${D.config.predictors.memory?.minN} and shrinks the rest.</p>`
-    : `<div class="empty">Memory fills as markets settle.</div>`;
-  $("#mcp").innerHTML = (D.mcpTools || []).map(t => `<span class="chip">${esc(t)}</span>`).join("");
-}
-// ---------- Neural net ----------
-function renderNN() {
-  const n = D.nn;
-  if (!n || !n.model) { $("#nnKpis").innerHTML = ""; ["#nnNet", "#nnCurve", "#nnImp", "#nnLog"].forEach(s => $(s).innerHTML = `<div class="empty">${esc(n?.status || "The network hasn't trained yet. It needs settled markets; training runs hourly.")}</div>`); return; }
-  const o = n.oos || {};
-  $("#nnKpis").innerHTML = [[n.n, "settled markets trained on"], [o.n ?? 0, "tested on unseen markets"], [`${o.brierNN} / ${o.brierMarket}`, "Brier: network / market (lower wins)"],
-    [`<span class="pill ${/beats/.test(o.verdict) ? "c-good" : /worse/.test(o.verdict) ? "c-bad" : "c-muted"}">${esc(o.verdict)}</span>`, "out-of-sample verdict"], [when(n.trained), "last trained"]]
-    .map(([v, l]) => `<div class="kpi"><b style="font-size:${String(v).length > 12 ? 15 : 24}px">${v}</b><span>${l}</span></div>`).join("");
-  // Network diagram
-  const sizes = n.architecture, W = n.model.W, colW = 260, top = 24, rowH = 30, Hh = Math.max(...sizes) * rowH + top * 2, Wd = 220 + colW * (sizes.length - 1) + 80;
-  const ys = sizes.map(k => Array.from({ length: k }, (_, i) => top + (Hh - top * 2 - (k - 1) * rowH) / 2 + i * rowH));
-  const xs = sizes.map((_, l) => 200 + l * colW);
-  const maxW = Math.max(...W.flat(2).map(Math.abs)) || 1;
-  let lines = "";
-  W.forEach((L, l) => L.forEach((row, i) => row.forEach((w, j) => {
-    const a = Math.abs(w) / maxW; if (a < 0.04) return;
-    lines += `<line x1="${xs[l]}" y1="${ys[l][j]}" x2="${xs[l + 1]}" y2="${ys[l + 1][i]}" stroke="${w > 0 ? "var(--good)" : "var(--bad)"}" stroke-opacity="${(0.08 + a * 0.85).toFixed(2)}" stroke-width="${(0.5 + a * 2.5).toFixed(2)}"/>`;
-  })));
-  const names = ["inputs", ...sizes.slice(1, -1).map((k, i) => `hidden ${i + 1} (${k})`), "correction"];
-  const dots = sizes.map((k, l) => ys[l].map((y, i) => `<circle cx="${xs[l]}" cy="${y}" r="7" fill="var(--card)" stroke="${l === 0 ? "var(--info)" : l === sizes.length - 1 ? "var(--accent)" : "var(--pink)"}" stroke-width="2"/>` +
-    (l === 0 ? `<text x="${xs[l] - 14}" y="${y + 4}" fill="var(--muted)" font-size="11" text-anchor="end">${esc(n.features[i])}</text>` : "")).join("")).join("");
-  const heads = names.map((t, l) => `<text x="${xs[l]}" y="14" fill="var(--muted)" font-size="11" text-anchor="middle">${t}</text>`).join("");
-  $("#nnNet").innerHTML = `<svg viewBox="0 0 ${Wd} ${Hh}" width="${Wd}" height="${Hh}" role="img" aria-label="Neural network diagram">${lines}${dots}${heads}
-    <text x="${xs.at(-1) + 14}" y="${ys.at(-1)[0] + 4}" fill="var(--fg)" font-size="12">+ market price → P(YES)</text></svg>`;
-  // Training curve
-  const c = n.holdout?.curve || [], cw = 600, ch = 200, pad = 34;
-  if (c.length) {
-    const vals = c.flatMap(p => [p.train, p.val]).concat([n.holdout.marketValLoss]).filter(v => v != null), lo = Math.min(...vals), hi = Math.max(...vals), span = hi - lo || 1;
-    const X = e => pad + (e - 1) / Math.max(1, c.at(-1).epoch - 1) * (cw - pad - 8), Y = v => 8 + (1 - (v - lo) / span) * (ch - 30);
-    const line = k => c.filter(p => p[k] != null).map((p, i) => `${i ? "L" : "M"}${X(p.epoch).toFixed(1)},${Y(p[k]).toFixed(1)}`).join("");
-    $("#nnCurve").innerHTML = `<svg viewBox="0 0 ${cw} ${ch}" style="width:100%;height:auto" role="img" aria-label="Training and validation loss per epoch">
-      <line x1="${pad}" x2="${cw - 8}" y1="${Y(n.holdout.marketValLoss)}" y2="${Y(n.holdout.marketValLoss)}" stroke="var(--warn)" stroke-dasharray="5 4"/>
-      <line x1="${X(n.holdout.bestEpoch)}" x2="${X(n.holdout.bestEpoch)}" y1="8" y2="${ch - 22}" stroke="var(--line)" stroke-dasharray="3 4"/>
-      <path d="${line("train")}" fill="none" stroke="var(--violet)" stroke-width="2"/><path d="${line("val")}" fill="none" stroke="var(--pink)" stroke-width="2"/>
-      <text x="${pad}" y="${ch - 6}" fill="var(--muted)" font-size="11">epoch 1</text><text x="${cw - 8}" y="${ch - 6}" fill="var(--muted)" font-size="11" text-anchor="end">epoch ${c.at(-1).epoch}</text>
-      <text x="${pad - 4}" y="${Y(hi) + 4}" fill="var(--muted)" font-size="10" text-anchor="end">${hi.toFixed(3)}</text><text x="${pad - 4}" y="${Y(lo) + 4}" fill="var(--muted)" font-size="10" text-anchor="end">${lo.toFixed(3)}</text></svg>
-      <p class="small muted"><span style="color:var(--violet)">■</span> training loss · <span style="color:var(--pink)">■</span> validation loss · <span style="color:var(--warn)">- -</span> market on the same validation markets · best epoch ${n.holdout.bestEpoch}. Lower is better. This validation set also picks the epoch, so it flatters the network; the walk-forward verdict above doesn't.</p>`;
-  }
-  const imp = n.importance || [], mx = Math.max(...imp.map(i => i.weight), 0.001);
-  $("#nnImp").innerHTML = imp.map(i => `<div class="barrow"><span class="small">${esc(i.feature)}</span><div class="track"><i style="width:${i.weight / mx * 100}%;background:var(--pink)"></i></div><span class="small muted" style="text-align:right">${(i.weight * 100).toFixed(1)}%</span></div>`).join("");
-  const L = (n.log || []).slice().reverse();
-  $("#nnLog").innerHTML = L.length ? `<table><thead><tr><th>Trained</th><th class="n">Markets</th><th class="n">Tested unseen</th><th class="n">Brier net</th><th class="n">Brier market</th><th class="n">Difference</th><th>Verdict</th></tr></thead><tbody>${
-    L.map(r => `<tr><td>${when(r.ts)}</td><td class="n">${r.n}</td><td class="n">${r.oosN}</td><td class="n">${r.oosBrierNN}</td><td class="n">${r.oosBrierMarket}</td><td class="n ${r.oosDiff < 0 ? "c-good" : r.oosDiff > 0 ? "c-bad" : ""}">${sgn(r.oosDiff)}</td><td>${esc(r.verdict)}</td></tr>`).join("")}</tbody></table>` : `<div class="empty">No training runs yet.</div>`;
+function viewOps() {
+  const a = S.app, o = a.ops, h = S.health || o.heartbeat, st = o.storage, pf = o.perf?.last, llm = o.llm, chk = a.status?.checks || [];
+  return `<div class="kpis" style="margin-bottom:14px">
+  <div class="kpi"><b>${h?.ws?.reconnects ?? "–"}</b><span>stream reconnects</span></div><div class="kpi"><b>${h?.ws?.gaps ?? "–"}</b><span>sequence gaps resynced</span></div>
+  <div class="kpi"><b>${h ? h.rssMB + " MB" : "–"}</b><span>daemon memory</span></div><div class="kpi"><b>${pf ? pf.ms + " ms" : "–"}</b><span>last ${pf?.kind || "cycle"}</span></div>
+  <div class="kpi"><b>${llm ? "$" + (+llm.spent).toFixed(2) : "$0.00"}</b><span>Claude spend today (cap $${llm ? (+llm.cap).toFixed(2) : "1.00"})</span></div>
+  <div class="kpi"><b>${st?.repoMB ?? "–"} MB</b><span>repo on GitHub</span></div></div>
+  <div class="card"><h2>Watchdog · ${chk.filter(c => c.ok).length}/${chk.length} checks pass</h2><div class="checks">${chk.map(c => `<div title="${esc(c.detail)}"><span class="dot ${c.ok ? "good" : "crit"}" style="display:inline-block;margin-right:6px"></span>${esc(c.name)}<div class="small mut" style="margin-left:14px">${esc(c.detail)}</div></div>`).join("")}</div></div>
+  <div class="grid g2">
+  <div class="card"><h2>Data</h2><table><tbody>
+    <tr><td>Predictions logged</td><td class="num">${a.totals.predictions}</td></tr><tr><td>Outcomes</td><td class="num">${a.totals.outcomes}</td></tr><tr><td>Backtest markets</td><td class="num">${a.totals.backtest}</td></tr><tr><td>Minute snapshots (training)</td><td class="num">${a.totals.snapshots}</td></tr>
+    <tr><td>Tick log on this computer</td><td class="num">${h?.ticks ? h.ticks.rows + " rows · " + h.ticks.mb + " MB today" : "–"}</td></tr><tr><td>Local copy / free disk</td><td class="num">${st ? (st.localCopyMB ?? "–") + " MB / " + (st.freeDiskGB ?? "–") + " GB" : "–"}</td></tr>
+    <tr><td>Config version</td><td class="num">v${a.cfg}</td></tr><tr><td>Published</td><td class="num">${ago(a.generated)}</td></tr></tbody></table></div>
+  <div class="card"><h2>LLM</h2>${llm ? `<table><tbody><tr><td>Calls today (local / Claude)</td><td class="num">${llm.local ?? 0} / ${llm.claude ?? 0}</td></tr><tr><td>Cache hits</td><td class="num">${llm.cached ?? 0}</td></tr><tr><td>Spend / cap</td><td class="num">$${(+llm.spent).toFixed(3)} / $${(+llm.cap).toFixed(2)}</td></tr><tr><td>Memory index (RAG)</td><td class="num">${o.rag ? o.rag.docs + " items" : "–"}</td></tr></tbody></table>` : `<p class="sec small">No LLM calls yet. The local model (Ollama) handles routine reading; Claude is only used for hard cases under the daily cap.</p>`}
+  ${o.llmEval ? `<p class="small sec">LLM eval (${esc(o.llmEval.model)}): rules extraction ${(o.llmEval.rulesAcc * 100).toFixed(0)}%, fact precision ${(o.llmEval.factPrecision * 100).toFixed(0)}% on ${o.llmEval.n} fixed cases · ${ago(o.llmEval.at)}</p>` : ""}</div>
+  </div>
+  <div class="card"><h2>Decisions the agent made</h2><div class="scroll"><table><thead><tr><th>When</th><th>Decision</th><th class="hm">Why</th><th class="hm">Undo</th></tr></thead><tbody>${(a.decisions || []).map(d => `<tr><td class="small mut" style="white-space:nowrap">${esc((d.ts || "").slice(0, 16).replace("T", " "))}</td><td>${esc(d.decision)}</td><td class="small sec hm">${esc(d.why)}</td><td class="small mut hm">${esc(d.undo)}</td></tr>`).join("") || `<tr><td colspan="4" class="mut">None yet.</td></tr>`}</tbody></table></div></div>
+  ${(a.briefings || []).length ? `<div class="card"><h2>Briefings</h2>${a.briefings.map(b => `<p style="margin:6px 0"><span class="small mut">${esc((b.ts || "").slice(0, 16).replace("T", " "))}</span><br>${esc(b.text || b.summary || "")}</p>`).join("")}</div>` : ""}`;
 }
 
-// ---------- Profit & loss ----------
-let pnlMode = "replay", pfSel = null;
-const PF_COLORS = ["var(--muted)", "var(--faint)", "var(--pink)", "var(--accent)", "var(--warn)", "var(--info)", "var(--good)", "var(--violet)", "var(--teal)"];
-function renderPnL() {
-  let P = D.paper;
-  if (!P && D.config.paper) { // before the first paper run: show the planned strategies and rules from config.json
-    const C = D.config.paper, stub = () => C.portfolios.map(p => ({ ...p, equity: C.start, returnPct: 0, bets: 0, shadowBets: 0, settled: 0, wins: 0, fees: 0,
-      maxDrawdownPct: 0, curve: [], recent: [], monteCarlo: null, trustNow: p.sizing === "learn" ? { trust: 0, why: "waiting for the first paper-trading run" } : null }));
-    P = { start: C.start, goal: C.goal, safety: C.safety, learning: C.learning, replay: { rows: 0, portfolios: stub() }, forward: { rows: 0, settled: 0, portfolios: stub() } };
-  }
-  if (!P) { $("#eqChart").innerHTML = `<div class="empty">Paper trading starts after the first run.</div>`; return; }
-  const M = P[pnlMode], pfs = M.portfolios, col = i => PF_COLORS[i % PF_COLORS.length];
-  $("#modeChips").innerHTML = [["replay", `Replay: ${P.replay.rows} past markets`], ["forward", `Forward: ${P.forward.settled}/${P.forward.rows} live settled`]]
-    .map(([k, t]) => `<button type="button" class="chip" aria-pressed="${k === pnlMode}" data-m="${k}">${esc(t)}</button>`).join("");
-  $("#modeChips").querySelectorAll(".chip").forEach(b => b.onclick = () => { pnlMode = b.dataset.m; renderPnL(); });
-  // Equity chart, log scale
-  const w = 900, h = 300, pl = 54, pr = 12, pt = 10, pb = 26, pts = pfs.flatMap(p => p.curve);
-  if (pts.length > pfs.length) {
-    const t0 = Math.min(...pts.map(p => p[0])), t1 = Math.max(...pts.map(p => p[0]).filter(Number.isFinite), t0 + 1);
-    const lo = Math.log10(0.5), hi = Math.log10(Math.max(P.goal * 1.2, ...pts.map(p => p[1])));
-    const X = t => pl + (Math.min(t, t1) - t0) / (t1 - t0) * (w - pl - pr), Y = v => pt + (1 - (Math.log10(Math.max(0.5, v)) - lo) / (hi - lo)) * (h - pt - pb);
-    const ticks = [0.5, 1, 10, 100, 1000].map(v => `<line x1="${pl}" x2="${w - pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="${v === 10 ? "var(--line)" : v === 1000 ? "var(--good)" : "var(--line-soft)"}" ${v === 1000 || v === 10 ? 'stroke-dasharray="5 4"' : ""}/><text x="${pl - 6}" y="${Y(v) + 4}" fill="var(--muted)" font-size="11" text-anchor="end">$${v}</text>`).join("");
-    const lines = pfs.map((p, i) => { const c = p.curve.filter(q => Number.isFinite(q[0])); return c.length > 1 ? `<path d="${c.map((q, k) => `${k ? "L" : "M"}${X(q[0]).toFixed(1)},${Y(q[1]).toFixed(1)}`).join("")}" fill="none" stroke="${col(i)}" stroke-width="${p.id === pfSel ? 3 : 1.8}"><title>${esc(p.name)}: $${p.equity}</title></path>` : ""; }).join("");
-    $("#eqChart").innerHTML = `<svg viewBox="0 0 ${w} ${h}" style="width:100%;height:auto" role="img" aria-label="Portfolio equity over time">${ticks}${lines}
-      <text x="${w - pr}" y="${Y(1000) - 6}" fill="var(--good)" font-size="11" text-anchor="end">goal $1,000</text>
-      <text x="${pl}" y="${h - 6}" fill="var(--muted)" font-size="11">${esc(when(new Date(t0).toISOString()))}</text><text x="${w - pr}" y="${h - 6}" fill="var(--muted)" font-size="11" text-anchor="end">${esc(when(new Date(t1).toISOString()))}</text></svg>`;
-  } else $("#eqChart").innerHTML = `<div class="empty">${pnlMode === "forward" ? "No live predictions have settled under the current strategy yet. Forward results appear as markets resolve." : "No replay data yet."}</div>`;
-  $("#eqLegend").innerHTML = pfs.map((p, i) => `<span class="small" style="display:inline-flex;align-items:center;gap:6px"><i style="width:12px;height:3px;background:${col(i)};display:inline-block"></i>${esc(p.name)}</span>`).join("");
-  const pct2 = v => v == null ? "–" : (v * 100).toFixed(v < 0.01 && v > 0 ? 2 : 1) + "%";
-  const statusOf = p => p.reachedGoal ? `<span class="pill c-good">reached $1,000</span>` : p.busted ? `<span class="pill c-bad">busted</span>`
-    : !p.predictor ? `<span class="pill c-muted">control</span>` : p.trustNow?.pause ? `<span class="pill c-bad">paused: losing</span>`
-    : p.trustNow ? (p.trustNow.trust > 0 ? `<span class="pill c-good">edge proven · ${Math.round(p.trustNow.trust * 100)}% trust</span>` : `<span class="pill c-warn">learning</span>`)
-    : `<span class="pill c-info">flat bets</span>`;
-  const H = (pfs.find(p => p.monteCarlo) || P.replay.portfolios.find(p => p.monteCarlo))?.monteCarlo.byHorizon.map(h => h.bets) || [];
-  $("#pfTable").innerHTML = `<table><thead><tr><th>Strategy</th><th class="n">Now</th><th class="n">Return</th><th class="n">Bets</th><th class="n">Won</th><th class="n">Avg bet</th><th class="n">Biggest bet</th><th class="n">Worst loss</th><th class="n">Max drop</th><th>Status</th>${H.map(h => `<th class="n">$1,000 within ${h.toLocaleString()} bets</th>`).join("")}<th class="n">Ever below $5</th><th class="n">Time to 100×</th></tr></thead><tbody>${
-    pfs.map((p, i) => { const mc = p.monteCarlo;
-      return `<tr><td class="t"><i style="width:10px;height:10px;border-radius:50%;background:${col(i)};display:inline-block;margin-right:6px"></i>${esc(p.name)}${p.trustNow ? `<div class="small muted">${esc(p.trustNow.why)}</div>` : ""}</td><td class="n">$${p.equity.toFixed(2)}</td><td class="n ${p.returnPct > 0 ? "c-good" : p.returnPct < 0 ? "c-bad" : ""}">${p.returnPct > 0 ? "+" : ""}${p.returnPct.toFixed(1)}%</td><td class="n">${p.bets}${p.shadowBets ? `<div class="small muted">+${p.shadowBets} shadow</div>` : ""}</td><td class="n">${p.settled ? `${p.wins}/${p.settled}` : "–"}</td><td class="n">${p.bets ? p.avgBetPct.toFixed(1) + "%" : "–"}</td><td class="n">${p.bets ? p.maxBetPct.toFixed(1) + "%" : "–"}</td><td class="n">${p.settled ? p.worstLossPct.toFixed(1) + "%" : "–"}</td><td class="n">${p.maxDrawdownPct.toFixed(0)}%</td><td>${statusOf(p)}</td>${
-        H.map((h, k) => `<td class="n">${mc ? pct2(mc.byHorizon[k]?.pReachGoal) : "–"}</td>`).join("")}<td class="n">${mc ? pct2(mc.pBelowLowWater) : "–"}</td><td class="n">${mc ? (mc.betsFor100x ? `${mc.betsFor100x.toLocaleString()} bets${mc.daysFor100x ? `<div class="small muted">≈ ${mc.daysFor100x.toLocaleString()} days at this pace</div>` : ""}` : "never at this growth") : "–"}</td></tr>`; }).join("")}</tbody></table>
-    <p class="small muted">Odds columns: ${(pfs.find(p => p.monteCarlo)?.monteCarlo.paths || 4000).toLocaleString()} simulated futures built by drawing each strategy's past bet results at random, shifted down by their own uncertainty so a lucky streak isn't counted as an edge (needs 20+ settled bets). Time to 100× uses the average growth per bet and the pace of bets in this mode.</p>`;
-  const best = pfs.filter(p => p.monteCarlo?.betsFor100x).sort((a, b) => a.monteCarlo.betsFor100x - b.monteCarlo.betsFor100x)[0];
-  const S = P.safety || {}, Lr = P.learning || {};
-  $("#howTo").innerHTML = `<p style="margin-top:0">The plan is slow compounding: many small bets with a real edge, sized so no single loss or losing streak can wipe out the account. $10 → $1,000 is 100×; at +1% average growth per bet that's about 460 bets, at 0% or less it never happens.</p>
-    <ul class="small" style="padding-left:18px;display:grid;gap:6px;margin:0">
-      <li><b>Never more than ${Math.round((S.maxFracPerBet || 0.05) * 100)}% on one bet</b> (fee included), and never more than ${Math.round((S.maxOpenExposure || 0.25) * 100)}% of the bankroll in open bets at once.</li>
-      <li><b>Losing-streak brake:</b> after a ${Math.round((S.brakes?.[0]?.[0] || 0.2) * 100)}% drop from the peak, bets are halved; after ${Math.round((S.brakes?.[1]?.[0] || 0.4) * 100)}%, quartered.</li>
-      <li><b>Learned bet size:</b> a new strategy starts with small probe bets (${Math.round((Lr.probe || 0.01) * 100)}% or $${(Lr.probeMinDollars || 0.25).toFixed(2)}). After ${Lr.minTrack || 30} settled bets it sizes up toward quarter Kelly only by how much of its predicted edge it actually delivered, measured conservatively.</li>
-      <li><b>Proven losers stop:</b> if even the optimistic estimate says it loses, it stops risking money and keeps tracking shadow bets, so it can earn its way back.</li>
-      <li><b>Right now:</b> ${best ? `the fastest path is ${esc(best.name)}: about ${best.monteCarlo.betsFor100x.toLocaleString()} bets to 100× at its current growth rate.` : "no strategy has shown positive growth after fees yet, so none has a path to $1,000."} Results from under ~100 settled bets are noise.</li></ul>`;
-  const withBets = pfs.filter(p => p.bets);
-  if (!pfSel || !withBets.some(p => p.id === pfSel)) pfSel = withBets[0]?.id || null;
-  $("#pfChips").innerHTML = withBets.map(p => `<button type="button" class="chip" aria-pressed="${p.id === pfSel}" data-p="${esc(p.id)}">${esc(p.name.split(",")[0])}${p.name.includes(",") ? "," + esc(p.name.split(",")[1]) : ""}</button>`).join("");
-  $("#pfChips").querySelectorAll(".chip").forEach(b => b.onclick = () => { pfSel = b.dataset.p; renderPnL(); });
-  const sel = pfs.find(p => p.id === pfSel);
-  $("#pfBets").innerHTML = sel?.recent?.length ? `<table><thead><tr><th>When</th><th>Market</th><th>Side</th><th class="n">Price</th><th class="n">Contracts</th><th class="n">P&amp;L</th></tr></thead><tbody>${
-    sel.recent.map(b => `<tr><td>${when(b.ts)}</td><td class="t">${esc(b.title)}<div class="small muted">${esc(b.cat)}</div></td><td>${b.side.toUpperCase()}</td><td class="n">${cents(b.price)}</td><td class="n">${b.contracts}</td><td class="n ${b.pnl > 0 ? "c-good" : b.pnl < 0 ? "c-bad" : ""}">${b.pnl == null ? "open" : money(b.pnl)}</td></tr>`).join("")}</tbody></table>` : `<div class="empty">No bets in this mode yet.</div>`;
+// ---------- per-market drill-down (#m/<ticker>) ----------
+async function drill(k) {
+  const a = S.app, p = (a?.predictions || []).find(x => x.k === k); let live = S.markets.get(k);
+  if (S.mode === "stream") { try { live = await J((S.base || "") + "/api/market/" + encodeURIComponent(k), 2500); } catch {} }
+  const title = p?.title || live?.title || k, facts = (a?.facts || []).filter(f => f.ticker === k || (p && f.series && p.k.startsWith(f.series)));
+  const d = live?.depth, mx = d ? Math.max(1, ...d.yes.map(l => l[1]), ...d.no.map(l => l[1])) : 1;
+  $("#drillBody").innerHTML = `<div class="top"><button id="back">← Back</button><span class="grow"></span>${p ? `<a class="pill" href="${esc(p.url)}" target="_blank" rel="noopener">Open on Kalshi ↗</a>` : ""}</div>
+  <div class="card"><h3>${esc(title)}</h3><div class="small mut">${esc(k)} · ${esc(p?.cat || live?.cat || "")} · ${p ? "resolves " + new Date(p.res).toLocaleString() : ""}</div>
+  <div class="kpis" style="margin-top:10px"><div class="kpi"><b>${pct(live?.mid ?? p?.mid, 1)}</b><span>${live ? "mid now" : "mid when logged"}</span></div><div class="kpi"><b>${p ? p.out.toUpperCase() : "–"}</b><span>outcome</span></div>
+  <div class="kpi"><b>${live ? pct(live.b) + " / " + pct(live.a) : p ? pct(p.b) + " / " + pct(p.a) : "–"}</b><span>bid / ask</span></div><div class="kpi"><b>${p ? until(p.res) : "–"}</b><span>closes in</span></div></div></div>
+  <div class="grid g2"><div class="card"><h2>Price and estimates over time</h2><div class="legend"><span><i style="background:var(--s1)"></i>Market mid</span><span><i style="background:var(--s3)"></i>Calib</span><span><i style="background:var(--s5)"></i>Ensemble</span></div><div class="chart"><canvas id="pathChart" role="img" aria-label="Price path and model estimates"></canvas></div>
+  <p class="small mut" style="margin:6px 0 0">First point = the scored prediction. Later points = re-estimates after a 3¢ move or 15 minutes (never scored).</p></div>
+  <div class="card"><h2>Order book ${d ? "" : "<span class='mut' style='text-transform:none;letter-spacing:0'>· only on the live page at home</span>"}</h2>${d ? `<div class="depth"><div><div class="small mut">YES bids</div>${d.yes.map(l => `<div class="lvl"><i style="width:${l[1] / mx * 100}%"></i><span>${pct(l[0])}</span><span>${Math.round(l[1])}</span></div>`).join("") || "<div class='mut small'>empty</div>"}</div><div><div class="small mut">NO bids (= YES asks at 100¢ − price)</div>${d.no.map(l => `<div class="lvl no"><i style="width:${l[1] / mx * 100}%"></i><span>${pct(l[0])}</span><span>${Math.round(l[1])}</span></div>`).join("") || "<div class='mut small'>empty</div>"}</div></div>
+  <p class="small sec" style="margin:8px 0 0">Microprice ${pct(live.micro, 1)} · book imbalance ${live.imb ?? "–"} · 5-min taker flow ${live.flow5 ?? "–"}</p>` : `<p class="sec small">The published site carries prices, not full books.</p>`}</div></div>
+  <div class="card"><h2>Estimates at the scored prediction</h2><div class="scroll"><table><thead><tr><th>Model</th><th class="num">P(YES)</th><th class="num">vs market</th><th>Pick</th></tr></thead><tbody>${p ? Object.entries(p.est).map(([m, v]) => `<tr><td>${esc(m)}</td><td class="num">${pct(v, 1)}</td><td class="num">${m === "market" ? "" : n4(v - p.est.market)}</td><td class="small">${p.picks?.[m] ? `${p.picks[m].side.toUpperCase()} at ${pct(p.picks[m].cost)} (EV ${(p.picks[m].ev * 100).toFixed(1)}¢)` : ""}</td></tr>`).join("") : `<tr><td colspan="4" class="mut">Not a logged prediction (watched only).</td></tr>`}</tbody></table></div>
+  ${p?.ext ? `<p class="small sec" style="margin:8px 0 0">Outside data: ${Object.entries(p.ext).map(([n, v]) => `${esc(n)} → ${pct(v.p, 1)} (${esc(v.src)}, ${esc((v.at || "").slice(11, 19))} UTC)`).join("; ")}</p>` : ""}</div>
+  <div class="card"><h2>News facts</h2>${facts.length ? facts.map(f => `<p class="small" style="margin:6px 0">${esc(f.claim)} <span class="mut">— ${esc(f.entity || "")}, ${esc((f.at || "").slice(0, 16).replace("T", " "))} · <a href="${esc(f.url)}" target="_blank" rel="noopener">source</a></span></p>`).join("") : `<p class="small mut" style="margin:0">No extracted facts for this market.</p>`}</div>`;
+  $("#drill").classList.remove("hide"); $("#back").onclick = () => { history.length > 1 ? history.back() : (location.hash = "#" + S.tab); };
+  const pts = p ? [[p.ts, p.mid, p.est], ...(p.upd || [])] : [], sp = S.spark.get(k) || [];
+  const mid = pts.map(x => ({ x: Date.parse(x[0]), y: x[1] })), now = Date.now(); if (live?.mid != null) mid.push({ x: now, y: live.mid });
+  const ser = name => pts.filter(x => x[2]?.[name] != null).map(x => ({ x: Date.parse(x[0]), y: x[2][name] }));
+  lineChart("pathChart", [["Market mid", "--s1", mid], ["Calib", "--s3", ser("calib")], ["Ensemble", "--s5", ser("ensemble")]], { time: true, yPct: true });
 }
 
-// ---------- Live agents & devs (first view) ----------
-const ageMin = ts => ts ? (Date.now() - Date.parse(ts)) / 6e4 : null;
-function agentState(ts, every) {
-  const a = ageMin(ts);
-  if (a == null || !Number.isFinite(a)) return ["wait", "not started", "c-warn"];
-  if (a <= every * 1.5 + 10) return ["done", "running", "c-good"];
-  if (a <= every * 3 + 10) return ["wait", "late", "c-warn"];
-  return ["bad", "stalled", "c-bad"];
+// ---------- charts (Chart.js; one axis; legend is HTML above each chart; text in ink tokens) ----------
+function lineChart(id, series, { time = false, yPct = false, yUsd = false, diag = false } = {}) {
+  const el = document.getElementById(id); if (!el || !window.Chart) return; S.charts[id]?.destroy();
+  const ink = css("--ink2"), grid = css("--line");
+  S.charts[id] = new Chart(el, { type: "line",
+    data: { datasets: [...(diag ? [{ label: "Perfect", data: [{ x: 0, y: 0 }, { x: 1, y: 1 }], borderColor: css("--mute"), borderDash: [4, 4], borderWidth: 1, pointRadius: 0 }] : []),
+      ...series.map(([label, v, data]) => ({ label, data, borderColor: css(v), backgroundColor: css(v), borderWidth: 2, pointRadius: data.length < 40 ? 4 : 0, pointHoverRadius: 5, pointBorderColor: css("--surface"), pointBorderWidth: 2, tension: 0, stepped: time && !diag ? false : false }))] },
+    options: { responsive: true, maintainAspectRatio: false, animation: false, parsing: false, interaction: { mode: "nearest", axis: "x", intersect: false },
+      plugins: { legend: { display: false }, tooltip: { callbacks: { title: i => time ? new Date(i[0].parsed.x).toLocaleString() : diag ? "Said " + (i[0].parsed.x * 100).toFixed(0) + "%" : "", label: c => `${c.dataset.label}: ${yUsd ? "$" + c.parsed.y.toFixed(2) : (c.parsed.y * 100).toFixed(1) + (diag ? "% happened" : "¢")}` } } },
+      scales: { x: { type: "linear", ticks: { color: ink, maxTicksLimit: 6, callback: v => time ? new Date(v).toLocaleString([], { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }) : (v * 100).toFixed(0) + "%" }, grid: { color: grid }, ...(diag ? { min: 0, max: 1 } : {}) },
+        y: { ticks: { color: ink, callback: v => yUsd ? "$" + v : (v * 100).toFixed(0) + (diag ? "%" : "¢") }, grid: { color: grid }, ...(diag ? { min: 0, max: 1 } : {}) } } } });
 }
-function liveAgents() {
-  const last = D.runs.at(-1) || {}, S = D.status || { checks: [] }, chk = n => S.checks.find(c => c.name.startsWith(n));
-  const okN = S.checks.filter(c => c.ok).length, f = D.paper?.forward?.portfolios || [], best = f.filter(p => p.predictor).sort((a, b) => b.equity - a.equity)[0];
-  const live = [
-    { c: "var(--violet)", ic: "⏱", nm: "Live loop", file: "live.yml + feed.yml", ts: last.ts, every: 10,
-      now: chk("Runs on schedule")?.detail || `${D.runs.length} runs logged`, what: "Starts a pipeline cycle every 10 minutes. The dev agent starts a fresh hour of cycles so data stays live even if GitHub's cron skips." },
-    { c: "var(--info)", ic: "🔎", nm: "Market scout & predictors", file: "predict.mjs", ts: last.ts, every: 10,
-      now: `${(last.scanned || 0).toLocaleString()} scanned · ${last.candidates ?? 0} short · ${last.logged ?? 0} logged last cycle`, what: "Scans open Kalshi markets, runs the market, longshot, memory and neural-net predictors, and logs each prediction before it resolves." },
-    { c: "var(--good)", ic: "✅", nm: "Outcome checker", file: "resolve.mjs", ts: last.ts, every: 10,
-      now: `${D.totals.outcomes.toLocaleString()} official results · ${chk("Outcomes")?.detail || ""}`, what: "Collects Kalshi's official yes/no result for every market past its resolution time." },
-    { c: "var(--warn)", ic: "🛡", nm: "Watchdog", file: "status.mjs", ts: S.updated, every: 10,
-      now: `${okN}/${S.checks.length} checks pass${S.problems ? ` · ${S.problems} issue${S.problems > 1 ? "s" : ""}` : ""}`, what: "Checks every hand-off each cycle (schedule, logging, outcomes, leakage, duplicates, bet-size safety) and writes the plain-English status." },
-    { c: "var(--teal)", ic: "💵", nm: "Paper traders", file: "paper.mjs", ts: D.paper?.updated, every: 10,
-      now: `${f.length} portfolios · best live: ${best ? `${best.name.split(",")[0]} $${best.equity.toFixed(2)}` : "none yet"}`, what: "$10 paper portfolios trade the predictions with real prices and fees. Simulation only: nothing is ever traded." },
-    { c: "var(--good)", ic: "📡", nm: "24/7 streamer (your computer)", file: "stream.mjs", ts: D.stream?.at, every: 1,
-      now: D.stream ? `${D.live?.n ?? 0} live prices at ${D.live ? when(D.live.at) : "–"} · running since ${when(D.stream.startedAt)}` : "not started — run: node stream.mjs", what: "Polls live Kalshi prices every minute, collects outcomes, and retrains the network the moment new outcomes arrive; full scan every 10 min. While it runs, the cloud schedule steps aside." },
-    { c: "var(--warn)", ic: "🪙", nm: "Coinbase crypto agent", file: "external/crypto.mjs", ts: D.external?.at, every: 10,
-      now: D.external ? `${D.external.crypto.got}/${D.external.crypto.tried} crypto markets priced from Coinbase last cycle` : "not run yet", what: "Outside data: prices Kalshi crypto strikes from the coin's Coinbase spot price and recent volatility (random-walk model). Scored as the crypto_fair predictor." },
-    { c: "var(--info)", ic: "🌡", nm: "NWS weather agent", file: "external/weather.mjs", ts: D.external?.at, every: 10,
-      now: D.external ? `${D.external.weather.got}/${D.external.weather.tried} temperature markets priced from NWS last cycle` : "not run yet", what: "Outside data: latest National Weather Service station reading plus the forecast's change to the target hour. Scored as the weather_nws predictor." },
-    { c: "var(--pink)", ic: "🤖", nm: "Gemini analysts", file: "agents.mjs", ts: D.gemini?.updated, every: 60,
-      now: `${(D.gemini?.agents || []).join(", ") || "no agents"} · ${D.gemini?.picks.length || 0} picks (not scored)`, what: "Three AI analysts rate the top markets once an hour in one free Gemini call. Dashboard feed only until they beat the code predictors." },
-  ];
-  const B = (D.briefings || [])[0], n = D.nn || {};
-  const dev = [
-    { c: "var(--teal)", ic: "🧑‍💻", nm: "Dev agent (Claude)", file: "kalshi-live-agent skill", ts: B?.ts, every: 60,
-      now: B ? `checks ${B.checks} · ${(B.needs || []).length ? B.needs.length + " item(s) need you" : "nothing needs you"}` : "no briefing yet", what: "Hourly: keeps live mode running, checks the pipeline, fixes clear breakage on a branch and writes the briefing above." },
-    { c: "var(--pink)", ic: "🕸", nm: "Neural-net trainer", file: "nn.mjs", ts: n.trained, every: 60,
-      now: n.oos ? `trained on ${n.n} markets · ${n.oos.verdict}` : (n.status || "waiting for data"), what: "Retrains the network on all settled markets every hour; only the walk-forward score on unseen markets counts." },
-    { c: "var(--violet)", ic: "⏪", nm: "Backtest agent", file: "backtest.mjs", ts: D.backtest?.window?.to, every: 120, tsLabel: "newest market scored",
-      now: `${D.backtest?.resolved || 0} past markets scored in ${D.backtest?.events || 0} events`, what: "Rebuilds predictions for already-settled markets from 1-minute price history and scores them. Supporting evidence, never the live record." },
-  ];
-  return { live, dev };
-}
-function agentCard(a) {
-  const [s, word, tone] = agentState(a.ts, a.every);
-  return `<div class="acard" data-s="${s}" style="--c:${a.c}"><div class="nh"><div class="ic">${a.ic}</div><div class="nm">${esc(a.nm)}</div><span class="pill ${tone}">${word}</span><div class="st"></div></div>
-    <div class="nsub">${esc(a.file)} · every ${a.every >= 60 ? a.every / 60 + " h" : a.every + " min"}</div>
-    <p class="what">${esc(a.now)}</p><p class="small muted" style="margin:6px 0 0">${esc(a.what)}</p>
-    <div class="meta">${esc(a.tsLabel || "last active")}: ${esc(a.ts ? rel(a.ts) : "no activity yet")}</div></div>`;
-}
-function renderLive() {
-  const { live: LA, dev: DA } = liveAgents(), up = L => L.filter(a => agentState(a.ts, a.every)[0] === "done").length;
-  const B = (D.briefings || [])[0], lastRun = D.runs.at(-1), live = D.config.live || {};
-  $("#liveKpis").innerHTML = [[`${up(LA)}/${LA.length}`, "live agents running"], [`${up(DA)}/${DA.length}`, "dev agents on time"],
-    [lastRun ? rel(lastRun.ts) : "–", "last pipeline cycle"], [B ? rel(B.ts) : "–", "last dev briefing"],
-    [D.status ? `${D.status.checks.filter(c => c.ok).length}/${D.status.checks.length}` : "–", "watchdog checks pass"]]
-    .map(([v, l]) => `<div class="kpi"><b style="font-size:${String(v).length > 9 ? 17 : 24}px">${esc(v)}</b><span>${l}</span></div>`).join("");
-  $("#liveAgents").innerHTML = LA.map(agentCard).join("");
-  $("#devAgents").innerHTML = DA.map(agentCard).join("");
-  $("#devPanel").innerHTML = `<div class="panel devagent"><div class="prow"><h2 style="margin:0">Dev agent · live mode</h2>
-      <span class="small muted">${B ? `last briefing ${esc(rel(B.ts))} · checks ${esc(B.checks)}` : "no briefing yet"}</span></div>
-      <p style="margin:8px 0 4px">${B ? esc(B.summary) : "The hourly dev agent keeps live mode running, checks the pipeline, fixes clear breakage and writes a short briefing here."}</p>
-      ${B?.actions?.length ? `<p class="small muted" style="margin:0">Did: ${B.actions.map(esc).join(" · ")}</p>` : ""}
-      ${B?.needs?.length ? `<p class="small c-warn" style="margin:4px 0 0">Needs you: ${B.needs.map(esc).join(" · ")}</p>` : ""}
-      <div class="row2"><button type="button" id="runAgent" hidden>Run dev agent now</button><span class="small muted" id="runMsg">${live.triggerId ? "" : "Dev agent not set up yet."}</span></div></div>`;
+function charts() {
+  const a = S.app; if (!a) return;
+  if (S.tab === "paper" && a.paper) lineChart("eqChart", a.paper.forward.portfolios.map(p => [p.name, PF_COLOR[p.id] || "--mute", (p.curve || []).map(c => ({ x: c[0], y: c[1] }))]), { time: true, yUsd: true });
+  if (S.tab === "break" && a.evals?.models?.[S.bm]) lineChart("calChart", [[S.bm, "--s1", a.evals.models[S.bm].calibration.map(c => ({ x: c.said, y: c.happened }))]], { diag: true });
 }
 
-
-// ---------- Today: the four questions, in plain words ----------
-function renderToday() {
-  const S = D.status;
-  if (!S) { $("#today").innerHTML = ""; return; }
-  const tone = { good: "c-good", bad: "c-bad", warn: "c-warn" }[S.trade.tone] || "c-muted";
-  const okN = S.checks.filter(c => c.ok).length;
-  const wl = S.watchlist || [];
-  $("#today").innerHTML = `<div class="today">
-    <div class="panel q"><h2>Should I trade?</h2><p class="big ${tone}">${esc(S.trade.answer)}</p><p class="small">${esc(S.trade.why)}</p><p class="small muted">${esc(S.trade.next)}</p></div>
-    <div class="panel q"><h2>Is it learning?</h2><ul class="small tight">${S.learning.map(l => `<li>${esc(l)}</li>`).join("")}</ul></div>
-    <div class="panel q"><h2>Is it running?</h2><p class="big ${S.problems ? "c-warn" : "c-good"}">${okN}/${S.checks.length} checks pass</p>
-      <ul class="small tight checks2">${S.checks.map(c => `<li><span class="${c.ok ? "c-good" : "c-bad"}">${c.ok ? "✓" : "✗"}</span> ${esc(c.name)} <span class="muted">· ${esc(c.detail)}</span></li>`).join("")}</ul></div>
-    <div class="panel q"><h2>What I need from you</h2>${S.needs.length ? `<ol class="small tight">${S.needs.map(n => `<li>${esc(n)}</li>`).join("")}</ol>` : `<p class="small c-good">Nothing right now.</p>`}
-      <h2 style="margin-top:14px">Paper watchlist (not advice)</h2>${wl.length ? `<ul class="small tight">${wl.map(w => `<li><a href="${esc(w.url)}" target="_blank" rel="noopener">${esc(w.title)}</a> · ${esc(w.side.toUpperCase())} at ${cents(w.price)} · ${esc(w.predictor)} <span class="muted">(${esc(w.status.replace(/_/g, " ").toLowerCase())}) · ${rel(w.resolvesAt)}</span></li>`).join("")}</ul>
-      <p class="small muted">What the strategies would paper-bet next. None has proven an edge, so these are tests, not trades.</p>` : `<p class="small muted">No strategy wants to bet on anything open right now.</p>`}</div>
-  </div>`;
+// ---------- render loop ----------
+let liveDirty = false;
+function render() {
+  nav(); header();
+  const m = location.hash.match(/^#m\/(.+)$/);
+  if (m) { drill(decodeURIComponent(m[1])); return; }
+  $("#drill").classList.add("hide");
+  if (!S.app) { $("#main").innerHTML = `<div class="card">${esc(S.err || "Loading…")}</div>`; return; }
+  $("#main").innerHTML = (S.err ? `<div class="alert">${esc(S.err)} — showing the last data loaded.</div>` : "") + ({ live: viewLive, models: viewModels, break: viewBreak, paper: viewPaper, ops: viewOps }[S.tab] || viewLive)();
+  const bm = $("#bm"); if (bm) bm.onchange = () => { S.bm = bm.value; render(); };
+  charts();
 }
-
-// "Run dev agent now": fires the hourly dev agent's scheduled task through the viewer's Claude Code Remote connector.
-// Only in the claude.ai viewer (the GitHub Pages copy has no connector access). One call per click; never on load.
-let MCP = null;
-(async () => { try { MCP = window.claude?.use ? await window.claude.use("mcp") : null; } catch { MCP = null; } wireAgentButton(); })();
-function wireAgentButton() {
-  const btn = $("#runAgent"), msg = $("#runMsg"), id = D?.config?.live?.triggerId;
-  if (!btn || !msg) return;
-  if (!id) return;
-  if (!MCP) { btn.hidden = true; msg.textContent = "The run button works in the claude.ai version of this board."; return; }
-  btn.hidden = false;
-  btn.onclick = async () => {
-    btn.disabled = true; msg.textContent = "Starting the dev agent…";
-    try {
-      await MCP.callTool("Claude Code Remote", "fire_trigger", { trigger_id: id, text: "Run requested from the dashboard button." });
-      msg.textContent = "Started. The dev agent is checking now; this board refreshes when it finishes (usually a few minutes).";
-    } catch (e) {
-      const m = {
-        server_not_connected: "Connect “Claude Code Remote” in claude.ai Settings → Connectors, then try again.",
-        needs_reauth: "Reconnect “Claude Code Remote” in claude.ai Settings → Connectors.",
-        not_in_manifest: "This page isn't allowed to use Claude Code Remote. Allow it from the artifact's Permissions menu.",
-        approval_required: "Starting the agent needs your approval. Click again and choose Allow.",
-        blocked_by_policy: "Your organization's policy blocks starting the agent from a page.",
-        selection_required: "Choose which Claude Code Remote connector to use when claude.ai asks, then try again.",
-        tool_error: "The agent couldn't be started: " + (e.message || "the scheduled task refused the request."),
-      }[e?.code] || "Couldn't confirm the start. Wait a minute and check the briefing before clicking again.";
-      msg.textContent = m;
-    } finally { btn.disabled = false; }
-  };
-}
-
-// ---------- Trading: live market focus + paper account (layout after the owner's reference design) ----------
-let tMode = null, tPfId = null, tMkt = null;
-const usd = x => x == null ? "–" : (x < 0 ? "−$" : "$") + Math.abs(x).toFixed(2);
-// Generic SVG line/area chart. pts = [[x, y]]; opts: {color, fill, w, h, yFmt, zero, ref:[{y,label,color}], xFmt}
-function lineChart(pts, o = {}) {
-  const w = o.w || 520, h = o.h || 190, pl = 46, pr = 10, pt = 10, pb = 22;
-  if (pts.length < 2) return `<div class="empty">${esc(o.empty || "Not enough data yet.")}</div>`;
-  const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]).concat((o.ref || []).map(r => r.y));
-  let lo = Math.min(...ys), hi = Math.max(...ys); if (o.zero) { lo = Math.min(lo, 0); hi = Math.max(hi, 0); }
-  if (hi - lo < 1e-9) { hi += 0.5; lo -= 0.5; } const padY = (hi - lo) * 0.08; lo -= padY; hi += padY;
-  const x0 = Math.min(...xs), x1 = Math.max(...xs), X = x => pl + (x - x0) / (x1 - x0 || 1) * (w - pl - pr), Y = y => pt + (1 - (y - lo) / (hi - lo)) * (h - pt - pb);
-  const d = pts.map((p, i) => `${i ? "L" : "M"}${X(p[0]).toFixed(1)},${Y(p[1]).toFixed(1)}`).join("");
-  const base = o.zero ? Y(0) : h - pb, f = o.yFmt || (v => v.toFixed(2));
-  const grid = [hi - padY, (hi + lo) / 2, lo + padY].map(v => `<line x1="${pl}" x2="${w - pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line-soft)"/><text x="${pl - 6}" y="${Y(v) + 4}" fill="var(--muted)" font-size="12" text-anchor="end">${esc(f(v))}</text>`).join("");
-  const refs = (o.ref || []).map(r => `<line x1="${pl}" x2="${w - pr}" y1="${Y(r.y)}" y2="${Y(r.y)}" stroke="${r.color}" stroke-dasharray="4 4"/><text x="${w - pr}" y="${Y(r.y) - 4}" fill="${r.color}" font-size="12" text-anchor="end">${esc(r.label)}</text>`).join("");
-  const xf = o.xFmt || (t => new Date(t).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }));
-  return `<svg viewBox="0 0 ${w} ${h}" style="width:100%;height:auto" role="img" aria-label="${esc(o.label || "chart")}">${grid}${refs}
-    ${o.fill ? `<path d="${d}L${X(x1)},${base}L${X(x0)},${base}Z" fill="${o.color}" fill-opacity="0.12"/>` : ""}<path d="${d}" fill="none" stroke="${o.color}" stroke-width="2"/>
-    <circle cx="${X(pts.at(-1)[0])}" cy="${Y(pts.at(-1)[1])}" r="3.5" fill="${o.color}"/>
-    <text x="${pl}" y="${h - 6}" fill="var(--muted)" font-size="12">${esc(xf(x0))}</text><text x="${w - pr}" y="${h - 6}" fill="var(--muted)" font-size="12" text-anchor="end">${esc(xf(x1))}</text></svg>`;
-}
-function barChart(rows, o = {}) {
-  const w = 520, h = 190, pl = 46, pr = 10, pt = 10, pb = 22;
-  if (!rows.length) return `<div class="empty">${esc(o.empty || "No settled days yet.")}</div>`;
-  const vals = rows.map(r => r.pnl), hi = Math.max(0, ...vals), lo = Math.min(0, ...vals), span = (hi - lo) || 1;
-  const Y = v => pt + (1 - (v - lo) / span) * (h - pt - pb), bw = (w - pl - pr) / rows.length;
-  return `<svg viewBox="0 0 ${w} ${h}" style="width:100%;height:auto" role="img" aria-label="Daily profit and loss">
-    <line x1="${pl}" x2="${w - pr}" y1="${Y(0)}" y2="${Y(0)}" stroke="var(--line)"/><text x="${pl - 6}" y="${Y(0) + 4}" fill="var(--muted)" font-size="12" text-anchor="end">$0</text>
-    <text x="${pl - 6}" y="${Y(hi) + 8}" fill="var(--muted)" font-size="12" text-anchor="end">${esc(usd(hi))}</text><text x="${pl - 6}" y="${Y(lo)}" fill="var(--muted)" font-size="12" text-anchor="end">${esc(usd(lo))}</text>
-    ${rows.map((r, i) => { const y = Y(Math.max(0, r.pnl)), hh = Math.max(2, Math.abs(Y(r.pnl) - Y(0)));
-      return `<rect x="${pl + i * bw + bw * 0.2}" y="${y}" width="${Math.max(3, bw * 0.6)}" height="${hh}" rx="3" fill="${r.pnl >= 0 ? "var(--good)" : "var(--bad)"}"><title>${esc(r.date)}: ${esc(usd(r.pnl))}</title></rect>`; }).join("")}
-    <text x="${pl}" y="${h - 6}" fill="var(--muted)" font-size="12">${esc(rows[0].date)}</text><text x="${w - pr}" y="${h - 6}" fill="var(--muted)" font-size="12" text-anchor="end">${esc(rows.at(-1).date)}</text></svg>`;
-}
-function donut(win, loss) {
-  const n = win + loss; if (!n) return `<div class="empty">No settled trades yet.</div>`;
-  const r = 52, c = 2 * Math.PI * r, wp = win / n;
-  return `<svg viewBox="0 0 220 170" style="width:100%;max-width:300px;height:auto;display:block;margin:auto" role="img" aria-label="Wins ${win}, losses ${loss}">
-    <circle cx="110" cy="75" r="${r}" fill="none" stroke="var(--bad)" stroke-width="24"/>
-    <circle cx="110" cy="75" r="${r}" fill="none" stroke="var(--good)" stroke-width="24" stroke-dasharray="${(wp * c).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 110 75)"/>
-    <text x="110" y="81" fill="var(--fg)" font-size="22" font-weight="700" text-anchor="middle">${Math.round(wp * 100)}%</text>
-    <text x="110" y="162" fill="var(--muted)" font-size="12" text-anchor="middle">${win} won · ${loss} lost</text></svg>`;
-}
-const tile = (label, value, tone = "", tip = "") => `<div class="kpi tk" title="${esc(tip)}"><span>${esc(label)}</span><b class="${tone}">${value}</b></div>`;
-
-function renderTrading() {
-  const P = D.paper, F = D.focus;
-  if (!P) { $("#tK1").innerHTML = `<div class="empty">Paper trading starts after the first run.</div>`; return; }
-  const modes = [["forward", `Live forward (${P.forward.settled} settled)`], ["replay", `Replay: ${P.replay.rows} past markets`]];
-  if (!tMode) tMode = P.forward.portfolios.some(p => p.stats?.trades) ? "forward" : "replay";
-  $("#tMode").innerHTML = modes.map(([k, t]) => `<button type="button" class="chip" aria-pressed="${k === tMode}" data-m="${k}">${esc(t)}</button>`).join("");
-  $("#tMode").querySelectorAll(".chip").forEach(b => b.onclick = () => { tMode = b.dataset.m; renderTrading(); });
-  const pfs = P[tMode].portfolios.filter(p => p.predictor);
-  const real = pfs.filter(p => p.predictor !== "coin");                  // controls are selectable but never the default
-  if (!pfs.some(p => p.id === tPfId)) tPfId = ((real.length ? real : pfs).slice().sort((a, b) => b.equity - a.equity)[0] || {}).id;
-  $("#tPf").innerHTML = pfs.map(p => `<button type="button" class="chip" aria-pressed="${p.id === tPfId}" data-p="${esc(p.id)}">${esc(p.name.replace(/ \(.*\)$/, ""))}</button>`).join("");
-  $("#tPf").querySelectorAll(".chip").forEach(b => b.onclick = () => { tPfId = b.dataset.p; renderTrading(); });
-  const pf = pfs.find(p => p.id === tPfId) || P[tMode].portfolios[0], st = pf.stats || {};
-  $("#tAcct").textContent = `${pf.name} · ${tMode === "forward" ? "live" : "replay"}`; $("#tStart").textContent = usd(P.start);
-  // Ticker tape: live focus markets.
-  const fm = (F?.markets || []).filter(m => m.price != null);
-  const tape = fm.map(m => `<span class="tick"><b>${esc(m.title.length > 46 ? m.title.slice(0, 44) + "…" : m.title)}</b> ${cents(m.price)} <span class="${m.chg30m > 0 ? "c-good" : m.chg30m < 0 ? "c-bad" : "muted"}">${m.chg30m == null ? "" : (m.chg30m > 0 ? "▲" : m.chg30m < 0 ? "▼" : "•") + " " + Math.abs(Math.round(m.chg30m * 100)) + "¢ 30m"}</span></span>`).join("");
-  $("#tTape").innerHTML = tape ? `<div class="tape-inner">${tape}${tape}</div>` : `<span class="small muted">Live focus markets appear after the next pipeline cycle.</span>`;
-  const sharpe = st.perBetSharpe, pfac = st.profitFactor;
-  $("#tK1").innerHTML = [
-    tile("Equity", usd(pf.equity), pf.equity >= P.start ? "c-good" : "c-bad", "Cash plus open bets at cost"),
-    tile("Profit (last day)", usd(st.lastDay?.pnl ?? 0), (st.lastDay?.pnl || 0) >= 0 ? "c-good" : "c-bad", st.lastDay ? st.lastDay.date : ""),
-    tile("Win rate", st.winRate == null ? "–" : (st.winRate * 100).toFixed(1) + "%"),
-    tile("Max drawdown", pf.maxDrawdownPct.toFixed(1) + "%", pf.maxDrawdownPct > 20 ? "c-bad" : ""),
-    tile("Profit factor", pfac == null ? "–" : pfac.toFixed(2), pfac == null ? "" : pfac >= 1 ? "c-good" : "c-bad", "Gross profit ÷ gross loss. Above 1 makes money."),
-    tile("Sharpe (per bet)", sharpe == null ? "–" : sharpe.toFixed(2), "", "Average return per bet ÷ its standard deviation. Not annualized."),
-    tile("Total trades", String(pf.bets)), tile("Open trades", String(pf.openPositions))].join("");
-  $("#tK2").innerHTML = [
-    tile("Gross profit", usd(st.grossProfit), "c-good"), tile("Gross loss", usd(st.grossLoss), "c-bad"),
-    tile("Best trade", usd(st.best), "c-good"), tile("Worst trade", usd(st.worst), "c-bad"),
-    tile("Expected payoff", usd(st.expectedPayoff), (st.expectedPayoff || 0) >= 0 ? "c-good" : "c-bad", "Average profit per settled trade"),
-    tile("Recovery factor", st.recoveryFactor == null ? "–" : st.recoveryFactor.toFixed(2), "", "Net profit ÷ largest drop"),
-    tile("Avg daily P&L", usd(st.avgDailyPnl), (st.avgDailyPnl || 0) >= 0 ? "c-good" : "c-bad"),
-    tile("Current streak", st.streak ? `${st.streak.n} ${st.streak.kind === "win" ? "win" : "loss"}${st.streak.n > 1 ? (st.streak.kind === "win" ? "s" : "es") : ""}` : "–", st.streak?.kind === "win" ? "c-good" : st.streak ? "c-bad" : "")].join("");
-  // Price action: chosen focus market.
-  if (!fm.some(m => m.ticker === tMkt)) tMkt = fm[0]?.ticker || null;
-  $("#tMkt").innerHTML = fm.map(m => `<option value="${esc(m.ticker)}" ${m.ticker === tMkt ? "selected" : ""}>${esc(m.title.slice(0, 60))}</option>`).join("");
-  $("#tMkt").onchange = e => { tMkt = e.target.value; renderTrading(); };
-  const mk = fm.find(m => m.ticker === tMkt);
-  if (mk) {
-    const est = Object.entries(mk.est || {}).filter(([k]) => k !== "market"), refs = [{ y: mk.loggedPrice, label: `logged ${cents(mk.loggedPrice)}`, color: "var(--muted)" }];
-    const pick = Object.entries(mk.picks || {})[0];
-    if (pick) refs.push({ y: mk.est[pick[0]], label: `${pick[0]} est ${pct(mk.est[pick[0]])}`, color: "var(--warn)" });
-    $("#tPrice").innerHTML = lineChart(mk.series.map(p => [p[0], p[1]]), { color: "var(--info)", fill: true, yFmt: v => Math.round(v * 100) + "¢", ref: refs, label: "Market price, last 3 hours" }) +
-      `<p class="small muted" style="margin:6px 0 0">${esc(mk.cat)} · resolves ${esc(rel(mk.resolvesAt))} · now ${cents(mk.price)}${mk.chg3h != null ? ` (${mk.chg3h >= 0 ? "+" : ""}${Math.round(mk.chg3h * 100)}¢ in 3 h)` : ""} · estimates: ${est.map(([k, v]) => `${esc(k)} ${pct(v)}`).join(", ") || "–"} · <a href="${esc(mk.url)}" target="_blank" rel="noopener">Open in Kalshi</a></p>`;
-  } else $("#tPrice").innerHTML = `<div class="empty">No live focus market right now.</div>`;
-  $("#tEq").innerHTML = lineChart((pf.curve || []).filter(p => Number.isFinite(p[0])), { color: "var(--good)", fill: true, yFmt: v => "$" + v.toFixed(2), ref: [{ y: P.start, label: "start $" + P.start, color: "var(--line)" }], xFmt: t => new Date(t).toLocaleDateString([], { month: "short", day: "numeric" }), label: "Equity", empty: "No settled trades in this mode yet." });
-  $("#tDaily").innerHTML = barChart(st.daily || []);
-  $("#tDD").innerHTML = lineChart((st.drawdown || []).filter(p => Number.isFinite(p[0])), { color: "var(--bad)", fill: true, zero: true, yFmt: v => v.toFixed(0) + "%", xFmt: t => new Date(t).toLocaleDateString([], { month: "short", day: "numeric" }), label: "Drawdown from peak", empty: "No drawdown data yet." });
-  $("#tDonut").innerHTML = donut(st.wins || 0, st.losses || 0);
-  const cl = pf.closed || [];
-  $("#tClosed").innerHTML = cl.length ? `<div class="closed">${cl.map(b => `<div class="crow"><div class="t"><b>${esc(b.title.length > 52 ? b.title.slice(0, 50) + "…" : b.title)}</b> <span class="pill ${b.side === "yes" ? "c-good" : "c-bad"}">${esc(b.side)}</span><div class="small muted">Closed ${esc(when(b.settledAt))} · ${cents(b.price)} × ${b.contracts}</div></div><b class="${b.pnl >= 0 ? "c-good" : "c-bad"}">${b.pnl >= 0 ? "+" : ""}${esc(usd(b.pnl))}</b></div>`).join("")}</div>`
-    : `<div class="empty">No closed trades in this mode yet.</div>`;
-}
-
-// Ask the agent: Claude answers from a compact summary of this board's data (claude.ai viewer only; uses Claude usage).
-let SAMPLE = null;
-(async () => { try { SAMPLE = window.claude?.use ? await window.claude.use("sample") : null; } catch { SAMPLE = null; } const p = $("#askPanel"); if (p) p.hidden = !SAMPLE; })();
-function boardSummary() {
-  const P = D.paper || {}, pick = m => (P[m]?.portfolios || []).map(p => ({ name: p.name, equity: p.equity, bets: p.bets, settled: p.settled, status: p.trustNow?.why, stats: p.stats && { ...p.stats, daily: undefined, drawdown: undefined } }));
-  return { generated: D.generated, shouldTrade: D.status?.trade, learning: D.status?.learning, checks: D.status?.checks?.map(c => `${c.ok ? "OK" : "FAIL"} ${c.name}: ${c.detail}`),
-    liveScorecard: { resolved: D.scorecard?.resolved, predictors: Object.fromEntries(Object.entries(D.scorecard?.predictors || {}).map(([k, v]) => [k, { n: v.n, brier: v.brier?.mean, vsMarket: v.brierVsMarket, verdict: v.verdict }])) },
-    network: D.nn && { verdict: D.nn.oos?.verdict, oos: D.nn.oos, trainedOn: D.nn.n }, paperForward: pick("forward"), paperReplay: pick("replay"),
-    focusMarkets: (D.focus?.markets || []).map(m => ({ title: m.title, cat: m.cat, price: m.price, chg30m: m.chg30m, resolvesAt: m.resolvesAt, estimates: m.est, picks: m.picks })),
-    latestBriefing: (D.briefings || [])[0] };
-}
-document.addEventListener("click", async e => {
-  if (e.target?.id !== "askBtn" || !SAMPLE) return;
-  const q = $("#askQ").value.trim(), out = $("#askA"); if (!q) return;
-  const btn = e.target; btn.disabled = true; out.textContent = "Thinking…";
-  try {
-    const prompt = `You are the analyst for a Kalshi prediction-market RESEARCH agent. Everything is simulation/paper trading; never recommend real-money bets, and say plainly when evidence is insufficient (verdicts need 100+ resolved markets and a 95% range excluding zero). Answer the owner's question in plain English, under 150 words, using only this data. Quote verdicts exactly.\n\nDATA (JSON):\n${JSON.stringify(boardSummary())}\n\nQUESTION: ${q}`;
-    await SAMPLE(prompt, { modelTier: "quick", onText: ({ text }) => { out.textContent = text; } });
-  } catch (err) {
-    out.textContent = err?.code === "not_granted" ? "Asking Claude isn't allowed for this page. You can allow it from the artifact's Permissions menu." : err?.code === "rate_limited" ? "Too many questions right now. Try again in a minute." : "Couldn't get an answer. Try again shortly.";
-  } finally { btn.disabled = false; }
-});
-$("#askQ")?.addEventListener("keydown", e => { if (e.key === "Enter") $("#askBtn").click(); });
-
-// ---------- Live agents: Claude agents that read this board's data and report (claude.ai viewer only) ----------
-// Runs only on a click (never on a timer). Results are saved in the board's database (`agentRuns`), so the latest run
-// shows for everyone who opens the board and later Claude sessions can read them.
-const LA = [
-  { id: "scout", name: "Market scout", ic: "🔭", tier: "quick",
-    task: "Look at the live focus markets (price, 30-minute and 3-hour moves, each predictor's estimate vs price). Name up to 3 markets worth watching and why, and any that moved sharply.",
-    data: () => ({ focus: (D.focus?.markets || []).map(m => ({ title: m.title, cat: m.cat, price: m.price, chg30m: m.chg30m, chg3h: m.chg3h, resolvesAt: m.resolvesAt, estimates: m.est, paperPick: m.picks })), watchlist: D.status?.watchlist }) },
-  { id: "risk", name: "Risk manager", ic: "🛡", tier: "quick",
-    task: "Review the paper portfolios against the safety rules (max 5% per bet, 25% open, drawdown brakes). Flag drawdowns, losing streaks, paused strategies and anything close to a limit.",
-    data: () => ({ safety: D.config.paper?.safety, forward: paperBrief("forward"), replay: paperBrief("replay") }) },
-  { id: "trainer", name: "Model trainer", ic: "🧠", tier: "quick",
-    task: "Explain how the predictors and the neural network are learning: live scorecard, the network's walk-forward verdict and training history, backtest size. Say what data or change would most help next.",
-    data: () => ({ scorecard: scoreBrief(), network: D.nn && { verdict: D.nn.oos?.verdict, oos: D.nn.oos, trainedOn: D.nn.n, importance: (D.nn.importance || []).slice(0, 6), log: (D.nn.log || []).slice(-6) }, backtest: D.backtest && { resolved: D.backtest.resolved }, progress: D.progress?.predictors }) },
-  { id: "ops", name: "Dev / ops", ic: "🛠", tier: "quick",
-    task: "Report pipeline health from the watchdog checks and the latest dev-agent briefing: what is working, what is broken, what the owner must do.",
-    data: () => ({ checks: D.status?.checks, needs: D.status?.needs, briefings: (D.briefings || []).slice(0, 2), dataAge: D.generated }) },
-];
-const LEAD = { id: "lead", name: "Lead analyst", ic: "🎯", tier: "default" };
-const paperBrief = m => (D.paper?.[m]?.portfolios || []).map(p => ({ name: p.name, equity: p.equity, bets: p.bets, settled: p.settled, maxBetPct: p.maxBetPct, maxDrawdownPct: p.maxDrawdownPct, status: p.trustNow?.why, profitFactor: p.stats?.profitFactor, winRate: p.stats?.winRate, streak: p.stats?.streak }));
-const scoreBrief = () => ({ resolved: D.scorecard?.resolved, predictors: Object.fromEntries(Object.entries(D.scorecard?.predictors || {}).map(([k, v]) => [k, { n: v.n, vsMarket: v.brierVsMarket, verdict: v.verdict }])) });
-const RULES = "You are one agent in a research team for a Kalshi prediction-market agent. Everything is research and PAPER trading: never recommend real-money bets. Use ONLY the JSON data given; quote verdicts exactly; say plainly when evidence is insufficient (a verdict needs 100+ resolved markets and a 95% range excluding zero). Format: first line = a one-sentence headline; then 2-4 short bullet lines starting with '- '; last line = 'Confidence: low|medium|high'. Under 120 words.";
-let SAMPLE_LA = null, DB_LA = null, laCtl = null, laRuns = [], laShown = null, laState = {};
-(async () => {
-  try { SAMPLE_LA = window.claude?.use ? await window.claude.use("sample") : null; } catch { SAMPLE_LA = null; }
-  try { DB_LA = window.claude?.use ? await window.claude.use("db") : null; } catch { DB_LA = null; }
-  if (DB_LA) {
-    const t = setTimeout(() => { if (!laRuns.length) $("#laMsg").textContent = "Saved runs can't be reached yet."; }, 10000);
-    try {
-      DB_LA.collection("agentRuns").orderBy("ts", "desc").limit(10).onSnapshot(s => {
-        clearTimeout(t); laRuns = s.docs.map(d => ({ id: d.id, ...d.data() }));
-        if (!laCtl && (!laShown || laShown === laRuns[1]?.id || !laRuns.some(r => r.id === laShown))) laShown = laRuns[0]?.id || null;
-        if (D) renderLiveAgents();
-      }, () => clearTimeout(t));
-    } catch { clearTimeout(t); }
-  }
-  if (D) renderLiveAgents();
-})();
-function laCard(a, r) {
-  const st = r?.state || "idle", txt = r?.text || "";
-  const [head, ...rest] = txt.split("\n").filter(l => l.trim());
-  const conf = rest.find(l => /^confidence:/i.test(l)), bullets = rest.filter(l => !/^confidence:/i.test(l));
-  return `<div class="acard team" data-s="${st}"><div class="nh"><div class="ic" style="--c:var(--info)">${a.ic}</div><div class="nm">${esc(a.name)}</div><span class="pill ${st === "done" ? "c-good" : st === "running" ? "c-info" : st === "error" ? "c-bad" : "c-muted"}">${esc(st === "running" ? "thinking" : st)}</span></div>
-    ${txt ? `<p class="ahead">${esc(head || "")}</p>${bullets.length ? `<ul class="small tight">${bullets.map(b => `<li>${esc(b.replace(/^[-•]\s*/, ""))}</li>`).join("")}</ul>` : ""}${conf ? `<p class="small muted" style="margin:6px 0 0">${esc(conf)}</p>` : ""}`
-      : `<p class="small muted">${st === "running" ? "Thinking…" : st === "error" ? esc(r?.error || "Failed.") : "Not run yet."}</p>`}</div>`;
-}
-function renderLiveAgents() {
-  if (!$("#laCards")) return;
-  const run = laCtl ? laState : (laRuns.find(r => r.id === laShown) || null);
-  $("#laWhen").textContent = laCtl ? "running now" : run?.ts ? `last run ${rel(run.ts)} · data from ${when(run.dataBuilt)}` : "no runs yet";
-  $("#laCards").innerHTML = LA.map(a => laCard(a, run?.results?.[a.id])).join("");
-  const L = run?.results?.lead;
-  $("#laLead").innerHTML = `<h2>${LEAD.ic} Lead analyst: what to do now</h2>` + (L?.text ? `<div class="small" style="white-space:pre-wrap">${esc(L.text)}</div>` : `<p class="small muted">${L?.state === "running" ? "Combining the team's findings…" : L?.state === "error" ? esc(L.error || "Failed.") : "Runs after the four specialists."}</p>`);
-  $("#laHist").innerHTML = laRuns.map(r => `<option value="${esc(r.id)}" ${r.id === laShown ? "selected" : ""}>${esc(when(r.ts))}</option>`).join("") || `<option>no saved runs</option>`;
-  $("#laHist").disabled = !laRuns.length || !!laCtl;
-  $("#laHist").onchange = e => { laShown = e.target.value; renderLiveAgents(); };
-  const can = !!SAMPLE_LA;
-  $("#laRun").hidden = !can; $("#laStop").hidden = !laCtl;
-  if (!can && !laCtl) $("#laMsg").textContent = window.claude?.use ? "Live agents need Claude access for this page (allow it when asked, or from the Permissions menu)." : "Live agents run in the claude.ai version of this board.";
-}
-const laErr = e => ({ not_granted: "Claude access was declined for this page.", rate_limited: "Usage limit or too many calls right now. Try later.", sampling_disabled: "Claude isn't available for this account.", session_expired: "Sign in again, then retry.", refused: "Claude declined this request.", cancelled: "Stopped." }[e?.code] || "Interrupted. Try again.");
-async function runLiveAgents() {
-  if (!SAMPLE_LA || laCtl) return;
-  laCtl = new AbortController(); const signal = laCtl.signal;
-  laState = { ts: new Date().toISOString(), dataBuilt: D.generated, results: Object.fromEntries([...LA, LEAD].map(a => [a.id, { state: a.id === "lead" ? "idle" : "running", text: "" }])) };
-  $("#laMsg").textContent = ""; renderLiveAgents();
-  const one = async (a, prompt, tier) => {
-    try {
-      await SAMPLE_LA(prompt, { modelTier: tier, signal, cache: false, onText: ({ text }) => { laState.results[a.id].text = text; renderLiveAgents(); } });
-      laState.results[a.id].state = "done";
-    } catch (e) { laState.results[a.id] = { state: "error", text: e?.text || "", error: laErr(e) }; }
-    renderLiveAgents();
-  };
-  await Promise.all(LA.map(a => one(a, `${RULES}\n\nYOUR ROLE: ${a.name}. ${a.task}\n\nDATA (JSON):\n${JSON.stringify(a.data()).slice(0, 60000)}`, a.tier)));
-  if (!signal.aborted) {
-    laState.results.lead.state = "running"; renderLiveAgents();
-    const team = LA.map(a => `## ${a.name}\n${laState.results[a.id].text || "(no report)"}`).join("\n\n");
-    await one(LEAD, `${RULES.replace("Under 120 words.", "Under 180 words.")}\n\nYOUR ROLE: Lead analyst. Combine the team's reports into what the owner should know and do now (paper only): the single most important finding, what is working, what is not, and the next step. Resolve disagreements by the data.\n\nTEAM REPORTS:\n${team}\n\nKEY DATA (JSON):\n${JSON.stringify({ shouldTrade: D.status?.trade, scorecard: scoreBrief() })}`, LEAD.tier);
-  }
-  const ok = Object.values(laState.results).some(r => r.state === "done");
-  if (ok && DB_LA) {
-    const clean = Object.fromEntries(Object.entries(laState.results).map(([k, r]) => [k, { state: r.state === "running" ? "error" : r.state, text: (r.text || "").slice(0, 4000), error: r.error || null }]));
-    try { const ref = await DB_LA.collection("agentRuns").add({ ts: laState.ts, dataBuilt: laState.dataBuilt, results: clean }); laShown = ref.id; $("#laMsg").textContent = "Saved."; }
-    catch (e) { $("#laMsg").textContent = e?.code === "quota_exceeded" ? "Run done, but the board's storage is full." : "Run done, but it couldn't be saved (view-only access?)."; }
-  }
-  laCtl = null; renderLiveAgents();
-}
-document.addEventListener("click", e => {
-  if (e.target?.id === "laRun") runLiveAgents();
-  if (e.target?.id === "laStop") laCtl?.abort();
-});
-
-// ---------- Neural net: is it learning from its losses? ----------
-// Gap vs market per walk-forward block: red = worse than the market, green = better.
-function foldBars(folds) {
-  if (!folds.length) return `<div class="empty">No folds yet.</div>`;
-  const w = 520, h = 190, pl = 54, pr = 10, pt = 14, pb = 34, m = Math.max(0.001, ...folds.map(f => Math.abs(f.gap)));
-  const Y = v => pt + (1 - (v + m) / (2 * m)) * (h - pt - pb), bw = (w - pl - pr) / folds.length;
-  return `<svg viewBox="0 0 ${w} ${h}" style="width:100%;height:auto" role="img" aria-label="Gap vs market by amount of training data">
-    <line x1="${pl}" x2="${w - pr}" y1="${Y(0)}" y2="${Y(0)}" stroke="var(--warn)" stroke-dasharray="4 4"/><text x="${pl - 6}" y="${Y(0) + 4}" fill="var(--warn)" font-size="12" text-anchor="end">market</text>
-    <text x="${pl - 6}" y="${Y(m) + 4}" fill="var(--muted)" font-size="11" text-anchor="end">+${m.toFixed(4)}</text><text x="${pl - 6}" y="${Y(-m) + 4}" fill="var(--muted)" font-size="11" text-anchor="end">−${m.toFixed(4)}</text>
-    ${folds.map((f, i) => { const y0 = Y(0), y1 = Y(f.gap), x = pl + i * bw + bw * 0.2;
-      return `<rect x="${x}" y="${Math.min(y0, y1)}" width="${bw * 0.6}" height="${Math.max(2, Math.abs(y1 - y0))}" rx="3" fill="${f.gap > 0 ? "var(--bad)" : "var(--good)"}"><title>${f.trainN} markets: gap ${f.gap}</title></rect>
-        <text x="${x + bw * 0.3}" y="${h - 18}" fill="var(--muted)" font-size="11" text-anchor="middle">${f.trainN.toLocaleString()}</text>
-        <text x="${x + bw * 0.3}" y="${Math.min(y0, y1) - 4}" fill="var(--fg)" font-size="11" text-anchor="middle">${f.gap > 0 ? "+" : ""}${f.gap.toFixed(4)}</text>`; }).join("")}
-    <text x="${(w + pl) / 2}" y="${h - 3}" fill="var(--muted)" font-size="11" text-anchor="middle">markets trained on</text></svg>`;
-}
-function renderLearning() {
-  const el = $("#nnLearn"); if (!el) return;
-  const n = D.nn, o = n?.oos;
-  if (!o?.folds) { el.innerHTML = `<h2>Is it learning from its losses?</h2><div class="empty">Appears after the next training run.</div>`; return; }
-  const log = (n.log || []).filter(r => r.oosDiff != null), first = log[0], last = log.at(-1);
-  const trend = first && last && log.length > 1 ? `Across ${log.length} training runs, data grew from ${first.n.toLocaleString()} to ${last.n.toLocaleString()} markets and the gap vs the market moved from ${sgn(first.oosDiff)} to ${sgn(last.oosDiff)}.` : "";
-  const fg = o.folds.map(f => f.gap), shrinking = fg.length > 1 && fg.at(-1) < fg[0] - 0.001, flat = fg.every(g => Math.abs(g) < 0.002);
-  const verdict = /beats/.test(o.verdict) ? "It beats the market on markets it never saw." : flat ? "It has learned to match the market, not to beat it: its corrections to the price are tiny." : shrinking ? "Its gap shrinks as it gets more data: it is learning, but not ahead of the market yet." : "More data is not yet making it better than the market.";
-  const pf = (D.paper?.forward?.portfolios || []).concat(D.paper?.replay?.portfolios || []).filter(p => p.predictor === "nn" && p.review);
-  const cal = o.calibration || [], W = 260, pad = 30;
-  const calSvg = cal.length ? `<svg viewBox="0 0 ${W} ${W}" style="width:100%;max-width:300px;height:auto;display:block;margin:auto" role="img" aria-label="Calibration on unseen markets">
-    <rect x="${pad}" y="10" width="${W - pad - 10}" height="${W - pad - 10}" fill="none" stroke="var(--line)"/>
-    <line x1="${pad}" y1="${W - pad}" x2="${W - 10}" y2="10" stroke="var(--line)" stroke-dasharray="4 4"/>
-    ${cal.map(c => { const x = pad + c.avgP * (W - pad - 10), y = W - pad - c.yesRate * (W - pad - 10), r = 3 + Math.min(9, Math.sqrt(c.n)); return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="var(--pink)" fill-opacity="0.75"><title>${esc(c.bucket)}: said ${pct(c.avgP)}, happened ${pct(c.yesRate)} (${c.n} markets)</title></circle>`; }).join("")}
-    <text x="${(W + pad) / 2}" y="${W - 8}" fill="var(--muted)" font-size="11" text-anchor="middle">network said (P of YES)</text>
-    <text x="12" y="${(W - pad) / 2}" fill="var(--muted)" font-size="11" text-anchor="middle" transform="rotate(-90 12 ${(W - pad) / 2})">actually happened</text></svg>` : `<div class="empty">No calibration yet.</div>`;
-  el.innerHTML = `<h2>Is it learning from its losses?</h2>
-    <p style="margin:0 0 4px"><b>${esc(verdict)}</b></p><p class="small muted" style="margin:0 0 12px">${esc(trend)} Every miss feeds the next hourly retrain (its training loss punishes confident wrong calls hardest). Below 0 = better than the market.</p>
-    <div class="tgrid3">
-      <div><h2>Gap vs market over training runs</h2>${lineChart(log.map((r, i) => [i + 1, r.oosDiff]), { color: "var(--pink)", zero: true, yFmt: v => (v > 0 ? "+" : "") + v.toFixed(3), xFmt: i => "run " + i, label: "Gap vs market per training run", ref: [{ y: 0, label: "market", color: "var(--warn)" }] })}</div>
-      <div><h2>More data → smaller gap?</h2>${foldBars(o.folds)}
-        <p class="small muted" style="margin:6px 0 0">Each bar: trained on that many earlier markets, tested on the next unseen block.</p></div>
-      <div><h2>Calibration (unseen markets)</h2>${calSvg}<p class="small muted" style="margin:6px 0 0">On the dashed line = says 70% and it happens 70% of the time.</p></div>
-    </div>
-    <div class="grid2" style="margin-top:12px">
-      <div><h2>Biggest misses (markets it never trained on)</h2><div class="tscroll"><table><thead><tr><th>Market</th><th class="n">Net said</th><th class="n">Market said</th><th>Outcome</th><th class="n">Net loss</th><th class="n">Market loss</th></tr></thead><tbody>${
-        (o.misses || []).map(m => `<tr><td class="t">${esc(m.title)}</td><td class="n">${pct(m.net)}</td><td class="n">${pct(m.market)}</td><td>${outPill(m.outcome)}</td><td class="n">${m.loss}</td><td class="n">${m.marketLoss}</td></tr>`).join("")}</tbody></table></div>
-        <p class="small muted">Lower loss is better. When the market's loss is as big, the miss was a surprise to everyone, not a network mistake.</p></div>
-      <div><h2>Paper bets: when it disagreed with the market, who was right?</h2>${pf.length ? `<div class="tscroll"><table><thead><tr><th>Portfolio</th><th class="n">Settled</th><th class="n">Net closer</th><th class="n">1st half</th><th class="n">2nd half</th></tr></thead><tbody>${
-        pf.map(p => `<tr><td>${esc(p.name.replace(/ \(.*\)$/, ""))} <span class="small muted">${D.paper.forward.portfolios.includes(p) ? "live" : "replay"}</span></td><td class="n">${p.review.n}</td><td class="n">${p.review.netCloser == null ? "–" : pct(p.review.netCloser)}</td><td class="n">${p.review.firstHalf == null ? "–" : pct(p.review.firstHalf)}</td><td class="n">${p.review.secondHalf == null ? "–" : pct(p.review.secondHalf)}</td></tr>`).join("")}</tbody></table></div>
-        <p class="small muted">Every paper bet is a disagreement with the market price. Above 50% and rising from the first half to the second = learning from its losses. Under ~100 settled bets this is noise.</p>` : `<div class="empty">No settled network bets yet.</div>`}</div>
-    </div>`;
-}
-
-function render() { if (!D) return; renderLive(); renderToday(); renderTrading(); renderLiveAgents(); wireAgentButton(); renderNN(); renderLearning(); renderPnL(); renderKpis(); renderAgent(); renderGoals(); renderTrades(); renderData(); renderSkills(); renderHistory(); renderStorage(); paintPills(); }
-// Storage tiers: hot logs in GitHub → verified gzip archive in GitHub → uncompressed copy on the owner's computer.
-function renderStorage() {
-  const st = D.storage, src = D.nn?.sources, el = $("#storage"); if (!el) return;
-  if (!st) { el.innerHTML = `<div class="empty">Storage is measured each cycle; nothing recorded yet.</div>`; return; }
-  const sum = o => Object.values(o || {}).reduce((a, b) => a + b, 0), mb = x => x == null ? "–" : `${(+x).toFixed(x < 10 ? 2 : 0)} MB`;
-  const tiers = [
-    ["Hot logs (GitHub)", mb(sum(st.hotMB)), "This month and last month as plain .jsonl. New rows are appended here."],
-    ["Archive (GitHub)", `${mb(sum(st.archiveMB))} · ${st.archivedFiles} files · ${st.archiveRows.toLocaleString()} rows`, `Older months, gzipped (~9× smaller) after a row-count and SHA-256 check. Read exactly like hot logs. Saved ${mb(st.archiveSavedMB)}.`],
-    ["Your computer", st.localCopyMB ? `${mb(st.localCopyMB)} copy · ${mb(st.ticksMB)} minute ticks` : "not running", "The 24/7 streamer keeps an uncompressed copy of every log plus the minute price log in local/ (never pushed, never deleted)."],
-    ["GitHub repo", `${mb(st.repoMB)} of ${mb(st.repoLimitMB)}`, st.repoGrowthMBPerDay != null ? `Growing ${st.repoGrowthMBPerDay} MB/day → about ${st.daysToRepoLimit ?? "∞"} days to the limit.` : "Growth rate appears after a day of history."],
-  ];
-  el.innerHTML = `<div class="kpis">${tiers.map(([n, v, w]) => `<div class="kpi"><span>${esc(n)}</span><b style="font-size:16px">${esc(v)}</b><span class="small">${esc(w)}</span></div>`).join("")}</div>
-    <p class="small" style="margin:12px 0 0"><span class="pill ${st.ok ? "c-good" : "c-warn"}">${st.ok ? "storage ok" : "check"}</span>
-    ${st.problems?.length ? esc(st.problems.join("; ")) : "Nothing near a limit."}</p>
-    <p class="small muted" style="margin:8px 0 0">The network trains on ${src ? `${(src.live || 0).toLocaleString()} live + ${(src.backtest || 0).toLocaleString()} backtest markets${src.minuteSnapshots ? ` + ${src.minuteSnapshots.toLocaleString()} minute snapshots (${src.minuteMarkets} markets)` : ""}${src.archivedFiles ? `, incl. ${src.archivedFiles} archived files` : ""}` : "everything once trained"}: the whole history, hot and archived. Minute snapshots are training-only and never used to score it.</p>`;
-}
-function paintPills() {
-  const g = D.progress.goal || "IN_PROGRESS", h = D.progress.health;
-  $("#goalPill").className = "pill " + statusTone(g); $("#goalPill").textContent = "goal: " + label(g);
-  const bad = D.status ? D.status.problems : (h?.ok ? 0 : 1);
-  $("#healthPill").className = "pill " + (bad ? "c-warn" : "c-good"); $("#healthPill").textContent = bad ? `pipeline: ${bad} issue${bad > 1 ? "s" : ""}` : "pipeline ok";
-}
-function route() {
-  const v = ({ pnl: "trading", trades: "agent", skills: "data" })[(location.hash || "#live").slice(1)] || (location.hash || "#live").slice(1);
-  document.querySelectorAll("[data-view]").forEach(s => s.hidden = s.id !== "v-" + v);
-  if (!document.getElementById("v-" + v)) $("#v-live").hidden = false;
-  document.querySelectorAll("nav a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === "#" + v || (!document.getElementById("v-" + v) && a.getAttribute("href") === "#live") ? "page" : "false"));
-}
-addEventListener("hashchange", route); route();
-load(); setInterval(() => document.visibilityState === "visible" && load(), 5 * 60e3);
+document.addEventListener("click", e => { const r = e.target.closest("tr.row"); if (r?.dataset.k) location.hash = "#m/" + encodeURIComponent(r.dataset.k); });
+addEventListener("hashchange", () => { const t = (location.hash.match(/^#(\w+)$/) || [])[1]; if (t && TABS.some(x => x[0] === t)) S.tab = t; render(); scrollTo(0, 0); });
+$("#theme").onclick = () => { const cur = document.documentElement.dataset.theme || (matchMedia("(prefers-color-scheme:dark)").matches ? "dark" : "light"), nx = cur === "dark" ? "light" : "dark"; document.documentElement.dataset.theme = nx; try { localStorage.setItem("theme", nx); } catch {} render(); };
+try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch {}
+setInterval(() => { if (S.tab === "live" && !location.hash.startsWith("#m/")) { const b = $("#liveBody"); if (b && (liveDirty || S.mode !== "stream")) { b.innerHTML = liveRows(); liveDirty = false; } } }, 250);   // prices repaint 4×/s; countdowns tick with them
+setInterval(header, 1000);
+setInterval(() => { if (S.mode === "published") pollLive(); }, 30000);
+setInterval(loadApp, 60000);
+loadApp(); connectLive();
+if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js").catch(() => {});
 </script>
+</body>
+</html>

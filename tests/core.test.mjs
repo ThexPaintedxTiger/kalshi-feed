@@ -67,7 +67,7 @@ for (const pf of config.paper.portfolios) assert.ok(!pf.predictor || pf.predicto
   const res = JSON.parse(sh(process.execPath, ["--input-type=module", "-e", code]).trim().split("\n").pop());
   assert.equal(res.resolved, 40); assert.ok(res.nn < 0);
   assert.equal(res.main, "main: pushed"); assert.equal(res.site, "site: pushed"); assert.equal(res.again, "site: unchanged"); assert.ok(res.hb < 1);
-  for (const f of ["scorecard", "progress", "status", "dashboard", "paper"]) assert.ok(existsSync(`${d}/site/${f}.json`), f);
+  for (const f of ["scorecard", "progress", "status", "app", "evals", "paper"]) assert.ok(existsSync(`${d}/site/${f}.json`), f);
   assert.equal(sh("git", ["rev-list", "--count", "site"], remote).trim(), "1");                       // single parentless commit
   const files = sh("git", ["ls-tree", "--name-only", "site"], remote);
   assert.ok(/index\.html/.test(files) && /scorecard\.json/.test(files) && /\.nojekyll/.test(files));

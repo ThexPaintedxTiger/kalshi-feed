@@ -36,7 +36,7 @@ export function evaluateModel(k, rows, { alpha, G = config.goals.edge, maxDev = 
     calibration: bins.map((b, i) => b.n ? { bin: `${i * 10}–${i * 10 + 10}%`, n: b.n, said: r4(b.p / b.n), happened: r4(b.y / b.n) } : null).filter(Boolean),
     misses: rs.map(r => ({ r, loss: logLoss(r.est[k], r.y) - logLoss(r.est.market, r.y) })).sort((a, b) => b.loss - a.loss).slice(0, 5).map(({ r, loss }) => ({ ticker: r.ticker, title: r.title, said: r.est[k], market: r.est.market, outcome: r.y ? "yes" : "no", worseBy: r4(loss) })),
     why: off ? (config.predictors[k].retired || "switched off") : status === "SUCCESS" ? "beats the market on the peeking-safe test and its picks are profitable after fees"
-      : `needs: ${n < G.minResolved ? `${G.minResolved - n} more resolved markets; ` : ""}${seq.hi >= 0 ? `sequence upper bound below 0 (now ${seq.hi > 0 ? "+" : ""}${seq.hi}); ` : ""}${pk.length < G.minPicks ? `${G.minPicks - pk.length} more picks; ` : ""}${!(money.lo > 0) ? `picks' P&L lower bound above 0 (now ${money.lo ?? "n/a"})` : ""}` };
+      : `needs: ${n < G.minResolved ? `${G.minResolved - n} more resolved markets; ` : ""}${!(seq.hi < 0) ? `whole peeking-safe range below 0${seq.hi == null ? "" : ` (upper end now ${seq.hi > 0 ? "+" : ""}${r4(seq.hi)})`}; ` : ""}${pk.length < G.minPicks ? `${G.minPicks - pk.length} more picks; ` : ""}${!(money.lo > 0) ? `picks' P&L range above 0${money.lo == null ? "" : ` (lower end now ${r4(money.lo)})`}` : ""}` };
 }
 
 // Model cards: what each model is, what it learned from, and what would change the verdict.
