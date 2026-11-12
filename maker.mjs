@@ -31,7 +31,7 @@ export function summary(all, start = 10) {
 }
 
 export async function run(ctx, { max = 40, fetchTrades = null } = {}) {
-  const done = new Set(rows().map(r => r.ticker)), s = ctx.store, todo = s.preds.filter(p => p.cfg >= 9 && !done.has(p.ticker) && s.result(p.ticker) != null && p.bid > 0 && p.ask < 1).slice(-max), out = [];
+  const done = new Set(rows().map(r => r.ticker)), s = ctx.store, todo = s.preds.filter(p => p.cfg >= 9 && !p.shadow && !done.has(p.ticker) && s.result(p.ticker) != null && p.bid > 0 && p.ask < 1).slice(-max), out = [];
   for (const p of todo) {
     try {
       const a = Math.floor(Date.parse(p.ts) / 1000), b = Math.ceil(Date.parse(p.resolvesAt) / 1000);

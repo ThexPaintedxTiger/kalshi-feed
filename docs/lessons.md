@@ -146,3 +146,9 @@ What we changed because the data (or a mistake) taught us something. Newest firs
 - 2026-11-12 (**cleanup**): removed `snapshots.mjs` (the engine takes training snapshots at the moment they happen, so they cannot use
   later ticks by construction) and the ops skill's `status.sh`. Docs rewritten for v2 (`CLAUDE.md`, `docs/architecture.md`,
   `docs/manual.md`, `docs/skills.md`, `docs/handoff.md`). `start.sh` / `start.cmd` send an alert when the daemon exits.
+- 2026-11-12 (**sports shadow test, config v14**). Sports stay excluded from verdicts, portfolios and training (owner's earlier choice), but
+  up to 10 sports markets per scan (one per event) are now logged with `shadow: true` and reported separately on the Breakdowns tab
+  ("Shadow test"). Why: the exclusion was a preference, not a finding (market Brier on 285 sports markets was 0.168); this measures
+  what it costs. Undo: `scan.shadowPerRun = 0`.
+- 2026-11-12 (**index/commodity quotes not added**): the free quote source tried (stooq) resets connections from the cloud, and unofficial
+  APIs conflict with "respect site terms". Left open in `docs/handoff.md`; needs a source the owner is happy with.

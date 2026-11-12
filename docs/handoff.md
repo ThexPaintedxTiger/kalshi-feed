@@ -43,8 +43,7 @@
 - **Economic-release calendar** (BLS, BEA, Fed, EIA schedules): a feature "minutes to the next scheduled release", from the
   agencies' own calendars. BLS blocks plain fetches (HTTP 403): use the calendar .ics or FRED.
 - **News facts as a model input.** Facts are stored and retrievable but are not an input to `calib`. Adding one is a counted variant.
-- **Sports shadow test.** Still excluded from scoring by the owner's earlier choice; shadow-logging them (flagged rows kept out of
-  portfolios) would show whether the exclusion costs anything.
+- **Sports shadow test** is now running (config v14): read "Shadow test" on the Breakdowns tab once a few hundred have resolved.
 - **Playwright scraping** was not needed: every source so far has an API or a feed.
 - **Network training in a worker thread** if the 3-second hourly pause ever matters.
 - Outside the repo, for the owner: the repo secret `GEMINI_API_KEY` is no longer read (delete it); the disabled scheduled task

@@ -1,5 +1,5 @@
 {
- "version": 13,
+ "version": 14,
  "scan": {
   "windowDays": 16,
   "horizonHours": 6,
@@ -12,7 +12,11 @@
   "maxNewPerRun": 80,
   "excludeCategories": [
    "Sports"
-  ]
+  ],
+  "shadowCategories": [
+   "Sports"
+  ],
+  "shadowPerRun": 10
  },
  "predictors": {
   "market": {

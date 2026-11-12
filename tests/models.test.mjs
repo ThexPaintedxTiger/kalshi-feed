@@ -96,3 +96,14 @@ const rand = rng(11), gauss = () => Math.sqrt(-2 * Math.log(rand() + 1e-12)) * M
   assert.equal(evaluateModel("good", rows.slice(0, 60), { alpha: 0.05 / 13, G, maxDev: 0.1 }).status, "ON_TRACK");   // leaning better, far too early to call
   assert.ok(config.models.calib.maxDev <= 0.1 && config.evals.frozenAt);
 }
+
+// ---- Shadow test: excluded categories are logged a few per run, one per event, flagged, and kept out of verdicts.
+{
+  const { select } = await import("../predict.mjs");
+  const mk = (t, ev, v) => ({ m: { ticker: t, event_ticker: ev, volume_24h_fp: String(v) }, mid: 0.5 });
+  const cand = [mk("C1-A", "C1", 9), mk("S1-A", "S1", 8), mk("S1-B", "S1", 7), mk("S2-A", "S2", 6), ...Array.from({ length: 30 }, (_, i) => mk(`S${i + 3}-A`, `S${i + 3}`, 1))];
+  const cats = Object.fromEntries(cand.map(c => [c.m.ticker.split("-")[0], c.m.ticker.startsWith("C") ? "Crypto" : "Sports"]));
+  const chosen = select(cand, new Set(), cats), sh = chosen.filter(c => c.shadow);
+  assert.equal(chosen.filter(c => !c.shadow).length, 1); assert.equal(sh.length, config.scan.shadowPerRun); assert.equal(new Set(sh.map(c => c.m.event_ticker)).size, sh.length);
+  assert.deepEqual(config.scan.shadowCategories, ["Sports"]); assert.ok(config.scan.excludeCategories.includes("Sports"));
+}

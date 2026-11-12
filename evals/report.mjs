@@ -57,6 +57,8 @@ export function run(ctx, extra = {}) {
   for (const p of s.preds) { const y = s.result(p.ticker); if (y == null) continue; const o = s.out.get(p.ticker), t = Date.parse(p.ts);
     if (t >= Math.min(Date.parse(p.resolvesAt), Date.parse(o.settledAt || p.resolvesAt), Date.parse(o.closedAt || p.resolvesAt))) continue;      // leakage guard
     rows.push({ ...p, y, known: Date.parse(o.settledAt || p.resolvesAt) }); }
+  // Shadow rows (excluded categories, logged only to measure the exclusion) never enter a verdict.
+  const shadowRows = rows.filter(r => r.shadow); for (let i = rows.length - 1; i >= 0; i--) if (rows[i].shadow) rows.splice(i, 1);
   const fam = family(), alpha = config.evals.alpha / fam, names = [...new Set(rows.flatMap(r => Object.keys(r.est)))].filter(k => k !== "market");
   for (const k of Object.keys(config.predictors)) if (k !== "market" && !names.includes(k)) names.push(k);
   const models = {}; for (const k of names) models[k] = evaluateModel(k, rows, { alpha, maxDev: config.models?.[k]?.maxDev ?? null });
@@ -69,8 +71,17 @@ export function run(ctx, extra = {}) {
   const success = Object.values(models).filter(m => m.status === "SUCCESS").map(m => m.model);
   return ctx.emit("evals", { at: new Date().toISOString(), cfg: config.version, alpha: config.evals.alpha, family: fam, alphaEach: alpha, frozenAt: config.evals.frozenAt, note: config.evals.note,
     market, controls: { cash: { perPick: 0 }, coinFlip: { n: coin.length, perPick: coinSeq.mean, sequence: { lo: coinSeq.lo, hi: coinSeq.hi } } },
-    models, cards: Object.fromEntries(names.map(k => [k, card(k, models[k], ctx)])), leakage: leak, success,
+    shadow: shadowBlock(shadowRows), models, cards: Object.fromEntries(names.map(k => [k, card(k, models[k], ctx)])), leakage: leak, success,
     headline: success.length ? `${success.join(", ")} passed the peeking-safe test: paper-trade candidate. Real money still needs the owner's yes.`
       : `Nothing beats the market. ${rows.length} live markets resolved; the market's own Brier is ${market.brier}. Best so far: ${best(models)}.` });
+}
+// Description only (ordinary intervals): how the market and each model do on the excluded categories.
+function shadowBlock(rows) {
+  if (!rows.length) return { n: 0, note: "no resolved shadow rows yet" };
+  const names = [...new Set(rows.flatMap(r => Object.keys(r.est)))].filter(k => k !== "market"), byCat = {};
+  for (const r of rows) (byCat[r.cat || "?"] ||= []).push(r);
+  return { n: rows.length, events: new Set(rows.map(r => r.event)).size, note: "Excluded categories, logged for comparison only. Not in any verdict, portfolio or training set. Ordinary 95% intervals: descriptive.",
+    byCategory: Object.entries(byCat).map(([cat, a]) => ({ cat, n: a.length, brierMarket: r4(a.reduce((s, r) => s + brier(r.est.market, r.y), 0) / a.length) })),
+    models: Object.fromEntries(names.map(k => { const rs = rows.filter(r => r.est[k] != null), c = clustered(rs, r => brier(r.est[k], r.y) - brier(r.est.market, r.y)); return [k, { n: rs.length, diff: c.mean, lo: c.lo, hi: c.hi }]; })) };
 }
 const best = models => { const a = Object.values(models).filter(m => m.status !== "RETIRED" && m.n >= 20).sort((x, y) => x.vsMarket.snapshot95.diff - y.vsMarket.snapshot95.diff)[0]; return a ? `${a.model} ${a.vsMarket.snapshot95.diff > 0 ? "+" : ""}${a.vsMarket.snapshot95.diff} Brier vs market (not significant)` : "no model has 20 resolved yet"; };

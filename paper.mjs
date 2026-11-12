@@ -173,7 +173,7 @@ export function run(ctx) {
   const oos = ctx.get("nn-oos", "state") || {}, out = Object.fromEntries(ctx.store.out);
   const replay = ctx.store.backtest.filter(r => !excluded.has(r.cat)).map(r => ({ ...r, est: { ...r.est, nn: oos[r.ticker] } }))
     .sort((a, b) => Date.parse(a.ts) - Date.parse(b.ts));
-  const forward = ctx.store.preds.filter(p => p.cfg >= 4 && !excluded.has(p.cat)).map(p => {
+  const forward = ctx.store.preds.filter(p => p.cfg >= 4 && !p.shadow && !excluded.has(p.cat)).map(p => {
     const o = out[p.ticker], y = o?.result === "yes" ? 1 : o?.result === "no" ? 0 : null;
     return { ...p, y, settledAt: o?.settledAt || p.resolvesAt };
   }).sort((a, b) => Date.parse(a.ts) - Date.parse(b.ts));

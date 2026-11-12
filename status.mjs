@@ -22,7 +22,7 @@ const H = config.goals.health.maxBacklogHours * 60, have = new Set(outcomes.map(
 const due = preds.filter(p => ago(p.resolvesAt) > H), missing = due.filter(p => !have.has(p.ticker));
 const waiting = preds.filter(p => ago(p.resolvesAt) > 0 && ago(p.resolvesAt) <= H && !have.has(p.ticker)).length;
 check("Outcomes are being collected", missing.length <= Math.max(5, due.length * 0.02), `${due.length - missing.length}/${due.length} predictions due >${H / 60} h ago have an official result; ${waiting} newer ones awaiting Kalshi's settlement`);
-check("Scorecard matches the logs", sc.predictions === preds.length, `scorecard counts ${sc.predictions}, log has ${preds.length}`);
+{ const main = preds.filter(p => !p.shadow).length; check("Scorecard matches the logs", sc.predictions === main, `scorecard counts ${sc.predictions}, log has ${main} (+${preds.length - main} shadow rows scored separately)`); }
 { const lk = ctx.get("evals")?.leakage; check("Leakage eval is 0 (no future data in predictions or training)", lk ? lk.total === 0 : (sc.excludedLeakage || 0) === 0, lk ? `${lk.total} violations across ${lk.checks.length} checks` : `leakage ${sc.excludedLeakage || 0}`); }
 const dup = st0.dupes;                 // extra rows for an already-logged market (ignored by readers)
 check("No duplicate predictions", dup <= preds.length * 0.01, dup ? `${dup} repeat rows ignored (first logged row counts)` : "none");

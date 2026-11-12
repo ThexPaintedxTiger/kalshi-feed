@@ -41,11 +41,14 @@ export function select(cand, seen, cats, max = S.maxNewPerRun) {
   for (const c of cand) if (!seen.has(c.m.ticker)) (byEvent[c.m.event_ticker] ||= []).push(c);
   const pool = Object.values(byEvent).flatMap(a => a.sort((x, y) => Math.abs(x.mid - 0.5) - Math.abs(y.mid - 0.5)).slice(0, S.perEvent));
   pool.sort((a, b) => +(b.m.volume_24h_fp || 0) - +(a.m.volume_24h_fp || 0));
-  const byCat = {}, excluded = new Set(S.excludeCategories || []);
-  for (const c of pool) { const cat = cats[series(c.m)] || "?"; if (!excluded.has(cat)) (byCat[cat] ||= []).push(c); }
+  const byCat = {}, excluded = new Set(S.excludeCategories || []), shadowCats = new Set(S.shadowCategories || []), shadow = [];
+  for (const c of pool) { const cat = cats[series(c.m)] || "?"; if (!excluded.has(cat)) (byCat[cat] ||= []).push(c); else if (shadowCats.has(cat)) shadow.push(c); }
   const chosen = [];
   for (let i = 0; chosen.length < max && Object.values(byCat).some(a => a.length > i); i++)
     for (const a of Object.values(byCat)) if (a[i] && chosen.length < max) chosen.push(a[i]);
+  // Shadow test: a few markets from excluded categories are logged and scored separately (flag `shadow`), one per event,
+  // never in a verdict, a portfolio or a training set. It measures what the exclusion costs.
+  const ev = new Set(); for (const c of shadow) { if (ev.size >= (S.shadowPerRun ?? 0)) break; if (ev.has(c.m.event_ticker)) continue; ev.add(c.m.event_ticker); chosen.push({ ...c, shadow: true }); }
   return chosen;
 }
 
@@ -93,13 +96,13 @@ export async function logPredictions(ctx, chosen, now = Date.now(), cats = {}, f
     }
   }
   ctx.emit("external", { at: runId, ...extStat }, "state");
-  const rows = chosen.map(({ m, ask, bid, mid, res, lead }) => {
+  const rows = chosen.map(({ m, ask, bid, mid, res, lead, shadow }) => {
     const f = feat?.[m.ticker], bk = book[m.ticker] || {};
     const chg30 = f ? f.chg30 ?? null : m.ticker in move ? r4(mid - move[m.ticker]) : null, vol30 = f ? f.vol30 ?? null : vol[m.ticker] ?? null;
     const imb5 = (f ?? bk).imb5 ?? null, flow30 = (f ?? bk).flow30 ?? null, vol30t = (f ?? bk).vol30t ?? null, cat = cats[series(m)] || "";
     const { est, picks } = estimate({ mid, ask, bid, series: series(m), at: now, cat, resolvesAt: res, leadMin: lead / 6e4, chg30, vol30, imb5, flow30, ext: ext[m.ticker] }, { recall: ctx.recall });
     return {
-      ts: runId, run: sha, cfg: config.version, ticker: m.ticker, event: m.event_ticker, series: series(m), cat,
+      ts: runId, run: sha, cfg: config.version, ...(shadow ? { shadow: true } : {}), ticker: m.ticker, event: m.event_ticker, series: series(m), cat,
       title: m.title + (m.yes_sub_title && !String(m.title).includes(m.yes_sub_title) ? " — " + m.yes_sub_title : ""),
       rules: String(m.rules_primary || "").slice(0, 300),
       ...(m.strike_type ? { strike: { type: m.strike_type, floor: m.floor_strike ?? null, cap: m.cap_strike ?? null } } : {}),

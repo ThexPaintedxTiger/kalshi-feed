@@ -66,7 +66,7 @@ export function score(preds, outcomes, cfg = config) {
 }
 
 export function run(ctx) {
-  const sc = ctx.emit("scorecard", score(ctx.store.preds, ctx.store.outcomes));
+  const sc = ctx.emit("scorecard", score(ctx.store.preds.filter(p => !p.shadow), ctx.store.outcomes));
   return `scorecard: ${sc.predictions} predictions, ${sc.resolved} resolved, ` + Object.entries(sc.predictors).map(([k, v]) => `${k} ${v.brierVsMarket.mean} (${v.verdict})`).join("; ");
 }
 if (import.meta.url === `file://${process.argv[1]}`) { const { makeCtx } = await import("./core/ctx.mjs"); console.log(run(makeCtx())); }
