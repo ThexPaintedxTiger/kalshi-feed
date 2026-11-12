@@ -32,7 +32,7 @@ const pfs = [...(paper?.replay?.portfolios || []), ...(paper?.forward?.portfolio
 check("Bet-size safety held (≤5% per bet)", pfs.every(p => (p.maxBetPct || 0) <= config.paper.safety.maxFracPerBet * 100 + 0.01), `largest bet ${Math.max(0, ...pfs.map(p => p.maxBetPct || 0))}%`);
 check("Paper money adds up", pfs.every(p => p.equity >= 0 && Number.isFinite(p.equity)), `${pfs.length} portfolios checked`);
 const ext = ctx.get("external", "state");
-for (const [k, name] of [["crypto", "Coinbase crypto agent"], ["weather", "weather agent"]].filter(([k]) => config.predictors[k === "crypto" ? "crypto_fair" : "weather_nws"]?.on)) {
+for (const [k, name] of [["crypto", "Coinbase crypto agent"], ["weather", "weather agent"]].filter(([k]) => config.predictors[k === "crypto" ? "crypto_fair" : "weather_idx"]?.on)) {
   const x = ext?.[k];
   check(`Outside data: ${name}`, ext && ago(ext.at) <= 30 && (!x?.tried || x.got > 0), ext ? `${x?.got ?? 0}/${x?.tried ?? 0} markets got an outside estimate, ${Math.round(ago(ext.at))} min ago` : "not run yet");
 }

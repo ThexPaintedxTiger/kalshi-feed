@@ -179,11 +179,12 @@ assert.equal(r4(kellyFraction(0.6, 0.5)), 0.2); assert.equal(kellyFraction(0.4, 
   assert.ok(btw > 0.6 && btw < 0.7);                                               // ±1σ ≈ 68%
   assert.equal(CR.product("KXBTCD"), "BTC-USD"); assert.equal(CR.product("KXHYPED"), null); assert.equal(CR.product("KXINXU"), null);
   assert.equal(WX.tempProb({ F: 60, sigma: 2, strikeType: "greater", floor: 60 }).toFixed(2), "0.50");
-  assert.ok(WX.tempProb({ F: 60, sigma: 1, strikeType: "greater", floor: 64 }) < 0.01);
-  assert.ok(WX.sigmaFor(0, true) < WX.sigmaFor(3, true) && WX.sigmaFor(30) === 5);
+  assert.equal(WX.tempProb({ F: 60, sigma: 0.5, strikeType: "greater", floor: 75 }), 0.03);          // clamped: never more certain than 97%
+  assert.equal(WX.tempProb({ F: 60, sigma: 0.5, strikeType: "greater", floor: 61 }), WX.tempProb({ F: 60, sigma: 2.5, strikeType: "greater", floor: 61 }));   // σ floor 2.5°F
+  assert.ok(WX.sigmaFor(0) >= 2.5 && WX.sigmaFor(0, { n: 100, sd: 1.2 }) === 2.5 && WX.sigmaFor(1, { n: 100, sd: 3.1 }) === 3.1);
   assert.equal(WX.covers("KXTEMPNYCHS"), true); assert.equal(WX.covers("KXBTCD"), false);
   const e3 = estimate({ mid: 0.5, ask: 0.51, bid: 0.49, series: "KXINXU", at: 1, cat: "Financials", resolvesAt: new Date().toISOString() }, {});
-  assert.ok(!("crypto_fair" in e3.est) && !("weather_nws" in e3.est));          // not their market → not scored there
+  assert.ok(!("crypto_fair" in e3.est) && !("weather_idx" in e3.est));          // not their market → not scored there
   const e4 = estimate({ mid: 0.5, ask: 0.51, bid: 0.49, series: "KXBTCD", at: 1, cat: "Crypto", resolvesAt: new Date().toISOString(), ext: { crypto: { p: 0.7 } } }, {});
   assert.equal(e4.est.crypto_fair, 0.7); assert.equal(e4.picks.crypto_fair.side, "yes");
 }
@@ -264,4 +265,5 @@ assert.deepEqual(firstPerTicker([{ ticker: "A", n: 1 }, { ticker: "B", n: 2 }, {
 await import("./tests/core.test.mjs");
 await import("./tests/live.test.mjs");
 await import("./tests/models.test.mjs");
+await import("./tests/outside.test.mjs");
 console.log("all tests passed");

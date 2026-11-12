@@ -25,7 +25,12 @@ export class Engine {
     for (const k of [...this.meta.keys()]) if (!keep.has(k)) { this.meta.delete(k); this.markets.delete(k); }
   }
   onMessage(m, t) {
-    if (m.type === "_state") return this.setLive(m.live);                        // recorded stream up/down marker (replay)
+    if (m.type === "_state") return this.setLive(m.live);
+    if (m.type === "cfbenchmarks_value") {                                         // index value (e.g. BRTI): the crypto settlement reference
+      const d = m.msg || {}; let v = null; try { v = +JSON.parse(d.data).value; } catch {}
+      if (d.index_id && v > 0) (this.index ||= new Map()).set(d.index_id, { value: v, avg60: +d.avg_60s_data?.value || null, at: t });
+      return;
+    }                        // recorded stream up/down marker (replay)
     const d = m.msg || {}, k = d.market_ticker; if (!k) return;
     if (m.type === "market_lifecycle_v2") {
       const ev = d.event_type;

@@ -1,5 +1,5 @@
 {
- "version": 11,
+ "version": 12,
  "scan": {
   "windowDays": 16,
   "horizonHours": 6,
@@ -51,6 +51,14 @@
   "ensemble": {
    "on": true,
    "hypothesis": "A logistic blend of the active models (calib, nn, crypto_fair) and the market, trained only on their out-of-sample estimates, beats the price. Capped at ±10 points from the market."
+  },
+  "weather_idx": {
+   "on": true,
+   "hypothesis": "Outside data: the average of the settlement index's own member airport stations (NWS observations), with the last hour's trend carried forward, prices hourly temperature markets. σ never below 2.5°F, estimates clamped to 3–97%. Scored on its own; no paper portfolio until it passes."
+  },
+  "ladder": {
+   "on": true,
+   "hypothesis": "Structure: across the strikes of one event, probabilities must be monotone (and a full set of ranges must sum to 1). A strike quoted off that curve moves back onto it."
   }
  },
  "picks": {
@@ -213,7 +221,15 @@
   "updateMove": 0.03,
   "updateEveryMin": 15,
   "updateMinGapSec": 60,
-  "staleSec": 90
+  "staleSec": 90,
+  "indices": [
+   "BRTI",
+   "ETHUSD_RTI",
+   "SOLUSD_RTI",
+   "XRPUSD_RTI",
+   "DOGEUSD_RTI",
+   "BNBUSD_RTI"
+  ]
  },
  "alerts": {
   "downMin": 2,
@@ -243,6 +259,13 @@
   "nn": {
    "variantsTried": 3,
    "note": "three architectures/input sets were tried on 2026-11-10 (see lessons.md)"
+  },
+  "weather_idx": {
+   "variantsTried": 2,
+   "note": "2026-11-12: nowcast only vs nowcast + last-hour trend, on the 56 logged rows. Brier 0.288 vs 0.225; market 0.136. Trend kept. Still worse than the market on that sample."
+  },
+  "ladder": {
+   "variantsTried": 1
   }
  },
  "evals": {

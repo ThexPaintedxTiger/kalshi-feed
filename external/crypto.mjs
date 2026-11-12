@@ -36,6 +36,26 @@ export function fromCandles(rows) {
   return { spot: c.at(-1)[4], sigmaMin: sd, n: c.length, lastAt: c.at(-1)[0] * 1000 };
 }
 
+// Settlement reference. Kalshi's crypto markets settle on CF Benchmarks real-time indices (BRTI for BTC, <COIN>USD_RTI
+// otherwise). The live daemon receives those values on Kalshi's own `cfbenchmarks_value` stream (needs the read-only key)
+// and registers a lookup here. Without it (cloud, or stream down) the spot is the MEDIAN of several exchanges' last
+// prices, which tracks a multi-exchange index more closely than Coinbase alone.
+export const indexId = prod => { const c = String(prod || "").split("-")[0]; return c === "BTC" ? "BRTI" : c ? `${c}USD_RTI` : null; };
+let refLookup = null;
+export const setReference = fn => { refLookup = fn; };
+const PAIRS = { "BTC-USD": ["XBTUSD", "btcusd"], "ETH-USD": ["ETHUSD", "ethusd"], "SOL-USD": ["SOLUSD", "solusd"], "XRP-USD": ["XRPUSD", "xrpusd"], "DOGE-USD": ["XDGUSD", "dogeusd"] };
+const quick = async (url, pick) => { try { const c = new AbortController(), t = setTimeout(() => c.abort(), 4000), r = await fetch(url, { signal: c.signal, headers: { "user-agent": "kalshi-research-agent" } }); clearTimeout(t); if (!r.ok) return null; const v = +pick(await r.json()); return v > 0 ? v : null; } catch { return null; } };
+export const median = a => { const s = a.filter(x => x > 0).sort((x, y) => x - y); return s.length ? (s.length % 2 ? s[(s.length - 1) / 2] : (s[s.length / 2 - 1] + s[s.length / 2]) / 2) : null; };
+// Best available spot right now: { spot, src, n }. `coinbase` = the candle-based spot already fetched.
+export async function referenceSpot(prod, coinbase, now = Date.now()) {
+  const ref = refLookup?.(indexId(prod));
+  if (ref && now - ref.at <= 15e3 && ref.value > 0) return { spot: ref.value, src: "cf-benchmarks (Kalshi stream)", n: 1 };
+  const p = PAIRS[prod]; if (!p) return { spot: coinbase, src: "coinbase", n: 1 };
+  const [kr, bs] = await Promise.all([quick(`https://api.kraken.com/0/public/Ticker?pair=${p[0]}`, j => Object.values(j.result || {})[0]?.c?.[0]), quick(`https://www.bitstamp.net/api/v2/ticker/${p[1]}/`, j => j.last)]);
+  const all = [coinbase, kr, bs].filter(x => x > 0 && Math.abs(x / coinbase - 1) < 0.02);            // drop a venue that is > 2% off (stale or wrong asset)
+  return all.length >= 2 ? { spot: median(all), src: "median of " + all.length + " exchanges", n: all.length } : { spot: coinbase, src: "coinbase", n: 1 };
+}
+
 const cache = new Map();
 export async function snapshot(prod, endMs, minutes = 120) {
   const key = prod + "|" + Math.floor(endMs / 6e4);
@@ -58,8 +78,12 @@ export async function snapshot(prod, endMs, minutes = 120) {
 // Estimate for one Kalshi market object at time atMs, or null when this agent doesn't cover it.
 export async function estimate(m, atMs, series) {
   const prod = product(series); if (!prod) return null;
-  const snap = await snapshot(prod, atMs); if (!snap) return null;
+  const snap0 = await snapshot(prod, atMs); if (!snap0) return null;
+  const snap = { ...snap0 };
   const minutes = (Date.parse(m.close_time) - atMs) / 6e4;
+  // Live estimates use the settlement reference (or the multi-exchange median); backtests keep the historical Coinbase candle.
+  const live = Math.abs(Date.now() - atMs) < 120e3, ref = live ? await referenceSpot(prod, snap.spot) : { spot: snap.spot, src: "coinbase", n: 1 };
+  snap.spot = ref.spot;
   const p = fairProb({ spot: snap.spot, sigmaMin: snap.sigmaMin, minutes, strikeType: m.strike_type, floor: +m.floor_strike || null, cap: +m.cap_strike || null });
   // Mismatch guard: an uncertain market (10–90%) answered with near-certainty from a strike far from spot means the outside
   // price probably isn't the asset Kalshi settles on. Skip rather than feed a confident wrong number.
@@ -67,5 +91,5 @@ export async function estimate(m, atMs, series) {
   if (p != null && mid > 0.1 && mid < 0.9 && (p < 0.01 || p > 0.99) && K > 0 && Math.abs(Math.log(snap.spot / K)) > 0.15) {
     console.log(`crypto agent: source mismatch on ${m.ticker} (spot ${snap.spot}, strike ${K}, market ${mid.toFixed(2)}): skipped`); return null;
   }
-  return p == null ? null : { p: r4(p), src: "coinbase", product: prod, spot: snap.spot, sigmaMin: r4(snap.sigmaMin * 1e4) / 1e4, minutes: Math.round(minutes), at: snap.at };
+  return p == null ? null : { p: r4(p), src: ref.src, venues: ref.n, product: prod, spot: snap.spot, sigmaMin: r4(snap.sigmaMin * 1e4) / 1e4, minutes: Math.round(minutes), at: snap.at };
 }

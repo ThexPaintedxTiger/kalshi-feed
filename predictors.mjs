@@ -22,7 +22,8 @@ export const PRED = {
 // nn needs c.cat and c.resolvesAt as well.
 // Outside-data predictors: only where an outside estimate exists for this market (null = not scored here).
 PRED.crypto_fair = c => c.ext?.crypto?.p ?? null;
-PRED.weather_nws = c => c.ext?.weather?.p ?? null;
+PRED.weather_idx = c => (c.ext?.weather?.src === "nws-index" ? c.ext.weather.p : null);   // rebuilt on the index member stations (the old single-station weather_nws is gone)
+PRED.ladder = c => c.ext?.ladder?.p ?? null;                 // only for markets in a multi-strike event
 PRED.ensemble = () => null;                                   // computed in estimate() from the other models
 
 // calib and ensemble read their weights from state/ (set in memory after each refit in a long-running process).

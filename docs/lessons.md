@@ -109,3 +109,23 @@ What we changed because the data (or a mistake) taught us something. Newest firs
 - 2026-11-12 (**leakage eval**, `evals/leakage.mjs`): 7 automated checks (prediction before resolution; outside data not newer than the row;
   backtest/minute snapshots before resolution; walk-forward training rows known before the test block; retrieved memory and news facts dated
   before the estimate). Today: 0 violations over 1,473 predictions, 236 outside-data stamps, 1,928 backtest rows. Rows now carry `loggedAt`.
+- 2026-11-12 (**weather rebuilt, config v12; root cause confirmed**). The contract terms (`assets.kalshi.com/contract_terms/<CITY>WINDEX.pdf`,
+  Appendix B) define the settlement index as the **equal-weight average of named airport ASOS stations** (Chicago: KMDW, KORD, KPWK, KDPA,
+  KARR; New York: 8 stations; Los Angeles and Miami: 5 each), published only with ≥ 80% of the weight. The old agent read one station
+  (the "nearest" to a city-centre point), which ran 3–8°F warmer than the index on the logged evenings. Check: the member-station average
+  from free NWS observations reproduces Kalshi's official result on **47 of 56** logged markets (the 9 misses are all within ~1°F of the
+  strike: NWS observations are up to an hour old, the index is per-minute). New agent `external/weather.mjs`: member average + the last
+  hour's trend carried forward; σ ≥ 2.5°F; clamp 3–97%. On the 56 rows: bias −1.06°F → +0.07°F with the trend; Brier 0.397 (old) →
+  0.225 (new) vs **market 0.136**. So it is fixed but still clearly worse than the market (with a 2.5°F floor and strikes within 1°F it
+  mostly says ~50%). Decision: it runs as a separately scored predictor `weather_idx` with no paper portfolio; the old `weather_nws`
+  stays off and its record stays as logged. A Synoptic token (one-minute data) is the only thing likely to make it competitive.
+  Regression test: `tests/outside.test.mjs` + `tests/fixtures/weather.json.gz`. 2 variants tried. Undo: `predictors.weather_idx.on = false`.
+- 2026-11-12 (**`ladder` predictor on, config v12**): isotonic fit across an event's strikes; equals the market unless a strike is off the
+  curve. Scored on its own. Undo: `predictors.ladder.on = false`.
+- 2026-11-12 (**maker paper portfolio**, `maker.mjs`): one contract resting on each side at the logged best bid/offer, filled only when a
+  later trade on Kalshi's public tape crosses (queue ahead respected), held to settlement, maker fee always charged. Uses the public trades
+  endpoint so it also runs in the cloud; the daemon's own trade stream gives the same tape.
+- 2026-11-12 (**crypto reference**): live crypto estimates now use Kalshi's `cfbenchmarks_value` stream (the settlement index itself) when the
+  daemon has it, else the median of Coinbase, Kraken and Bitstamp. Volatility still from Coinbase 1-minute candles. Backtests unchanged.
+- 2026-11-12 (**not built yet, on purpose**): index/commodity fair values (futures vs cash index needs a basis model and an official close
+  source) and the economic-release calendar. They are listed in `docs/handoff.md` with what each needs. Nothing depends on them.

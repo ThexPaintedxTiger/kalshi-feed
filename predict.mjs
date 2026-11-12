@@ -7,10 +7,11 @@ import { config, kalshi, sleep, resolvesAt, series, r4, categories, writeJson } 
 import { estimate } from "./predictors.mjs";
 import * as crypto from "./external/crypto.mjs";
 import * as weather from "./external/weather.mjs";
+import { fitAll } from "./models/ladder.mjs";
 
 const S = config.scan;
 // Outside-data agents: only for predictors that are switched on.
-const AGENTS = [["crypto", crypto, s => config.predictors.crypto_fair?.on && crypto.product(s)], ["weather", weather, s => config.predictors.weather_nws?.on && weather.covers(s)]];
+const AGENTS = [["crypto", crypto, s => config.predictors.crypto_fair?.on && crypto.product(s)], ["weather", weather, s => config.predictors.weather_idx?.on && weather.covers(s)]];
 
 // 1. Discover: open single markets (no multi-leg combos) closing inside the window.
 export async function discover(now = Date.now()) {
@@ -82,6 +83,8 @@ export async function logPredictions(ctx, chosen, now = Date.now(), cats = {}, f
     try { const e = await ag[1].estimate(m, now, s); if (e) { ext[m.ticker] = { [ag[0]]: e }; extStat[ag[0]].got++; } }
     catch (e) { ctx.log(`${ag[0]} agent failed on ${m.ticker}: ${e.message}`); }
   }
+  // Structure across an event's strikes (no outside data): where this market sits relative to the monotone curve.
+  if (config.predictors.ladder?.on && ctx.ladders) for (const { m } of chosen) { const l = ctx.ladders[m.ticker]; if (l) (ext[m.ticker] ||= {}).ladder = { ...l, at: runId }; }
   ctx.emit("external", { at: runId, ...extStat }, "state");
   const rows = chosen.map(({ m, ask, bid, mid, res, lead }) => {
     const f = feat?.[m.ticker], bk = book[m.ticker] || {};
@@ -107,6 +110,7 @@ export async function logPredictions(ctx, chosen, now = Date.now(), cats = {}, f
 export async function run(ctx) {
   const now = Date.now(), { markets, pages } = await discover(now), cand = candidates(markets, now), seen = new Set(ctx.store.pred.keys());
   const cats = await categories([...cand.filter(c => !seen.has(c.m.ticker)).map(c => series(c.m)), ...ctx.store.preds.slice(-500).map(p => p.series)]);
+  ctx.ladders = config.predictors.ladder?.on ? fitAll(markets) : null;
   const chosen = select(cand, seen, cats), lf = ctx.liveFeat || {};
   // Markets the live stream already has a synced book for use its features; the rest use the public endpoints.
   const viaWs = chosen.filter(c => lf[c.m.ticker]), viaRest = chosen.filter(c => !lf[c.m.ticker]);

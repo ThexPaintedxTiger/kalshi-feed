@@ -41,7 +41,7 @@ export const series = m => String(m.event_ticker || m.ticker || "").split("-")[0
 export const marketUrl = s => "https://kalshi.com/markets/" + String(s || "").toLowerCase();
 export const mean = a => a.reduce((s, x) => s + x, 0) / (a.length || 1);
 export const LOG_KINDS = ["predictions", "backtest", "snapshots"];                    // month-file logs loaded into memory (hot + archive)
-export const ARCHIVE_KINDS = [...LOG_KINDS, "updates"];                              // every month-file log (updates = re-estimates, not loaded by default)
+export const ARCHIVE_KINDS = [...LOG_KINDS, "updates", "maker"];                              // every month-file log (updates = re-estimates, not loaded by default)
 export const clip = (p, e = 0.01) => Math.min(1 - e, Math.max(e, p));
 export const r4 = x => Math.round(x * 1e4) / 1e4;
 

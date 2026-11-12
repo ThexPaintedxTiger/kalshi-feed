@@ -8,8 +8,8 @@ import { assertChannels } from "../kalshi-auth.mjs";
 const PER_MARKET = ["orderbook_delta", "trade", "ticker"], CHUNK = 100;
 
 export class KalshiWS extends EventEmitter {
-  constructor({ connect, lifecycle = true, now = Date.now, setTimer = setTimeout, clearTimer = clearTimeout, quietMs = 30e3, log = () => {} }) {
-    super(); Object.assign(this, { connect, lifecycle, now, setTimer, clearTimer, quietMs, log });
+  constructor({ connect, lifecycle = true, indices = [], now = Date.now, setTimer = setTimeout, clearTimer = clearTimeout, quietMs = 30e3, log = () => {} }) {
+    super(); Object.assign(this, { connect, lifecycle, indices, now, setTimer, clearTimer, quietMs, log });
     this.want = new Set(); this.have = new Set(); this.sids = {}; this.seq = {}; this.pending = new Map(); this.id = 0;
     this.state = "idle"; this.backoff = 1000; this.stats = { messages: 0, reconnects: 0, gaps: 0, errors: 0, lastMsgAt: 0, connectedAt: 0, downMs: 0, downSince: now() };
     this.stopped = false; this.sock = null;
@@ -38,6 +38,7 @@ export class KalshiWS extends EventEmitter {
   subscribeAll() {
     this.subSent = false;
     if (this.lifecycle) this.send("subscribe", { channels: assertChannels(["market_lifecycle_v2"]) });
+    if (this.indices.length) this.send("subscribe", { channels: assertChannels(["cfbenchmarks_value"]), index_ids: this.indices });   // settlement reference values
     this.first();
   }
   // First per-market subscribe (creates the three subscriptions); the rest of the set is added once their sids are known.

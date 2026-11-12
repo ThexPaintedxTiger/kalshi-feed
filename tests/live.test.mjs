@@ -37,13 +37,14 @@ const trade = (k, yesPrice, n, side, ts) => ({ type: "trade", sid: 2, seq: 1, ms
 {
   FakeSocket.all = []; FakeSocket.sid = 1;
   const ck = fakeClock(T0), logs = [], msgs = [];
-  const ws = new KalshiWS({ connect: () => new FakeSocket(), now: ck.now, setTimer: ck.set, clearTimer: ck.clear, log: m => logs.push(m), quietMs: 30e3 });
+  const ws = new KalshiWS({ connect: () => new FakeSocket(), now: ck.now, setTimer: ck.set, clearTimer: ck.clear, log: m => logs.push(m), quietMs: 30e3, indices: ["BRTI"] });
   ws.on("message", m => msgs.push(m));
   const many = Array.from({ length: 250 }, (_, i) => "M" + i);
   ws.setMarkets(many); ws.start();
   let s = FakeSocket.all[0]; s.open();
-  assert.deepEqual(s.cmds("subscribe").map(c => c.params.channels.join()), ["market_lifecycle_v2", "orderbook_delta,trade,ticker"]);
-  assert.equal(s.cmds("subscribe")[1].params.market_tickers.length, 100);
+  assert.deepEqual(s.cmds("subscribe").map(c => c.params.channels.join()), ["market_lifecycle_v2", "cfbenchmarks_value", "orderbook_delta,trade,ticker"]);
+  assert.deepEqual(s.cmds("subscribe")[1].params.index_ids, ["BRTI"]);
+  assert.equal(s.cmds("subscribe")[2].params.market_tickers.length, 100);
   s.ack(); assert.equal(ws.state, "live");
   const adds = s.cmds("update_subscription").filter(c => c.params.action === "add_markets");
   assert.equal(adds.length, 6); assert.equal(ws.have.size, 250);                             // 150 more markets × 3 subscriptions, in chunks of 100
@@ -63,7 +64,7 @@ const trade = (k, yesPrice, n, side, ts) => ({ type: "trade", sid: 2, seq: 1, ms
   // Silence for 30 s → the socket is treated as dead and replaced.
   ck.advance(30.5e3); assert.equal(ws.state, "reconnecting"); ck.advance(600); assert.equal(FakeSocket.all.length, 4);
   // Only market-data channels can ever be requested.
-  for (const sock of FakeSocket.all) for (const c of sock.cmds("subscribe")) for (const ch of c.params.channels) assert.ok(["orderbook_delta", "trade", "ticker", "market_lifecycle_v2"].includes(ch));
+  for (const sock of FakeSocket.all) for (const c of sock.cmds("subscribe")) for (const ch of c.params.channels) assert.ok(["orderbook_delta", "trade", "ticker", "market_lifecycle_v2", "cfbenchmarks_value"].includes(ch));
   assert.ok(FakeSocket.all.every(sock => sock.sent.every(c => ["subscribe", "update_subscription"].includes(c.cmd))));
   ws.stop();
 }

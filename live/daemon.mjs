@@ -19,12 +19,14 @@ import * as resolveStep from "../resolve.mjs";
 import * as predictStep from "../predict.mjs";
 import * as backtestStep from "../backtest.mjs";
 import * as train from "../models/train.mjs";
+import * as maker from "../maker.mjs";
 import * as archive from "../archive.mjs";
 import { estimate, disable } from "../predictors.mjs";
 import { pushMain, pushSite } from "../publish.mjs";
 import { config, kalshi, sleep, series, readJson, appendJsonl, r4 } from "../lib.mjs";
 import { hasKey, privateIgnored, connectStream } from "../kalshi-auth.mjs";
 import { Engine } from "./engine.mjs";
+import { setReference } from "../external/crypto.mjs";
 import { KalshiWS } from "./ws.mjs";
 import { GzLog } from "./ticklog.mjs";
 import { Alerts, evaluate as alertRules } from "./alerts.mjs";
@@ -38,7 +40,8 @@ export function createDaemon({ ctx = makeCtx(), connect = null, now = Date.now, 
   ctx.host = "daemon"; ctx.log = log; ctx.quiet = true;                  // steps return their summary line; the daemon logs the ones worth reading
   const engine = D.engine = new Engine({ estimate: c => estimate(c, { recall: ctx.recall }), cfg: L });
   const ticks = new GzLog("local/ticks"), feats = new GzLog("local/features", { flushRows: 5000 }), raw = record ? new GzLog("local/raw", { flushRows: 5000 }) : null;
-  const ws = D.ws = connect ? new KalshiWS({ connect, now, log }) : null;
+  const ws = D.ws = connect ? new KalshiWS({ connect, now, log, indices: L.indices || [] }) : null;
+  setReference(id => engine.index?.get(id) || null);
   if (ws) {
     ws.on("message", m => { const t = now(); raw?.add([{ t, m }], t); engine.onMessage(m, t); });
     ws.on("state", s => { engine.setLive(s === "live"); raw?.add([{ t: now(), m: { type: "_state", live: s === "live" } }], now()); log(`stream: ${s}`); });
@@ -117,7 +120,7 @@ export function createDaemon({ ctx = makeCtx(), connect = null, now = Date.now, 
       ctx.liveFeat = feat; log(await ctx.step("predict", predictStep.run)); log(`watching ${D.rescope()} markets`); D.dirty = true; }) || (D.last.scan = 0);
     if (due("outcomes", 5 * 6e4)) await job("outcomes", async () => { const before = ctx.store.out.size; await ctx.step("resolve", resolveStep.run);
       if (ctx.store.out.size > before) { labelSnaps([...ctx.store.out.keys()].filter(k => pending.has(k))); D.dirty = true; D.fresh = (D.fresh || 0) + ctx.store.out.size - before; D.rescope(); } });
-    if (due("hourly", 60 * 6e4)) await job("hourly", async () => { const a = archive.run(); if (a.moved.length) ctx.store.refresh(); if (!offline) log(await ctx.step("backtest", backtestStep.run)); log(await ctx.step("models", train.hourly)); await rescore(true); });
+    if (due("hourly", 60 * 6e4)) await job("hourly", async () => { const a = archive.run(); if (a.moved.length) ctx.store.refresh(); if (!offline) log(await ctx.step("backtest", backtestStep.run)); log(await ctx.step("models", train.hourly)); if (!offline) log(await ctx.step("maker", c => maker.run(c))); await rescore(true); });
     if (D.dirty && due("settle", 2000)) await job("rescore", () => rescore(false));
     if (due("minute", 6e4)) {
       D.minute++; ticks.flush(); feats.flush(); raw?.flush();

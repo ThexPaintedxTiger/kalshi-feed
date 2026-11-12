@@ -14,6 +14,7 @@ import * as score from "./score.mjs";
 import * as progress from "./progress.mjs";
 import * as paper from "./paper.mjs";
 import * as storage from "./storage.mjs";
+import * as maker from "./maker.mjs";
 import * as status from "./status.mjs";
 import * as dashboard from "./dashboard.mjs";
 
@@ -37,6 +38,7 @@ export async function cycle(ctx, { force = false, mirror = false } = {}) {
   await ctx.step("predict", predict.run, { need: true });
   await ctx.step("backtest", c => backtest.run(c, { force }));
   await ctx.step("models", c => train.hourly(c, { force }));
+  await ctx.step("maker", c => maker.run(c));
   await derive(ctx, { mirror });
   return perf(ctx, "cycle", t0);
 }
