@@ -8,7 +8,6 @@ on:
     paths-ignore: ["data/**", "docs/**"]
 permissions:
   contents: write
-  pages: write
 concurrency:
   group: kalshi-feed-${{ github.ref }}
   cancel-in-progress: false
@@ -25,9 +24,3 @@ jobs:
           node-version: 22
       - name: One pipeline cycle (see cycle.sh)
         run: bash cycle.sh
-      # A push made with the workflow's own token does not start a Pages build, so ask for one explicitly.
-      - name: Rebuild the published page
-        if: success()
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" --silent || echo "::warning::could not request a Pages build"
