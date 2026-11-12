@@ -1,5 +1,7 @@
 # Kalshi short-market research agent
 
+> **Switching to Fable 5.2?** Start from `docs/FABLE-PROMPT.md` (review findings, owner decisions, build order).
+
 Predict short-duration Kalshi markets. Log every prediction before the market resolves, check the real outcome,
 and count something as an improvement only when the scorecard shows it.
 
