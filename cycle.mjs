@@ -15,6 +15,7 @@ import * as progress from "./progress.mjs";
 import * as paper from "./paper.mjs";
 import * as storage from "./storage.mjs";
 import * as maker from "./maker.mjs";
+import * as agentjobs from "./agentjobs.mjs";
 import * as status from "./status.mjs";
 import * as dashboard from "./dashboard.mjs";
 
@@ -32,6 +33,7 @@ export async function cycle(ctx, { force = false, mirror = false } = {}) {
   const t0 = performance.now(); ctx.timings = [];
   await ctx.step("archive", () => { const { moved, failed } = archive.run(); ctx.store.refresh(); return moved.length || failed.length ? `archive: moved ${moved.length}, failed ${failed.length}` : null; });
   await ctx.step("resolve", resolve.run, { need: true });
+  await ctx.step("llm jobs", agentjobs.run);
   // Models before predictions: a fresh clone has no cached weights, and anything that just settled should count.
   if (!ctx.get("ensemble", "state")) await ctx.step("models (cold start)", c => train.hourly(c, { force: true }));
   else await ctx.step("models (settled)", train.onSettle);

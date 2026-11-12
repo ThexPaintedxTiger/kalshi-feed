@@ -24,6 +24,7 @@ export const PRED = {
 PRED.crypto_fair = c => c.ext?.crypto?.p ?? null;
 PRED.weather_idx = c => (c.ext?.weather?.src === "nws-index" ? c.ext.weather.p : null);   // rebuilt on the index member stations (the old single-station weather_nws is gone)
 PRED.ladder = c => c.ext?.ladder?.p ?? null;                 // only for markets in a multi-strike event
+PRED.llm = c => c.ext?.llm?.p ?? null;                       // language-model estimate (only where one was made)
 PRED.ensemble = () => null;                                   // computed in estimate() from the other models
 
 // calib and ensemble read their weights from state/ (set in memory after each refit in a long-running process).

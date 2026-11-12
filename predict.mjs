@@ -85,6 +85,13 @@ export async function logPredictions(ctx, chosen, now = Date.now(), cats = {}, f
   }
   // Structure across an event's strikes (no outside data): where this market sits relative to the monotone curve.
   if (config.predictors.ladder?.on && ctx.ladders) for (const { m } of chosen) { const l = ctx.ladders[m.ticker]; if (l) (ext[m.ticker] ||= {}).ladder = { ...l, at: runId }; }
+  // `llm` predictor: a few of the most active new markets per scan, only when a local model and the memory index exist.
+  if (config.predictors.llm?.on && ctx.rag && ctx.llmEstimate) {
+    for (const { m, mid, res, lead } of [...chosen].sort((a, b) => +(b.m.volume_24h_fp || 0) - +(a.m.volume_24h_fp || 0)).slice(0, config.llm?.maxPerScan ?? 5)) {
+      try { const e = await ctx.llmEstimate({ ticker: m.ticker, title: m.title, rules: String(m.rules_primary || "").slice(0, 600), mid, leadMin: lead / 6e4, at: now, v24: +(m.volume_24h_fp || 0), series: series(m), resolvesAt: res }, ctx.rag); if (e) (ext[m.ticker] ||= {}).llm = e; }
+      catch (e) { ctx.log(`llm estimate failed on ${m.ticker}: ${e.message}`); }
+    }
+  }
   ctx.emit("external", { at: runId, ...extStat }, "state");
   const rows = chosen.map(({ m, ask, bid, mid, res, lead }) => {
     const f = feat?.[m.ticker], bk = book[m.ticker] || {};

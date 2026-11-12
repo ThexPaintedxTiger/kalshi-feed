@@ -10,6 +10,7 @@ import { config, r4, fee } from "../lib.mjs";
 import { clustered, brier, logLoss, pnl } from "../score.mjs";
 import { seqVerdict } from "./seq.mjs";
 import { leakage } from "./leakage.mjs";
+import { ragLog, readFacts } from "../rag.mjs";
 
 const HYP = k => config.predictors[k]?.hypothesis || "";
 export function family() { return Math.max(1, Object.keys(config.predictors).filter(k => k !== "market").reduce((s, k) => s + (config.models?.[k]?.variantsTried || 1), 0)); }
@@ -63,7 +64,8 @@ export function run(ctx, extra = {}) {
   const coin = rows.map(r => { const side = (r.ticker.length + r.ticker.charCodeAt(r.ticker.length - 1)) % 2 ? "yes" : "no", cost = side === "yes" ? r.ask : r4(1 - r.bid); return { event: r.event, order: r.known, v: (side === "yes" ? r.y : 1 - r.y) - cost - fee(cost) }; });
   const coinSeq = seqVerdict(coin, { alpha, lo: -1.07, hi: 1 });
   const market = { n: rows.length, events: new Set(rows.map(r => r.event)).size, brier: r4(rows.reduce((t, r) => t + brier(r.est.market, r.y), 0) / (rows.length || 1)) };
-  const leak = leakage(s, extra.leak || { walk: ctx.walkLeaks || {} });
+  // Retrievals made for predictions (each hit must predate its prediction) and news facts (publish time must not be after the fetch).
+  const leak = leakage(s, extra.leak || { walk: ctx.walkLeaks || {}, rag: ragLog(), facts: readFacts().map(f => ({ id: f.id, at: f.at, asOf: new Date(Date.parse(f.fetchedAt) + 1).toISOString() })) });
   const success = Object.values(models).filter(m => m.status === "SUCCESS").map(m => m.model);
   return ctx.emit("evals", { at: new Date().toISOString(), cfg: config.version, alpha: config.evals.alpha, family: fam, alphaEach: alpha, frozenAt: config.evals.frozenAt, note: config.evals.note,
     market, controls: { cash: { perPick: 0 }, coinFlip: { n: coin.length, perPick: coinSeq.mean, sequence: { lo: coinSeq.lo, hi: coinSeq.hi } } },

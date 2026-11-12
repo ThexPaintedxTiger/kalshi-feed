@@ -129,3 +129,17 @@ What we changed because the data (or a mistake) taught us something. Newest firs
   daemon has it, else the median of Coinbase, Kraken and Bitstamp. Volatility still from Coinbase 1-minute candles. Backtests unchanged.
 - 2026-11-12 (**not built yet, on purpose**): index/commodity fair values (futures vs cash index needs a basis model and an official close
   source) and the economic-release calendar. They are listed in `docs/handoff.md` with what each needs. Nothing depends on them.
+- 2026-11-12 (**LLM layer, config v13**). `llm.mjs`: Ollama by default; Claude (`claude-opus-5-5`, low effort, official SDK as an optional
+  dependency) only when a caller marks a case hard and valuable (ambiguous rules; an `llm` estimate ≥ 15 points from the price or
+  conflicting sources on a market with ≥ 2,000 contracts/day), only with a key in `private/anthropic-key.txt`, and only while today's spend
+  plus the worst-case cost of the call stays under `llm.dailyCapUsd` ($1). Every call is logged (`data/llm-usage.jsonl`) and cached by
+  input hash. Fetched text goes in as data inside `<data>` tags; callers read fixed JSON fields only. The model's one probability is the
+  separate `llm` predictor (capped ±0.15, ≤ 5 markets per scan). **Not exercised with a real model here** (no Ollama in the cloud): all
+  tests use a fake model; real LLM eval numbers appear on the Ops tab once Ollama runs on the owner's computer.
+- 2026-11-12 (**RAG**, `rag.mjs`): JSONL index in `local/rag/` (no database needed at this size: 3,704 items), Ollama embeddings with a
+  deterministic word-hash fallback. Every item has `at`; search takes `before` and returns only earlier items; retrievals made for
+  predictions are logged and checked by the leakage eval. Reverses the v1 note "no RAG": there is now free text worth retrieving (rules,
+  lessons, facts).
+- 2026-11-12 (**news facts**, `external/news.mjs`): four official/public RSS feeds (Fed, EIA, NHC, BBC business), ≤ 1 fetch per feed per
+  30 min, facts need a source URL and publish time or they are dropped. Facts are stored and retrievable; they are **not** yet an input
+  to `calib` (no evidence they help; adding an input is a variant to count).

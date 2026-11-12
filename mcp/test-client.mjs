@@ -8,4 +8,7 @@ const call = async (name, args = {}) => { const r = await c.callTool({ name, arg
 await call("get_status"); await call("get_scorecard", { which: "backtest" });
 await call("search_predictions", { category: "Crypto", limit: 2 }); await call("search_predictions", { source: "backtest", outcome: "yes", limit: 1 });
 await call("recall_series", { series: "KXDOTA2MAP" }); await call("list_skills");
+await call("scorecard"); await call("eval_report"); await call("eval_report", { model: "calib" }); await call("health"); await call("rules", { series: "KXBTCD" });
+await call("estimates", { ticker: "KXTEMPCHIHS-26NOV1019-T52.99" }); await call("live_market", { ticker: "KXTEMPCHIHS-26NOV1019-T52.99" }); await call("search_similar", { query: "Bitcoin above 73000 at 5pm", before: "2026-11-11T12:00:00Z", limit: 3 });
+if (tools.length !== 12) throw new Error("expected 12 tools, got " + tools.length);
 await c.close(); console.log("MCP smoke test passed");

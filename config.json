@@ -1,5 +1,5 @@
 {
- "version": 12,
+ "version": 13,
  "scan": {
   "windowDays": 16,
   "horizonHours": 6,
@@ -59,6 +59,10 @@
   "ladder": {
    "on": true,
    "hypothesis": "Structure: across the strikes of one event, probabilities must be monotone (and a full set of ranges must sum to 1). A strike quoted off that curve moves back onto it."
+  },
+  "llm": {
+   "on": true,
+   "hypothesis": "A language model that reads the rules, dated news facts and how similar past markets resolved (retrieved from memory, only items dated before the estimate) can correct the price. Local model by default; capped at ±15 points from the market. Only runs where a local model is available."
   }
  },
  "picks": {
@@ -266,6 +270,10 @@
   },
   "ladder": {
    "variantsTried": 1
+  },
+  "llm": {
+   "maxDev": 0.15,
+   "variantsTried": 1
   }
  },
  "evals": {
@@ -279,5 +287,33 @@
    240
   ],
   "minForVerdict": 100
+ },
+ "llm": {
+  "ollama": "http://localhost:11434",
+  "local": "llama3.2:3b",
+  "embed": "nomic-embed-text",
+  "claude": "claude-opus-5-5",
+  "claudeEffort": "low",
+  "dailyCapUsd": 1,
+  "maxOutputTokens": 1024,
+  "prices": {
+   "claude-opus-5-5": {
+    "in": 4,
+    "out": 20
+   }
+  },
+  "maxPerScan": 5,
+  "escalateGap": 0.15,
+  "escalateMinVolume": 2000,
+  "note": "local = any Ollama model you have pulled (3B fits 8 GB RAM; use a 7–8B model such as qwen2.5:7b or llama3.1:8b with 16 GB+). Claude is used only for hard, high-value cases and never past dailyCapUsd. Raising the cap is the owner's decision."
+ },
+ "news": {
+  "everyMinutes": 30,
+  "feeds": [
+   "https://www.federalreserve.gov/feeds/press_all.xml",
+   "https://www.eia.gov/rss/todayinenergy.xml",
+   "https://www.nhc.noaa.gov/index-at.xml",
+   "https://feeds.bbci.co.uk/news/business/rss.xml"
+  ]
  }
 }

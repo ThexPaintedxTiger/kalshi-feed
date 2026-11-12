@@ -266,4 +266,5 @@ await import("./tests/core.test.mjs");
 await import("./tests/live.test.mjs");
 await import("./tests/models.test.mjs");
 await import("./tests/outside.test.mjs");
+await import("./tests/llm.test.mjs");
 console.log("all tests passed");

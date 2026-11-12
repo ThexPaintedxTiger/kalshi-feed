@@ -1,0 +1,9 @@
+{
+  "name": "kalshi-feed",
+  "private": true,
+  "type": "module",
+  "description": "Read-only research system for short-duration Kalshi markets. Core has no dependencies; the Claude SDK is only needed for the optional escalation path.",
+  "scripts": { "test": "node test.mjs", "start": "node live/daemon.mjs", "cycle": "node cycle.mjs" },
+  "optionalDependencies": { "@anthropic-ai/sdk": "1.8.0" },
+  "engines": { "node": ">=22" }
+}

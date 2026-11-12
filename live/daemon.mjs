@@ -20,6 +20,7 @@ import * as predictStep from "../predict.mjs";
 import * as backtestStep from "../backtest.mjs";
 import * as train from "../models/train.mjs";
 import * as maker from "../maker.mjs";
+import * as agentjobs from "../agentjobs.mjs";
 import * as archive from "../archive.mjs";
 import { estimate, disable } from "../predictors.mjs";
 import { pushMain, pushSite } from "../publish.mjs";
@@ -120,7 +121,7 @@ export function createDaemon({ ctx = makeCtx(), connect = null, now = Date.now, 
       ctx.liveFeat = feat; log(await ctx.step("predict", predictStep.run)); log(`watching ${D.rescope()} markets`); D.dirty = true; }) || (D.last.scan = 0);
     if (due("outcomes", 5 * 6e4)) await job("outcomes", async () => { const before = ctx.store.out.size; await ctx.step("resolve", resolveStep.run);
       if (ctx.store.out.size > before) { labelSnaps([...ctx.store.out.keys()].filter(k => pending.has(k))); D.dirty = true; D.fresh = (D.fresh || 0) + ctx.store.out.size - before; D.rescope(); } });
-    if (due("hourly", 60 * 6e4)) await job("hourly", async () => { const a = archive.run(); if (a.moved.length) ctx.store.refresh(); if (!offline) log(await ctx.step("backtest", backtestStep.run)); log(await ctx.step("models", train.hourly)); if (!offline) log(await ctx.step("maker", c => maker.run(c))); await rescore(true); });
+    if (due("hourly", 60 * 6e4)) await job("hourly", async () => { const a = archive.run(); if (a.moved.length) ctx.store.refresh(); if (!offline) log(await ctx.step("backtest", backtestStep.run)); log(await ctx.step("models", train.hourly)); if (!offline) { log(await ctx.step("maker", c => maker.run(c))); log(await ctx.step("llm jobs", agentjobs.run)); } await rescore(true); });
     if (D.dirty && due("settle", 2000)) await job("rescore", () => rescore(false));
     if (due("minute", 6e4)) {
       D.minute++; ticks.flush(); feats.flush(); raw?.flush();
