@@ -25,6 +25,10 @@ export async function derive(ctx, { mirror = false, full = true } = {}) {
   await ctx.step("evals", c => { evals.run(c); return null; }, { need: true });
   await ctx.step("progress", progress.run, { need: true });
   if (full) { await ctx.step("memory", memory.run); await ctx.step("paper", paper.run, { need: true }); await ctx.step("storage", c => storage.run(c, { mirror })); }
+  // No daemon in this process (cloud fallback / manual run): publish the open markets at their logged prices so the
+  // page has a live.json to read. The daemon overwrites it with real live prices; heartbeat.json is the daemon's alone.
+  if (ctx.host !== "daemon") ctx.emit("live", { at: new Date().toISOString(), health: null, source: "cloud fallback (prices as logged, not live)",
+    markets: ctx.store.open(Date.now(), 0).slice(-150).map(p => ({ k: p.ticker, title: p.title, cat: p.cat, event: p.event, res: p.resolvesAt, logged: true, b: p.bid, a: p.ask, mid: p.mid, est: p.est, synced: false })) });
   await ctx.step("status", status.run, { need: true });
   await ctx.step("dashboard", dashboard.run, { need: true });
 }

@@ -143,14 +143,14 @@ function connectLive() {
     S.mode = "published"; pollLive(); header();
   })();
 }
-async function pollLive() { if (S.mode !== "published") return; try { const l = await J("live.json"); S.live = l; S.health = l.health; S.healthAt = Date.parse(l.at); takeMarkets(l.markets); liveDirty = true; header(); } catch {} }
+async function pollLive() { if (S.mode !== "published") return; try { const l = await J("live.json"); S.live = l; if (l.health) { S.health = l.health; S.healthAt = Date.parse(l.at); } takeMarkets(l.markets); liveDirty = true; header(); } catch {} }
 
 // ---------- header ----------
 function header() {
   const h = S.health, a = S.app, hbAt = S.mode === "stream" ? Date.now() : h ? Date.parse(h.at) : 0, age = h ? (Date.now() - hbAt) / 1000 : Infinity;
   const running = age < 180, ws = h?.ws?.state || "off";
   $("#runDot").className = "dot " + (running ? (h.mode === "ws" ? "good" : "warn") : "crit");
-  $("#runTxt").textContent = !h ? "daemon: no heartbeat" : running ? `running on ${h.host} · ${h.mode === "ws" ? "stream live" : ws === "off" ? "REST prices (no key)" : "stream " + ws} · ${h.msgRate || 0} msg/s` : `daemon stopped · last seen ${ago(h.at)}`;
+  $("#runTxt").textContent = !h ? "laptop daemon off · cloud updates every ~10 min" : running ? `running on ${h.host} · ${h.mode === "ws" ? "stream live" : ws === "off" ? "REST prices (no key)" : "stream " + ws} · ${h.msgRate || 0} msg/s` : `daemon stopped · last seen ${ago(h.at)}`;
   $("#srcPill").textContent = S.mode === "stream" ? "live from this computer" : `published data · ${a ? ago(a.generated) : "…"}`;
   $("#run").title = h ? `host ${h.host}\nstarted ${h.startedAt}\nstream: ${ws}, reconnects ${h.ws?.reconnects ?? 0}, gaps ${h.ws?.gaps ?? 0}\nmarkets watched ${h.markets}, stale ${h.stale}\nstale seconds since start ${h.staleTotalSec}` : "";
 }
