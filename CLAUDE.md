@@ -62,6 +62,7 @@ With the optional key (`private/`): Kalshi WebSocket order book + trades → eac
 `node kalshi-auth.mjs` checks the key. `node import-trades.mjs --api` pulls the owner's fills into `private/`.
 
 ## Live mode and dev agent
+> **Stale (2026-11-12):** the dev-agent scheduled task was disabled 2026-11-11 04:42 UTC and the pipeline stopped. `docs/FABLE-PROMPT.md` replaces this setup (owner's computer + cloud cron fallback).
 - `cycle.sh` = one pipeline cycle. `feed.yml` runs it on the 10-minute cron (if GitHub fires it); `live.yml` runs `live.sh`: 6 cycles, 10 minutes apart (≈1 h).
 - Dev agent: Claude session `session_017aScWtmMzeyXzzwrarJEyL` (Sonnet), woken hourly at :54 by scheduled task `trig_01VBpUdvVfLrxySgxCPLceHk`,
   follows the `kalshi-live-agent` skill: starts the next live hour, checks the watchdog, fixes clear breakage,
