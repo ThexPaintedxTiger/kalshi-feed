@@ -1654,6 +1654,25 @@
   "KXCBDECISIONENGLAND": "Economics",
   "KXRSENATEWON": "Elections",
   "KXCHCUTS": "Economics",
-  "KXCHAICUTS": "Economics"
+  "KXCHAICUTS": "Economics",
+  "KXCOUPEDEFRANCETOTAL": "Sports",
+  "KXCOUPEDEFRANCESPREAD": "Sports",
+  "KXCOUPEDEFRANCEBTTS": "Sports",
+  "KXPLKGAME": "Sports",
+  "KXELHGAME": "Sports",
+  "KXUSDMXNAW": "Financials",
+  "KXUSDCADAW": "Financials",
+  "KXTTFW": "Commodities",
+  "KXPJMWESTW": "Commodities",
+  "KXPJMAEPDAYW": "Commodities",
+  "KXMISOINDW": "Commodities",
+  "KXERCOTHOUW": "Commodities",
+  "KXGOPTRIFECTA": "Elections",
+  "KXSONGRELEASE": "Entertainment",
+  "KXDATACENTERMEASURES": "Elections",
+  "KX5YRRATEH": "Financials",
+  "KXWNBLGAME": "Sports",
+  "KXCLOSESTGOVERNOR": "Elections",
+  "KXCLOSESTSENATE": "Elections"
  }
 }
