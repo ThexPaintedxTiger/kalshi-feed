@@ -2,3 +2,4 @@
 {"date":"2026-11-11","repoMB":2.4824,"hotMB":{"predictions":0.7321,"backtest":0.6364,"snapshots":0},"archiveMB":{"predictions":0,"backtest":0,"snapshots":0}}
 {"date":"2026-11-12","repoMB":null,"hotMB":{"predictions":1.0677,"backtest":0.8811,"snapshots":0},"archiveMB":{"predictions":0,"backtest":0,"snapshots":0}}
 {"date":"2026-11-13","repoMB":3.6211,"hotMB":{"predictions":1.3711,"backtest":1.261,"snapshots":0,"updates":0,"maker":0.0639,"facts":0},"archiveMB":{"predictions":0,"backtest":0,"snapshots":0,"updates":0,"maker":0,"facts":0}}
+{"date":"2026-11-14","repoMB":4.3916,"hotMB":{"predictions":1.6195,"backtest":1.5631,"snapshots":0,"updates":0,"maker":0.106,"facts":0},"archiveMB":{"predictions":0,"backtest":0,"snapshots":0,"updates":0,"maker":0,"facts":0}}
