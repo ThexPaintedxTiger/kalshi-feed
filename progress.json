@@ -1,0 +1,285 @@
+{
+ "updated": "2026-11-14T21:00:19.622Z",
+ "goal": "IN_PROGRESS",
+ "resolved": 1929,
+ "health": {
+  "ok": false,
+  "warmingUp": false,
+  "checks": {
+   "runsLast24h": {
+    "value": 5,
+    "target": 100,
+    "ok": false
+   },
+   "newPredictionsLast24h": {
+    "value": 205,
+    "target": 50,
+    "ok": true
+   },
+   "leakage": {
+    "value": 0,
+    "target": 0,
+    "max": true,
+    "ok": true
+   },
+   "unresolvedBacklog": {
+    "value": 12,
+    "target": 0,
+    "max": true,
+    "ok": false
+   }
+  }
+ },
+ "predictors": {
+  "longshot": {
+   "status": "RETIRED",
+   "rec": "2026-11-10: FAILURE_RETIRE (no measurable edge after 832 resolved; backtest 1334, no difference). Owner approved.",
+   "n": 1013,
+   "brierVsMarket": 0.0004,
+   "picks": 0,
+   "trend": "no new resolved data since last snapshot",
+   "snap": {
+    "n": 1013,
+    "mean": 0.0004,
+    "width": 0.0021
+   },
+   "backtest": {
+    "n": 1334,
+    "brierVsMarket": -0.0002,
+    "verdict": "no measurable difference",
+    "picks": 0,
+    "pnlPerContract": null
+   },
+   "sequence": {
+    "lo": -0.074776,
+    "hi": 0.075626,
+    "mean": 0.000425,
+    "alpha": 0.0029411764705882353,
+    "bound": 1,
+    "note": "valid however often it is looked at"
+   }
+  },
+  "memory": {
+   "status": "RETIRED",
+   "rec": "2026-11-12: turned off (config v10). 1,164 resolved live markets: Brier vs market +0.0031 (worse), no pick edge. memory.mjs stays as a feature source for the models.",
+   "n": 841,
+   "brierVsMarket": 0.0023,
+   "picks": 125,
+   "trend": "no new resolved data since last snapshot",
+   "snap": {
+    "n": 841,
+    "mean": 0.0023,
+    "width": 0.0067
+   },
+   "backtest": {
+    "n": 1805,
+    "brierVsMarket": 0.0001,
+    "verdict": "no measurable difference",
+    "picks": 30,
+    "pnlPerContract": -0.0573
+   },
+   "sequence": {
+    "lo": -0.090697,
+    "hi": 0.095306,
+    "mean": 0.002305,
+    "alpha": 0.0029411764705882353,
+    "bound": 1,
+    "note": "valid however often it is looked at"
+   }
+  },
+  "nn": {
+   "status": "NO_EDGE",
+   "rec": "needs: whole peeking-safe range below 0 (upper end now +0.0512); 75 more picks; picks' P&L range above 0 (lower end now -1.07)",
+   "n": 1236,
+   "brierVsMarket": 0,
+   "picks": 25,
+   "trend": "+271 resolved, interval narrowing, direction flipped (-0.0001 → 0)",
+   "snap": {
+    "n": 1236,
+    "mean": 0,
+    "width": 0.0012
+   },
+   "backtest": null,
+   "sequence": {
+    "lo": -0.051157,
+    "hi": 0.05117,
+    "mean": 0.000007,
+    "alpha": 0.0029411764705882353,
+    "bound": 1,
+    "note": "valid however often it is looked at"
+   }
+  },
+  "crypto_fair": {
+   "status": "OFF_TRACK",
+   "rec": "needs: whole peeking-safe range below 0 (upper end now +0.2412); picks' P&L range above 0 (lower end now -0.4797)",
+   "n": 290,
+   "brierVsMarket": 0.0058,
+   "picks": 106,
+   "trend": "+52 resolved, interval not narrowing",
+   "snap": {
+    "n": 290,
+    "mean": 0.0058,
+    "width": 0.0149
+   },
+   "backtest": {
+    "n": 974,
+    "brierVsMarket": 0.0095,
+    "verdict": "worse than market (Brier)",
+    "picks": 524,
+    "pnlPerContract": -0.0556
+   },
+   "sequence": {
+    "lo": -0.229525,
+    "hi": 0.241167,
+    "mean": 0.005821,
+    "alpha": 0.0029411764705882353,
+    "bound": 1,
+    "note": "valid however often it is looked at"
+   }
+  },
+  "weather_nws": {
+   "status": "RETIRED",
+   "rec": "2026-11-12: turned OFF (config v10), not retired. +0.335 Brier vs market, 4/30 paper wins: it read one NWS airport station while Kalshi settles on a Synoptic Data metro index. Comes back only after a rebuild against the settlement methodology passes its regression test.",
+   "n": 56,
+   "brierVsMarket": 0.2571,
+   "picks": 47,
+   "trend": "no new resolved data since last snapshot",
+   "snap": {
+    "n": 56,
+    "mean": 0.2571,
+    "width": 0.2653
+   },
+   "backtest": null,
+   "sequence": {
+    "lo": -0.854913,
+    "hi": 1,
+    "mean": 0.257135,
+    "alpha": 0.0029411764705882353,
+    "bound": 1,
+    "note": "valid however often it is looked at"
+   }
+  },
+  "ensemble": {
+   "status": "NO_EDGE",
+   "rec": "needs: whole peeking-safe range below 0 (upper end now +0.0196); 100 more picks; picks' P&L range above 0",
+   "n": 466,
+   "brierVsMarket": 0.0004,
+   "picks": 0,
+   "trend": "+271 resolved, interval narrowing",
+   "snap": {
+    "n": 466,
+    "mean": 0.0004,
+    "width": 0.0023
+   },
+   "backtest": {
+    "n": 1652,
+    "brierVsMarket": 0.0006,
+    "verdict": "no measurable difference",
+    "picks": 3,
+    "pnlPerContract": 0.4567
+   },
+   "sequence": {
+    "lo": -0.018779,
+    "hi": 0.019642,
+    "mean": 0.000431,
+    "alpha": 0.0029411764705882353,
+    "bound": 0.2,
+    "note": "valid however often it is looked at"
+   }
+  },
+  "calib": {
+   "status": "NO_EDGE",
+   "rec": "needs: whole peeking-safe range below 0 (upper end now +0.0202); 100 more picks; picks' P&L range above 0",
+   "n": 466,
+   "brierVsMarket": 0.001,
+   "picks": 0,
+   "trend": "+271 resolved, interval narrowing",
+   "snap": {
+    "n": 466,
+    "mean": 0.001,
+    "width": 0.0027
+   },
+   "backtest": {
+    "n": 1652,
+    "brierVsMarket": 0.0005,
+    "verdict": "no measurable difference",
+    "picks": 0,
+    "pnlPerContract": null
+   },
+   "sequence": {
+    "lo": -0.01829,
+    "hi": 0.020193,
+    "mean": 0.000952,
+    "alpha": 0.0029411764705882353,
+    "bound": 0.2,
+    "note": "valid however often it is looked at"
+   }
+  },
+  "ladder": {
+   "status": "OFF_TRACK",
+   "rec": "needs: whole peeking-safe range below 0 (upper end now +0.2469); 97 more picks; picks' P&L range above 0 (lower end now -1.07)",
+   "n": 201,
+   "brierVsMarket": 0.0008,
+   "picks": 3,
+   "trend": "+123 resolved, interval not narrowing, direction flipped (0 → 0.0008)",
+   "snap": {
+    "n": 201,
+    "mean": 0.0008,
+    "width": 0.0032
+   },
+   "backtest": null,
+   "sequence": {
+    "lo": -0.245313,
+    "hi": 0.246947,
+    "mean": 0.000817,
+    "alpha": 0.0029411764705882353,
+    "bound": 1,
+    "note": "valid however often it is looked at"
+   }
+  },
+  "weather_idx": {
+   "status": "INSUFFICIENT",
+   "rec": "needs: 81 more resolved markets; whole peeking-safe range below 0 (upper end now +1); 83 more picks; picks' P&L range above 0 (lower end now -1.07)",
+   "n": 19,
+   "brierVsMarket": 0.2074,
+   "picks": 17,
+   "trend": "+7 resolved, interval narrowing",
+   "snap": {
+    "n": 19,
+    "mean": 0.2074,
+    "width": 0.1791
+   },
+   "backtest": null,
+   "sequence": {
+    "lo": -1,
+    "hi": 1,
+    "mean": 0.207359,
+    "alpha": 0.0029411764705882353,
+    "bound": 1,
+    "note": "valid however often it is looked at"
+   }
+  },
+  "llm": {
+   "n": 0,
+   "picks": 0,
+   "trend": "first snapshot",
+   "snap": {
+    "n": 0,
+    "mean": null,
+    "width": null
+   },
+   "backtest": null,
+   "status": "INSUFFICIENT",
+   "rec": "needs: 100 more resolved markets; whole peeking-safe range below 0; 100 more picks; picks' P&L range above 0",
+   "sequence": {
+    "lo": null,
+    "hi": null,
+    "mean": null,
+    "alpha": 0.0029411764705882353,
+    "bound": 0.3,
+    "note": "valid however often it is looked at"
+   }
+  }
+ },
+ "definitions": "SUCCESS = peeking-safe sequence on Brier vs market entirely below 0 (≥ minResolved live markets) AND picks' P&L sequence above 0 (≥ minPicks). FAILURE_WORSE = sequence entirely above 0. NO_EDGE = nothing measurable after retireAfter resolved. The agent acts on these itself (docs/lessons.md); only real money needs the owner."
+}

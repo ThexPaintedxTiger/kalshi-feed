@@ -1,0 +1,14 @@
+{
+ "start": 10,
+ "equity": -34.13,
+ "orders": 1054,
+ "fills": 735,
+ "fillRate": 0.6973,
+ "settled": 735,
+ "wins": 273,
+ "pnl": -44.13,
+ "perFill": -0.06,
+ "roundTrips": 261,
+ "markets": 527,
+ "note": "One contract per side at the quoted best bid/offer; filled only when a later real trade crosses (queue ahead respected); held to settlement; maker fee always charged. Winning less than half of fills at a small spread = adverse selection."
+}

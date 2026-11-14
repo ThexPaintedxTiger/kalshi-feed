@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kalshi Research</title>
+<meta name="theme-color" content="#0d0d0d">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<style>
+:root{--plane:#f9f9f7;--surface:#fcfcfb;--line:#e4e3de;--ink:#0b0b0b;--ink2:#52514e;--mute:#898781;--track:#eceae4;
+--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s4:#eda100;--s5:#e87ba4;--s6:#008300;--s7:#6250d6;--s8:#e34948;
+--good:#0ca30c;--warn:#fab219;--serious:#ec835a;--crit:#d03b3b;--goodink:#006300;--critink:#a32020;--warnink:#7a5200}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--plane:#0d0d0d;--surface:#1a1a19;--line:#2e2e2b;--ink:#f0efec;--ink2:#c3c2b7;--mute:#898781;--track:#2a2a27;
+--s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;--s5:#d55181;--s6:#008300;--s7:#9085e9;--s8:#e66767;--goodink:#4fd24f;--critink:#f08a8a;--warnink:#fab219}}
+:root[data-theme=dark]{--plane:#0d0d0d;--surface:#1a1a19;--line:#2e2e2b;--ink:#f0efec;--ink2:#c3c2b7;--mute:#898781;--track:#2a2a27;
+--s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;--s5:#d55181;--s6:#008300;--s7:#9085e9;--s8:#e66767;--goodink:#4fd24f;--critink:#f08a8a;--warnink:#fab219}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--plane);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:env(safe-area-inset-bottom)}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+header{position:sticky;top:0;z-index:5;background:var(--plane);border-bottom:1px solid var(--line)}
+.top{display:flex;align-items:center;gap:10px;padding:10px 0;flex-wrap:wrap}
+h1{font-size:16px;margin:0;font-weight:650;letter-spacing:.01em}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12.5px;color:var(--ink2);background:var(--surface);white-space:nowrap}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--mute);flex:none}
+.dot.good{background:var(--good)}.dot.warn{background:var(--warn)}.dot.crit{background:var(--crit)}
+.grow{flex:1}
+button{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:5px 10px;cursor:pointer}
+button:hover{border-color:var(--mute)}
+nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{padding:9px 12px;text-decoration:none;color:var(--ink2);border-bottom:2px solid transparent;white-space:nowrap;font-size:14px}
+nav a.on{color:var(--ink);border-color:var(--ink);font-weight:600}
+main{padding:16px 0 48px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:14px}
+.card h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute);margin:0 0 10px;font-weight:600}
+.card h3{font-size:15px;margin:0 0 2px}
+.verdict{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:start}
+.verdict .ans{font-size:22px;font-weight:700;line-height:1.2}
+.verdict p{margin:0;color:var(--ink2)}
+.tone-bad .ans::before{content:"✕ ";color:var(--crit)}.tone-good .ans::before{content:"✓ ";color:var(--good)}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.kpi b{display:block;font-size:20px;font-variant-numeric:tabular-nums}
+.kpi span{color:var(--mute);font-size:12.5px}
+.mut{color:var(--mute)}.sec{color:var(--ink2)}.small{font-size:12.5px}
+.num{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{font-weight:600;color:var(--mute);text-align:left;font-size:12px;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap;position:sticky;top:0;background:var(--surface)}
+td{padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+tr.row{cursor:pointer}tr.row:hover td{background:var(--track)}
+.title{max-width:340px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tag{display:inline-block;font-size:11.5px;border:1px solid var(--line);border-radius:6px;padding:0 6px;color:var(--ink2);white-space:nowrap}
+.tag.good{color:var(--goodink);border-color:var(--good)}.tag.crit{color:var(--critink);border-color:var(--crit)}.tag.warn{color:var(--warnink);border-color:var(--warn)}
+.up{color:var(--goodink)}.down{color:var(--critink)}
+.flash{animation:fl .6s}@keyframes fl{from{background:var(--track)}to{background:transparent}}
+/* interval bar: track = possible range, band = peeking-safe interval, tick = zero, dot = current mean */
+.ivl{position:relative;height:22px;background:var(--track);border-radius:4px;margin:6px 0 2px}
+.ivl .zero{position:absolute;top:-3px;bottom:-3px;left:50%;width:2px;background:var(--ink2)}
+.ivl .band{position:absolute;top:6px;bottom:6px;border-radius:4px;background:var(--s1);opacity:.85}
+.ivl .band.good{background:var(--good)}.ivl .band.crit{background:var(--crit)}
+.ivl .pt{position:absolute;top:5px;width:12px;height:12px;border-radius:50%;background:var(--ink);border:2px solid var(--surface);transform:translateX(-6px)}
+.axis{display:flex;justify-content:space-between;font-size:11px;color:var(--mute)}
+.depth{display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12.5px}
+.lvl{position:relative;display:flex;justify-content:space-between;padding:1px 6px;font-variant-numeric:tabular-nums}
+.lvl i{position:absolute;inset:0 auto 0 0;background:var(--s3);opacity:.18;border-radius:3px}
+.lvl.no i{background:var(--s2);inset:0 0 0 auto}
+.lvl span{position:relative}
+.chart{position:relative;height:260px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--ink2);margin:6px 0}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+details{margin-top:8px}summary{cursor:pointer;color:var(--ink2);font-size:13px}
+.alert{border-left:4px solid var(--warn);padding:6px 10px;margin:6px 0;background:var(--surface);border-radius:4px;font-size:13.5px}
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:4px 16px;font-size:13.5px}
+.hide{display:none!important}
+#drill{position:fixed;inset:0;z-index:20;background:var(--plane);overflow:auto;padding:14px 0 40px}
+.spark{vertical-align:middle}
+@media (max-width:640px){.title{max-width:170px}.verdict{grid-template-columns:1fr}.verdict .ans{font-size:19px}.hm{display:none}body{font-size:14.5px}.chart{height:220px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="top">
+    <h1>Kalshi Research</h1>
+    <span class="pill" id="run" title="Is the live daemon running?"><span class="dot" id="runDot"></span><span id="runTxt">loading…</span></span>
+    <span class="pill hm" id="srcPill"></span>
+    <span class="grow"></span>
+    <button id="theme" title="Dark / light" aria-label="Switch dark or light mode">◐</button>
+  </div>
+  <nav id="nav"></nav>
+</div></header>
+<main class="wrap" id="main"><div class="card">Loading…</div></main>
+<div id="drill" class="hide"><div class="wrap" id="drillBody"></div></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" integrity="sha512-CQBWl4fJHWbryGE+Pc7UAxWMUMNMWzWxF4SQo9CgkJIN1kx6djDQZjh3Y8SZ1d+6I+1zze6Z7kHXO7q3UyZAWw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+"use strict";
+// ---------- helpers ----------
+const $ = s => document.querySelector(s), esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const pct = (x, d = 0) => x == null ? "–" : (x * 100).toFixed(d) + "¢", n4 = x => x == null ? "–" : (x > 0 ? "+" : "") + (+x).toFixed(4), usd = x => x == null ? "–" : "$" + (+x).toFixed(2);
+const ago = t => { if (!t) return "never"; const s = (Date.now() - Date.parse(t)) / 1000; return s < 0 ? "now" : s < 90 ? Math.round(s) + " s ago" : s < 5400 ? Math.round(s / 60) + " min ago" : s < 172800 ? Math.round(s / 3600) + " h ago" : Math.round(s / 86400) + " d ago"; };
+const until = t => { const s = (Date.parse(t) - Date.now()) / 1000; if (s <= 0) return "closed"; const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = Math.floor(s % 60); return h ? `${h}h ${String(m).padStart(2, "0")}m` : `${m}:${String(x).padStart(2, "0")}`; };
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const fee = p => Math.ceil(0.07 * p * (1 - p) * 100 - 1e-9) / 100;
+const STATUS = { SUCCESS: ["Passed", "good"], FAILURE_WORSE: ["Worse than market", "crit"], NO_EDGE: ["No edge", ""], RETIRED: ["Off", ""], INSUFFICIENT: ["Too early", ""], SAME_AS_MARKET: ["Same as market", ""], ON_TRACK: ["Leaning better", ""], OFF_TRACK: ["Not better", ""], ACCURATE_NOT_PROFITABLE: ["Accurate, not profitable", "warn"] };
+// Series colors follow the entity (fixed order), never its rank.
+const PF_COLOR = { cash: "--mute", coin: "--s4", "nn-learn": "--s1", "nn-2": "--s7", "crypto-learn": "--s2", "calib-learn": "--s3", "ensemble-learn": "--s5", maker: "--s8" };
+const MODEL_ORDER = ["calib", "ensemble", "nn", "crypto_fair", "ladder", "llm", "weather_nws", "memory", "longshot"];
+
+// ---------- state ----------
+const S = { app: null, live: null, health: null, markets: new Map(), spark: new Map(), mode: "…", tab: (location.hash.match(/^#(\w+)$/) || [])[1] || "live", charts: {}, sse: null, err: null };
+const LOCAL = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+const J = async (u, ms = 8000) => { const c = new AbortController(), t = setTimeout(() => c.abort(), ms); try { const r = await fetch(u, { cache: "no-store", signal: c.signal }); if (!r.ok) throw new Error(u + " → " + r.status); return await r.json(); } finally { clearTimeout(t); } };
+
+// ---------- data sources: localhost stream (sub-second) → published live.json (≤ 2 min) ----------
+// Published data: the copy next to the page, or the same file straight from the site branch — whichever is newer
+// (GitHub Pages can lag a push by minutes; the raw file is at most ~5 minutes behind).
+const RAW = "https://raw.githubusercontent.com/ThexPaintedxTiger/kalshi-feed/site/";
+async function newest(name, stamp) {
+  const got = (await Promise.allSettled([J(name), LOCAL ? Promise.reject() : J(RAW + name + "?t=" + Math.floor(Date.now() / 6e4))])).filter(r => r.status === "fulfilled").map(r => r.value);
+  if (!got.length) throw new Error("not reachable");
+  return got.sort((a, b) => Date.parse(stamp(b)) - Date.parse(stamp(a)))[0];
+}
+async function loadApp() {
+  try { S.app = await newest("app.json", j => j.generated); S.err = null; } catch (e) { S.err = "Couldn't load app.json (" + e.message + ")"; }
+  render();
+}
+function takeMarkets(list) {
+  for (const m of list || []) { if (!m) continue; const old = S.markets.get(m.k); m._chg = old && old.mid != null && m.mid != null ? Math.sign(m.mid - old.mid) : 0; m._at = Date.now(); S.markets.set(m.k, m);
+    if (m.mid != null) { const a = S.spark.get(m.k) || S.spark.set(m.k, []).get(m.k); if (!a.length || a[a.length - 1] !== m.mid) { a.push(m.mid); if (a.length > 80) a.shift(); } } }
+}
+function connectLive() {
+  const bases = LOCAL ? [""] : ["http://localhost:8787", "http://127.0.0.1:8787"];
+  (async () => {
+    for (const b of bases) {
+      try { const st = await J(b + "/api/state", 2500); S.health = st.health; takeMarkets(st.markets); S.mode = "stream"; S.base = b;
+        const es = S.sse = new EventSource(b + "/events");
+        es.addEventListener("tick", e => { takeMarkets(JSON.parse(e.data)); liveDirty = true; });
+        es.addEventListener("health", e => { S.health = JSON.parse(e.data); S.healthAt = Date.now(); header(); });
+        es.addEventListener("derived", () => loadApp());
+        es.onerror = () => { if (es.readyState === 2) { S.mode = "published"; S.sse = null; setTimeout(connectLive, 5000); header(); } };
+        render(); return; } catch {}
+    }
+    S.mode = "published"; pollLive(); header();
+  })();
+}
+async function pollLive() { if (S.mode !== "published") return; try { const l = await newest("live.json", j => j.at); S.live = l; if (l.health) { S.health = l.health; S.healthAt = Date.parse(l.at); } takeMarkets(l.markets); liveDirty = true; header(); } catch {} }
+
+// ---------- header ----------
+function header() {
+  const h = S.health, a = S.app, hbAt = S.mode === "stream" ? Date.now() : h ? Date.parse(h.at) : 0, age = h ? (Date.now() - hbAt) / 1000 : Infinity;
+  const running = age < 180, ws = h?.ws?.state || "off";
+  $("#runDot").className = "dot " + (running ? (h.mode === "ws" ? "good" : "warn") : "crit");
+  $("#runTxt").textContent = !h ? "laptop daemon off · cloud updates every ~10 min" : running ? `running on ${h.host} · ${h.mode === "ws" ? "stream live" : ws === "off" ? "REST prices (no key)" : "stream " + ws} · ${h.msgRate || 0} msg/s` : `daemon stopped · last seen ${ago(h.at)}`;
+  $("#srcPill").textContent = S.mode === "stream" ? "live from this computer" : `published data · ${a ? ago(a.generated) : "…"}`;
+  $("#run").title = h ? `host ${h.host}\nstarted ${h.startedAt}\nstream: ${ws}, reconnects ${h.ws?.reconnects ?? 0}, gaps ${h.ws?.gaps ?? 0}\nmarkets watched ${h.markets}, stale ${h.stale}\nstale seconds since start ${h.staleTotalSec}` : "";
+}
+
+// ---------- views ----------
+const TABS = [["live", "Live"], ["models", "Models"], ["break", "Breakdowns"], ["paper", "Paper"], ["ops", "Ops"]];
+function nav() { $("#nav").innerHTML = TABS.map(([k, n]) => `<a href="#${k}" class="${S.tab === k ? "on" : ""}">${n}</a>`).join(""); }
+
+function verdictCard() {
+  const a = S.app, t = a?.status?.trade; if (!t) return "";
+  const alerts = (a.ops?.alerts?.recent || []).filter(x => Date.now() - Date.parse(x.ts) < 864e5).slice(-3).reverse();
+  const needs = (a.status.needs || []).slice(0, 3);
+  return `<div class="card tone-${t.tone}"><h2>Should I trade?</h2><div class="verdict"><div class="ans">${esc(t.answer)}</div><div><p><b>Why${t.tone === "good" ? "" : " not yet"}:</b> ${esc(t.why)}</p><p class="small mut" style="margin-top:4px">${esc(t.next)}</p></div></div>
+  ${alerts.map(x => `<div class="alert"><b>${esc(x.title)}</b> — ${esc(x.body)} <span class="mut small">${ago(x.ts)}${x.sent ? "" : " · not sent (no webhook set)"}</span></div>`).join("")}
+  ${needs.map(x => `<div class="alert" style="border-color:var(--s1)">${esc(x)}</div>`).join("")}</div>`;
+}
+
+function spark(k) { const a = S.spark.get(k); if (!a || a.length < 2) return ""; const lo = Math.min(...a), hi = Math.max(...a), r = hi - lo || 0.01, w = 64, h = 18;
+  return `<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true"><polyline fill="none" stroke="${css("--s1")}" stroke-width="2" stroke-linejoin="round" points="${a.map((v, i) => `${(i / (a.length - 1) * w).toFixed(1)},${(h - 2 - (v - lo) / r * (h - 4)).toFixed(1)}`).join(" ")}"/></svg>`; }
+function edge(m, est) { if (est == null || m.a == null || m.b == null) return null; const y = est - m.a - fee(m.a), nc = 1 - m.b, n = (1 - est) - nc - fee(nc); return y >= n ? ["YES", y] : ["NO", n]; }
+function liveRows() {
+  const a = S.app, logged = new Map((a?.predictions || []).map(p => [p.k, p])), rows = [...S.markets.values()].filter(m => Date.parse(m.res) > Date.now() - 6e4).sort((x, y) => Date.parse(x.res) - Date.parse(y.res));
+  if (!rows.length) { const open = (a?.predictions || []).filter(p => p.out === "open"); return open.length ? open.slice(0, 80).map(p => rowHtml({ k: p.k, title: p.title, cat: p.cat, res: p.res, b: p.b, a: p.a, mid: p.mid, est: p.est, stale: true })).join("") : `<tr><td colspan="9" class="mut">No open markets being watched right now.</td></tr>`; }
+  return rows.slice(0, 150).map(m => rowHtml({ ...m, est: m.est || logged.get(m.k)?.est })).join("");
+}
+function rowHtml(m) {
+  const best = ["ensemble", "calib", "nn"].map(k => [k, m.est?.[k]]).find(x => x[1] != null), e = best ? edge(m, best[1]) : null;
+  return `<tr class="row ${m._chg && Date.now() - m._at < 700 ? "flash" : ""}" data-k="${esc(m.k)}"><td><div class="title" title="${esc(m.title)}">${esc(m.title)}</div><div class="small mut">${esc(m.cat || "")}${m.logged === false ? " · watching" : ""}</div></td>
+  <td class="num">${until(m.res)}</td><td class="num">${pct(m.b)}</td><td class="num">${pct(m.a)}</td><td class="num"><b class="${m._chg > 0 ? "up" : m._chg < 0 ? "down" : ""}">${pct(m.mid, 1)}</b></td>
+  <td class="hm">${spark(m.k)}</td><td class="num">${m.est?.calib != null ? pct(m.est.calib, 1) : "–"}</td><td class="num hm">${m.est?.ensemble != null ? pct(m.est.ensemble, 1) : "–"}</td>
+  <td class="num">${e ? `<span class="${e[1] > 0.02 ? "up" : "mut"}">${e[0]} ${(e[1] * 100).toFixed(1)}¢</span>` : "–"}</td></tr>`;
+}
+function viewLive() {
+  const h = S.health, a = S.app;
+  return verdictCard() + `<div class="kpis" style="margin-bottom:14px">
+  <div class="kpi"><b>${S.markets.size || (a?.predictions || []).filter(p => p.out === "open").length}</b><span>markets watched</span></div>
+  <div class="kpi"><b>${a?.evals?.market?.n ?? "–"}</b><span>live markets resolved</span></div>
+  <div class="kpi"><b>${a?.evals?.market?.brier ?? "–"}</b><span>market's own Brier</span></div>
+  <div class="kpi"><b>${h ? h.staleTotalSec + " s" : "–"}</b><span>stale time since start</span></div>
+  <div class="kpi"><b>${a?.evals?.leakage?.total ?? "–"}</b><span>leakage violations</span></div></div>
+  <div class="card"><h2>Live markets <span class="mut" style="text-transform:none;letter-spacing:0">· ${S.mode === "stream" ? "streaming" : "published snapshot, updates every 2 min"} · tap a row for the book and history</span></h2>
+  <div class="scroll"><table><thead><tr><th>Market</th><th class="num">Closes in</th><th class="num">Bid</th><th class="num">Ask</th><th class="num">Mid</th><th class="hm">Trend</th><th class="num">Calib</th><th class="num hm">Ensemble</th><th class="num">Edge after fees</th></tr></thead><tbody id="liveBody">${liveRows()}</tbody></table></div>
+  <p class="small mut" style="margin:8px 0 0">Edge = expected value per $1 contract after Kalshi's fee, buying at the quoted price, if the model were right. No model has passed the test, so this is not advice.</p></div>`;
+}
+
+function interval(seq, snap, status) {
+  if (!seq || seq.lo == null) return `<div class="small mut">No resolved live markets yet.</div>`;
+  const B = Math.max(0.02, Math.min(seq.bound || 1, Math.max(Math.abs(seq.lo), Math.abs(seq.hi)) * 1.25)), x = v => Math.max(0, Math.min(100, 50 + v / B * 50));
+  const cls = seq.hi < 0 ? "good" : seq.lo > 0 ? "crit" : "";
+  return `<div class="ivl" role="img" aria-label="Peeking-safe range ${n4(seq.lo)} to ${n4(seq.hi)}"><div class="band ${cls}" style="left:${x(seq.lo)}%;width:${Math.max(1, x(seq.hi) - x(seq.lo))}%"></div><div class="zero"></div>${snap?.diff != null ? `<div class="pt" style="left:${x(snap.diff)}%" title="current average ${n4(snap.diff)}"></div>` : ""}</div>
+  <div class="axis"><span>◀ better than market ${n4(-B)}</span><span>0</span><span>${n4(B)} worse ▶</span></div>
+  <div class="small sec">Peeking-safe range <b>${n4(seq.lo)} … ${n4(seq.hi)}</b> · average now ${n4(snap?.diff)}</div>`;
+}
+function trendOf(k) { const t = (S.app.trend || []).map(d => d.predictors?.[k]).filter(x => x && x.mean != null); if (t.length < 2) return "first day of data"; const a = t[t.length - 2], b = t[t.length - 1]; return `${b.n - a.n >= 0 ? "+" : ""}${b.n - a.n} resolved since yesterday · average ${n4(a.mean)} → ${n4(b.mean)}`; }
+function modelCard(k) {
+  const e = S.app.evals, m = e.models[k], c = e.cards[k] || {}, [lab, tone] = STATUS[m.status] || [m.status, ""], dev = c.development;
+  return `<div class="card"><div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline"><h3>${esc(k)}</h3><span class="tag ${tone}">${esc(lab)}</span></div>
+  <div class="small mut">${esc(c.kind || "")}</div>
+  ${interval(m.vsMarket.sequence, m.vsMarket.snapshot95, m.status)}
+  <div class="small sec" style="margin-top:6px">${m.n} resolved in ${m.events} events · ${m.money.n} picks${m.money.n ? `, ${usd(m.money.total)} after fees` : ""} · ${trendOf(k)}</div>
+  <div class="small" style="margin-top:6px">${esc(m.why)}</div>
+  <details><summary>Model card</summary><div class="small sec" style="margin-top:6px">
+    <p style="margin:4px 0"><b>Idea:</b> ${esc(c.hypothesis || "")}</p>
+    <p style="margin:4px 0"><b>Data:</b> ${c.data ? esc(typeof c.data === "string" ? c.data : Object.entries(c.data).map(([a, b]) => `${b} ${a}`).join(", ")) : "–"}${c.trained ? ` · trained ${ago(c.trained)}` : ""}</p>
+    <p style="margin:4px 0"><b>Inputs:</b> ${esc((c.features || []).join(", ") || "–")}</p>
+    ${c.limits ? `<p style="margin:4px 0"><b>Limits:</b> ${esc(c.limits)}</p>` : ""}${c.gate ? `<p style="margin:4px 0"><b>Gate:</b> ${esc(c.gate)}</p>` : ""}
+    ${dev ? `<p style="margin:4px 0"><b>Past markets it never trained on:</b> ${n4(dev.brierVsMarket)} Brier vs market (${n4(dev.lo)} … ${n4(dev.hi)}, ${dev.n} markets). Development evidence, not the verdict.</p>` : ""}
+    <p style="margin:4px 0"><b>What would change the verdict:</b> ${esc(c.wouldChange || "")}</p>
+    <p style="margin:4px 0" class="mut">Ordinary 95% snapshot (not peeking-safe): ${n4(m.vsMarket.snapshot95.lo)} … ${n4(m.vsMarket.snapshot95.hi)}. Log loss vs market: ${n4(m.vsMarket.logLoss.diff)}.</p>
+  </div></details></div>`;
+}
+function viewModels() {
+  const a = S.app, e = a.evals; if (!e) return `<div class="card">No evaluation yet.</div>`;
+  const names = Object.keys(e.models).sort((x, y) => (MODEL_ORDER.indexOf(x) + 99) % 99 - (MODEL_ORDER.indexOf(y) + 99) % 99), on = names.filter(k => e.models[k].status !== "RETIRED"), off = names.filter(k => e.models[k].status === "RETIRED");
+  const w = a.ensemble?.weights;
+  return `<div class="card"><h2>Referee</h2><p style="margin:0 0 6px"><b>${esc(e.headline)}</b></p>
+  <p class="small sec" style="margin:0">Each bar is a range that stays valid however often it is checked (chance of a false "edge" ≤ ${(e.alpha * 100).toFixed(0)}% in total, split across ${e.family} models and variants tried). Left of zero = better than the market price. A model passes only when its whole bar is left of zero on ${a.goals.minResolved}+ live markets <i>and</i> its picks make money after fees over ${a.goals.minPicks}+ picks. Coin-flip control: ${n4(e.controls.coinFlip.perPick)} per $1 pick after fees.</p></div>
+  <div class="grid g2">${on.map(modelCard).join("")}</div>
+  ${w ? `<div class="card"><h2>Ensemble weights</h2><div class="scroll"><table><thead><tr><th>Member</th><th class="num">Weight</th><th></th></tr></thead><tbody>${Object.entries(w).map(([k, v]) => `<tr><td>${esc(k)}</td><td class="num">${(+v).toFixed(3)}</td><td style="width:60%"><div style="height:10px;border-radius:4px;background:var(--s1);width:${Math.min(100, Math.abs(v) * 80)}%;opacity:${v < 0 ? .35 : 1}"></div></td></tr>`).join("")}</tbody></table></div><p class="small mut" style="margin:6px 0 0">market = 1 and the rest = 0 means "just the price". Negative (faded) weights mean the blend leans away from that member. Trained on ${a.ensemble.n} out-of-sample rows.</p></div>` : ""}
+  ${off.length ? `<div class="card"><h2>Switched off</h2><div class="scroll"><table><thead><tr><th>Model</th><th class="num">Resolved</th><th class="num">Brier vs market</th><th>Why</th></tr></thead><tbody>${off.map(k => `<tr><td>${esc(k)}</td><td class="num">${e.models[k].n}</td><td class="num">${n4(e.models[k].vsMarket.snapshot95.diff)}</td><td class="small sec">${esc(a.predictors[k]?.retired || "")}</td></tr>`).join("")}</tbody></table></div></div>` : ""}`;
+}
+
+function breakTable(rows, key, label) {
+  return `<div class="scroll"><table><thead><tr><th>${label}</th><th class="num">Markets</th><th class="num">Brier vs market</th><th class="num hm">95% snapshot</th></tr></thead><tbody>${rows.map(r => `<tr><td>${esc(r[key])}</td><td class="num">${r.n}</td><td class="num ${r.hi < 0 ? "up" : r.lo > 0 ? "down" : ""}">${n4(r.diff)}</td><td class="num hm mut">${n4(r.lo)} … ${n4(r.hi)}</td></tr>`).join("") || `<tr><td colspan="4" class="mut">No data yet.</td></tr>`}</tbody></table></div>`;
+}
+function viewBreak() {
+  const e = S.app.evals; if (!e) return ""; const names = Object.keys(e.models).filter(k => e.models[k].n > 0); S.bm = names.includes(S.bm) ? S.bm : names.find(k => e.models[k].status !== "RETIRED") || names[0];
+  const m = e.models[S.bm]; if (!m) return `<div class="card">Nothing resolved yet.</div>`;
+  return `<div class="card"><label class="small sec">Model <select id="bm" style="font:inherit;padding:4px 8px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink)">${names.map(k => `<option ${k === S.bm ? "selected" : ""}>${esc(k)}</option>`).join("")}</select></label>
+  <span class="small mut"> · ${m.n} resolved live markets · intervals here are ordinary snapshots (many slices: read as description, not proof)</span></div>
+  <div class="grid g2"><div class="card"><h2>By category</h2>${breakTable(m.byCategory, "cat", "Category")}</div><div class="card"><h2>By time to resolution</h2>${breakTable(m.byLead, "lead", "Lead time")}</div></div>
+  <div class="card"><h2>Calibration — ${esc(S.bm)}: what it said vs what happened</h2><div class="chart"><canvas id="calChart" role="img" aria-label="Calibration chart"></canvas></div>
+  <details><summary>Table</summary><div class="scroll"><table><thead><tr><th>Said</th><th class="num">Markets</th><th class="num">Average estimate</th><th class="num">YES happened</th></tr></thead><tbody>${m.calibration.map(c => `<tr><td>${c.bin}</td><td class="num">${c.n}</td><td class="num">${(c.said * 100).toFixed(1)}%</td><td class="num">${(c.happened * 100).toFixed(1)}%</td></tr>`).join("")}</tbody></table></div></details></div>
+  <div class="card"><h2>Biggest misses vs the market — ${esc(S.bm)}</h2><div class="scroll"><table><thead><tr><th>Market</th><th class="num">Model</th><th class="num">Market</th><th>Outcome</th><th class="num">Extra log loss</th></tr></thead><tbody>${m.misses.map(x => `<tr class="row" data-k="${esc(x.ticker)}"><td><div class="title">${esc(x.title || x.ticker)}</div></td><td class="num">${pct(x.said, 1)}</td><td class="num">${pct(x.market, 1)}</td><td>${x.outcome.toUpperCase()}</td><td class="num">${n4(x.worseBy)}</td></tr>`).join("") || `<tr><td colspan="5" class="mut">None yet.</td></tr>`}</tbody></table></div></div>
+  ${e.shadow?.n ? `<div class="card"><h2>Shadow test — excluded categories (not in any verdict)</h2><div class="scroll"><table><thead><tr><th>Category</th><th class="num">Resolved</th><th class="num">Market Brier</th></tr></thead><tbody>${e.shadow.byCategory.map(c => `<tr><td>${esc(c.cat)}</td><td class="num">${c.n}</td><td class="num">${c.brierMarket}</td></tr>`).join("")}</tbody></table></div><div class="scroll"><table><thead><tr><th>Model on those markets</th><th class="num">Markets</th><th class="num">Brier vs market</th><th class="num hm">95% snapshot</th></tr></thead><tbody>${Object.entries(e.shadow.models).map(([k, v]) => `<tr><td>${esc(k)}</td><td class="num">${v.n}</td><td class="num">${n4(v.diff)}</td><td class="num hm mut">${n4(v.lo)} … ${n4(v.hi)}</td></tr>`).join("")}</tbody></table></div><p class="small mut" style="margin:6px 0 0">${esc(e.shadow.note)}</p></div>` : ""}
+  <div class="card"><h2>Leakage eval</h2><div class="checks">${e.leakage.checks.map(c => `<div><span class="dot ${c.violations ? "crit" : "good"}" style="display:inline-block;margin-right:6px"></span>${esc(c.name)} <span class="mut">${c.violations} of ${c.of}</span></div>`).join("")}</div></div>`;
+}
+
+function viewPaper() {
+  const p = S.app.paper; if (!p) return `<div class="card">No paper portfolios yet.</div>`; const f = p.forward.portfolios, mk = p.maker;
+  return `<div class="card"><h2>Paper portfolios — forward (live predictions, $${p.start} each)</h2>
+  <div class="legend" id="eqLegend">${f.map(x => `<span><i style="background:var(${PF_COLOR[x.id] || "--mute"})"></i>${esc(x.name)}</span>`).join("")}</div>
+  <div class="chart"><canvas id="eqChart" role="img" aria-label="Equity curves of the paper portfolios"></canvas></div>
+  <div class="scroll" style="margin-top:8px"><table><thead><tr><th>Portfolio</th><th class="num">Equity</th><th class="num">Return</th><th class="num">Bets</th><th class="num hm">Wins</th><th class="num hm">Fees</th><th class="num">Max drawdown</th><th class="hm">Sizing state</th></tr></thead>
+  <tbody>${f.map(x => `<tr><td><i style="display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;background:var(${PF_COLOR[x.id] || "--mute"})"></i>${esc(x.name)}</td><td class="num"><b>${usd(x.equity)}</b></td><td class="num ${x.returnPct > 0 ? "up" : x.returnPct < 0 ? "down" : ""}">${x.returnPct > 0 ? "+" : ""}${(+x.returnPct).toFixed(1)}%</td><td class="num">${x.bets}</td><td class="num hm">${x.wins}/${x.settled}</td><td class="num hm">${usd(x.fees)}</td><td class="num">${(+x.maxDrawdownPct).toFixed(1)}%</td><td class="small sec hm">${esc(x.why || "")}</td></tr>`).join("")}</tbody></table></div>
+  <p class="small mut" style="margin:8px 0 0">${esc(p.note)} Controls: "Hold cash" earns 0; "Coin flip" shows what fees and spread alone cost.</p></div>
+  ${mk ? `<div class="card"><h2>Maker paper portfolio (resting limit orders, filled only when a later trade crosses)</h2><div class="kpis"><div class="kpi"><b>${usd(mk.equity)}</b><span>equity (start ${usd(mk.start)})</span></div><div class="kpi"><b>${mk.fills}</b><span>fills of ${mk.orders} orders</span></div><div class="kpi"><b>${usd(mk.pnl)}</b><span>settled P&L after fees</span></div><div class="kpi"><b>${mk.settled}</b><span>settled positions</span></div><div class="kpi"><b>${n4(mk.perFill)}</b><span>P&L per filled contract</span></div></div><p class="small mut" style="margin:8px 0 0">${esc(mk.note || "")}</p></div>` : ""}
+  <div class="card"><h2>Replay on past settled markets (supporting evidence only)</h2><div class="scroll"><table><thead><tr><th>Portfolio</th><th class="num">Equity</th><th class="num">Bets</th><th class="num">Max drawdown</th></tr></thead><tbody>${p.replay.portfolios.map(x => `<tr><td>${esc(x.name)}</td><td class="num">${usd(x.equity)}</td><td class="num">${x.bets}</td><td class="num">${(+x.maxDrawdownPct).toFixed(1)}%</td></tr>`).join("")}</tbody></table></div></div>`;
+}
+
+function viewOps() {
+  const a = S.app, o = a.ops, h = S.health || o.heartbeat, st = o.storage, pf = o.perf?.last, llm = o.llm, chk = a.status?.checks || [];
+  return `<div class="kpis" style="margin-bottom:14px">
+  <div class="kpi"><b>${h?.ws?.reconnects ?? "–"}</b><span>stream reconnects</span></div><div class="kpi"><b>${h?.ws?.gaps ?? "–"}</b><span>sequence gaps resynced</span></div>
+  <div class="kpi"><b>${h ? h.rssMB + " MB" : "–"}</b><span>daemon memory</span></div><div class="kpi"><b>${pf ? pf.ms + " ms" : "–"}</b><span>last ${pf?.kind || "cycle"}</span></div>
+  <div class="kpi"><b>${llm ? "$" + (+llm.spent).toFixed(2) : "$0.00"}</b><span>Claude spend today (cap $${llm ? (+llm.cap).toFixed(2) : "1.00"})</span></div>
+  <div class="kpi"><b>${st?.repoMB ?? "–"} MB</b><span>repo on GitHub</span></div></div>
+  <div class="card"><h2>Watchdog · ${chk.filter(c => c.ok).length}/${chk.length} checks pass</h2><div class="checks">${chk.map(c => `<div title="${esc(c.detail)}"><span class="dot ${c.ok ? "good" : "crit"}" style="display:inline-block;margin-right:6px"></span>${esc(c.name)}<div class="small mut" style="margin-left:14px">${esc(c.detail)}</div></div>`).join("")}</div></div>
+  <div class="grid g2">
+  <div class="card"><h2>Data</h2><table><tbody>
+    <tr><td>Predictions logged</td><td class="num">${a.totals.predictions}</td></tr><tr><td>Outcomes</td><td class="num">${a.totals.outcomes}</td></tr><tr><td>Backtest markets</td><td class="num">${a.totals.backtest}</td></tr><tr><td>Minute snapshots (training)</td><td class="num">${a.totals.snapshots}</td></tr>
+    <tr><td>Tick log on this computer</td><td class="num">${h?.ticks ? h.ticks.rows + " rows · " + h.ticks.mb + " MB today" : "–"}</td></tr><tr><td>Local copy / free disk</td><td class="num">${st ? (st.localCopyMB ?? "–") + " MB / " + (st.freeDiskGB ?? "–") + " GB" : "–"}</td></tr>
+    <tr><td>Config version</td><td class="num">v${a.cfg}</td></tr><tr><td>Published</td><td class="num">${ago(a.generated)}</td></tr></tbody></table></div>
+  <div class="card"><h2>LLM</h2>${llm ? `<table><tbody><tr><td>Calls today (local / Claude)</td><td class="num">${llm.local ?? 0} / ${llm.claude ?? 0}</td></tr><tr><td>Cache hits</td><td class="num">${llm.cached ?? 0}</td></tr><tr><td>Spend / cap</td><td class="num">$${(+llm.spent).toFixed(3)} / $${(+llm.cap).toFixed(2)}</td></tr><tr><td>Memory index (RAG)</td><td class="num">${o.rag ? o.rag.docs + " items" : "–"}</td></tr></tbody></table>` : `<p class="sec small">No LLM calls yet. The local model (Ollama) handles routine reading; Claude is only used for hard cases under the daily cap.</p>`}
+  ${o.llmEval ? `<p class="small sec">LLM eval (${esc(o.llmEval.model)}): rules extraction ${(o.llmEval.rulesAcc * 100).toFixed(0)}%, fact precision ${(o.llmEval.factPrecision * 100).toFixed(0)}% on ${o.llmEval.n} fixed cases · ${ago(o.llmEval.at)}</p>` : ""}</div>
+  </div>
+  <div class="card"><h2>Decisions the agent made</h2><div class="scroll"><table><thead><tr><th>When</th><th>Decision</th><th class="hm">Why</th><th class="hm">Undo</th></tr></thead><tbody>${(a.decisions || []).map(d => `<tr><td class="small mut" style="white-space:nowrap">${esc((d.ts || "").slice(0, 16).replace("T", " "))}</td><td>${esc(d.decision)}</td><td class="small sec hm">${esc(d.why)}</td><td class="small mut hm">${esc(d.undo)}</td></tr>`).join("") || `<tr><td colspan="4" class="mut">None yet.</td></tr>`}</tbody></table></div></div>
+  ${(a.briefings || []).length ? `<div class="card"><h2>Briefings</h2>${a.briefings.map(b => `<p style="margin:6px 0"><span class="small mut">${esc((b.ts || "").slice(0, 16).replace("T", " "))}</span><br>${esc(b.text || b.summary || "")}</p>`).join("")}</div>` : ""}`;
+}
+
+// ---------- per-market drill-down (#m/<ticker>) ----------
+async function drill(k) {
+  const a = S.app, p = (a?.predictions || []).find(x => x.k === k); let live = S.markets.get(k);
+  if (S.mode === "stream") { try { live = await J((S.base || "") + "/api/market/" + encodeURIComponent(k), 2500); } catch {} }
+  const title = p?.title || live?.title || k, facts = (a?.facts || []).filter(f => f.ticker === k || (p && f.series && p.k.startsWith(f.series)));
+  const d = live?.depth, mx = d ? Math.max(1, ...d.yes.map(l => l[1]), ...d.no.map(l => l[1])) : 1;
+  $("#drillBody").innerHTML = `<div class="top"><button id="back">← Back</button><span class="grow"></span>${p ? `<a class="pill" href="${esc(p.url)}" target="_blank" rel="noopener">Open on Kalshi ↗</a>` : ""}</div>
+  <div class="card"><h3>${esc(title)}</h3><div class="small mut">${esc(k)} · ${esc(p?.cat || live?.cat || "")} · ${p ? "resolves " + new Date(p.res).toLocaleString() : ""}</div>
+  <div class="kpis" style="margin-top:10px"><div class="kpi"><b>${pct(live?.mid ?? p?.mid, 1)}</b><span>${live ? "mid now" : "mid when logged"}</span></div><div class="kpi"><b>${p ? p.out.toUpperCase() : "–"}</b><span>outcome</span></div>
+  <div class="kpi"><b>${live ? pct(live.b) + " / " + pct(live.a) : p ? pct(p.b) + " / " + pct(p.a) : "–"}</b><span>bid / ask</span></div><div class="kpi"><b>${p ? until(p.res) : "–"}</b><span>closes in</span></div></div></div>
+  <div class="grid g2"><div class="card"><h2>Price and estimates over time</h2><div class="legend"><span><i style="background:var(--s1)"></i>Market mid</span><span><i style="background:var(--s3)"></i>Calib</span><span><i style="background:var(--s5)"></i>Ensemble</span></div><div class="chart"><canvas id="pathChart" role="img" aria-label="Price path and model estimates"></canvas></div>
+  <p class="small mut" style="margin:6px 0 0">First point = the scored prediction. Later points = re-estimates after a 3¢ move or 15 minutes (never scored).</p></div>
+  <div class="card"><h2>Order book ${d ? "" : "<span class='mut' style='text-transform:none;letter-spacing:0'>· only on the live page at home</span>"}</h2>${d ? `<div class="depth"><div><div class="small mut">YES bids</div>${d.yes.map(l => `<div class="lvl"><i style="width:${l[1] / mx * 100}%"></i><span>${pct(l[0])}</span><span>${Math.round(l[1])}</span></div>`).join("") || "<div class='mut small'>empty</div>"}</div><div><div class="small mut">NO bids (= YES asks at 100¢ − price)</div>${d.no.map(l => `<div class="lvl no"><i style="width:${l[1] / mx * 100}%"></i><span>${pct(l[0])}</span><span>${Math.round(l[1])}</span></div>`).join("") || "<div class='mut small'>empty</div>"}</div></div>
+  <p class="small sec" style="margin:8px 0 0">Microprice ${pct(live.micro, 1)} · book imbalance ${live.imb ?? "–"} · 5-min taker flow ${live.flow5 ?? "–"}</p>` : `<p class="sec small">The published site carries prices, not full books.</p>`}</div></div>
+  <div class="card"><h2>Estimates at the scored prediction</h2><div class="scroll"><table><thead><tr><th>Model</th><th class="num">P(YES)</th><th class="num">vs market</th><th>Pick</th></tr></thead><tbody>${p ? Object.entries(p.est).map(([m, v]) => `<tr><td>${esc(m)}</td><td class="num">${pct(v, 1)}</td><td class="num">${m === "market" ? "" : n4(v - p.est.market)}</td><td class="small">${p.picks?.[m] ? `${p.picks[m].side.toUpperCase()} at ${pct(p.picks[m].cost)} (EV ${(p.picks[m].ev * 100).toFixed(1)}¢)` : ""}</td></tr>`).join("") : `<tr><td colspan="4" class="mut">Not a logged prediction (watched only).</td></tr>`}</tbody></table></div>
+  ${p?.ext ? `<p class="small sec" style="margin:8px 0 0">Outside data: ${Object.entries(p.ext).map(([n, v]) => `${esc(n)} → ${pct(v.p, 1)} (${esc(v.src)}, ${esc((v.at || "").slice(11, 19))} UTC)`).join("; ")}</p>` : ""}</div>
+  <div class="card"><h2>News facts</h2>${facts.length ? facts.map(f => `<p class="small" style="margin:6px 0">${esc(f.claim)} <span class="mut">— ${esc(f.entity || "")}, ${esc((f.at || "").slice(0, 16).replace("T", " "))} · <a href="${esc(f.url)}" target="_blank" rel="noopener">source</a></span></p>`).join("") : `<p class="small mut" style="margin:0">No extracted facts for this market.</p>`}</div>`;
+  $("#drill").classList.remove("hide"); $("#back").onclick = () => { history.length > 1 ? history.back() : (location.hash = "#" + S.tab); };
+  const pts = p ? [[p.ts, p.mid, p.est], ...(p.upd || [])] : [], sp = S.spark.get(k) || [];
+  const mid = pts.map(x => ({ x: Date.parse(x[0]), y: x[1] })), now = Date.now(); if (live?.mid != null) mid.push({ x: now, y: live.mid });
+  const ser = name => pts.filter(x => x[2]?.[name] != null).map(x => ({ x: Date.parse(x[0]), y: x[2][name] }));
+  lineChart("pathChart", [["Market mid", "--s1", mid], ["Calib", "--s3", ser("calib")], ["Ensemble", "--s5", ser("ensemble")]], { time: true, yPct: true });
+}
+
+// ---------- charts (Chart.js; one axis; legend is HTML above each chart; text in ink tokens) ----------
+function lineChart(id, series, { time = false, yPct = false, yUsd = false, diag = false } = {}) {
+  const el = document.getElementById(id); if (!el || !window.Chart) return; S.charts[id]?.destroy();
+  const ink = css("--ink2"), grid = css("--line");
+  S.charts[id] = new Chart(el, { type: "line",
+    data: { datasets: [...(diag ? [{ label: "Perfect", data: [{ x: 0, y: 0 }, { x: 1, y: 1 }], borderColor: css("--mute"), borderDash: [4, 4], borderWidth: 1, pointRadius: 0 }] : []),
+      ...series.map(([label, v, data]) => ({ label, data, borderColor: css(v), backgroundColor: css(v), borderWidth: 2, pointRadius: data.length < 40 ? 4 : 0, pointHoverRadius: 5, pointBorderColor: css("--surface"), pointBorderWidth: 2, tension: 0, stepped: time && !diag ? false : false }))] },
+    options: { responsive: true, maintainAspectRatio: false, animation: false, parsing: false, interaction: { mode: "nearest", axis: "x", intersect: false },
+      plugins: { legend: { display: false }, tooltip: { callbacks: { title: i => time ? new Date(i[0].parsed.x).toLocaleString() : diag ? "Said " + (i[0].parsed.x * 100).toFixed(0) + "%" : "", label: c => `${c.dataset.label}: ${yUsd ? "$" + c.parsed.y.toFixed(2) : (c.parsed.y * 100).toFixed(1) + (diag ? "% happened" : "¢")}` } } },
+      scales: { x: { type: "linear", ticks: { color: ink, maxTicksLimit: 6, callback: v => time ? new Date(v).toLocaleString([], { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }) : (v * 100).toFixed(0) + "%" }, grid: { color: grid }, ...(diag ? { min: 0, max: 1 } : {}) },
+        y: { ticks: { color: ink, callback: v => yUsd ? "$" + v : (v * 100).toFixed(0) + (diag ? "%" : "¢") }, grid: { color: grid }, ...(diag ? { min: 0, max: 1 } : {}) } } } });
+}
+function charts() {
+  const a = S.app; if (!a) return;
+  if (S.tab === "paper" && a.paper) lineChart("eqChart", a.paper.forward.portfolios.map(p => [p.name, PF_COLOR[p.id] || "--mute", (p.curve || []).map(c => ({ x: c[0], y: c[1] }))]), { time: true, yUsd: true });
+  if (S.tab === "break" && a.evals?.models?.[S.bm]) lineChart("calChart", [[S.bm, "--s1", a.evals.models[S.bm].calibration.map(c => ({ x: c.said, y: c.happened }))]], { diag: true });
+}
+
+// ---------- render loop ----------
+let liveDirty = false;
+function render() {
+  nav(); header();
+  const m = location.hash.match(/^#m\/(.+)$/);
+  if (m) { drill(decodeURIComponent(m[1])); return; }
+  $("#drill").classList.add("hide");
+  if (!S.app) { $("#main").innerHTML = `<div class="card">${esc(S.err || "Loading…")}</div>`; return; }
+  $("#main").innerHTML = (S.err ? `<div class="alert">${esc(S.err)} — showing the last data loaded.</div>` : "") + ({ live: viewLive, models: viewModels, break: viewBreak, paper: viewPaper, ops: viewOps }[S.tab] || viewLive)();
+  const bm = $("#bm"); if (bm) bm.onchange = () => { S.bm = bm.value; render(); };
+  charts();
+}
+document.addEventListener("click", e => { const r = e.target.closest("tr.row"); if (r?.dataset.k) location.hash = "#m/" + encodeURIComponent(r.dataset.k); });
+addEventListener("hashchange", () => { const t = (location.hash.match(/^#(\w+)$/) || [])[1]; if (t && TABS.some(x => x[0] === t)) S.tab = t; render(); scrollTo(0, 0); });
+$("#theme").onclick = () => { const cur = document.documentElement.dataset.theme || (matchMedia("(prefers-color-scheme:dark)").matches ? "dark" : "light"), nx = cur === "dark" ? "light" : "dark"; document.documentElement.dataset.theme = nx; try { localStorage.setItem("theme", nx); } catch {} render(); };
+try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch {}
+setInterval(() => { if (S.tab === "live" && !location.hash.startsWith("#m/")) { const b = $("#liveBody"); if (b && (liveDirty || S.mode !== "stream")) { b.innerHTML = liveRows(); liveDirty = false; } } }, 250);   // prices repaint 4×/s; countdowns tick with them
+setInterval(header, 1000);
+setInterval(() => { if (S.mode === "published") pollLive(); }, 30000);
+setInterval(loadApp, 60000);
+loadApp(); connectLive();
+if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js").catch(() => {});
+</script>
+</body>
+</html>

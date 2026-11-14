@@ -1,0 +1,638 @@
+{
+ "updated": "2026-11-14T21:00:10.411Z",
+ "note": "BACKTEST on already-settled markets (prices from Kalshi candles 30 min before resolution). Supports, never replaces, the live record. Simulation only. Brier/log loss: lower is better. brierVsMarket < 0 means better than the market price. Intervals are 95%, counted per event. No edge is claimed below 100 resolved predictions.",
+ "predictions": 3580,
+ "resolved": 3580,
+ "excludedLeakage": 0,
+ "events": 3580,
+ "predictors": {
+  "market": {
+   "n": 3580,
+   "brier": {
+    "mean": 0.184,
+    "lo": 0.1783,
+    "hi": 0.1897,
+    "events": 3580
+   },
+   "logLoss": {
+    "mean": 0.5398,
+    "lo": 0.5254,
+    "hi": 0.5542,
+    "events": 3580
+   },
+   "brierVsMarket": {
+    "mean": 0,
+    "lo": 0,
+    "hi": 0,
+    "events": 3580
+   },
+   "verdict": "baseline",
+   "picks": {
+    "n": 0,
+    "wins": 0,
+    "pnlPerContract": {
+     "mean": null,
+     "lo": null,
+     "hi": null,
+     "events": 0
+    },
+    "totalPnl": 0,
+    "profitable": false
+   },
+   "calibration": [
+    {
+     "bin": "0-10%",
+     "n": 309,
+     "avgP": 0.0561,
+     "hitRate": 0.0485
+    },
+    {
+     "bin": "10-20%",
+     "n": 315,
+     "avgP": 0.1472,
+     "hitRate": 0.1587
+    },
+    {
+     "bin": "20-30%",
+     "n": 339,
+     "avgP": 0.245,
+     "hitRate": 0.2478
+    },
+    {
+     "bin": "30-40%",
+     "n": 332,
+     "avgP": 0.3515,
+     "hitRate": 0.3464
+    },
+    {
+     "bin": "40-50%",
+     "n": 722,
+     "avgP": 0.4553,
+     "hitRate": 0.4584
+    },
+    {
+     "bin": "50-60%",
+     "n": 682,
+     "avgP": 0.5402,
+     "hitRate": 0.5323
+    },
+    {
+     "bin": "60-70%",
+     "n": 238,
+     "avgP": 0.644,
+     "hitRate": 0.6345
+    },
+    {
+     "bin": "70-80%",
+     "n": 168,
+     "avgP": 0.7484,
+     "hitRate": 0.744
+    },
+    {
+     "bin": "80-90%",
+     "n": 178,
+     "avgP": 0.8506,
+     "hitRate": 0.882
+    },
+    {
+     "bin": "90-100%",
+     "n": 297,
+     "avgP": 0.9426,
+     "hitRate": 0.9529
+    }
+   ]
+  },
+  "longshot": {
+   "n": 1334,
+   "brier": {
+    "mean": 0.181,
+    "lo": 0.171,
+    "hi": 0.191,
+    "events": 1334
+   },
+   "logLoss": {
+    "mean": 0.5358,
+    "lo": 0.5096,
+    "hi": 0.562,
+    "events": 1334
+   },
+   "brierVsMarket": {
+    "mean": -0.0002,
+    "lo": -0.0008,
+    "hi": 0.0004,
+    "events": 1334
+   },
+   "verdict": "no measurable difference",
+   "picks": {
+    "n": 0,
+    "wins": 0,
+    "pnlPerContract": {
+     "mean": null,
+     "lo": null,
+     "hi": null,
+     "events": 0
+    },
+    "totalPnl": 0,
+    "profitable": false
+   },
+   "calibration": [
+    {
+     "bin": "0-10%",
+     "n": 137,
+     "avgP": 0.0486,
+     "hitRate": 0.073
+    },
+    {
+     "bin": "10-20%",
+     "n": 118,
+     "avgP": 0.1482,
+     "hitRate": 0.1525
+    },
+    {
+     "bin": "20-30%",
+     "n": 126,
+     "avgP": 0.2507,
+     "hitRate": 0.2381
+    },
+    {
+     "bin": "30-40%",
+     "n": 131,
+     "avgP": 0.3521,
+     "hitRate": 0.3511
+    },
+    {
+     "bin": "40-50%",
+     "n": 227,
+     "avgP": 0.4537,
+     "hitRate": 0.4361
+    },
+    {
+     "bin": "50-60%",
+     "n": 235,
+     "avgP": 0.5444,
+     "hitRate": 0.5191
+    },
+    {
+     "bin": "60-70%",
+     "n": 98,
+     "avgP": 0.6539,
+     "hitRate": 0.6327
+    },
+    {
+     "bin": "70-80%",
+     "n": 70,
+     "avgP": 0.7506,
+     "hitRate": 0.8
+    },
+    {
+     "bin": "80-90%",
+     "n": 67,
+     "avgP": 0.8418,
+     "hitRate": 0.8358
+    },
+    {
+     "bin": "90-100%",
+     "n": 125,
+     "avgP": 0.951,
+     "hitRate": 0.928
+    }
+   ]
+  },
+  "memory": {
+   "n": 1805,
+   "brier": {
+    "mean": 0.1816,
+    "lo": 0.1734,
+    "hi": 0.1897,
+    "events": 1805
+   },
+   "logLoss": {
+    "mean": 0.5348,
+    "lo": 0.5143,
+    "hi": 0.5553,
+    "events": 1805
+   },
+   "brierVsMarket": {
+    "mean": 0.0001,
+    "lo": -0.0005,
+    "hi": 0.0007,
+    "events": 1805
+   },
+   "verdict": "no measurable difference",
+   "picks": {
+    "n": 30,
+    "wins": 16,
+    "pnlPerContract": {
+     "mean": -0.0573,
+     "lo": -0.2145,
+     "hi": 0.0998,
+     "events": 30
+    },
+    "totalPnl": -1.72,
+    "profitable": false
+   },
+   "calibration": [
+    {
+     "bin": "0-10%",
+     "n": 175,
+     "avgP": 0.0561,
+     "hitRate": 0.0514
+    },
+    {
+     "bin": "10-20%",
+     "n": 158,
+     "avgP": 0.1481,
+     "hitRate": 0.1392
+    },
+    {
+     "bin": "20-30%",
+     "n": 177,
+     "avgP": 0.2492,
+     "hitRate": 0.2486
+    },
+    {
+     "bin": "30-40%",
+     "n": 169,
+     "avgP": 0.3503,
+     "hitRate": 0.3491
+    },
+    {
+     "bin": "40-50%",
+     "n": 348,
+     "avgP": 0.455,
+     "hitRate": 0.4483
+    },
+    {
+     "bin": "50-60%",
+     "n": 333,
+     "avgP": 0.5406,
+     "hitRate": 0.5255
+    },
+    {
+     "bin": "60-70%",
+     "n": 126,
+     "avgP": 0.6478,
+     "hitRate": 0.6349
+    },
+    {
+     "bin": "70-80%",
+     "n": 100,
+     "avgP": 0.7529,
+     "hitRate": 0.75
+    },
+    {
+     "bin": "80-90%",
+     "n": 75,
+     "avgP": 0.851,
+     "hitRate": 0.92
+    },
+    {
+     "bin": "90-100%",
+     "n": 144,
+     "avgP": 0.9418,
+     "hitRate": 0.9444
+    }
+   ]
+  },
+  "crypto_fair": {
+   "n": 974,
+   "brier": {
+    "mean": 0.2146,
+    "lo": 0.2025,
+    "hi": 0.2267,
+    "events": 974
+   },
+   "logLoss": {
+    "mean": 0.6198,
+    "lo": 0.5899,
+    "hi": 0.6497,
+    "events": 974
+   },
+   "brierVsMarket": {
+    "mean": 0.0095,
+    "lo": 0.0041,
+    "hi": 0.015,
+    "events": 974
+   },
+   "verdict": "worse than market (Brier)",
+   "picks": {
+    "n": 524,
+    "wins": 245,
+    "pnlPerContract": {
+     "mean": -0.0556,
+     "lo": -0.0953,
+     "hi": -0.0159,
+     "events": 524
+    },
+    "totalPnl": -29.14,
+    "profitable": false
+   },
+   "calibration": [
+    {
+     "bin": "0-10%",
+     "n": 59,
+     "avgP": 0.0721,
+     "hitRate": 0.1356
+    },
+    {
+     "bin": "10-20%",
+     "n": 157,
+     "avgP": 0.1547,
+     "hitRate": 0.2484
+    },
+    {
+     "bin": "20-30%",
+     "n": 119,
+     "avgP": 0.2496,
+     "hitRate": 0.3277
+    },
+    {
+     "bin": "30-40%",
+     "n": 136,
+     "avgP": 0.3522,
+     "hitRate": 0.3971
+    },
+    {
+     "bin": "40-50%",
+     "n": 162,
+     "avgP": 0.4496,
+     "hitRate": 0.4691
+    },
+    {
+     "bin": "50-60%",
+     "n": 187,
+     "avgP": 0.5429,
+     "hitRate": 0.5401
+    },
+    {
+     "bin": "60-70%",
+     "n": 70,
+     "avgP": 0.6454,
+     "hitRate": 0.5857
+    },
+    {
+     "bin": "70-80%",
+     "n": 37,
+     "avgP": 0.75,
+     "hitRate": 0.8378
+    },
+    {
+     "bin": "80-90%",
+     "n": 31,
+     "avgP": 0.8402,
+     "hitRate": 0.9032
+    },
+    {
+     "bin": "90-100%",
+     "n": 16,
+     "avgP": 0.944,
+     "hitRate": 1
+    }
+   ]
+  },
+  "ensemble": {
+   "n": 1652,
+   "brier": {
+    "mean": 0.1873,
+    "lo": 0.1784,
+    "hi": 0.1961,
+    "events": 1652
+   },
+   "logLoss": {
+    "mean": 0.5466,
+    "lo": 0.5241,
+    "hi": 0.5691,
+    "events": 1652
+   },
+   "brierVsMarket": {
+    "mean": 0.0006,
+    "lo": -0.0002,
+    "hi": 0.0013,
+    "events": 1652
+   },
+   "verdict": "no measurable difference",
+   "picks": {
+    "n": 3,
+    "wins": 3,
+    "pnlPerContract": {
+     "mean": 0.4567,
+     "lo": 0.4096,
+     "hi": 0.5038,
+     "events": 3
+    },
+    "totalPnl": 1.37,
+    "profitable": false
+   },
+   "calibration": [
+    {
+     "bin": "0-10%",
+     "n": 134,
+     "avgP": 0.053,
+     "hitRate": 0.0522
+    },
+    {
+     "bin": "10-20%",
+     "n": 167,
+     "avgP": 0.1472,
+     "hitRate": 0.2036
+    },
+    {
+     "bin": "20-30%",
+     "n": 132,
+     "avgP": 0.2412,
+     "hitRate": 0.2652
+    },
+    {
+     "bin": "30-40%",
+     "n": 131,
+     "avgP": 0.3527,
+     "hitRate": 0.3435
+    },
+    {
+     "bin": "40-50%",
+     "n": 284,
+     "avgP": 0.4572,
+     "hitRate": 0.4437
+    },
+    {
+     "bin": "50-60%",
+     "n": 351,
+     "avgP": 0.5431,
+     "hitRate": 0.5128
+    },
+    {
+     "bin": "60-70%",
+     "n": 128,
+     "avgP": 0.64,
+     "hitRate": 0.6016
+    },
+    {
+     "bin": "70-80%",
+     "n": 74,
+     "avgP": 0.75,
+     "hitRate": 0.7703
+    },
+    {
+     "bin": "80-90%",
+     "n": 83,
+     "avgP": 0.8554,
+     "hitRate": 0.8313
+    },
+    {
+     "bin": "90-100%",
+     "n": 168,
+     "avgP": 0.9496,
+     "hitRate": 0.9583
+    }
+   ]
+  },
+  "calib": {
+   "n": 1652,
+   "brier": {
+    "mean": 0.1872,
+    "lo": 0.1784,
+    "hi": 0.196,
+    "events": 1652
+   },
+   "logLoss": {
+    "mean": 0.5463,
+    "lo": 0.524,
+    "hi": 0.5687,
+    "events": 1652
+   },
+   "brierVsMarket": {
+    "mean": 0.0005,
+    "lo": -0.0002,
+    "hi": 0.0012,
+    "events": 1652
+   },
+   "verdict": "no measurable difference",
+   "picks": {
+    "n": 0,
+    "wins": 0,
+    "pnlPerContract": {
+     "mean": null,
+     "lo": null,
+     "hi": null,
+     "events": 0
+    },
+    "totalPnl": 0,
+    "profitable": false
+   },
+   "calibration": [
+    {
+     "bin": "0-10%",
+     "n": 138,
+     "avgP": 0.055,
+     "hitRate": 0.058
+    },
+    {
+     "bin": "10-20%",
+     "n": 156,
+     "avgP": 0.1476,
+     "hitRate": 0.1795
+    },
+    {
+     "bin": "20-30%",
+     "n": 140,
+     "avgP": 0.2444,
+     "hitRate": 0.2929
+    },
+    {
+     "bin": "30-40%",
+     "n": 143,
+     "avgP": 0.3567,
+     "hitRate": 0.3357
+    },
+    {
+     "bin": "40-50%",
+     "n": 313,
+     "avgP": 0.4558,
+     "hitRate": 0.4665
+    },
+    {
+     "bin": "50-60%",
+     "n": 323,
+     "avgP": 0.5419,
+     "hitRate": 0.5232
+    },
+    {
+     "bin": "60-70%",
+     "n": 114,
+     "avgP": 0.6423,
+     "hitRate": 0.5702
+    },
+    {
+     "bin": "70-80%",
+     "n": 72,
+     "avgP": 0.7504,
+     "hitRate": 0.7639
+    },
+    {
+     "bin": "80-90%",
+     "n": 83,
+     "avgP": 0.8542,
+     "hitRate": 0.8313
+    },
+    {
+     "bin": "90-100%",
+     "n": 170,
+     "avgP": 0.9479,
+     "hitRate": 0.9529
+    }
+   ]
+  }
+ },
+ "byCategory": {
+  "Mentions": {
+   "n": 26,
+   "brierMarket": 0.0768
+  },
+  "Crypto": {
+   "n": 1720,
+   "brierMarket": 0.2044
+  },
+  "Commodities": {
+   "n": 478,
+   "brierMarket": 0.2409
+  },
+  "Climate and Weather": {
+   "n": 891,
+   "brierMarket": 0.1513
+  },
+  "Financials": {
+   "n": 173,
+   "brierMarket": 0.1883
+  },
+  "Politics": {
+   "n": 32,
+   "brierMarket": 0.0837
+  },
+  "Economics": {
+   "n": 211,
+   "brierMarket": 0.0847
+  },
+  "Entertainment": {
+   "n": 13,
+   "brierMarket": 0.1338
+  },
+  "Science and Technology": {
+   "n": 11,
+   "brierMarket": 0.0019
+  },
+  "Elections": {
+   "n": 25,
+   "brierMarket": 0.014
+  }
+ },
+ "window": {
+  "from": "2026-11-04T15:54:21.789Z",
+  "to": "2026-11-14T19:58:11.486Z"
+ },
+ "sampleCheck": {
+  "yesRate": 0.4676,
+  "avgPrice": 0.4668,
+  "gap": 0.0008,
+  "warning": null
+ }
+}

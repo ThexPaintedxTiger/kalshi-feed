@@ -1,0 +1,732 @@
+{
+ "at": "2026-11-14T21:00:20.200Z",
+ "health": null,
+ "source": "cloud fallback (prices as logged, not live)",
+ "markets": [
+  {
+   "k": "KXBTCD-26NOV1417-T65499.99",
+   "title": "Bitcoin price on Nov 14, 2026? — $65,500 or above",
+   "cat": "Crypto",
+   "event": "KXBTCD-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.44,
+   "a": 0.45,
+   "mid": 0.445,
+   "est": {
+    "market": 0.445,
+    "crypto_fair": 0.4219,
+    "ladder": 0.445,
+    "ensemble": 0.4492,
+    "calib": 0.4679,
+    "nn": 0.4582
+   },
+   "synced": false
+  },
+  {
+   "k": "KXBTCD-26NOV1417-T65249.99",
+   "title": "Bitcoin price on Nov 14, 2026? — $65,250 or above",
+   "cat": "Crypto",
+   "event": "KXBTCD-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.55,
+   "a": 0.56,
+   "mid": 0.555,
+   "est": {
+    "market": 0.555,
+    "crypto_fair": 0.4925,
+    "ladder": 0.555,
+    "ensemble": 0.5653,
+    "calib": 0.585,
+    "nn": 0.5682
+   },
+   "synced": false
+  },
+  {
+   "k": "KXETHD-26NOV1417-T1859.99",
+   "title": "Ethereum price at Nov 14, 2026 at 5pm EST? — $1,860 or above",
+   "cat": "Crypto",
+   "event": "KXETHD-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.13,
+   "a": 0.14,
+   "mid": 0.135,
+   "est": {
+    "market": 0.135,
+    "crypto_fair": 0.2296,
+    "ladder": 0.135,
+    "ensemble": 0.1275,
+    "calib": 0.1331,
+    "nn": 0.1414
+   },
+   "synced": false
+  },
+  {
+   "k": "KXETHD-26NOV1417-T1819.99",
+   "title": "Ethereum price at Nov 14, 2026 at 5pm EST? — $1,820 or above",
+   "cat": "Crypto",
+   "event": "KXETHD-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.59,
+   "a": 0.6,
+   "mid": 0.595,
+   "est": {
+    "market": 0.595,
+    "crypto_fair": 0.5099,
+    "ladder": 0.595,
+    "ensemble": 0.6083,
+    "calib": 0.6169,
+    "nn": 0.6078
+   },
+   "synced": false
+  },
+  {
+   "k": "KXBTC-26NOV1417-B65625",
+   "title": "Bitcoin price range on Nov 14, 2026? — $65,500 to 65,749.99",
+   "cat": "Crypto",
+   "event": "KXBTC-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.1,
+   "a": 0.13,
+   "mid": 0.115,
+   "est": {
+    "market": 0.115,
+    "crypto_fair": 0.0679,
+    "ensemble": 0.1012,
+    "calib": 0.1149,
+    "nn": 0.1206
+   },
+   "synced": false
+  },
+  {
+   "k": "KXSOLD-26NOV1417-T72.9999",
+   "title": "SOL price on Nov 14, 2026? — $73 or above",
+   "cat": "Crypto",
+   "event": "KXSOLD-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.36,
+   "a": 0.45,
+   "mid": 0.405,
+   "est": {
+    "market": 0.405,
+    "crypto_fair": 0.4125,
+    "ladder": 0.405,
+    "ensemble": 0.4106,
+    "calib": 0.4058,
+    "nn": 0.418
+   },
+   "synced": false
+  },
+  {
+   "k": "KXHYPED-26NOV1417-T66.9999",
+   "title": "HYPE price on Nov 14, 2026? — $67 or above",
+   "cat": "Crypto",
+   "event": "KXHYPED-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.26,
+   "a": 0.27,
+   "mid": 0.265,
+   "est": {
+    "market": 0.265,
+    "ladder": 0.265,
+    "ensemble": 0.2593,
+    "calib": 0.264,
+    "nn": 0.2756
+   },
+   "synced": false
+  },
+  {
+   "k": "KXXRPD-26NOV1417-T0.9399",
+   "title": "Ripple price at Nov 14, 2026 at 5pm EST? — $0.93991 or above",
+   "cat": "Crypto",
+   "event": "KXXRPD-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.82,
+   "a": 0.89,
+   "mid": 0.855,
+   "est": {
+    "market": 0.855,
+    "crypto_fair": 0.7104,
+    "ladder": 0.855,
+    "ensemble": 0.8706,
+    "calib": 0.8754,
+    "nn": 0.8615
+   },
+   "synced": false
+  },
+  {
+   "k": "KXBTC-26NOV1417-B65375",
+   "title": "Bitcoin price range on Nov 14, 2026? — $65,250 to 65,499.99",
+   "cat": "Crypto",
+   "event": "KXBTC-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.11,
+   "a": 0.13,
+   "mid": 0.12,
+   "est": {
+    "market": 0.12,
+    "crypto_fair": 0.0706,
+    "ensemble": 0.1058,
+    "calib": 0.1213,
+    "nn": 0.1258
+   },
+   "synced": false
+  },
+  {
+   "k": "KXSOLD-26NOV1417-T71.9999",
+   "title": "SOL price on Nov 14, 2026? — $72 or above",
+   "cat": "Crypto",
+   "event": "KXSOLD-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.67,
+   "a": 0.73,
+   "mid": 0.7,
+   "est": {
+    "market": 0.7,
+    "crypto_fair": 0.5783,
+    "ladder": 0.7,
+    "ensemble": 0.7167,
+    "calib": 0.7239,
+    "nn": 0.7111
+   },
+   "synced": false
+  },
+  {
+   "k": "KXXRPD-26NOV1417-T0.9599",
+   "title": "Ripple price at Nov 14, 2026 at 5pm EST? — $0.95991 or above",
+   "cat": "Crypto",
+   "event": "KXXRPD-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.46,
+   "a": 0.5,
+   "mid": 0.48,
+   "est": {
+    "market": 0.48,
+    "crypto_fair": 0.4527,
+    "ladder": 0.48,
+    "ensemble": 0.4888,
+    "calib": 0.4918,
+    "nn": 0.4934
+   },
+   "synced": false
+  },
+  {
+   "k": "KXHYPED-26NOV1417-T65.9999",
+   "title": "HYPE price on Nov 14, 2026? — $66 or above",
+   "cat": "Crypto",
+   "event": "KXHYPED-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.56,
+   "a": 0.57,
+   "mid": 0.565,
+   "est": {
+    "market": 0.565,
+    "ladder": 0.565,
+    "ensemble": 0.5809,
+    "calib": 0.5824,
+    "nn": 0.5781
+   },
+   "synced": false
+  },
+  {
+   "k": "KXETH-26NOV1417-B1800",
+   "title": "Ethereum price at Nov 14, 2026 at 5pm EST? — $1,780 to 1,819.99",
+   "cat": "Crypto",
+   "event": "KXETH-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.27,
+   "a": 0.33,
+   "mid": 0.3,
+   "est": {
+    "market": 0.3,
+    "crypto_fair": 0.2802,
+    "ensemble": 0.2942,
+    "calib": 0.3097,
+    "nn": 0.3114
+   },
+   "synced": false
+  },
+  {
+   "k": "KXXRP-26NOV1417-B0.9899500",
+   "title": "Ripple price at Nov 14, 2026 at 5pm EST? — $0.98 to 0.9999",
+   "cat": "Crypto",
+   "event": "KXXRP-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.04,
+   "a": 0.11,
+   "mid": 0.075,
+   "est": {
+    "market": 0.075,
+    "crypto_fair": 0.1401,
+    "ensemble": 0.0679,
+    "calib": 0.069,
+    "nn": 0.0788
+   },
+   "synced": false
+  },
+  {
+   "k": "KXETH-26NOV1417-B1760",
+   "title": "Ethereum price at Nov 14, 2026 at 5pm EST? — $1,740 to 1,779.99",
+   "cat": "Crypto",
+   "event": "KXETH-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.04,
+   "a": 0.13,
+   "mid": 0.085,
+   "est": {
+    "market": 0.085,
+    "crypto_fair": 0.1558,
+    "ensemble": 0.0776,
+    "calib": 0.0794,
+    "nn": 0.0893
+   },
+   "synced": false
+  },
+  {
+   "k": "KXSOLE-26NOV1417-B72",
+   "title": "SOL price on Nov 14, 2026? — $72 to 72.9999",
+   "cat": "Crypto",
+   "event": "KXSOLE-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.31,
+   "a": 0.38,
+   "mid": 0.345,
+   "est": {
+    "market": 0.345,
+    "crypto_fair": 0.1657,
+    "ensemble": 0.3313,
+    "calib": 0.3669,
+    "nn": 0.3572
+   },
+   "synced": false
+  },
+  {
+   "k": "KXBTCD-26NOV1417-T64999.99",
+   "title": "Bitcoin price on Nov 14, 2026? — $65,000 or above",
+   "cat": "Crypto",
+   "event": "KXBTCD-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.4,
+   "a": 0.41,
+   "mid": 0.405,
+   "est": {
+    "market": 0.405,
+    "crypto_fair": 0.4194,
+    "ladder": 0.405,
+    "ensemble": 0.4108,
+    "calib": 0.397,
+    "nn": 0.4131
+   },
+   "synced": false
+  },
+  {
+   "k": "KXBIGGESTQUAKE-14NOV26-6.0",
+   "title": "What will the biggest earthquake be on Nov 14, 2026? — Magnitude of at least 6.0",
+   "cat": "Climate and Weather",
+   "event": "KXBIGGESTQUAKE-14NOV26",
+   "res": "2026-11-14T23:59:59.000Z",
+   "logged": true,
+   "b": 0.15,
+   "a": 0.24,
+   "mid": 0.195,
+   "est": {
+    "market": 0.195,
+    "ensemble": 0.1846,
+    "calib": 0.189,
+    "nn": 0.2003
+   },
+   "synced": false
+  },
+  {
+   "k": "KXBTCD-26NOV1417-T64749.99",
+   "title": "Bitcoin price on Nov 14, 2026? — $64,750 or above",
+   "cat": "Crypto",
+   "event": "KXBTCD-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.58,
+   "a": 0.59,
+   "mid": 0.585,
+   "est": {
+    "market": 0.585,
+    "crypto_fair": 0.6189,
+    "ladder": 0.585,
+    "ensemble": 0.6044,
+    "calib": 0.5914,
+    "nn": 0.5931
+   },
+   "synced": false
+  },
+  {
+   "k": "KXBIGGESTQUAKE-14NOV26-6.2",
+   "title": "What will the biggest earthquake be on Nov 14, 2026? — Magnitude of at least 6.2",
+   "cat": "Climate and Weather",
+   "event": "KXBIGGESTQUAKE-14NOV26",
+   "res": "2026-11-14T23:59:59.000Z",
+   "logged": true,
+   "b": 0.07,
+   "a": 0.15,
+   "mid": 0.11,
+   "est": {
+    "market": 0.11,
+    "ensemble": 0.0989,
+    "calib": 0.102,
+    "nn": 0.1133
+   },
+   "synced": false
+  },
+  {
+   "k": "KXETHD-26NOV1417-T1779.99",
+   "title": "Ethereum price at Nov 14, 2026 at 5pm EST? — $1,780 or above",
+   "cat": "Crypto",
+   "event": "KXETHD-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.67,
+   "a": 0.68,
+   "mid": 0.675,
+   "est": {
+    "market": 0.675,
+    "crypto_fair": 0.6779,
+    "ladder": 0.675,
+    "ensemble": 0.6983,
+    "calib": 0.6823,
+    "nn": 0.6823
+   },
+   "synced": false
+  },
+  {
+   "k": "KXSOLD-26NOV1417-T69.9999",
+   "title": "SOL price on Nov 14, 2026? — $70 or above",
+   "cat": "Crypto",
+   "event": "KXSOLD-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.72,
+   "a": 0.78,
+   "mid": 0.75,
+   "est": {
+    "market": 0.75,
+    "crypto_fair": 0.7538,
+    "ladder": 0.75,
+    "ensemble": 0.7752,
+    "calib": 0.7576,
+    "nn": 0.7562
+   },
+   "synced": false
+  },
+  {
+   "k": "KXETHD-26NOV1417-T1739.99",
+   "title": "Ethereum price at Nov 14, 2026 at 5pm EST? — $1,740 or above",
+   "cat": "Crypto",
+   "event": "KXETHD-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.94,
+   "a": 0.95,
+   "mid": 0.945,
+   "est": {
+    "market": 0.945,
+    "crypto_fair": 0.985,
+    "ladder": 0.945,
+    "ensemble": 0.9591,
+    "calib": 0.9549,
+    "nn": 0.9467
+   },
+   "synced": false
+  },
+  {
+   "k": "KXBTC-26NOV1417-B65125",
+   "title": "Bitcoin price range on Nov 14, 2026? — $65,000 to 65,249.99",
+   "cat": "Crypto",
+   "event": "KXBTC-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.15,
+   "a": 0.2,
+   "mid": 0.175,
+   "est": {
+    "market": 0.175,
+    "crypto_fair": 0.1798,
+    "ensemble": 0.1644,
+    "calib": 0.1672,
+    "nn": 0.1799
+   },
+   "synced": false
+  },
+  {
+   "k": "KXBTC-26NOV1417-B64875",
+   "title": "Bitcoin price range on Nov 14, 2026? — $64,750 to 64,999.99",
+   "cat": "Crypto",
+   "event": "KXBTC-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.17,
+   "a": 0.21,
+   "mid": 0.19,
+   "est": {
+    "market": 0.19,
+    "crypto_fair": 0.1995,
+    "ensemble": 0.1797,
+    "calib": 0.1841,
+    "nn": 0.1952
+   },
+   "synced": false
+  },
+  {
+   "k": "KXSOLD-26NOV1417-T70.9999",
+   "title": "SOL price on Nov 14, 2026? — $71 or above",
+   "cat": "Crypto",
+   "event": "KXSOLD-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.3,
+   "a": 0.37,
+   "mid": 0.335,
+   "est": {
+    "market": 0.335,
+    "crypto_fair": 0.3445,
+    "ladder": 0.335,
+    "ensemble": 0.3344,
+    "calib": 0.3272,
+    "nn": 0.3425
+   },
+   "synced": false
+  },
+  {
+   "k": "KXHYPED-26NOV1417-T63.9999",
+   "title": "HYPE price on Nov 14, 2026? — $64 or above",
+   "cat": "Crypto",
+   "event": "KXHYPED-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.16,
+   "a": 0.24,
+   "mid": 0.2,
+   "est": {
+    "market": 0.2,
+    "ladder": 0.2,
+    "ensemble": 0.1917,
+    "calib": 0.1832,
+    "nn": 0.2054
+   },
+   "synced": false
+  },
+  {
+   "k": "KXHYPED-26NOV1417-T62.9999",
+   "title": "HYPE price on Nov 14, 2026? — $63 or above",
+   "cat": "Crypto",
+   "event": "KXHYPED-26NOV1417",
+   "res": "2026-11-14T22:00:00.000Z",
+   "logged": true,
+   "b": 0.49,
+   "a": 0.55,
+   "mid": 0.52,
+   "est": {
+    "market": 0.52,
+    "ladder": 0.52,
+    "ensemble": 0.5333,
+    "calib": 0.5248,
+    "nn": 0.5283
+   },
+   "synced": false
+  },
+  {
+   "k": "KXNCAAFGAME-26NOV14USCIND-USC",
+   "title": "USC wins",
+   "cat": "Sports",
+   "event": "KXNCAAFGAME-26NOV14USCIND",
+   "res": "2026-11-14T23:00:00.000Z",
+   "logged": true,
+   "b": 0.2,
+   "a": 0.21,
+   "mid": 0.205,
+   "est": {
+    "market": 0.205,
+    "ensemble": 0.194,
+    "calib": 0.2044,
+    "nn": 0.2105
+   },
+   "synced": false
+  },
+  {
+   "k": "KXNCAAFGAME-26NOV14TENNTXAM-TENN",
+   "title": "Tennessee wins",
+   "cat": "Sports",
+   "event": "KXNCAAFGAME-26NOV14TENNTXAM",
+   "res": "2026-11-14T23:00:00.000Z",
+   "logged": true,
+   "b": 0.52,
+   "a": 0.53,
+   "mid": 0.525,
+   "est": {
+    "market": 0.525,
+    "ensemble": 0.5362,
+    "calib": 0.5439,
+    "nn": 0.5333
+   },
+   "synced": false
+  },
+  {
+   "k": "KXLOLGAME-26NOV141400GENBLG-BLG",
+   "title": "Bilibili Gaming wins",
+   "cat": "Sports",
+   "event": "KXLOLGAME-26NOV141400GENBLG",
+   "res": "2026-11-14T23:00:00.000Z",
+   "logged": true,
+   "b": 0.23,
+   "a": 0.24,
+   "mid": 0.235,
+   "est": {
+    "market": 0.235,
+    "ensemble": 0.2253,
+    "calib": 0.2357,
+    "nn": 0.2411
+   },
+   "synced": false
+  },
+  {
+   "k": "KXNCAAFGAME-26NOV14TEXLSU-TEX",
+   "title": "Texas wins",
+   "cat": "Sports",
+   "event": "KXNCAAFGAME-26NOV14TEXLSU",
+   "res": "2026-11-14T23:00:00.000Z",
+   "logged": true,
+   "b": 0.35,
+   "a": 0.36,
+   "mid": 0.355,
+   "est": {
+    "market": 0.355,
+    "ensemble": 0.3514,
+    "calib": 0.372,
+    "nn": 0.3627
+   },
+   "synced": false
+  },
+  {
+   "k": "KXWTAMATCH-26NOV14PEGAND-AND",
+   "title": "Mirra Andreeva wins",
+   "cat": "Sports",
+   "event": "KXWTAMATCH-26NOV14PEGAND",
+   "res": "2026-11-14T23:00:00.000Z",
+   "logged": true,
+   "b": 0.88,
+   "a": 0.89,
+   "mid": 0.885,
+   "est": {
+    "market": 0.885,
+    "ensemble": 0.9024,
+    "calib": 0.9082,
+    "nn": 0.8884
+   },
+   "synced": false
+  },
+  {
+   "k": "KXNCAAFSPREAD-26NOV14TENNTXAM-TENN2",
+   "title": "Tennessee wins by over 1.5 points",
+   "cat": "Sports",
+   "event": "KXNCAAFSPREAD-26NOV14TENNTXAM",
+   "res": "2026-11-14T23:00:00.000Z",
+   "logged": true,
+   "b": 0.48,
+   "a": 0.49,
+   "mid": 0.485,
+   "est": {
+    "market": 0.485,
+    "ladder": 0.465,
+    "ensemble": 0.494,
+    "calib": 0.4967,
+    "nn": 0.4933
+   },
+   "synced": false
+  },
+  {
+   "k": "KXUEFANLGAME-26NOV14NIRUKR-NIR",
+   "title": "Northern Ireland wins",
+   "cat": "Sports",
+   "event": "KXUEFANLGAME-26NOV14NIRUKR",
+   "res": "2026-11-14T22:45:00.000Z",
+   "logged": true,
+   "b": 0.32,
+   "a": 0.33,
+   "mid": 0.325,
+   "est": {
+    "market": 0.325,
+    "ensemble": 0.3203,
+    "calib": 0.3333,
+    "nn": 0.3324
+   },
+   "synced": false
+  },
+  {
+   "k": "KXUEFANLGAME-26NOV14PORDEN-DEN",
+   "title": "Denmark wins",
+   "cat": "Sports",
+   "event": "KXUEFANLGAME-26NOV14PORDEN",
+   "res": "2026-11-14T22:45:00.000Z",
+   "logged": true,
+   "b": 0.79,
+   "a": 0.8,
+   "mid": 0.795,
+   "est": {
+    "market": 0.795,
+    "ensemble": 0.8152,
+    "calib": 0.8288,
+    "nn": 0.8004
+   },
+   "synced": false
+  },
+  {
+   "k": "KXNCAAFGAME-26NOV14FLAUK-UK",
+   "title": "Kentucky wins",
+   "cat": "Sports",
+   "event": "KXNCAAFGAME-26NOV14FLAUK",
+   "res": "2026-11-14T23:00:00.000Z",
+   "logged": true,
+   "b": 0.59,
+   "a": 0.6,
+   "mid": 0.595,
+   "est": {
+    "market": 0.595,
+    "ensemble": 0.6092,
+    "calib": 0.6267,
+    "nn": 0.603
+   },
+   "synced": false
+  },
+  {
+   "k": "KXUEFANLGAME-26NOV14SWEBIH-SWE",
+   "title": "Sweden wins",
+   "cat": "Sports",
+   "event": "KXUEFANLGAME-26NOV14SWEBIH",
+   "res": "2026-11-14T22:45:00.000Z",
+   "logged": true,
+   "b": 0.93,
+   "a": 0.94,
+   "mid": 0.935,
+   "est": {
+    "market": 0.935,
+    "ensemble": 0.9481,
+    "calib": 0.9485,
+    "nn": 0.937
+   },
+   "synced": false
+  }
+ ]
+}
