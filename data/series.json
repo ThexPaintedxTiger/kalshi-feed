@@ -2093,6 +2093,12 @@
   "KXCOLLINCOUNTYJUDGE": "Elections",
   "KXCOLLEGEGAMEDAY": "Sports",
   "KXCHESSTOURNAMENT": "Sports",
-  "KXLIGAMXFTTS": "Sports"
+  "KXLIGAMXFTTS": "Sports",
+  "KXSWPLGAME": "Sports",
+  "KXEREDIVISIEWGAME": "Sports",
+  "KXSWPLSPREAD": "Sports",
+  "KXTRUMPUFC": "Politics",
+  "KXWCBAGAME": "Sports",
+  "KXSWPLBTTS": "Sports"
  }
 }
