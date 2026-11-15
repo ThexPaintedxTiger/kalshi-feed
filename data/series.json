@@ -2076,6 +2076,23 @@
   "SENATETX": "Elections",
   "KXKPOWMIDH": "Elections",
   "HOUSETX34": "Elections",
-  "KXATTYGENGA": "Elections"
+  "KXATTYGENGA": "Elections",
+  "KXJLEAGUECUPTOTAL": "Sports",
+  "KXJLEAGUECUPSPREAD": "Sports",
+  "KXJLEAGUECUPGAME": "Sports",
+  "KXJLEAGUECUPBTTS": "Sports",
+  "KXLIGAEXPADVANCE": "Sports",
+  "KXSTEAMBOATOPEN": "Climate and Weather",
+  "KXBIGSKYOPEN": "Climate and Weather",
+  "KXBIGBEAROPEN": "Climate and Weather",
+  "KXASPENMTNOPEN": "Climate and Weather",
+  "KXALYOPEN": "Climate and Weather",
+  "KXUSAMEASLESELIMINATE": "Science and Technology",
+  "KXMALACCA": "Elections",
+  "KXRECALLED": "Elections",
+  "KXCOLLINCOUNTYJUDGE": "Elections",
+  "KXCOLLEGEGAMEDAY": "Sports",
+  "KXCHESSTOURNAMENT": "Sports",
+  "KXLIGAMXFTTS": "Sports"
  }
 }
