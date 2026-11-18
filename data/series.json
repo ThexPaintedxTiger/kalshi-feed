@@ -2206,6 +2206,27 @@
   "KXADSPEND": "Politics",
   "KXENBLGAME": "Sports",
   "KXPHLGAME": "Sports",
-  "KXABA2GAME": "Sports"
+  "KXABA2GAME": "Sports",
+  "KXSVNCUPTOTAL": "Sports",
+  "KXSVNCUPSPREAD": "Sports",
+  "KXSVNCUPGAME": "Sports",
+  "KXSVNCUPBTTS": "Sports",
+  "KXSVNCUPADVANCE": "Sports",
+  "KXSRBCUPTOTAL": "Sports",
+  "KXSRBCUPGAME": "Sports",
+  "KXSRBCUPADVANCE": "Sports",
+  "KXCOLLECTIONSALE": "Entertainment",
+  "KXHOUSINGSTART": "Economics",
+  "KXBUILDPERMS": "Economics",
+  "KXTRUMPHUANGBACK": "Politics",
+  "KXNIKEVALEDICTORIAN": "Politics",
+  "KX10SONG": "Entertainment",
+  "KXAKMOV": "Elections",
+  "KXISENATEWON": "Elections",
+  "KXAKSENGOVCOMBO": "Elections",
+  "KXAKSENATE": "Elections",
+  "SENATEAK": "Elections",
+  "KXBSNFGAME": "Sports",
+  "KXAAAGASCDNC": "Economics"
  }
 }
