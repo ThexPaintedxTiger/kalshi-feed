@@ -2257,6 +2257,19 @@
   "KXTGT": "Financials",
   "KXLOW": "Financials",
   "KXEARNINGSMENTIONDIS": "Mentions",
-  "KXEARNINGSMENTIONNVDA": "Mentions"
+  "KXEARNINGSMENTIONNVDA": "Mentions",
+  "KXGOOGVSPEND": "Science and Technology",
+  "KXVENGLUSTAT": "Financials",
+  "KXNAVAJOPRES": "Elections",
+  "KXELONMENTION": "Mentions",
+  "KXNCAAWBUNDEFEATED": "Sports",
+  "KXNCAAMBUNDEFEATED": "Sports",
+  "KXNCAAMBUNDEFEATEDHOME": "Sports",
+  "KXCANEUINFL": "Economics",
+  "KXBAYAREATRANSIT": "Elections",
+  "KXELLISONMENTION": "Mentions",
+  "KXALTMANMENTION": "Mentions",
+  "KXELPASOCOUNTYJUDGE": "Elections",
+  "KXDEMVICECHAIR120": "Elections"
  }
 }
