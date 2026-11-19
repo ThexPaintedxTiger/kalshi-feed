@@ -2270,6 +2270,17 @@
   "KXELLISONMENTION": "Mentions",
   "KXALTMANMENTION": "Mentions",
   "KXELPASOCOUNTYJUDGE": "Elections",
-  "KXDEMVICECHAIR120": "Elections"
+  "KXDEMVICECHAIR120": "Elections",
+  "KXAAAGASCDNM": "Economics",
+  "KXAAAGASCDMD": "Economics",
+  "GTA6": "Entertainment",
+  "KXGTA6ONTIME": "Entertainment",
+  "KXNATBOOKAWARDS": "Entertainment",
+  "KXMONTGOMERYCOUNTYJUDGE": "Elections",
+  "KXNFLSEASONRSHYDS": "Sports",
+  "KXNFLSEASONRECYDS": "Sports",
+  "KXAKCOMBO": "Elections",
+  "KXALASKAHOUSE": "Elections",
+  "HOUSEAKAL": "Elections"
  }
 }
