@@ -2311,6 +2311,16 @@
   "KXNYCCARRIAGE": "Politics",
   "KXCARNEYMENTION": "Mentions",
   "KXUSLEI": "Economics",
-  "KXEARNINGSMENTIONPANW": "Mentions"
+  "KXEARNINGSMENTIONPANW": "Mentions",
+  "KXMLSFTTS": "Sports",
+  "KXMLSADVANCE": "Sports",
+  "KXYTTOPSONGW": "Entertainment",
+  "KXBULL": "Financials",
+  "KXTRUMPPARDONS": "Politics",
+  "KXPARDONSTRUMP": "Politics",
+  "KXRAINWPBM": "Climate and Weather",
+  "KXAUCTIONRECORD": "Entertainment",
+  "KXANTHROPICSECTOR": "Financials",
+  "KXROMLNBMGAME": "Sports"
  }
 }
