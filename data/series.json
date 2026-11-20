@@ -2321,6 +2321,12 @@
   "KXRAINWPBM": "Climate and Weather",
   "KXAUCTIONRECORD": "Entertainment",
   "KXANTHROPICSECTOR": "Financials",
-  "KXROMLNBMGAME": "Sports"
+  "KXROMLNBMGAME": "Sports",
+  "KXBLEAGUEONEGAME": "Sports",
+  "KXMYSLTOTAL": "Sports",
+  "KXMYSLGAME": "Sports",
+  "KXMYSLBTTS": "Sports",
+  "KXHEGSETHANNOUNCEOUT": "Politics",
+  "KXBEDFORDANNOUNCEOUT": "Politics"
  }
 }
