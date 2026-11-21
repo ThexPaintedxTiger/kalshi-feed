@@ -2426,6 +2426,16 @@
   "KXAAAGASCDFL": "Economics",
   "KXSECNAVY": "Politics",
   "KXHEGSETHIMPEACH": "Politics",
-  "KXTRUMPEOD": "Politics"
+  "KXTRUMPEOD": "Politics",
+  "KXSERIEAFTTS": "Sports",
+  "KXLIGUE1FTTS": "Sports",
+  "KXNBIGAME": "Sports",
+  "KXBBWSERIEAGAME": "Sports",
+  "KXSCOTTISHPREM1H": "Sports",
+  "KXSUPERETTANSPREAD": "Sports",
+  "KXSUPERETTANBTTS": "Sports",
+  "KXSUPERETTANGAME": "Sports",
+  "KXNASDAQ100MINMON": "Financials",
+  "KXINXMINMON": "Financials"
  }
 }
