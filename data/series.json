@@ -2436,6 +2436,18 @@
   "KXSUPERETTANBTTS": "Sports",
   "KXSUPERETTANGAME": "Sports",
   "KXNASDAQ100MINMON": "Financials",
-  "KXINXMINMON": "Financials"
+  "KXINXMINMON": "Financials",
+  "KXCONMEBOLSUDTOTAL": "Sports",
+  "KXCONMEBOLSUDSPREAD": "Sports",
+  "KXCONMEBOLSUDGAME": "Sports",
+  "KXCONMEBOLSUDBTTS": "Sports",
+  "KXCONMEBOLSUDADVANCE": "Sports",
+  "KXONTLIBLEAD": "Elections",
+  "KXVANCENUMSTATES": "Politics",
+  "KXCHSBLGAME": "Sports",
+  "KXNMARIANAGOV": "Elections",
+  "KXLIGUE12HSPREAD": "Sports",
+  "KXFSFRIDAYTOP": "Sports",
+  "KXFSFRIDAY": "Sports"
  }
 }
