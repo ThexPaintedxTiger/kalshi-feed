@@ -1,0 +1,198 @@
+{
+ "updated": "2026-11-21T18:17:34.574Z",
+ "trade": {
+  "answer": "No — don't trade real money yet",
+  "tone": "bad",
+  "why": "Nothing beats the market. 2474 live markets resolved; the market's own Brier is 0.1391. Best so far: crypto_fair -0.0016 Brier vs market (not significant). Missing evidence: a model whose peeking-safe range stays below zero on 100+ live markets (2474 resolved so far, 1061 events) with picks profitable after fees over 100+ picks.",
+  "next": "Let it keep collecting. The answer changes automatically when a strategy reaches SUCCESS on the live record."
+ },
+ "learning": [
+  "Live record: 2474 of 2522 predictions resolved so far (1061 separate events).",
+  "longshot: retired — 2026-11-10: FAILURE_RETIRE (no measurable edge after 832 resolved; backtest 1334, no difference). Owner approved.",
+  "memory: retired — 2026-11-12: turned off (config v10). 1,164 resolved live markets: Brier vs market +0.0031 (worse), no pick edge. memory.mjs stays as a feature source for the models.",
+  "nn: no edge — needs: whole peeking-safe range below 0 (upper end now +0.0317); 75 more picks; picks' P&L range above 0 (lower end now -1.07)",
+  "crypto_fair: no edge — needs: whole peeking-safe range below 0 (upper end now +0.1267); picks' P&L range above 0 (lower end now -0.2547)",
+  "weather_nws: retired — 2026-11-12: turned OFF (config v10), not retired. +0.335 Brier vs market, 4/30 paper wins: it read one NWS airport station while Kalshi settles on a Synoptic Data metro index. Comes back only after a rebuild against the settlement methodology passes its regression test.",
+  "ensemble: no edge — needs: whole peeking-safe range below 0 (upper end now +0.0088); 99 more picks; picks' P&L range above 0 (lower end now -1.07)",
+  "calib: no edge — needs: whole peeking-safe range below 0 (upper end now +0.0089); 99 more picks; picks' P&L range above 0 (lower end now -1.07)",
+  "ladder: no edge — needs: whole peeking-safe range below 0 (upper end now +0.1146); 95 more picks; picks' P&L range above 0 (lower end now -1.07)",
+  "weather_idx: off track — needs: 43 more resolved markets; whole peeking-safe range below 0 (upper end now +0.8769); 49 more picks; picks' P&L range above 0 (lower end now -0.8385)",
+  "llm: insufficient — needs: 100 more resolved markets; whole peeking-safe range below 0; 100 more picks; picks' P&L range above 0",
+  "Neural network: tested on 6092 past markets it never saw → no measurable difference (Brier 0.1713 vs market 0.1713).",
+  "Training history: 56 runs; data grew 736 → 7616 markets; gap vs market 0.0014 → 0.0001 (below 0 = better than market).",
+  "Network learning check: gap vs market by amount of training data 1524→+0, 3048→+0, 4572→+0.0001, 6096→+0.0001 (shrinking = learning; ~0 = copying the market).",
+  "Backtest: 5933 past markets scored.",
+  "Network data: 2064 live + 5552 backtest markets — it reads the whole history, nothing is dropped."
+ ],
+ "watchlist": [
+  {
+   "title": "Will the temp in Miami be above 80.99° on Nov 21, 2026 at 2pm EST? — 81° or above",
+   "cat": "Climate and Weather",
+   "resolvesAt": "2026-11-21T19:00:00.000Z",
+   "predictor": "weather_idx",
+   "status": "OFF_TRACK",
+   "side": "yes",
+   "price": 0.17,
+   "ev": 0.0384,
+   "url": "https://kalshi.com/markets/kxtempmiah"
+  },
+  {
+   "title": "Will the temp in Miami be above 79.99° on Nov 21, 2026 at 2pm EST? — 80° or above",
+   "cat": "Climate and Weather",
+   "resolvesAt": "2026-11-21T19:00:00.000Z",
+   "predictor": "weather_idx",
+   "status": "OFF_TRACK",
+   "side": "no",
+   "price": 0.12,
+   "ev": 0.5171,
+   "url": "https://kalshi.com/markets/kxtempmiah"
+  },
+  {
+   "title": "Will the temp in New York City be above 63.99° on Nov 21, 2026 at 2pm EST? — 64° or above",
+   "cat": "Climate and Weather",
+   "resolvesAt": "2026-11-21T19:00:00.000Z",
+   "predictor": "weather_idx",
+   "status": "OFF_TRACK",
+   "side": "yes",
+   "price": 0.2,
+   "ev": 0.3264,
+   "url": "https://kalshi.com/markets/kxtempnychs"
+  },
+  {
+   "title": "Will the temp in Coastal Los Angeles be above 64.99° on Nov 21, 2026 at 2pm EST? — 65° or above",
+   "cat": "Climate and Weather",
+   "resolvesAt": "2026-11-21T19:00:00.000Z",
+   "predictor": "weather_idx",
+   "status": "OFF_TRACK",
+   "side": "no",
+   "price": 0.33,
+   "ev": 0.5731,
+   "url": "https://kalshi.com/markets/kxtemplaxhs"
+  },
+  {
+   "title": "Bitcoin price range on Nov 21, 2026? — $59,900 to 59,999.99",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-21T19:00:00.000Z",
+   "predictor": "crypto_fair",
+   "status": "NO_EDGE",
+   "side": "no",
+   "price": 0.82,
+   "ev": 0.0358,
+   "url": "https://kalshi.com/markets/kxbtc"
+  },
+  {
+   "title": "Ethereum price at Nov 21, 2026 at 2pm EST? — $1,675 or above",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-21T19:00:00.000Z",
+   "predictor": "crypto_fair",
+   "status": "NO_EDGE",
+   "side": "no",
+   "price": 0.24,
+   "ev": 0.0857,
+   "url": "https://kalshi.com/markets/kxethd"
+  },
+  {
+   "title": "Bitcoin price range on Nov 21, 2026? — $60,000 to 60,099.99",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-21T19:00:00.000Z",
+   "predictor": "crypto_fair",
+   "status": "NO_EDGE",
+   "side": "no",
+   "price": 0.81,
+   "ev": 0.0422,
+   "url": "https://kalshi.com/markets/kxbtc"
+  },
+  {
+   "title": "SOL price on Nov 21, 2026? — $70.5 to 70.7499",
+   "cat": "Crypto",
+   "resolvesAt": "2026-11-21T19:00:00.000Z",
+   "predictor": "crypto_fair",
+   "status": "NO_EDGE",
+   "side": "no",
+   "price": 0.66,
+   "ev": 0.0423,
+   "url": "https://kalshi.com/markets/kxsole"
+  }
+ ],
+ "checks": [
+  {
+   "name": "Pipeline ran recently",
+   "ok": true,
+   "detail": "last scan 2 min ago (cloud)"
+  },
+  {
+   "name": "Scans on schedule (every 10 min)",
+   "ok": false,
+   "detail": "1 scans in the last 3 h (expect ~18)"
+  },
+  {
+   "name": "Live daemon heartbeat",
+   "ok": false,
+   "detail": "no heartbeat (daemon not running; cloud fallback only)"
+  },
+  {
+   "name": "New predictions are being logged",
+   "ok": true,
+   "detail": "45 logged in the last hour"
+  },
+  {
+   "name": "Outcomes are being collected",
+   "ok": true,
+   "detail": "2724/2727 predictions due >24 h ago have an official result; 2 newer ones awaiting Kalshi's settlement"
+  },
+  {
+   "name": "Scorecard matches the logs",
+   "ok": true,
+   "detail": "scorecard counts 2522, log has 2522 (+390 shadow rows scored separately)"
+  },
+  {
+   "name": "Leakage eval is 0 (no future data in predictions or training)",
+   "ok": true,
+   "detail": "0 violations across 7 checks"
+  },
+  {
+   "name": "No duplicate predictions",
+   "ok": true,
+   "detail": "7 repeat rows ignored (first logged row counts)"
+  },
+  {
+   "name": "Backtest sample unbiased",
+   "ok": true,
+   "detail": "YES 0.4613 vs price 0.4688"
+  },
+  {
+   "name": "Network checked in the last 2 h",
+   "ok": true,
+   "detail": "trained 2 min ago on 7616 markets"
+  },
+  {
+   "name": "Bet-size safety held (≤5% per bet)",
+   "ok": true,
+   "detail": "largest bet 3.0349%"
+  },
+  {
+   "name": "Paper money adds up",
+   "ok": true,
+   "detail": "14 portfolios checked"
+  },
+  {
+   "name": "Outside data: Coinbase crypto agent",
+   "ok": true,
+   "detail": "27/28 markets got an outside estimate, 2 min ago"
+  },
+  {
+   "name": "Outside data: weather agent",
+   "ok": true,
+   "detail": "4/4 markets got an outside estimate, 2 min ago"
+  },
+  {
+   "name": "Storage has room (archive + limits)",
+   "ok": true,
+   "detail": "? MB in GitHub · 0 files archived"
+  }
+ ],
+ "problems": 2,
+ "needs": [
+  "The live daemon isn't running on your computer. Start it with start.sh (Mac/Linux) or start.cmd (Windows); see docs/manual.md. Until then only the 10-minute cloud fallback runs."
+ ]
+}
