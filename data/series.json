@@ -2453,6 +2453,20 @@
   "KXCONMEBOLSUD1HTOTAL": "Sports",
   "KXCONMEBOLSUD1HSPREAD": "Sports",
   "KXCONMEBOLSUD1H": "Sports",
-  "KXLJUBLJANAMAYOR": "Elections"
+  "KXLJUBLJANAMAYOR": "Elections",
+  "KXSUGARBUSHOPEN": "Climate and Weather",
+  "KXSTRATTONOPEN": "Climate and Weather",
+  "KXSNOWBIRDOPEN": "Climate and Weather",
+  "KXSNOWBASINOPEN": "Climate and Weather",
+  "KXDEERVALLEYOPEN": "Climate and Weather",
+  "KXBALDYOPEN": "Climate and Weather",
+  "KXALTAOPEN": "Climate and Weather",
+  "KXSTOWEOPEN": "Climate and Weather",
+  "KXPARKCOPEN": "Climate and Weather",
+  "KXBEAVEROPEN": "Climate and Weather",
+  "KXAAAGASCDAZ": "Economics",
+  "KXAAAGASCDND": "Economics",
+  "KXAAAGASCDMI": "Economics",
+  "KXAAAGASCDID": "Economics"
  }
 }
