@@ -2467,6 +2467,13 @@
   "KXAAAGASCDAZ": "Economics",
   "KXAAAGASCDND": "Economics",
   "KXAAAGASCDMI": "Economics",
-  "KXAAAGASCDID": "Economics"
+  "KXAAAGASCDID": "Economics",
+  "KXF1TOPCONSTRUCTOR": "Sports",
+  "KXF1FASTLAP": "Sports",
+  "KXF1TOP10": "Sports",
+  "KXF1TOP5": "Sports",
+  "KXF1RACEPODIUM": "Sports",
+  "KXF1RACE": "Sports",
+  "KXNCAAFPAC12QUAL": "Sports"
  }
 }
