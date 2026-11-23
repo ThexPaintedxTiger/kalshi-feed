@@ -2484,6 +2484,15 @@
   "KXF1FASTPIT": "Sports",
   "KXNBASTLPROT": "Sports",
   "KXRECORDNFLBEST": "Sports",
-  "KXRECORDNFLWORST": "Sports"
+  "KXRECORDNFLWORST": "Sports",
+  "KXAFCCLFTTS": "Sports",
+  "KXEGYPLTOTAL": "Sports",
+  "KXEGYPLSPREAD": "Sports",
+  "KXEGYPLGAME": "Sports",
+  "KXEGYPLBTTS": "Sports",
+  "KXUSDMXN15M": "Financials",
+  "KXNFLRSHYDSPRECISE": "Sports",
+  "KXRAINSTLM": "Climate and Weather",
+  "KXRAINSGFM": "Climate and Weather"
  }
 }
