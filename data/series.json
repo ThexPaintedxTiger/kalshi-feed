@@ -2568,6 +2568,13 @@
   "KXINXEVENT": "Financials",
   "KXAIMILLENNIUM": "Science and Technology",
   "KXMILLENNIUMNEXT": "Science and Technology",
-  "KXRIEMANNRES": "Science and Technology"
+  "KXRIEMANNRES": "Science and Technology",
+  "KXEARNINGSMENTIONURBN": "Mentions",
+  "KXEARNINGSMENTIONDELL": "Mentions",
+  "KXCOPAAMERICAHOST": "Sports",
+  "KXTUREKOUTPERFORMRCP": "Elections",
+  "KXURBN": "Financials",
+  "KXIASANDTUREK": "Elections",
+  "KXZS": "Financials"
  }
 }
