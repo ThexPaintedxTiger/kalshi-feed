@@ -2622,6 +2622,10 @@
   "KXSERBIAELECTIONCALL": "Politics",
   "KXMEASLES": "Science and Technology",
   "KXTHXEGGS": "Economics",
-  "KXNEWZEALANDPARLI": "Elections"
+  "KXNEWZEALANDPARLI": "Elections",
+  "KXUSDSEKAW": "Financials",
+  "KXUSDJPYAW": "Financials",
+  "KXRAINDDET": "Climate and Weather",
+  "KXRAINDCHI": "Climate and Weather"
  }
 }
