@@ -2602,6 +2602,26 @@
   "KXKYBOURBONBARRELS": "Economics",
   "KXSETLIST": "Entertainment",
   "KXLUTNICKOUT": "Politics",
-  "KXNEURALINKCOUNT": "Science and Technology"
+  "KXNEURALINKCOUNT": "Science and Technology",
+  "KXRAINTHANKSGIVING": "Climate and Weather",
+  "KXSIMIVALLEYMAYOR": "Elections",
+  "KXRAINATLM": "Climate and Weather",
+  "KXRAINSEAM": "Climate and Weather",
+  "KXDHOUSESEATS": "Elections",
+  "KXLIMAMAYOR": "Elections",
+  "KXREDWAVECOMBO": "Elections",
+  "KXMEGATSUNAMICOMBO": "Elections",
+  "KXBLUETSUNAMICOMBO": "Elections",
+  "KXBLUETRICKLECOMBO": "Elections",
+  "KXBLUEWAVECOMBO": "Elections",
+  "RSENATESEATS": "Elections",
+  "KXDSENATESEATSH": "Elections",
+  "KXDSENATESEATS": "Elections",
+  "KXRHOUSESEATS": "Elections",
+  "KXDHOUSESEATSDIR": "Elections",
+  "KXSERBIAELECTIONCALL": "Politics",
+  "KXMEASLES": "Science and Technology",
+  "KXTHXEGGS": "Economics",
+  "KXNEWZEALANDPARLI": "Elections"
  }
 }
