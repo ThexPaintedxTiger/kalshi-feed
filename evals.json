@@ -1,0 +1,2562 @@
+{
+ "at": "2026-11-28T16:33:29.810Z",
+ "cfg": 14,
+ "alpha": 0.05,
+ "family": 17,
+ "alphaEach": 0.0029411764705882353,
+ "frozenAt": "2026-11-12T03:00:00Z",
+ "note": "Verdicts come only from live predictions (logged before resolution by a model trained on earlier-settled markets), judged by a confidence sequence that stays valid under constant peeking. alpha is split across every predictor and variant ever tried (Bonferroni). Settings were chosen on data settled before frozenAt; nothing after it is used for tuning.",
+ "market": {
+  "n": 3087,
+  "events": 1430,
+  "brier": 0.1412
+ },
+ "controls": {
+  "cash": {
+   "perPick": 0
+  },
+  "coinFlip": {
+   "n": 3087,
+   "perPick": -0.041524,
+   "sequence": {
+    "lo": -0.07238,
+    "hi": -0.000906
+   }
+  }
+ },
+ "shadow": {
+  "n": 589,
+  "events": 576,
+  "note": "Excluded categories, logged for comparison only. Not in any verdict, portfolio or training set. Ordinary 95% intervals: descriptive.",
+  "byCategory": [
+   {
+    "cat": "Sports",
+    "n": 589,
+    "brierMarket": 0.1762
+   }
+  ],
+  "models": {
+   "ensemble": {
+    "n": 589,
+    "diff": -0.0002,
+    "lo": -0.0009,
+    "hi": 0.0005
+   },
+   "calib": {
+    "n": 589,
+    "diff": -0.0011,
+    "lo": -0.0024,
+    "hi": 0.0002
+   },
+   "nn": {
+    "n": 589,
+    "diff": 0,
+    "lo": -0.0005,
+    "hi": 0.0005
+   },
+   "ladder": {
+    "n": 111,
+    "diff": 0.0034,
+    "lo": -0.0164,
+    "hi": 0.0231
+   }
+  }
+ },
+ "models": {
+  "longshot": {
+   "model": "longshot",
+   "status": "RETIRED",
+   "n": 1015,
+   "events": 348,
+   "picks": 0,
+   "brier": 0.1543,
+   "brierMarket": 0.1542,
+   "vsMarket": {
+    "snapshot95": {
+     "diff": 0.0004,
+     "lo": -0.0006,
+     "hi": 0.0014,
+     "events": 348
+    },
+    "logLoss": {
+     "diff": 0.0017,
+     "lo": -0.0027,
+     "hi": 0.0062,
+     "events": 348
+    },
+    "sequence": {
+     "lo": -0.074581,
+     "hi": 0.075389,
+     "mean": 0.000404,
+     "alpha": 0.0029411764705882353,
+     "bound": 1,
+     "note": "valid however often it is looked at"
+    }
+   },
+   "money": {
+    "n": 0,
+    "wins": 0,
+    "total": 0,
+    "perPick": null,
+    "sequence": {
+     "lo": null,
+     "hi": null
+    }
+   },
+   "byCategory": [
+    {
+     "cat": "Sports",
+     "n": 368,
+     "diff": 0.0003,
+     "lo": -0.0013,
+     "hi": 0.0019,
+     "events": 192
+    },
+    {
+     "cat": "Crypto",
+     "n": 184,
+     "diff": 0.0028,
+     "lo": -0.0002,
+     "hi": 0.0058,
+     "events": 48
+    },
+    {
+     "cat": "Financials",
+     "n": 134,
+     "diff": 0,
+     "lo": -0.0046,
+     "hi": 0.0046,
+     "events": 16
+    },
+    {
+     "cat": "Commodities",
+     "n": 117,
+     "diff": -0.0009,
+     "lo": -0.0032,
+     "hi": 0.0015,
+     "events": 16
+    },
+    {
+     "cat": "?",
+     "n": 99,
+     "diff": -0.0012,
+     "lo": -0.0034,
+     "hi": 0.0011,
+     "events": 32
+    },
+    {
+     "cat": "Climate and Weather",
+     "n": 56,
+     "diff": 0.0014,
+     "lo": -0.002,
+     "hi": 0.0048,
+     "events": 22
+    },
+    {
+     "cat": "Economics",
+     "n": 42,
+     "diff": -0.001,
+     "lo": -0.0022,
+     "hi": 0.0001,
+     "events": 29
+    },
+    {
+     "cat": "Politics",
+     "n": 8,
+     "diff": 0.0023,
+     "lo": -0.0076,
+     "hi": 0.0123,
+     "events": 3
+    },
+    {
+     "cat": "Entertainment",
+     "n": 4,
+     "diff": 0.0055,
+     "lo": null,
+     "hi": null,
+     "events": 1
+    },
+    {
+     "cat": "Elections",
+     "n": 2,
+     "diff": -0.0011,
+     "lo": -0.0022,
+     "hi": -0.0001,
+     "events": 2
+    },
+    {
+     "cat": "Science and Technology",
+     "n": 1,
+     "diff": -0.0011,
+     "lo": null,
+     "hi": null,
+     "events": 1
+    }
+   ],
+   "byLead": [
+    {
+     "lead": ">240 min",
+     "n": 435,
+     "diff": -0.0012,
+     "lo": -0.0024,
+     "hi": -0.0001,
+     "events": 155
+    },
+    {
+     "lead": "≤60 min",
+     "n": 255,
+     "diff": 0.0012,
+     "lo": -0.0009,
+     "hi": 0.0033,
+     "events": 77
+    },
+    {
+     "lead": "≤240 min",
+     "n": 223,
+     "diff": 0.0018,
+     "lo": -0.0005,
+     "hi": 0.0042,
+     "events": 107
+    },
+    {
+     "lead": "≤30 min",
+     "n": 67,
+     "diff": -0.0011,
+     "lo": -0.0034,
+     "hi": 0.0013,
+     "events": 40
+    },
+    {
+     "lead": "≤120 min",
+     "n": 35,
+     "diff": 0.0056,
+     "lo": -0.0006,
+     "hi": 0.0118,
+     "events": 19
+    }
+   ],
+   "calibration": [
+    {
+     "bin": "0–10%",
+     "n": 197,
+     "said": 0.051,
+     "happened": 0.0508
+    },
+    {
+     "bin": "10–20%",
+     "n": 118,
+     "said": 0.1403,
+     "happened": 0.178
+    },
+    {
+     "bin": "20–30%",
+     "n": 92,
+     "said": 0.2466,
+     "happened": 0.2935
+    },
+    {
+     "bin": "30–40%",
+     "n": 74,
+     "said": 0.3584,
+     "happened": 0.4595
+    },
+    {
+     "bin": "40–50%",
+     "n": 101,
+     "said": 0.4505,
+     "happened": 0.4752
+    },
+    {
+     "bin": "50–60%",
+     "n": 100,
+     "said": 0.5463,
+     "happened": 0.67
+    },
+    {
+     "bin": "60–70%",
+     "n": 68,
+     "said": 0.6404,
+     "happened": 0.7353
+    },
+    {
+     "bin": "70–80%",
+     "n": 65,
+     "said": 0.7514,
+     "happened": 0.7538
+    },
+    {
+     "bin": "80–90%",
+     "n": 80,
+     "said": 0.8514,
+     "happened": 0.825
+    },
+    {
+     "bin": "90–100%",
+     "n": 120,
+     "said": 0.9507,
+     "happened": 0.9417
+    }
+   ],
+   "misses": [
+    {
+     "ticker": "KXITFDOUBLES-26NOV10KNIROBCARELA-CARELA",
+     "title": "Carroll / Elamin wins",
+     "said": 0.9786,
+     "market": 0.97,
+     "outcome": "no",
+     "worseBy": 0.3378
+    },
+    {
+     "ticker": "KXTRUMPAPPROVE-26NOV10-E38.8",
+     "title": "Will Trump's RCP approval average be exactly 38.8 on Nov 10, 2026? — 38.8%",
+     "said": 0.9746,
+     "market": 0.965,
+     "outcome": "no",
+     "worseBy": 0.3206
+    },
+    {
+     "ticker": "KXTRUMPAPPROVE-26NOV10-U38.8",
+     "title": "Will Trump's RCP approval average be below 38.8 on Nov 10, 2026? — Below 38.8%",
+     "said": 0.0254,
+     "market": 0.035,
+     "outcome": "yes",
+     "worseBy": 0.3206
+    },
+    {
+     "ticker": "KXITFDOUBLES-26NOV10KNIROBCARELA-KNIROB",
+     "title": "Knis / Robas wins",
+     "said": 0.0254,
+     "market": 0.035,
+     "outcome": "yes",
+     "worseBy": 0.3206
+    },
+    {
+     "ticker": "KXITFMATCH-26NOV10YMESNO-SNO",
+     "title": "Charlie Snow wins",
+     "said": 0.0336,
+     "market": 0.045,
+     "outcome": "yes",
+     "worseBy": 0.2921
+    }
+   ],
+   "why": "2026-11-10: FAILURE_RETIRE (no measurable edge after 832 resolved; backtest 1334, no difference). Owner approved."
+  },
+  "memory": {
+   "model": "memory",
+   "status": "RETIRED",
+   "n": 841,
+   "events": 281,
+   "picks": 125,
+   "brier": 0.1341,
+   "brierMarket": 0.1306,
+   "vsMarket": {
+    "snapshot95": {
+     "diff": 0.0023,
+     "lo": -0.001,
+     "hi": 0.0057,
+     "events": 281
+    },
+    "logLoss": {
+     "diff": 0.0139,
+     "lo": -0.0029,
+     "hi": 0.0308,
+     "events": 281
+    },
+    "sequence": {
+     "lo": -0.090697,
+     "hi": 0.095306,
+     "mean": 0.002305,
+     "alpha": 0.0029411764705882353,
+     "bound": 1,
+     "note": "valid however often it is looked at"
+    }
+   },
+   "money": {
+    "n": 125,
+    "wins": 52,
+    "total": -11.62,
+    "perPick": -0.025811,
+    "sequence": {
+     "lo": -0.569357,
+     "hi": 0.517735
+    }
+   },
+   "byCategory": [
+    {
+     "cat": "Crypto",
+     "n": 302,
+     "diff": 0.0045,
+     "lo": -0.0019,
+     "hi": 0.0109,
+     "events": 91
+    },
+    {
+     "cat": "Commodities",
+     "n": 135,
+     "diff": 0.0131,
+     "lo": -0.0049,
+     "hi": 0.0311,
+     "events": 29
+    },
+    {
+     "cat": "Climate and Weather",
+     "n": 113,
+     "diff": 0.0033,
+     "lo": -0.0026,
+     "hi": 0.0092,
+     "events": 47
+    },
+    {
+     "cat": "Economics",
+     "n": 100,
+     "diff": 0,
+     "lo": 0,
+     "hi": 0,
+     "events": 42
+    },
+    {
+     "cat": "Sports",
+     "n": 86,
+     "diff": -0.0061,
+     "lo": -0.0146,
+     "hi": 0.0024,
+     "events": 50
+    },
+    {
+     "cat": "Financials",
+     "n": 58,
+     "diff": 0.0009,
+     "lo": -0.0006,
+     "hi": 0.0024,
+     "events": 11
+    },
+    {
+     "cat": "Science and Technology",
+     "n": 34,
+     "diff": 0,
+     "lo": 0,
+     "hi": 0,
+     "events": 6
+    },
+    {
+     "cat": "Politics",
+     "n": 6,
+     "diff": 0,
+     "lo": 0,
+     "hi": 0,
+     "events": 2
+    },
+    {
+     "cat": "Entertainment",
+     "n": 5,
+     "diff": 0,
+     "lo": null,
+     "hi": null,
+     "events": 1
+    },
+    {
+     "cat": "Elections",
+     "n": 2,
+     "diff": 0,
+     "lo": 0,
+     "hi": 0,
+     "events": 2
+    }
+   ],
+   "byLead": [
+    {
+     "lead": "≤60 min",
+     "n": 375,
+     "diff": 0.0045,
+     "lo": -0.002,
+     "hi": 0.0111,
+     "events": 119
+    },
+    {
+     "lead": ">240 min",
+     "n": 185,
+     "diff": 0.0016,
+     "lo": -0.0027,
+     "hi": 0.006,
+     "events": 81
+    },
+    {
+     "lead": "≤30 min",
+     "n": 137,
+     "diff": 0.0047,
+     "lo": -0.0013,
+     "hi": 0.0106,
+     "events": 84
+    },
+    {
+     "lead": "≤240 min",
+     "n": 106,
+     "diff": -0.004,
+     "lo": -0.0101,
+     "hi": 0.0021,
+     "events": 57
+    },
+    {
+     "lead": "≤120 min",
+     "n": 38,
+     "diff": -0.0011,
+     "lo": -0.0053,
+     "hi": 0.0031,
+     "events": 24
+    }
+   ],
+   "calibration": [
+    {
+     "bin": "0–10%",
+     "n": 190,
+     "said": 0.0495,
+     "happened": 0.0368
+    },
+    {
+     "bin": "10–20%",
+     "n": 94,
+     "said": 0.1484,
+     "happened": 0.1596
+    },
+    {
+     "bin": "20–30%",
+     "n": 90,
+     "said": 0.2479,
+     "happened": 0.2889
+    },
+    {
+     "bin": "30–40%",
+     "n": 51,
+     "said": 0.3498,
+     "happened": 0.451
+    },
+    {
+     "bin": "40–50%",
+     "n": 69,
+     "said": 0.4451,
+     "happened": 0.5507
+    },
+    {
+     "bin": "50–60%",
+     "n": 48,
+     "said": 0.5532,
+     "happened": 0.6042
+    },
+    {
+     "bin": "60–70%",
+     "n": 47,
+     "said": 0.6372,
+     "happened": 0.6809
+    },
+    {
+     "bin": "70–80%",
+     "n": 41,
+     "said": 0.7468,
+     "happened": 0.8049
+    },
+    {
+     "bin": "80–90%",
+     "n": 66,
+     "said": 0.8527,
+     "happened": 0.7576
+    },
+    {
+     "bin": "90–100%",
+     "n": 145,
+     "said": 0.9486,
+     "happened": 0.9793
+    }
+   ],
+   "misses": [
+    {
+     "ticker": "KXHYPED-26NOV1018-T72.2499",
+     "title": "HYPE price on Nov 10, 2026? — $72.25 or above",
+     "said": 0.99,
+     "market": 0.915,
+     "outcome": "no",
+     "worseBy": 2.1401
+    },
+    {
+     "ticker": "KXHYPE-26NOV1017-B72",
+     "title": "HYPE price on Nov 10, 2026? — $72 to 72.9999",
+     "said": 0.0132,
+     "market": 0.09,
+     "outcome": "yes",
+     "worseBy": 1.9196
+    },
+    {
+     "ticker": "KXDOTA2MAP-26NOV101030ILTWROS-1-ILTW",
+     "title": "iLTW TEAM wins map 1",
+     "said": 0.9624,
+     "market": 0.85,
+     "outcome": "no",
+     "worseBy": 1.3836
+    },
+    {
+     "ticker": "KXGOLDH-26NOV1014-T4021.99",
+     "title": "Will the gold close price be above 4021.99 USD/ounce on November 10, 2026 at 2:00 PM ET? — Above $4021.99",
+     "said": 0.0698,
+     "market": 0.24,
+     "outcome": "yes",
+     "worseBy": 1.235
+    },
+    {
+     "ticker": "KXHYPED-26NOV1018-T72.4999",
+     "title": "HYPE price on Nov 10, 2026? — $72.5 or above",
+     "said": 0.8918,
+     "market": 0.815,
+     "outcome": "no",
+     "worseBy": 0.5364
+    }
+   ],
+   "why": "2026-11-12: turned off (config v10). 1,164 resolved live markets: Brier vs market +0.0031 (worse), no pick edge. memory.mjs stays as a feature source for the models."
+  },
+  "nn": {
+   "model": "nn",
+   "status": "NO_EDGE",
+   "n": 2392,
+   "events": 1190,
+   "picks": 25,
+   "brier": 0.1355,
+   "brierMarket": 0.1355,
+   "vsMarket": {
+    "snapshot95": {
+     "diff": 0.0001,
+     "lo": -0.0002,
+     "hi": 0.0004,
+     "events": 1190
+    },
+    "logLoss": {
+     "diff": 0.0004,
+     "lo": -0.0005,
+     "hi": 0.0012,
+     "events": 1190
+    },
+    "sequence": {
+     "lo": -0.021848,
+     "hi": 0.022009,
+     "mean": 0.000081,
+     "alpha": 0.0029411764705882353,
+     "bound": 1,
+     "note": "valid however often it is looked at"
+    }
+   },
+   "money": {
+    "n": 25,
+    "wins": 19,
+    "total": 5.82,
+    "perPick": 0.276729,
+    "sequence": {
+     "lo": -1.07,
+     "hi": 1
+    }
+   },
+   "byCategory": [
+    {
+     "cat": "Crypto",
+     "n": 878,
+     "diff": -0.0001,
+     "lo": -0.0008,
+     "hi": 0.0006,
+     "events": 415
+    },
+    {
+     "cat": "Climate and Weather",
+     "n": 542,
+     "diff": 0.0001,
+     "lo": -0.0002,
+     "hi": 0.0004,
+     "events": 306
+    },
+    {
+     "cat": "Economics",
+     "n": 312,
+     "diff": 0.0002,
+     "lo": -0.0002,
+     "hi": 0.0006,
+     "events": 164
+    },
+    {
+     "cat": "Commodities",
+     "n": 297,
+     "diff": 0.0002,
+     "lo": -0.0007,
+     "hi": 0.0011,
+     "events": 116
+    },
+    {
+     "cat": "Financials",
+     "n": 176,
+     "diff": 0.001,
+     "lo": -0.0001,
+     "hi": 0.002,
+     "events": 93
+    },
+    {
+     "cat": "Politics",
+     "n": 72,
+     "diff": -0.0002,
+     "lo": -0.0007,
+     "hi": 0.0003,
+     "events": 39
+    },
+    {
+     "cat": "Science and Technology",
+     "n": 51,
+     "diff": -0.0001,
+     "lo": -0.0001,
+     "hi": 0,
+     "events": 18
+    },
+    {
+     "cat": "Entertainment",
+     "n": 39,
+     "diff": 0.0002,
+     "lo": -0.0006,
+     "hi": 0.001,
+     "events": 22
+    },
+    {
+     "cat": "?",
+     "n": 19,
+     "diff": -0.002,
+     "lo": -0.0062,
+     "hi": 0.0023,
+     "events": 13
+    },
+    {
+     "cat": "Elections",
+     "n": 6,
+     "diff": 0.0008,
+     "lo": -0.0001,
+     "hi": 0.0018,
+     "events": 4
+    }
+   ],
+   "byLead": [
+    {
+     "lead": "≤60 min",
+     "n": 842,
+     "diff": -0.0004,
+     "lo": -0.001,
+     "hi": 0.0002,
+     "events": 406
+    },
+    {
+     "lead": ">240 min",
+     "n": 621,
+     "diff": 0.0005,
+     "lo": 0,
+     "hi": 0.001,
+     "events": 342
+    },
+    {
+     "lead": "≤240 min",
+     "n": 440,
+     "diff": 0.0003,
+     "lo": -0.0001,
+     "hi": 0.0007,
+     "events": 267
+    },
+    {
+     "lead": "≤30 min",
+     "n": 289,
+     "diff": -0.0002,
+     "lo": -0.0016,
+     "hi": 0.0011,
+     "events": 179
+    },
+    {
+     "lead": "≤120 min",
+     "n": 200,
+     "diff": 0,
+     "lo": -0.0008,
+     "hi": 0.0007,
+     "events": 128
+    }
+   ],
+   "calibration": [
+    {
+     "bin": "0–10%",
+     "n": 532,
+     "said": 0.0524,
+     "happened": 0.0376
+    },
+    {
+     "bin": "10–20%",
+     "n": 268,
+     "said": 0.1502,
+     "happened": 0.1343
+    },
+    {
+     "bin": "20–30%",
+     "n": 240,
+     "said": 0.2441,
+     "happened": 0.2125
+    },
+    {
+     "bin": "30–40%",
+     "n": 193,
+     "said": 0.3485,
+     "happened": 0.3575
+    },
+    {
+     "bin": "40–50%",
+     "n": 207,
+     "said": 0.4486,
+     "happened": 0.3865
+    },
+    {
+     "bin": "50–60%",
+     "n": 182,
+     "said": 0.5456,
+     "happened": 0.5055
+    },
+    {
+     "bin": "60–70%",
+     "n": 146,
+     "said": 0.6482,
+     "happened": 0.5685
+    },
+    {
+     "bin": "70–80%",
+     "n": 142,
+     "said": 0.7485,
+     "happened": 0.7958
+    },
+    {
+     "bin": "80–90%",
+     "n": 155,
+     "said": 0.8526,
+     "happened": 0.8323
+    },
+    {
+     "bin": "90–100%",
+     "n": 327,
+     "said": 0.9456,
+     "happened": 0.9633
+    }
+   ],
+   "misses": [
+    {
+     "ticker": "KXHYPE-26NOV1017-B72",
+     "title": "HYPE price on Nov 10, 2026? — $72 to 72.9999",
+     "said": 0.0659,
+     "market": 0.09,
+     "outcome": "yes",
+     "worseBy": 0.3117
+    },
+    {
+     "ticker": "KXNASDAQ100U-26NOV10H1600-T27659.99",
+     "title": "Will the Nasdaq-100 be above 27659.99 at the end of Nov 10, 2026 at 4pm EST? — 27,660 or above",
+     "said": 0.126,
+     "market": 0.155,
+     "outcome": "yes",
+     "worseBy": 0.2071
+    },
+    {
+     "ticker": "KXINXU-26NOV10H1300-T7489.9999",
+     "title": "Will the S&P 500 be above 7489.9999 on Nov 10, 2026 at 1pm EST? — 7,490 or above",
+     "said": 0.7339,
+     "market": 0.675,
+     "outcome": "no",
+     "worseBy": 0.2
+    },
+    {
+     "ticker": "KXHYPED-26NOV1013-T70.9999",
+     "title": "HYPE price on Nov 10, 2026? — $71 or above",
+     "said": 0.5779,
+     "market": 0.495,
+     "outcome": "no",
+     "worseBy": 0.1793
+    },
+    {
+     "ticker": "KXINXU-26NOV10H1300-T7494.9999",
+     "title": "Will the S&P 500 be above 7494.9999 on Nov 10, 2026 at 1pm EST? — 7,495 or above",
+     "said": 0.6247,
+     "market": 0.555,
+     "outcome": "no",
+     "worseBy": 0.1703
+    }
+   ],
+   "why": "needs: whole peeking-safe range below 0 (upper end now +0.022); 75 more picks; picks' P&L range above 0 (lower end now -1.07)"
+  },
+  "crypto_fair": {
+   "model": "crypto_fair",
+   "status": "NO_EDGE",
+   "n": 667,
+   "events": 323,
+   "picks": 236,
+   "brier": 0.1742,
+   "brierMarket": 0.1693,
+   "vsMarket": {
+    "snapshot95": {
+     "diff": 0.0049,
+     "lo": 0.0005,
+     "hi": 0.0093,
+     "events": 323
+    },
+    "logLoss": {
+     "diff": 0.014,
+     "lo": 0.0025,
+     "hi": 0.0255,
+     "events": 323
+    },
+    "sequence": {
+     "lo": -0.076099,
+     "hi": 0.085967,
+     "mean": 0.004879,
+     "alpha": 0.0029411764705882353,
+     "bound": 1,
+     "note": "valid however often it is looked at"
+    }
+   },
+   "money": {
+    "n": 236,
+    "wins": 86,
+    "total": -14.75,
+    "perPick": -0.05573,
+    "sequence": {
+     "lo": -0.23952,
+     "hi": 0.126834
+    }
+   },
+   "byCategory": [
+    {
+     "cat": "Crypto",
+     "n": 667,
+     "diff": 0.0049,
+     "lo": 0.0005,
+     "hi": 0.0093,
+     "events": 323
+    }
+   ],
+   "byLead": [
+    {
+     "lead": "≤60 min",
+     "n": 396,
+     "diff": 0.0069,
+     "lo": 0.002,
+     "hi": 0.0119,
+     "events": 195
+    },
+    {
+     "lead": "≤30 min",
+     "n": 127,
+     "diff": 0.0097,
+     "lo": 0.0015,
+     "hi": 0.0179,
+     "events": 77
+    },
+    {
+     "lead": ">240 min",
+     "n": 72,
+     "diff": 0.0077,
+     "lo": -0.0115,
+     "hi": 0.027,
+     "events": 38
+    },
+    {
+     "lead": "≤240 min",
+     "n": 42,
+     "diff": -0.0354,
+     "lo": -0.0525,
+     "hi": -0.0183,
+     "events": 22
+    },
+    {
+     "lead": "≤120 min",
+     "n": 30,
+     "diff": 0.0027,
+     "lo": -0.005,
+     "hi": 0.0104,
+     "events": 18
+    }
+   ],
+   "calibration": [
+    {
+     "bin": "0–10%",
+     "n": 60,
+     "said": 0.0589,
+     "happened": 0.05
+    },
+    {
+     "bin": "10–20%",
+     "n": 142,
+     "said": 0.1542,
+     "happened": 0.1901
+    },
+    {
+     "bin": "20–30%",
+     "n": 97,
+     "said": 0.2485,
+     "happened": 0.2371
+    },
+    {
+     "bin": "30–40%",
+     "n": 69,
+     "said": 0.348,
+     "happened": 0.3043
+    },
+    {
+     "bin": "40–50%",
+     "n": 82,
+     "said": 0.451,
+     "happened": 0.2683
+    },
+    {
+     "bin": "50–60%",
+     "n": 71,
+     "said": 0.5482,
+     "happened": 0.4789
+    },
+    {
+     "bin": "60–70%",
+     "n": 64,
+     "said": 0.6457,
+     "happened": 0.5938
+    },
+    {
+     "bin": "70–80%",
+     "n": 33,
+     "said": 0.7523,
+     "happened": 0.7879
+    },
+    {
+     "bin": "80–90%",
+     "n": 31,
+     "said": 0.8432,
+     "happened": 0.9355
+    },
+    {
+     "bin": "90–100%",
+     "n": 18,
+     "said": 0.9456,
+     "happened": 1
+    }
+   ],
+   "misses": [
+    {
+     "ticker": "KXBNB-26NOV2717-B552",
+     "title": "BNB price on Nov 27, 2026? — $550 to 554.99",
+     "said": 0.1375,
+     "market": 0.33,
+     "outcome": "yes",
+     "worseBy": 0.8755
+    },
+    {
+     "ticker": "KXETH-26NOV2717-B1680",
+     "title": "Ethereum price at Nov 27, 2026 at 5pm EST? — $1,660 to 1,699.99",
+     "said": 0.2683,
+     "market": 0.56,
+     "outcome": "yes",
+     "worseBy": 0.7358
+    },
+    {
+     "ticker": "KXBTC-26NOV2717-B59750",
+     "title": "Bitcoin price range on Nov 27, 2026? — $59,500 to 59,999.99",
+     "said": 0.1126,
+     "market": 0.215,
+     "outcome": "yes",
+     "worseBy": 0.6468
+    },
+    {
+     "ticker": "KXSOLE-26NOV2717-B71",
+     "title": "SOL price on Nov 27, 2026? — $71 to 71.9999",
+     "said": 0.1626,
+     "market": 0.31,
+     "outcome": "yes",
+     "worseBy": 0.6453
+    },
+    {
+     "ticker": "KXBTC-26NOV2300-B61150",
+     "title": "Bitcoin price range on Nov 23, 2026? — $61,100 to 61,199.99",
+     "said": 0.0772,
+     "market": 0.145,
+     "outcome": "yes",
+     "worseBy": 0.6303
+    }
+   ],
+   "why": "needs: whole peeking-safe range below 0 (upper end now +0.086); picks' P&L range above 0 (lower end now -0.2395)"
+  },
+  "weather_nws": {
+   "model": "weather_nws",
+   "status": "RETIRED",
+   "n": 56,
+   "events": 24,
+   "picks": 47,
+   "brier": 0.3971,
+   "brierMarket": 0.1358,
+   "vsMarket": {
+    "snapshot95": {
+     "diff": 0.2571,
+     "lo": 0.1245,
+     "hi": 0.3898,
+     "events": 24
+    },
+    "logLoss": {
+     "diff": 1.1878,
+     "lo": 0.5819,
+     "hi": 1.7938,
+     "events": 24
+    },
+    "sequence": {
+     "lo": -0.854913,
+     "hi": 1,
+     "mean": 0.257135,
+     "alpha": 0.0029411764705882353,
+     "bound": 1,
+     "note": "valid however often it is looked at"
+    }
+   },
+   "money": {
+    "n": 47,
+    "wins": 14,
+    "total": -2.55,
+    "perPick": -0.072188,
+    "sequence": {
+     "lo": -1.07,
+     "hi": 1
+    }
+   },
+   "byCategory": [
+    {
+     "cat": "Climate and Weather",
+     "n": 56,
+     "diff": 0.2571,
+     "lo": 0.1245,
+     "hi": 0.3898,
+     "events": 24
+    }
+   ],
+   "byLead": [
+    {
+     "lead": "≤60 min",
+     "n": 45,
+     "diff": 0.2208,
+     "lo": 0.0584,
+     "hi": 0.3831,
+     "events": 20
+    },
+    {
+     "lead": "≤30 min",
+     "n": 11,
+     "diff": 0.3609,
+     "lo": 0.0657,
+     "hi": 0.6561,
+     "events": 8
+    }
+   ],
+   "calibration": [
+    {
+     "bin": "0–10%",
+     "n": 8,
+     "said": 0.0319,
+     "happened": 0.25
+    },
+    {
+     "bin": "10–20%",
+     "n": 1,
+     "said": 0.128,
+     "happened": 0
+    },
+    {
+     "bin": "30–40%",
+     "n": 3,
+     "said": 0.3514,
+     "happened": 0.3333
+    },
+    {
+     "bin": "40–50%",
+     "n": 3,
+     "said": 0.4362,
+     "happened": 0
+    },
+    {
+     "bin": "60–70%",
+     "n": 2,
+     "said": 0.6945,
+     "happened": 0.5
+    },
+    {
+     "bin": "70–80%",
+     "n": 5,
+     "said": 0.7504,
+     "happened": 0.6
+    },
+    {
+     "bin": "80–90%",
+     "n": 3,
+     "said": 0.852,
+     "happened": 0.3333
+    },
+    {
+     "bin": "90–100%",
+     "n": 31,
+     "said": 0.9867,
+     "happened": 0.4839
+    }
+   ],
+   "misses": [
+    {
+     "ticker": "KXTEMPCHIHS-26NOV1019-T55.99",
+     "title": "Will the temp in Chicago Metro Area be above 55.99° on Nov 10, 2026 at 7pm EST? — 56° or above",
+     "said": 0.995,
+     "market": 0.03,
+     "outcome": "no",
+     "worseBy": 4.5747
+    },
+    {
+     "ticker": "KXTEMPNYCHS-26NOV1023-T52.99",
+     "title": "Will the temp in New York City be above 52.99° on Nov 10, 2026 at 11pm EST? — 53° or above",
+     "said": 0.995,
+     "market": 0.04,
+     "outcome": "no",
+     "worseBy": 4.5643
+    },
+    {
+     "ticker": "KXTEMPCHIHS-26NOV1100-T43.99",
+     "title": "Will the temp in Chicago Metro Area be above 43.99° on Nov 11, 2026 at 12am EST? — 44° or above",
+     "said": 0.995,
+     "market": 0.05,
+     "outcome": "no",
+     "worseBy": 4.5539
+    },
+    {
+     "ticker": "KXTEMPCHIHS-26NOV1019-T53.99",
+     "title": "Will the temp in Chicago Metro Area be above 53.99° on Nov 10, 2026 at 7pm EST? — 54° or above",
+     "said": 0.995,
+     "market": 0.07,
+     "outcome": "no",
+     "worseBy": 4.5326
+    },
+    {
+     "ticker": "KXTEMPCHIHS-26NOV1021-T47.99",
+     "title": "Will the temp in Chicago Metro Area be above 47.99° on Nov 10, 2026 at 9pm EST? — 48° or above",
+     "said": 0.9927,
+     "market": 0.07,
+     "outcome": "no",
+     "worseBy": 4.5326
+    }
+   ],
+   "why": "2026-11-12: turned OFF (config v10), not retired. +0.335 Brier vs market, 4/30 paper wins: it read one NWS airport station while Kalshi settles on a Synoptic Data metro index. Comes back only after a rebuild against the settlement methodology passes its regression test."
+  },
+  "ensemble": {
+   "model": "ensemble",
+   "status": "NO_EDGE",
+   "n": 1622,
+   "events": 953,
+   "picks": 8,
+   "brier": 0.1429,
+   "brierMarket": 0.1425,
+   "vsMarket": {
+    "snapshot95": {
+     "diff": 0.0004,
+     "lo": -0.0002,
+     "hi": 0.0009,
+     "events": 953
+    },
+    "logLoss": {
+     "diff": 0.0003,
+     "lo": -0.0016,
+     "hi": 0.0022,
+     "events": 953
+    },
+    "sequence": {
+     "lo": -0.005192,
+     "hi": 0.005896,
+     "mean": 0.000352,
+     "alpha": 0.0029411764705882353,
+     "bound": 0.2,
+     "note": "valid however often it is looked at"
+    }
+   },
+   "money": {
+    "n": 8,
+    "wins": 3,
+    "total": -2.39,
+    "perPick": -0.319167,
+    "sequence": {
+     "lo": -1.07,
+     "hi": 1
+    }
+   },
+   "byCategory": [
+    {
+     "cat": "Crypto",
+     "n": 577,
+     "diff": 0.0008,
+     "lo": -0.0003,
+     "hi": 0.002,
+     "events": 328
+    },
+    {
+     "cat": "Climate and Weather",
+     "n": 409,
+     "diff": 0,
+     "lo": -0.0009,
+     "hi": 0.0009,
+     "events": 255
+    },
+    {
+     "cat": "Economics",
+     "n": 184,
+     "diff": 0.0009,
+     "lo": -0.0005,
+     "hi": 0.0023,
+     "events": 107
+    },
+    {
+     "cat": "Commodities",
+     "n": 177,
+     "diff": 0.0001,
+     "lo": -0.0017,
+     "hi": 0.0019,
+     "events": 94
+    },
+    {
+     "cat": "Financials",
+     "n": 136,
+     "diff": -0.0008,
+     "lo": -0.002,
+     "hi": 0.0004,
+     "events": 83
+    },
+    {
+     "cat": "Politics",
+     "n": 65,
+     "diff": 0,
+     "lo": -0.0021,
+     "hi": 0.0022,
+     "events": 37
+    },
+    {
+     "cat": "Entertainment",
+     "n": 34,
+     "diff": 0.0016,
+     "lo": -0.0003,
+     "hi": 0.0034,
+     "events": 21
+    },
+    {
+     "cat": "?",
+     "n": 19,
+     "diff": -0.0009,
+     "lo": -0.0047,
+     "hi": 0.0029,
+     "events": 13
+    },
+    {
+     "cat": "Science and Technology",
+     "n": 17,
+     "diff": -0.0008,
+     "lo": -0.0012,
+     "hi": -0.0003,
+     "events": 12
+    },
+    {
+     "cat": "Elections",
+     "n": 4,
+     "diff": 0,
+     "lo": -0.0027,
+     "hi": 0.0027,
+     "events": 3
+    }
+   ],
+   "byLead": [
+    {
+     "lead": ">240 min",
+     "n": 482,
+     "diff": 0.0007,
+     "lo": -0.0004,
+     "hi": 0.0017,
+     "events": 283
+    },
+    {
+     "lead": "≤60 min",
+     "n": 446,
+     "diff": 0.0007,
+     "lo": -0.0003,
+     "hi": 0.0017,
+     "events": 274
+    },
+    {
+     "lead": "≤240 min",
+     "n": 353,
+     "diff": -0.0011,
+     "lo": -0.002,
+     "hi": -0.0002,
+     "events": 223
+    },
+    {
+     "lead": "≤30 min",
+     "n": 172,
+     "diff": 0.0013,
+     "lo": -0.0006,
+     "hi": 0.0033,
+     "events": 106
+    },
+    {
+     "lead": "≤120 min",
+     "n": 169,
+     "diff": 0.0003,
+     "lo": -0.0009,
+     "hi": 0.0016,
+     "events": 108
+    }
+   ],
+   "calibration": [
+    {
+     "bin": "0–10%",
+     "n": 342,
+     "said": 0.0468,
+     "happened": 0.0439
+    },
+    {
+     "bin": "10–20%",
+     "n": 202,
+     "said": 0.1489,
+     "happened": 0.1188
+    },
+    {
+     "bin": "20–30%",
+     "n": 160,
+     "said": 0.2419,
+     "happened": 0.2438
+    },
+    {
+     "bin": "30–40%",
+     "n": 138,
+     "said": 0.3498,
+     "happened": 0.3478
+    },
+    {
+     "bin": "40–50%",
+     "n": 155,
+     "said": 0.449,
+     "happened": 0.3677
+    },
+    {
+     "bin": "50–60%",
+     "n": 136,
+     "said": 0.545,
+     "happened": 0.4632
+    },
+    {
+     "bin": "60–70%",
+     "n": 102,
+     "said": 0.6512,
+     "happened": 0.6176
+    },
+    {
+     "bin": "70–80%",
+     "n": 94,
+     "said": 0.7464,
+     "happened": 0.7021
+    },
+    {
+     "bin": "80–90%",
+     "n": 98,
+     "said": 0.8522,
+     "happened": 0.8673
+    },
+    {
+     "bin": "90–100%",
+     "n": 195,
+     "said": 0.9494,
+     "happened": 0.9538
+    }
+   ],
+   "misses": [
+    {
+     "ticker": "KXBNB-26NOV2717-B552",
+     "title": "BNB price on Nov 27, 2026? — $550 to 554.99",
+     "said": 0.2406,
+     "market": 0.33,
+     "outcome": "yes",
+     "worseBy": 0.316
+    },
+    {
+     "ticker": "KXAAAGASDWV-26NOV12-3.9700",
+     "title": "Will average **gas prices** be above $3.9700? — Above 3.9700",
+     "said": 0.9555,
+     "market": 0.94,
+     "outcome": "no",
+     "worseBy": 0.2989
+    },
+    {
+     "ticker": "KXHIGHNY-26NOV13-B52.5",
+     "title": "Will the maximum temperature be 52-53° on Nov 13, 2026? — 52° to 53°",
+     "said": 0.9625,
+     "market": 0.95,
+     "outcome": "no",
+     "worseBy": 0.2877
+    },
+    {
+     "ticker": "KXBTC-26NOV2717-B59750",
+     "title": "Bitcoin price range on Nov 27, 2026? — $59,500 to 59,999.99",
+     "said": 0.1635,
+     "market": 0.215,
+     "outcome": "yes",
+     "worseBy": 0.2738
+    },
+    {
+     "ticker": "KXWTIH-26NOV1122-T84.79",
+     "title": "Will the WTI Oil close price be above 84.79 USD/barrel on November 11, 2026 at 10:00 PM ET? — Above $84.79",
+     "said": 0.9231,
+     "market": 0.9,
+     "outcome": "no",
+     "worseBy": 0.2627
+    }
+   ],
+   "why": "needs: whole peeking-safe range below 0 (upper end now +0.0059); 92 more picks; picks' P&L range above 0 (lower end now -1.07)"
+  },
+  "calib": {
+   "model": "calib",
+   "status": "NO_EDGE",
+   "n": 1622,
+   "events": 953,
+   "picks": 4,
+   "brier": 0.1429,
+   "brierMarket": 0.1425,
+   "vsMarket": {
+    "snapshot95": {
+     "diff": 0.0003,
+     "lo": -0.0003,
+     "hi": 0.001,
+     "events": 953
+    },
+    "logLoss": {
+     "diff": 0.0002,
+     "lo": -0.0018,
+     "hi": 0.0021,
+     "events": 953
+    },
+    "sequence": {
+     "lo": -0.005261,
+     "hi": 0.005871,
+     "mean": 0.000322,
+     "alpha": 0.0029411764705882353,
+     "bound": 0.2,
+     "note": "valid however often it is looked at"
+    }
+   },
+   "money": {
+    "n": 4,
+    "wins": 3,
+    "total": 0.51,
+    "perPick": 0.1275,
+    "sequence": {
+     "lo": -1.07,
+     "hi": 1
+    }
+   },
+   "byCategory": [
+    {
+     "cat": "Crypto",
+     "n": 577,
+     "diff": 0.0004,
+     "lo": -0.0008,
+     "hi": 0.0016,
+     "events": 328
+    },
+    {
+     "cat": "Climate and Weather",
+     "n": 409,
+     "diff": 0.0001,
+     "lo": -0.0008,
+     "hi": 0.001,
+     "events": 255
+    },
+    {
+     "cat": "Economics",
+     "n": 184,
+     "diff": -0.0001,
+     "lo": -0.0016,
+     "hi": 0.0014,
+     "events": 107
+    },
+    {
+     "cat": "Commodities",
+     "n": 177,
+     "diff": 0.0004,
+     "lo": -0.0024,
+     "hi": 0.0033,
+     "events": 94
+    },
+    {
+     "cat": "Financials",
+     "n": 136,
+     "diff": 0.001,
+     "lo": -0.0022,
+     "hi": 0.0043,
+     "events": 83
+    },
+    {
+     "cat": "Politics",
+     "n": 65,
+     "diff": 0.0007,
+     "lo": -0.0023,
+     "hi": 0.0037,
+     "events": 37
+    },
+    {
+     "cat": "Entertainment",
+     "n": 34,
+     "diff": -0.0003,
+     "lo": -0.0037,
+     "hi": 0.0032,
+     "events": 21
+    },
+    {
+     "cat": "?",
+     "n": 19,
+     "diff": 0.0002,
+     "lo": -0.0062,
+     "hi": 0.0066,
+     "events": 13
+    },
+    {
+     "cat": "Science and Technology",
+     "n": 17,
+     "diff": -0.0006,
+     "lo": -0.0011,
+     "hi": -0.0002,
+     "events": 12
+    },
+    {
+     "cat": "Elections",
+     "n": 4,
+     "diff": 0.0045,
+     "lo": -0.0036,
+     "hi": 0.0125,
+     "events": 3
+    }
+   ],
+   "byLead": [
+    {
+     "lead": ">240 min",
+     "n": 482,
+     "diff": 0.0009,
+     "lo": -0.0004,
+     "hi": 0.0021,
+     "events": 283
+    },
+    {
+     "lead": "≤60 min",
+     "n": 446,
+     "diff": 0.0006,
+     "lo": -0.0006,
+     "hi": 0.0017,
+     "events": 274
+    },
+    {
+     "lead": "≤240 min",
+     "n": 353,
+     "diff": 0.0005,
+     "lo": -0.0007,
+     "hi": 0.0016,
+     "events": 223
+    },
+    {
+     "lead": "≤30 min",
+     "n": 172,
+     "diff": -0.0011,
+     "lo": -0.0039,
+     "hi": 0.0016,
+     "events": 106
+    },
+    {
+     "lead": "≤120 min",
+     "n": 169,
+     "diff": -0.0004,
+     "lo": -0.002,
+     "hi": 0.0012,
+     "events": 108
+    }
+   ],
+   "calibration": [
+    {
+     "bin": "0–10%",
+     "n": 335,
+     "said": 0.0483,
+     "happened": 0.0478
+    },
+    {
+     "bin": "10–20%",
+     "n": 196,
+     "said": 0.1477,
+     "happened": 0.0969
+    },
+    {
+     "bin": "20–30%",
+     "n": 167,
+     "said": 0.2405,
+     "happened": 0.2455
+    },
+    {
+     "bin": "30–40%",
+     "n": 151,
+     "said": 0.3519,
+     "happened": 0.3377
+    },
+    {
+     "bin": "40–50%",
+     "n": 154,
+     "said": 0.4498,
+     "happened": 0.3896
+    },
+    {
+     "bin": "50–60%",
+     "n": 129,
+     "said": 0.5457,
+     "happened": 0.4806
+    },
+    {
+     "bin": "60–70%",
+     "n": 97,
+     "said": 0.647,
+     "happened": 0.5773
+    },
+    {
+     "bin": "70–80%",
+     "n": 100,
+     "said": 0.7431,
+     "happened": 0.71
+    },
+    {
+     "bin": "80–90%",
+     "n": 97,
+     "said": 0.8545,
+     "happened": 0.8557
+    },
+    {
+     "bin": "90–100%",
+     "n": 196,
+     "said": 0.9493,
+     "happened": 0.9541
+    }
+   ],
+   "misses": [
+    {
+     "ticker": "KXAAAGASDWV-26NOV12-3.9700",
+     "title": "Will average **gas prices** be above $3.9700? — Above 3.9700",
+     "said": 0.9553,
+     "market": 0.94,
+     "outcome": "no",
+     "worseBy": 0.2944
+    },
+    {
+     "ticker": "KXHIGHNY-26NOV13-B52.5",
+     "title": "Will the maximum temperature be 52-53° on Nov 13, 2026? — 52° to 53°",
+     "said": 0.9599,
+     "market": 0.95,
+     "outcome": "no",
+     "worseBy": 0.2206
+    },
+    {
+     "ticker": "KXSOLD-26NOV1317-T78.9999",
+     "title": "SOL price on Nov 13, 2026? — $79 or above",
+     "said": 0.8531,
+     "market": 0.82,
+     "outcome": "no",
+     "worseBy": 0.2032
+    },
+    {
+     "ticker": "KXBNB-26NOV2310-B572",
+     "title": "BNB price on Nov 23, 2026? — $570 to 574.99",
+     "said": 0.0494,
+     "market": 0.06,
+     "outcome": "yes",
+     "worseBy": 0.1944
+    },
+    {
+     "ticker": "KXYTTOPVIDEOG2D-26NOV20-GUZ",
+     "title": "Will Guzarish rank #2 on YouTube Charts’ Daily Top Music Videos Global chart dated Nov 20, 2026?",
+     "said": 0.9539,
+     "market": 0.945,
+     "outcome": "no",
+     "worseBy": 0.1765
+    }
+   ],
+   "why": "needs: whole peeking-safe range below 0 (upper end now +0.0059); 96 more picks; picks' P&L range above 0 (lower end now -1.07)"
+  },
+  "ladder": {
+   "model": "ladder",
+   "status": "NO_EDGE",
+   "n": 709,
+   "events": 375,
+   "picks": 14,
+   "brier": 0.1617,
+   "brierMarket": 0.1606,
+   "vsMarket": {
+    "snapshot95": {
+     "diff": 0.0007,
+     "lo": -0.0002,
+     "hi": 0.0017,
+     "events": 375
+    },
+    "logLoss": {
+     "diff": 0.0018,
+     "lo": -0.0008,
+     "hi": 0.0044,
+     "events": 375
+    },
+    "sequence": {
+     "lo": -0.068872,
+     "hi": 0.070301,
+     "mean": 0.000714,
+     "alpha": 0.0029411764705882353,
+     "bound": 1,
+     "note": "valid however often it is looked at"
+    }
+   },
+   "money": {
+    "n": 14,
+    "wins": 8,
+    "total": -0.21,
+    "perPick": -0.096389,
+    "sequence": {
+     "lo": -1.07,
+     "hi": 1
+    }
+   },
+   "byCategory": [
+    {
+     "cat": "Crypto",
+     "n": 282,
+     "diff": 0,
+     "lo": 0,
+     "hi": 0,
+     "events": 140
+    },
+    {
+     "cat": "Commodities",
+     "n": 156,
+     "diff": 0,
+     "lo": 0,
+     "hi": 0,
+     "events": 81
+    },
+    {
+     "cat": "Climate and Weather",
+     "n": 99,
+     "diff": 0.0051,
+     "lo": -0.0011,
+     "hi": 0.0113,
+     "events": 57
+    },
+    {
+     "cat": "Economics",
+     "n": 79,
+     "diff": 0,
+     "lo": 0,
+     "hi": 0,
+     "events": 43
+    },
+    {
+     "cat": "Financials",
+     "n": 48,
+     "diff": 0,
+     "lo": -0.0001,
+     "hi": 0,
+     "events": 31
+    },
+    {
+     "cat": "Politics",
+     "n": 15,
+     "diff": -0.0027,
+     "lo": -0.0066,
+     "hi": 0.0012,
+     "events": 8
+    },
+    {
+     "cat": "Entertainment",
+     "n": 14,
+     "diff": -0.0001,
+     "lo": -0.0003,
+     "hi": 0.0001,
+     "events": 6
+    },
+    {
+     "cat": "?",
+     "n": 9,
+     "diff": -0.0001,
+     "lo": -0.0002,
+     "hi": 0.0001,
+     "events": 5
+    },
+    {
+     "cat": "Science and Technology",
+     "n": 7,
+     "diff": 0.0006,
+     "lo": -0.0006,
+     "hi": 0.0018,
+     "events": 4
+    }
+   ],
+   "byLead": [
+    {
+     "lead": "≤60 min",
+     "n": 227,
+     "diff": 0.0013,
+     "lo": -0.0008,
+     "hi": 0.0034,
+     "events": 126
+    },
+    {
+     "lead": ">240 min",
+     "n": 218,
+     "diff": 0.0036,
+     "lo": -0.0009,
+     "hi": 0.0081,
+     "events": 121
+    },
+    {
+     "lead": "≤240 min",
+     "n": 125,
+     "diff": -0.0044,
+     "lo": -0.0122,
+     "hi": 0.0034,
+     "events": 71
+    },
+    {
+     "lead": "≤30 min",
+     "n": 73,
+     "diff": 0,
+     "lo": 0,
+     "hi": 0,
+     "events": 40
+    },
+    {
+     "lead": "≤120 min",
+     "n": 66,
+     "diff": 0,
+     "lo": 0,
+     "hi": 0,
+     "events": 40
+    }
+   ],
+   "calibration": [
+    {
+     "bin": "0–10%",
+     "n": 105,
+     "said": 0.0484,
+     "happened": 0.0286
+    },
+    {
+     "bin": "10–20%",
+     "n": 56,
+     "said": 0.1453,
+     "happened": 0.125
+    },
+    {
+     "bin": "20–30%",
+     "n": 61,
+     "said": 0.2435,
+     "happened": 0.1803
+    },
+    {
+     "bin": "30–40%",
+     "n": 60,
+     "said": 0.351,
+     "happened": 0.3167
+    },
+    {
+     "bin": "40–50%",
+     "n": 100,
+     "said": 0.445,
+     "happened": 0.34
+    },
+    {
+     "bin": "50–60%",
+     "n": 79,
+     "said": 0.5436,
+     "happened": 0.4937
+    },
+    {
+     "bin": "60–70%",
+     "n": 72,
+     "said": 0.6466,
+     "happened": 0.5556
+    },
+    {
+     "bin": "70–80%",
+     "n": 67,
+     "said": 0.7403,
+     "happened": 0.7164
+    },
+    {
+     "bin": "80–90%",
+     "n": 49,
+     "said": 0.8515,
+     "happened": 0.8367
+    },
+    {
+     "bin": "90–100%",
+     "n": 60,
+     "said": 0.9446,
+     "happened": 0.9833
+    }
+   ],
+   "misses": [
+    {
+     "ticker": "KXRAINWKND-26NOV21-CMH",
+     "title": "Will it rain in Columbus between Nov 21 and Nov 22, 2026?",
+     "said": 0.136,
+     "market": 0.685,
+     "outcome": "yes",
+     "worseBy": 1.6168
+    },
+    {
+     "ticker": "KXRAIN-26NOV22-CMH",
+     "title": "Will it rain in Columbus on Nov 22, 2026?",
+     "said": 0.2235,
+     "market": 0.705,
+     "outcome": "yes",
+     "worseBy": 1.1488
+    },
+    {
+     "ticker": "KXLOWTCHI-26NOV12-B38.5",
+     "title": "Will the minimum temperature be 38-39° on Nov 12, 2026? — 38° to 39°",
+     "said": 0.8757,
+     "market": 0.775,
+     "outcome": "no",
+     "worseBy": 0.5934
+    },
+    {
+     "ticker": "KXRAIN-26NOV14-DAL",
+     "title": "Will it rain in Dallas on Nov 14, 2026?",
+     "said": 0.4475,
+     "market": 0.745,
+     "outcome": "yes",
+     "worseBy": 0.5097
+    },
+    {
+     "ticker": "KXRAIN-26NOV13-PIT",
+     "title": "Will it rain in Pittsburgh on Nov 13, 2026?",
+     "said": 0.0425,
+     "market": 0.065,
+     "outcome": "yes",
+     "worseBy": 0.4249
+    }
+   ],
+   "why": "needs: whole peeking-safe range below 0 (upper end now +0.0703); 86 more picks; picks' P&L range above 0 (lower end now -1.07)"
+  },
+  "weather_idx": {
+   "model": "weather_idx",
+   "status": "OFF_TRACK",
+   "n": 107,
+   "events": 74,
+   "picks": 96,
+   "brier": 0.273,
+   "brierMarket": 0.1174,
+   "vsMarket": {
+    "snapshot95": {
+     "diff": 0.1519,
+     "lo": 0.0993,
+     "hi": 0.2044,
+     "events": 74
+    },
+    "logLoss": {
+     "diff": 0.3843,
+     "lo": 0.2546,
+     "hi": 0.514,
+     "events": 74
+    },
+    "sequence": {
+     "lo": -0.211321,
+     "hi": 0.515025,
+     "mean": 0.151852,
+     "alpha": 0.0029411764705882353,
+     "bound": 1,
+     "note": "valid however often it is looked at"
+    }
+   },
+   "money": {
+    "n": 96,
+    "wins": 15,
+    "total": -5.99,
+    "perPick": -0.059783,
+    "sequence": {
+     "lo": -0.4682,
+     "hi": 0.348634
+    }
+   },
+   "byCategory": [
+    {
+     "cat": "Climate and Weather",
+     "n": 107,
+     "diff": 0.1519,
+     "lo": 0.0993,
+     "hi": 0.2044,
+     "events": 74
+    }
+   ],
+   "byLead": [
+    {
+     "lead": "≤60 min",
+     "n": 86,
+     "diff": 0.132,
+     "lo": 0.0836,
+     "hi": 0.1805,
+     "events": 60
+    },
+    {
+     "lead": "≤30 min",
+     "n": 21,
+     "diff": 0.2368,
+     "lo": 0.0535,
+     "hi": 0.4201,
+     "events": 14
+    }
+   ],
+   "calibration": [
+    {
+     "bin": "0–10%",
+     "n": 4,
+     "said": 0.0652,
+     "happened": 0.75
+    },
+    {
+     "bin": "10–20%",
+     "n": 2,
+     "said": 0.1608,
+     "happened": 0
+    },
+    {
+     "bin": "20–30%",
+     "n": 2,
+     "said": 0.2296,
+     "happened": 0.5
+    },
+    {
+     "bin": "30–40%",
+     "n": 8,
+     "said": 0.3429,
+     "happened": 0.125
+    },
+    {
+     "bin": "40–50%",
+     "n": 10,
+     "said": 0.4605,
+     "happened": 0.3
+    },
+    {
+     "bin": "50–60%",
+     "n": 34,
+     "said": 0.5382,
+     "happened": 0.4706
+    },
+    {
+     "bin": "60–70%",
+     "n": 26,
+     "said": 0.6608,
+     "happened": 0.6538
+    },
+    {
+     "bin": "70–80%",
+     "n": 13,
+     "said": 0.7485,
+     "happened": 0.3846
+    },
+    {
+     "bin": "80–90%",
+     "n": 8,
+     "said": 0.8369,
+     "happened": 0.5
+    }
+   ],
+   "misses": [
+    {
+     "ticker": "KXTEMPMIAH-26NOV1608-T72.99",
+     "title": "Will the temp in Miami be above 72.99° on Nov 16, 2026 at 8am EST? — 73° or above",
+     "said": 0.0605,
+     "market": 0.89,
+     "outcome": "yes",
+     "worseBy": 2.6886
+    },
+    {
+     "ticker": "KXTEMPLAXHS-26NOV2114-T64.99",
+     "title": "Will the temp in Coastal Los Angeles be above 64.99° on Nov 21, 2026 at 2pm EST? — 65° or above",
+     "said": 0.0769,
+     "market": 0.7,
+     "outcome": "yes",
+     "worseBy": 2.2086
+    },
+    {
+     "ticker": "KXTEMPNYCHS-26NOV1608-T37.99",
+     "title": "Will the temp in New York City be above 37.99° on Nov 16, 2026 at 8am EST? — 38° or above",
+     "said": 0.0935,
+     "market": 0.785,
+     "outcome": "yes",
+     "worseBy": 2.1277
+    },
+    {
+     "ticker": "KXTEMPMIAH-26NOV2500-T74.99",
+     "title": "Will the temp in Miami be above 74.99° on Nov 25, 2026 at 12am EST? — 75° or above",
+     "said": 0.8532,
+     "market": 0.24,
+     "outcome": "no",
+     "worseBy": 1.6442
+    },
+    {
+     "ticker": "KXTEMPCHIHS-26NOV1618-T47.99",
+     "title": "Will the temp in Chicago Metro Area be above 47.99° on Nov 16, 2026 at 6pm EST? — 48° or above",
+     "said": 0.7823,
+     "market": 0.055,
+     "outcome": "no",
+     "worseBy": 1.4681
+    }
+   ],
+   "why": "needs: whole peeking-safe range below 0 (upper end now +0.515); 4 more picks; picks' P&L range above 0 (lower end now -0.4682)"
+  },
+  "llm": {
+   "model": "llm",
+   "status": "INSUFFICIENT",
+   "n": 0,
+   "events": 0,
+   "picks": 0,
+   "brier": 0,
+   "brierMarket": 0,
+   "vsMarket": {
+    "snapshot95": {
+     "diff": null,
+     "lo": null,
+     "hi": null,
+     "events": 0
+    },
+    "logLoss": {
+     "diff": null,
+     "lo": null,
+     "hi": null,
+     "events": 0
+    },
+    "sequence": {
+     "lo": null,
+     "hi": null,
+     "mean": null,
+     "alpha": 0.0029411764705882353,
+     "bound": 0.3,
+     "note": "valid however often it is looked at"
+    }
+   },
+   "money": {
+    "n": 0,
+    "wins": 0,
+    "total": 0,
+    "perPick": null,
+    "sequence": {
+     "lo": null,
+     "hi": null
+    }
+   },
+   "byCategory": [],
+   "byLead": [],
+   "calibration": [],
+   "misses": [],
+   "why": "needs: 100 more resolved markets; whole peeking-safe range below 0; 100 more picks; picks' P&L range above 0"
+  }
+ },
+ "cards": {
+  "longshot": {
+   "model": "longshot",
+   "hypothesis": "Favorite-longshot bias: cheap contracts are overpriced, so true probabilities are more extreme than prices.",
+   "verdict": "RETIRED",
+   "n": 1015,
+   "development": null,
+   "wouldChange": "the peeking-safe sequence excluding 0 on ≥ 100 live markets, plus profitable picks",
+   "kind": "retired",
+   "data": null,
+   "trainedOn": 0,
+   "features": []
+  },
+  "memory": {
+   "model": "memory",
+   "hypothesis": "Series memory: a series' own past gap between outcome and price persists, so shifting the price by that gap (shrunk when history is short) beats the price.",
+   "verdict": "RETIRED",
+   "n": 841,
+   "development": null,
+   "wouldChange": "the peeking-safe sequence excluding 0 on ≥ 100 live markets, plus profitable picks",
+   "kind": "retired",
+   "data": null,
+   "trainedOn": 0,
+   "features": []
+  },
+  "nn": {
+   "model": "nn",
+   "hypothesis": "A small neural network trained on settled markets (price, spread, time of day, category, series memory) can correct the market price. Starts equal to the market; judged only on data it never trained on.",
+   "verdict": "NO_EDGE",
+   "n": 2392,
+   "development": {
+    "what": "walk-forward on past markets (development evidence, not the verdict)",
+    "n": 8283,
+    "events": 6626,
+    "brierVsMarket": 0.0002,
+    "lo": 0,
+    "hi": 0.0004
+   },
+   "wouldChange": "the peeking-safe sequence excluding 0 on ≥ 100 live markets, plus profitable picks",
+   "kind": "neural network [26,8,4,1], residual on the market, gated",
+   "data": {
+    "backtest": 7708,
+    "live": 2646,
+    "minuteSnapshots": 0,
+    "minuteMarkets": 0
+   },
+   "trainedOn": 10354,
+   "trained": "2026-11-28T16:30:34.894Z",
+   "features": [
+    "price (logit)",
+    "spread",
+    "distance from 50¢",
+    "hour (sin)",
+    "hour (cos)",
+    "cat: Crypto",
+    "cat: Financials",
+    "cat: Economics",
+    "cat: Commodities",
+    "cat: Climate and Weather",
+    "cat: Politics",
+    "cat: other",
+    "series gap (shrunk)",
+    "series history size",
+    "series YES rate",
+    "price move 30 min",
+    "has 30-min history",
+    "outside estimate − price",
+    "has outside data",
+    "minute volatility 30 min",
+    "has minute volatility",
+    "time left (log hours)",
+    "book imbalance (top 5)",
+    "has book",
+    "trade flow 30 min",
+    "has trades 30 min"
+   ],
+   "gate": "no measurable difference",
+   "limits": "returns the market price while its walk-forward test says 'worse'"
+  },
+  "crypto_fair": {
+   "model": "crypto_fair",
+   "hypothesis": "Outside data: a coin's Coinbase spot price and recent volatility (random-walk model) price Kalshi crypto strikes better than the market.",
+   "verdict": "NO_EDGE",
+   "n": 667,
+   "development": {
+    "what": "walk-forward on past markets (development evidence, not the verdict)",
+    "n": 3620,
+    "events": 3220,
+    "brierVsMarket": -0.0002,
+    "lo": -0.0033,
+    "hi": 0.0028
+   },
+   "wouldChange": "the peeking-safe sequence excluding 0 on ≥ 100 live markets, plus profitable picks",
+   "kind": "random-walk fair value from Coinbase spot and 1-minute volatility",
+   "data": "outside data, no training",
+   "trainedOn": 0,
+   "features": [
+    "spot",
+    "σ per minute",
+    "minutes left",
+    "strike"
+   ],
+   "limits": "approximates Kalshi's CF Benchmarks settlement index"
+  },
+  "weather_nws": {
+   "model": "weather_nws",
+   "hypothesis": "Outside data: the latest NWS station observation plus the forecast's change to the target hour prices Kalshi hourly temperature markets better than the market.",
+   "verdict": "RETIRED",
+   "n": 56,
+   "development": null,
+   "wouldChange": "the peeking-safe sequence excluding 0 on ≥ 100 live markets, plus profitable picks",
+   "kind": "retired",
+   "data": null,
+   "trainedOn": 0,
+   "features": []
+  },
+  "ensemble": {
+   "model": "ensemble",
+   "hypothesis": "A logistic blend of the active models (calib, nn, crypto_fair) and the market, trained only on their out-of-sample estimates, beats the price. Capped at ±10 points from the market.",
+   "verdict": "NO_EDGE",
+   "n": 1622,
+   "development": {
+    "what": "walk-forward on past markets (development evidence, not the verdict)",
+    "n": 9832,
+    "events": 8171,
+    "brierVsMarket": 0,
+    "lo": -0.0003,
+    "hi": 0.0003
+   },
+   "wouldChange": "the peeking-safe sequence excluding 0 on ≥ 100 live markets, plus profitable picks",
+   "kind": "stacked logistic blend",
+   "data": {
+    "rows": 10232
+   },
+   "trainedOn": 10232,
+   "trained": "2026-11-28T16:33:21.333Z",
+   "features": [
+    "calib",
+    "nn",
+    "crypto_fair"
+   ],
+   "weights": {
+    "market": 1.0426,
+    "calib": -0.0155,
+    "nn": -0.0394,
+    "crypto_fair": 0.3657
+   },
+   "limits": "±0.1 from the market"
+  },
+  "calib": {
+   "model": "calib",
+   "hypothesis": "A logistic correction of the market price (price, time left, spread, microprice, book imbalance, trade flow, volatility, outside data, series history, category) refit on every settlement beats the price. Capped at ±10 points from the market.",
+   "verdict": "NO_EDGE",
+   "n": 1622,
+   "development": {
+    "what": "walk-forward on past markets (development evidence, not the verdict)",
+    "n": 10129,
+    "events": 8468,
+    "brierVsMarket": 0.0002,
+    "lo": -0.0001,
+    "hi": 0.0006
+   },
+   "wouldChange": "the peeking-safe sequence excluding 0 on ≥ 100 live markets, plus profitable picks",
+   "kind": "logistic market correction (Newton, L2 toward the market)",
+   "data": {
+    "live": 2719,
+    "backtest": 7710,
+    "minute": 0
+   },
+   "trainedOn": 10429,
+   "trained": "2026-11-28T16:33:27.191Z",
+   "features": [
+    "bias",
+    "logit(mid)",
+    "time left (log h)",
+    "spread",
+    "microprice − mid",
+    "book imbalance",
+    "trade flow 30 min",
+    "volatility 30 min",
+    "price move 30 min",
+    "outside estimate − price",
+    "series gap (shrunk)",
+    "cat: Crypto",
+    "cat: Financials",
+    "cat: Commodities",
+    "cat: Climate and Weather"
+   ],
+   "weights": [
+    0.054632,
+    1.027449,
+    0.032666,
+    0.002222,
+    0,
+    0.013544,
+    -0.038754,
+    -0.115882,
+    0.088461,
+    0.077942,
+    0.030757,
+    -0.009291,
+    -0.036462,
+    -0.027972,
+    -0.028812
+   ],
+   "limits": "±0.1 from the market"
+  },
+  "ladder": {
+   "model": "ladder",
+   "hypothesis": "Structure: across the strikes of one event, probabilities must be monotone (and a full set of ranges must sum to 1). A strike quoted off that curve moves back onto it.",
+   "verdict": "NO_EDGE",
+   "n": 709,
+   "development": null,
+   "wouldChange": "the peeking-safe sequence excluding 0 on ≥ 100 live markets, plus profitable picks",
+   "kind": "rule",
+   "data": null,
+   "trainedOn": 0,
+   "features": []
+  },
+  "weather_idx": {
+   "model": "weather_idx",
+   "hypothesis": "Outside data: the average of the settlement index's own member airport stations (NWS observations), with the last hour's trend carried forward, prices hourly temperature markets. σ never below 2.5°F, estimates clamped to 3–97%. Scored on its own; no paper portfolio until it passes.",
+   "verdict": "OFF_TRACK",
+   "n": 107,
+   "development": null,
+   "wouldChange": "the peeking-safe sequence excluding 0 on ≥ 100 live markets, plus profitable picks",
+   "kind": "rule",
+   "data": null,
+   "trainedOn": 0,
+   "features": []
+  },
+  "llm": {
+   "model": "llm",
+   "hypothesis": "A language model that reads the rules, dated news facts and how similar past markets resolved (retrieved from memory, only items dated before the estimate) can correct the price. Local model by default; capped at ±15 points from the market. Only runs where a local model is available.",
+   "verdict": "INSUFFICIENT",
+   "n": 0,
+   "development": null,
+   "wouldChange": "the peeking-safe sequence excluding 0 on ≥ 100 live markets, plus profitable picks",
+   "kind": "rule",
+   "data": null,
+   "trainedOn": 0,
+   "features": []
+  }
+ },
+ "leakage": {
+  "at": "2026-11-28T16:33:29.810Z",
+  "total": 0,
+  "checks": [
+   {
+    "name": "prediction logged before its market resolved",
+    "violations": 0,
+    "of": 3751,
+    "examples": [],
+    "detail": "scored rows exclude these"
+   },
+   {
+    "name": "outside data timestamped at or before the prediction",
+    "violations": 0,
+    "of": 1709,
+    "examples": [],
+    "detail": ""
+   },
+   {
+    "name": "backtest snapshot taken before resolution",
+    "violations": 0,
+    "of": 8232,
+    "examples": [],
+    "detail": ""
+   },
+   {
+    "name": "minute snapshot taken at its lead time, before resolution",
+    "violations": 0,
+    "of": 0,
+    "examples": [],
+    "detail": ""
+   },
+   {
+    "name": "walk-forward training rows known before the test block",
+    "violations": 0,
+    "of": 1,
+    "examples": [],
+    "detail": "calib: 0"
+   },
+   {
+    "name": "retrieved memory dated before the prediction",
+    "violations": 0,
+    "of": 0,
+    "examples": [],
+    "detail": ""
+   },
+   {
+    "name": "news facts dated before the prediction",
+    "violations": 0,
+    "of": 0,
+    "examples": [],
+    "detail": ""
+   }
+  ]
+ },
+ "success": [],
+ "headline": "Nothing beats the market. 3087 live markets resolved; the market's own Brier is 0.1412. Best so far: nn +0.0001 Brier vs market (not significant)."
+}
