@@ -2660,6 +2660,19 @@
   "KXNCAAFSBELTQUAL": "Sports",
   "KXNCAAFSBELT": "Sports",
   "KXNCAAFCUSA": "Sports",
-  "KXNCAAFCUSAQUAL": "Sports"
+  "KXNCAAFCUSAQUAL": "Sports",
+  "KXWDBBLGAME": "Sports",
+  "KXAAAGASCDSD": "Economics",
+  "KXAAAGASCDIL": "Economics",
+  "KXAAAGASCDUT": "Economics",
+  "KXNCAAFSECWINS": "Sports",
+  "KXNBACUP": "Sports",
+  "KXNBACUPGROUP": "Sports",
+  "KXNBACUPQUAL": "Sports",
+  "KXNCAAFMACQUAL": "Sports",
+  "KXNCAAFBIG12WINS": "Sports",
+  "KXNCAAFACCWINS": "Sports",
+  "KXNCAAFAACQUAL": "Sports",
+  "KXNLLGAME": "Sports"
  }
 }
